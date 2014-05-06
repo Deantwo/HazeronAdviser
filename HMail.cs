@@ -152,15 +152,15 @@ namespace HazeronAdviser
         protected int _from_l, _subj_l, _body_l;
         public string From
         {
-            get { return HHelper.ToString(_mailBytes, 19, _from_l); }
+            get { return HHelper.ToBigEndianUnicodeString(_mailBytes, 19, _from_l); }
         }
         public string Subject
         {
-            get { return HHelper.ToString(_mailBytes, 19 + _from_l + 14, _subj_l); }
+            get { return HHelper.ToBigEndianUnicodeString(_mailBytes, 19 + _from_l + 14, _subj_l); }
         }
         public string Body
         {
-            get { return HHelper.ToString(_mailBytes, 19 + _from_l + 14 + _subj_l + 4, _body_l); }
+            get { return HHelper.ToBigEndianUnicodeString(_mailBytes, 19 + _from_l + 14 + _subj_l + 4, _body_l); }
         }
 
         public int MessageType
@@ -229,7 +229,7 @@ namespace HazeronAdviser
         /// <param name="bytes">Bytes to be converted.</param>
         /// <param name="startIndex">Index of the starting byte.</param>
         /// <param name="length">Number of bytes to convert.</param>
-        static public string ToString(byte[] bytes, int startIndex, int length)
+        static public string ToBigEndianUnicodeString(byte[] bytes, int startIndex, int length)
         {
             byte[] subBytes = HHelper.SubArray(bytes, startIndex, length);
             //subBytes = Helper.ConcatinateArray(new byte[] { 0xFE, 0xFF }, subBytes);
@@ -239,6 +239,17 @@ namespace HazeronAdviser
             return text;
         }
 
+        /// <summary>
+        /// Returns selected part of a byte array.
+        /// </summary>
+        /// <param name="bytes">Full byte array.</param>
+        /// <param name="startIndex">Index of the starting byte.</param>
+        static public byte[] SubArray(byte[] bytes, int startIndex)
+        {
+            if (startIndex == 0)
+                return bytes;
+            return SubArray(bytes, startIndex, bytes.Length - startIndex);
+        }
         /// <summary>
         /// Returns selected part of a byte array.
         /// </summary>
