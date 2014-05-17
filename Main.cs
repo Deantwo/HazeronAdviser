@@ -16,17 +16,17 @@ namespace HazeronAdviser
         List<HShipObj> hShipList = new List<HShipObj>();
         List<HOfficerObj> hOfficerList = new List<HOfficerObj>();
 
-        Image iconCity;
-        Image iconShip;
-        Image iconOfficer;
+        Image imageCity;
+        Image imageShip;
+        Image imageOfficer;
 
         public Main()
         {
             InitializeComponent();
             toolStripProgressBar1.Visible = false;
-            iconCity = Image.FromFile(@"c_Flag.png");
-            iconShip = Image.FromFile(@"GovSpacecraft.png");
-            iconOfficer = Image.FromFile(@"Officer.png");
+            imageCity = HazeronAdviser.Properties.Resources.c_Flag;
+            imageShip = HazeronAdviser.Properties.Resources.GovSpacecraft;
+            imageOfficer = HazeronAdviser.Properties.Resources.Officer;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -79,7 +79,7 @@ namespace HazeronAdviser
             {
                 dgvCity.Rows.Add();
                 dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCitySelection"].Value = false;
-                dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityIcon"].Value = iconCity;
+                dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityIcon"].Value = imageCity;
                 dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityName"].Value = hCity.Name;
                 dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityMorale"].Value = hCity.MoraleShort;
                 dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityPopulation"].Value = hCity.PopulationShort;
@@ -90,7 +90,7 @@ namespace HazeronAdviser
             {
                 dgvShip.Rows.Add();
                 dgvShip.Rows[dgvShip.RowCount - 1].Cells["ColumnShipSelection"].Value = false;
-                dgvShip.Rows[dgvShip.RowCount - 1].Cells["ColumnShipIcon"].Value = iconShip;
+                dgvShip.Rows[dgvShip.RowCount - 1].Cells["ColumnShipIcon"].Value = imageShip;
                 dgvShip.Rows[dgvShip.RowCount - 1].Cells["ColumnShipName"].Value = hShip.Name;
                 dgvShip.Rows[dgvShip.RowCount - 1].Cells["ColumnShipFuel"].Value = hShip.FuelShort;
                 dgvShip.Rows[dgvShip.RowCount - 1].Cells["ColumnShipDamage"].Value = hShip.DamageShort;
@@ -101,7 +101,7 @@ namespace HazeronAdviser
             {
                 dgvOfficer.Rows.Add();
                 dgvOfficer.Rows[dgvOfficer.RowCount - 1].Cells["ColumnOfficerSelection"].Value = false;
-                dgvOfficer.Rows[dgvOfficer.RowCount - 1].Cells["ColumnOfficerIcon"].Value = iconOfficer;
+                dgvOfficer.Rows[dgvOfficer.RowCount - 1].Cells["ColumnOfficerIcon"].Value = imageOfficer;
                 dgvOfficer.Rows[dgvOfficer.RowCount - 1].Cells["ColumnOfficerName"].Value = hOfficer.Name;
                 dgvOfficer.Rows[dgvOfficer.RowCount - 1].Cells["ColumnOfficerHome"].Value = hOfficer.Home;
                 dgvOfficer.Rows[dgvOfficer.RowCount - 1].Cells["ColumnOfficerLocation"].Value = hOfficer.Location;
