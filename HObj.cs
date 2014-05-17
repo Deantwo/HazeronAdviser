@@ -23,12 +23,12 @@ namespace HazeronAdviser
 
     class HObj
     {
-        protected string _name; // Name of the ship, this can change at any time.
+        protected string _name = "-"; // Name of the ship, this can change at any time.
         public string Name
         {
             get { return _name; }
         }
-        protected string _id; // ID of the ship, used in mail names.
+        protected string _id = "######"; // ID of the ship, used in mail names.
         public string ID
         {
             get { return _id; }
@@ -52,12 +52,15 @@ namespace HazeronAdviser
 
         public virtual void Update(HMailObj mail)
         {
-            _name = mail.From;
+            _name = mail.From; // Incase sender changed name.
             _lastUpdated = mail.DateTime;
+
+            // Full body test, used for debuging.
+            _bodyTest = mail.Body;
         }
 
         // Full body test, used for debuging.
-        protected string _bodyTest;
+        protected string _bodyTest = "";
         public string BodyTest
         {
             get { return HHelper.CleanText(_bodyTest); }
@@ -133,9 +136,6 @@ namespace HazeronAdviser
                     temp = _livingFull.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                     _livingShort = temp[1] + ", " + temp[4];
                 }
-
-                // Full body test, used for debuging.
-                _bodyTest = mail.Body;
             }
         }
 
@@ -266,9 +266,6 @@ namespace HazeronAdviser
                     //temp = _rosterFull.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                     //_rosterShort = temp[temp.Length - 1];
                 }
-
-                // Full body test, used for debuging.
-                _bodyTest = mail.Body;
             }
         }
 
@@ -283,26 +280,54 @@ namespace HazeronAdviser
         }
     }
 
-    //class HGovMObj : HObj
-    //{
-    //    public HGovMObj(HMailObj mail)
-    //    {
-    //        _name = mail.From;
-    //        _id = mail.FilePath.Split('.')[mail.FilePath.Split('.').Length - 3];
+    class HOfficerObj : HObj
+    {
+        protected string _home = "-";
+        public string Home
+        {
+            get { return _home; }
+        }
 
-    //        _lastUpdated = mail.DateTime;
+        protected string _location = "-";
+        public string Location
+        {
+            get { return _location; }
+        }
 
-    //        // MAKE ME!
-    //    }
+        public HOfficerObj(HMailObj mail)
+        {
+            _id = mail.FilePath.Split('.')[mail.FilePath.Split('.').Length - 3];
+            Update(mail);
+        }
+        public override void Update(HMailObj mail)
+        {
+            if (HMail.IsOfficerTenFour(mail.MailBytes) && DateTime.Compare(_lastUpdated, mail.DateTime) < 0)
+            {
+                base.Update(mail);
 
-    //    public override bool Equals(object obj)
-    //    {
-    //        HObj e = obj as HObj;
-    //        return e.ID == _id;
-    //    }
-    //    public override int GetHashCode()
-    //    {
-    //        return Convert.ToInt32(_id);
-    //    }
-    //}
+                // Time for City spicific things.
+                int subStart, subEnd;
+                string[] temp;
+
+                if (mail.MessageType == 0x0C // MSG_OfficerReady
+                    )
+                {
+                    subStart = mail.Body.IndexOf("Assignment Request on ");
+                    subEnd = mail.Body.IndexOf("<br><br>Commander,") - subStart;
+                    _home = HHelper.CleanText(mail.Body.Substring(subStart, subEnd)).Replace("Assignment Request on ","");
+                    _location = _home;
+                }
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            HObj e = obj as HObj;
+            return e.ID == _id;
+        }
+        public override int GetHashCode()
+        {
+            return Convert.ToInt32(_id);
+        }
+    }
 }

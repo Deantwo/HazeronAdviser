@@ -16,7 +16,9 @@ namespace HazeronAdviser
         static public bool IsCityReport(int messageType) // Give true if MessageType is a City Report (or related) mail.
         {
             if (   messageType == 0x01 // MSG_CityStatusReport
+                || messageType == 0x03 // MSG_CityOccupationReport
                 || messageType == 0x04 // MSG_CityDistressReport
+                || messageType == 0x05 // MSG_CityIntelligenceReport
                 || messageType == 0x06 // MSG_CityStatusReportInfo
                 || messageType == 0x17 // MSG_CityFinalDecayReport
                 )
@@ -78,6 +80,28 @@ namespace HazeronAdviser
         static public bool IsGovernmentMessage(string filePath) // Same as above but filePath input.
         {
             return IsGovernmentMessage(HMail.Read(filePath));
+        }
+
+        static public bool IsOfficerTenFour(int messageType) // Give true if MessageType is a OfficerUpdate (or related) mail.
+        {
+            if (   messageType == 0x0C // MSG_OfficerReady
+                || messageType == 0x14 // MSG_OfficerContact
+                || messageType == 0x16 // MSG_OfficerDeath
+                )
+                return true;
+            return false;
+        }
+        static public bool IsOfficerTenFour(HMailObj mail) // Same as above but mail input.
+        {
+            return IsOfficerTenFour(mail.MessageType);
+        }
+        static public bool IsOfficerTenFour(byte[] mailBytes) // Same as above but mailBytes input.
+        {
+            return IsOfficerTenFour(mailBytes[19 + HHelper.ToInt32(mailBytes, 15) + 9]);
+        }
+        static public bool IsOfficerTenFour(string filePath) // Same as above but filePath input.
+        {
+            return IsOfficerTenFour(HMail.Read(filePath));
         }
 
         static public bool IsShipReport(int messageType) // Give true if MessageType is a ShipReport (or related) mail.
@@ -295,32 +319,37 @@ namespace HazeronAdviser
         /// <param name="input">HTML string.</param>
         static public string CleanText(string input) // Removes the html code tags.
         {
-            int tagStart, tagEnd;
-            string processed = "";
-            while (input.Contains("<") && input.Contains(">"))
+            if (input.Contains("<") && input.Contains(">"))
             {
-                tagStart = input.IndexOf('<');
-                tagEnd = input.IndexOf('>') - tagStart;
-                processed += input.Remove(tagStart);
-                string tag = input.Substring(tagStart + 1, tagEnd - 1);
-                input = input.Substring(tagStart + tagEnd + 1);
-                switch (tag.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0])
+                int tagStart, tagEnd;
+                string processed = "";
+                while (input.Contains("<") && input.Contains(">"))
                 {
-                    case "br":
-                    case "div":
-                    case "/div":
-                    case "/td":
-                    case "/tr":
-                        processed += Environment.NewLine;
-                        break;
-                    //case "b":
-                    //case "/b":
-                    //case "td":
-                    //case "tr":
-                    //    break;
+                    tagStart = input.IndexOf('<');
+                    tagEnd = input.IndexOf('>') - tagStart;
+                    processed += input.Remove(tagStart);
+                    string tag = input.Substring(tagStart + 1, tagEnd - 1);
+                    input = input.Substring(tagStart + tagEnd + 1);
+                    switch (tag.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0])
+                    {
+                        case "br":
+                        case "div":
+                        case "/div":
+                        case "/td":
+                        case "/tr":
+                            processed += Environment.NewLine;
+                            break;
+                        //case "b":
+                        //case "/b":
+                        //case "td":
+                        //case "tr":
+                        //    break;
+                    }
                 }
+                return processed.Trim().Replace(Environment.NewLine + Environment.NewLine + Environment.NewLine, Environment.NewLine).Replace("&nbsp;", " "); // Trim for good measure and remove triple NewLine.
             }
-            return processed.Trim().Replace(Environment.NewLine + Environment.NewLine + Environment.NewLine, Environment.NewLine).Replace("&nbsp;", " "); // Trim for good measure and remove triple NewLine.
+            else
+                return input.Trim();
         }
     }
 }
