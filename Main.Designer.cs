@@ -45,12 +45,6 @@
             this.tabCity = new System.Windows.Forms.TabPage();
             this.splitContainerCity = new System.Windows.Forms.SplitContainer();
             this.dgvCity = new System.Windows.Forms.DataGridView();
-            this.ColumnCitySelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ColumnCityIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ColumnCityName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityMorale = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityPopulation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbxCity = new System.Windows.Forms.TextBox();
             this.tabShip = new System.Windows.Forms.TabPage();
             this.tabPageOfficer = new System.Windows.Forms.TabPage();
@@ -63,6 +57,13 @@
             this.ColumnOfficerLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnOfficerDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbxOfficer = new System.Windows.Forms.TextBox();
+            this.ColumnCitySelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ColumnCityIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ColumnCityName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityMorale = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityPopulation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityLivingConditions = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -275,6 +276,7 @@
             this.ColumnCityName,
             this.ColumnCityMorale,
             this.ColumnCityPopulation,
+            this.ColumnCityLivingConditions,
             this.ColumnCityDate});
             this.dgvCity.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCity.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
@@ -287,47 +289,6 @@
             this.dgvCity.Size = new System.Drawing.Size(330, 404);
             this.dgvCity.TabIndex = 2;
             this.dgvCity.SelectionChanged += new System.EventHandler(this.dgvCity_SelectionChanged);
-            // 
-            // ColumnCitySelection
-            // 
-            this.ColumnCitySelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnCitySelection.FillWeight = 20F;
-            this.ColumnCitySelection.Frozen = true;
-            this.ColumnCitySelection.HeaderText = "Selection";
-            this.ColumnCitySelection.MinimumWidth = 20;
-            this.ColumnCitySelection.Name = "ColumnCitySelection";
-            this.ColumnCitySelection.Width = 20;
-            // 
-            // ColumnCityIcon
-            // 
-            this.ColumnCityIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnCityIcon.FillWeight = 20F;
-            this.ColumnCityIcon.Frozen = true;
-            this.ColumnCityIcon.HeaderText = "Icon";
-            this.ColumnCityIcon.MinimumWidth = 20;
-            this.ColumnCityIcon.Name = "ColumnCityIcon";
-            this.ColumnCityIcon.Width = 20;
-            // 
-            // ColumnCityName
-            // 
-            this.ColumnCityName.Frozen = true;
-            this.ColumnCityName.HeaderText = "Name";
-            this.ColumnCityName.Name = "ColumnCityName";
-            // 
-            // ColumnCityMorale
-            // 
-            this.ColumnCityMorale.HeaderText = "Morale";
-            this.ColumnCityMorale.Name = "ColumnCityMorale";
-            // 
-            // ColumnCityPopulation
-            // 
-            this.ColumnCityPopulation.HeaderText = "Population";
-            this.ColumnCityPopulation.Name = "ColumnCityPopulation";
-            // 
-            // ColumnCityDate
-            // 
-            this.ColumnCityDate.HeaderText = "Last Updated";
-            this.ColumnCityDate.Name = "ColumnCityDate";
             // 
             // tbxCity
             // 
@@ -464,6 +425,53 @@
             this.tbxOfficer.TabIndex = 0;
             this.tbxOfficer.WordWrap = false;
             // 
+            // ColumnCitySelection
+            // 
+            this.ColumnCitySelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnCitySelection.FillWeight = 20F;
+            this.ColumnCitySelection.Frozen = true;
+            this.ColumnCitySelection.HeaderText = "Selection";
+            this.ColumnCitySelection.MinimumWidth = 20;
+            this.ColumnCitySelection.Name = "ColumnCitySelection";
+            this.ColumnCitySelection.Width = 20;
+            // 
+            // ColumnCityIcon
+            // 
+            this.ColumnCityIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnCityIcon.FillWeight = 20F;
+            this.ColumnCityIcon.Frozen = true;
+            this.ColumnCityIcon.HeaderText = "Icon";
+            this.ColumnCityIcon.MinimumWidth = 20;
+            this.ColumnCityIcon.Name = "ColumnCityIcon";
+            this.ColumnCityIcon.Width = 20;
+            // 
+            // ColumnCityName
+            // 
+            this.ColumnCityName.Frozen = true;
+            this.ColumnCityName.HeaderText = "Name";
+            this.ColumnCityName.Name = "ColumnCityName";
+            // 
+            // ColumnCityMorale
+            // 
+            this.ColumnCityMorale.HeaderText = "Morale";
+            this.ColumnCityMorale.Name = "ColumnCityMorale";
+            // 
+            // ColumnCityPopulation
+            // 
+            this.ColumnCityPopulation.HeaderText = "Population";
+            this.ColumnCityPopulation.Name = "ColumnCityPopulation";
+            // 
+            // ColumnCityLivingConditions
+            // 
+            this.ColumnCityLivingConditions.HeaderText = "Living Conditions";
+            this.ColumnCityLivingConditions.Name = "ColumnCityLivingConditions";
+            this.ColumnCityLivingConditions.ReadOnly = true;
+            // 
+            // ColumnCityDate
+            // 
+            this.ColumnCityDate.HeaderText = "Last Updated";
+            this.ColumnCityDate.Name = "ColumnCityDate";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -528,18 +536,19 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipFuel;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDamage;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDate;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnCitySelection;
-        private System.Windows.Forms.DataGridViewImageColumn ColumnCityIcon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityMorale;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityPopulation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityDate;
         private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnOfficerSelection;
         private System.Windows.Forms.DataGridViewImageColumn ColumnOfficerIcon;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerHome;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerLocation;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerDate;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnCitySelection;
+        private System.Windows.Forms.DataGridViewImageColumn ColumnCityIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityMorale;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityPopulation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLivingConditions;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityDate;
     }
 }
 

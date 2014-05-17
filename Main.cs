@@ -83,7 +83,18 @@ namespace HazeronAdviser
                 dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityName"].Value = hCity.Name;
                 dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityMorale"].Value = hCity.MoraleShort;
                 dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityPopulation"].Value = hCity.PopulationShort;
+                dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityLivingConditions"].Value = hCity.LivingShort;
                 dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityDate"].Value = hCity.LastUpdaredString;
+                if (hCity.AttentionCode != 0x00)
+                {
+                    dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityName"].Style.BackColor = Color.LightPink;
+                    if ((hCity.AttentionCode & 0x01) == 0x01)
+                        dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityLivingConditions"].Style.BackColor = Color.LightPink;
+                    if ((hCity.AttentionCode & 0x02) == 0x02)
+                        dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityPopulation"].Style.BackColor = Color.LightPink;
+                    if ((hCity.AttentionCode & 0x04) == 0x04)
+                        dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityMorale"].Style.BackColor = Color.LightPink;
+                }
                 toolStripProgressBar1.Increment(1);
             }
             foreach (var hShip in hShipList)
