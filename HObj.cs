@@ -141,7 +141,7 @@ namespace HazeronAdviser
                     subEnd = mail.Body.IndexOf("<b>LIVING CONDITIONS</b>") - subStart;
                     _population = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
                     temp = _population.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                    if (temp[temp.Length - 2].Contains("Population limits garrison") | temp[temp.Length - 2].Contains("Isolation on alien world prevents immigration. Airport needed."))
+                    if (temp[temp.Length - 2].Contains("Population limits garrison") | temp[temp.Length - 2].Contains("prevents immigration. Airport needed."))
                         _populationShort = temp[temp.Length - 1].Remove(temp[temp.Length - 1].Length - 1).Substring(11);
                     else
                         _populationShort = temp[temp.Length - 2].Remove(temp[temp.Length - 2].Length - 1).Substring(11);
