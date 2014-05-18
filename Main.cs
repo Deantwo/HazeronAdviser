@@ -31,6 +31,8 @@ namespace HazeronAdviser
 
         private void button1_Click(object sender, EventArgs e)
         {
+            toolStripProgressBar1.Visible = false;
+            toolStripProgressBar2.Visible = false;
             string[] fileList = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Shores of Hazeron\Mail"); // %USERPROFILE%\Shores of Hazeron\Mail
             toolStripStatusLabel1.Text = "Working...";
             toolStripProgressBar1.Value = 0;
@@ -45,36 +47,45 @@ namespace HazeronAdviser
             //textBox2.Text = String.Join(Environment.NewLine, fileList); // Lists all files in the SoH mail folder.
             foreach (string file in fileList)
             {
-                if (HMail.IsCityReport(file))
+                try
                 {
-                    HCityObj temp = new HCityObj(new HMailObj(file));
-                    if (hCityList.Any(city => city.ID == temp.ID))
-                        hCityList[hCityList.FindIndex(city => city.ID == temp.ID)].Update(new HMailObj(file));
-                    else
-                        hCityList.Add(temp);
+                    if (HMail.IsCityReport(file))
+                    {
+                        HCityObj temp = new HCityObj(new HMailObj(file));
+                        if (hCityList.Any(city => city.ID == temp.ID))
+                            hCityList[hCityList.FindIndex(city => city.ID == temp.ID)].Update(new HMailObj(file));
+                        else
+                            hCityList.Add(temp);
+                    }
+                    else if (HMail.IsShipLog(file))
+                    {
+                        HShipObj temp = new HShipObj(new HMailObj(file));
+                        if (hShipList.Any(ship => ship.ID == temp.ID))
+                            hShipList[hShipList.FindIndex(ship => ship.ID == temp.ID)].Update(new HMailObj(file));
+                        else
+                            hShipList.Add(temp);
+                    }
+                    else if (HMail.IsOfficerTenFour(file))
+                    {
+                        HOfficerObj temp = new HOfficerObj(new HMailObj(file));
+                        if (hOfficerList.Any(officer => officer.ID == temp.ID))
+                            hOfficerList[hOfficerList.FindIndex(ship => ship.ID == temp.ID)].Update(new HMailObj(file));
+                        else
+                            hOfficerList.Add(temp);
+                    }
+                    toolStripProgressBar1.Increment(1);
                 }
-                else if (HMail.IsShipLog(file))
+                catch (Exception ex)
                 {
-                    HShipObj temp = new HShipObj(new HMailObj(file));
-                    if (hShipList.Any(ship => ship.ID == temp.ID))
-                        hShipList[hShipList.FindIndex(ship => ship.ID == temp.ID)].Update(new HMailObj(file));
-                    else
-                        hShipList.Add(temp);
+                    toolStripStatusLabel1.Text = "Error while scanning mail file: " + file;
+                    if (DialogResult.Yes == MessageBox.Show("Failed reading mail file:" + Environment.NewLine + file + Environment.NewLine + Environment.NewLine + "Copy mail filepath to clipboard?", "Mail Reading Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2))
+                        Clipboard.SetText(file);
+                    return;
                 }
-                else if (HMail.IsOfficerTenFour(file))
-                {
-                    HOfficerObj temp = new HOfficerObj(new HMailObj(file));
-                    if (hOfficerList.Any(officer => officer.ID == temp.ID))
-                        hOfficerList[hOfficerList.FindIndex(ship => ship.ID == temp.ID)].Update(new HMailObj(file));
-                    else
-                        hOfficerList.Add(temp);
-                }
-                toolStripProgressBar1.Increment(1);
             }
-            toolStripProgressBar1.Visible = false;
-            toolStripProgressBar1.Value = 0;
-            toolStripProgressBar1.Maximum = hCityList.Count + hShipList.Count + hOfficerList.Count;
-            toolStripProgressBar1.Visible = true;
+            toolStripProgressBar2.Value = 0;
+            toolStripProgressBar2.Maximum = hCityList.Count + hShipList.Count + hOfficerList.Count;
+            toolStripProgressBar2.Visible = true;
             foreach (var hCity in hCityList)
             {
                 dgvCity.Rows.Add();
@@ -95,7 +106,7 @@ namespace HazeronAdviser
                     if ((hCity.AttentionCode & 0x04) == 0x04)
                         dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityMorale"].Style.BackColor = Color.LightPink;
                 }
-                toolStripProgressBar1.Increment(1);
+                toolStripProgressBar2.Increment(1);
             }
             foreach (var hShip in hShipList)
             {
@@ -106,7 +117,7 @@ namespace HazeronAdviser
                 dgvShip.Rows[dgvShip.RowCount - 1].Cells["ColumnShipFuel"].Value = hShip.FuelShort;
                 dgvShip.Rows[dgvShip.RowCount - 1].Cells["ColumnShipDamage"].Value = hShip.DamageShort;
                 dgvShip.Rows[dgvShip.RowCount - 1].Cells["ColumnShipDate"].Value = hShip.LastUpdaredString;
-                toolStripProgressBar1.Increment(1);
+                toolStripProgressBar2.Increment(1);
             }
             foreach (var hOfficer in hOfficerList)
             {
@@ -117,9 +128,10 @@ namespace HazeronAdviser
                 dgvOfficer.Rows[dgvOfficer.RowCount - 1].Cells["ColumnOfficerHome"].Value = hOfficer.Home;
                 dgvOfficer.Rows[dgvOfficer.RowCount - 1].Cells["ColumnOfficerLocation"].Value = hOfficer.Location;
                 dgvOfficer.Rows[dgvOfficer.RowCount - 1].Cells["ColumnOfficerDate"].Value = hOfficer.LastUpdaredString;
-                toolStripProgressBar1.Increment(1);
+                toolStripProgressBar2.Increment(1);
             }
             toolStripProgressBar1.Visible = false;
+            toolStripProgressBar2.Visible = false;
             toolStripStatusLabel1.Text = "Done!";
         }
 
