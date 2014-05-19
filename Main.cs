@@ -33,7 +33,14 @@ namespace HazeronAdviser
         {
             toolStripProgressBar1.Visible = false;
             toolStripProgressBar2.Visible = false;
-            string[] fileList = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Shores of Hazeron\Mail"); // %USERPROFILE%\Shores of Hazeron\Mail
+            if (!Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail")))
+            {
+                toolStripStatusLabel1.Text = "\""+Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail")+"\" does not exist.";
+                if (DialogResult.Yes == MessageBox.Show("Could not find Hazeron Mail folder:" + Environment.NewLine + Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail") + Environment.NewLine + Environment.NewLine + "Copy directory path to clipboard?", "Mail Folder Not Found", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2))
+                    Clipboard.SetText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail"));
+                return;
+            }
+            string[] fileList = Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail")); // %USERPROFILE%\Shores of Hazeron\Mail
             toolStripStatusLabel1.Text = "Working...";
             toolStripProgressBar1.Value = 0;
             toolStripProgressBar1.Maximum = fileList.Length;
