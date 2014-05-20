@@ -41,16 +41,21 @@ namespace HazeronAdviser
                 return;
             }
             string[] fileList = Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail")); // %USERPROFILE%\Shores of Hazeron\Mail
-            toolStripStatusLabel1.Text = "Working...";
+            toolStripStatusLabel1.Text = "Scanning mails...";
             toolStripProgressBar1.Value = 0;
             toolStripProgressBar1.Maximum = fileList.Length;
             toolStripProgressBar1.Visible = true;
+            toolStripStatusLabel1.Invalidate();
+            statusStrip1.Update();
             dgvCity.Rows.Clear();
             dgvShip.Rows.Clear();
+            dgvOfficer.Rows.Clear();
             dgvCity.Refresh();
             dgvShip.Refresh();
+            dgvOfficer.Refresh();
             tbxCity.Clear();
             tbxShip.Clear();
+            tbxOfficer.Clear();
             //textBox2.Text = String.Join(Environment.NewLine, fileList); // Lists all files in the SoH mail folder.
             foreach (string file in fileList)
             {
@@ -93,6 +98,9 @@ namespace HazeronAdviser
             toolStripProgressBar2.Value = 0;
             toolStripProgressBar2.Maximum = hCityList.Count + hShipList.Count + hOfficerList.Count;
             toolStripProgressBar2.Visible = true;
+            toolStripStatusLabel1.Text = "Filling tables...";
+            toolStripStatusLabel1.Invalidate();
+            statusStrip1.Update();
             foreach (var hCity in hCityList)
             {
                 dgvCity.Rows.Add();
