@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HHelper.cs" />
     <Compile Include="HMail.cs" />
     <Compile Include="HObj.cs" />
     <Compile Include="Main.cs">
