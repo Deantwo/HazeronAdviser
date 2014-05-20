@@ -89,6 +89,8 @@ namespace HazeronAdviser
                 }
                 catch (Exception ex)
                 {
+                    System.Diagnostics.Debug.WriteLine("### Error while scanning mail file:");
+                    System.Diagnostics.Debug.WriteLine("### " + ex.ToString());
                     toolStripStatusLabel1.Text = "Error while scanning mail file: " + file;
                     if (DialogResult.Yes == MessageBox.Show("Failed reading mail file:" + Environment.NewLine + file + Environment.NewLine + Environment.NewLine + "Copy mail filepath to clipboard?", "Mail Reading Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2))
                         Clipboard.SetText(file);
@@ -104,50 +106,79 @@ namespace HazeronAdviser
             foreach (var hCity in hCityList)
             {
                 dgvCity.Rows.Add();
-                dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCitySelection"].Value = false;
-                dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityIcon"].Value = imageCity;
-                dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityName"].Value = hCity.Name;
-                dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityMorale"].Value = hCity.MoraleShort;
-                dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityPopulation"].Value = hCity.PopulationShort;
-                dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityLivingConditions"].Value = hCity.LivingShort;
-                dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityDate"].Value = hCity.LastUpdaredString;
+                int row = dgvCity.RowCount - 1;
+                dgvCity.Rows[row].Cells["ColumnCitySelection"].Value = false;
+                dgvCity.Rows[row].Cells["ColumnCityIcon"].Value = imageCity;
+                dgvCity.Rows[row].Cells["ColumnCityName"].Value = hCity.Name;
+                dgvCity.Rows[row].Cells["ColumnCityMorale"].Value = hCity.MoraleShort;
+                dgvCity.Rows[row].Cells["ColumnCityPopulation"].Value = hCity.PopulationShort;
+                dgvCity.Rows[row].Cells["ColumnCityLivingConditions"].Value = hCity.LivingShort;
+                dgvCity.Rows[row].Cells["ColumnCityDate"].Value = hCity.LastUpdaredString;
+                // AttentionCodes
                 if (hCity.AttentionCode != 0x00)
                 {
-                    dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityName"].Style.BackColor = Color.LightPink;
-                    if ((hCity.AttentionCode & 0x01) == 0x01)
-                        dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityLivingConditions"].Style.BackColor = Color.LightPink;
-                    if ((hCity.AttentionCode & 0x02) == 0x02)
-                        dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityPopulation"].Style.BackColor = Color.LightPink;
-                    if ((hCity.AttentionCode & 0x04) == 0x04)
-                        dgvCity.Rows[dgvCity.RowCount - 1].Cells["ColumnCityMorale"].Style.BackColor = Color.LightPink;
+                    dgvCity.Rows[row].Cells["ColumnCityName"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
+                    if (FlagCheck(hCity.AttentionCode, 0x01)) // 0b00000001
+                        dgvCity.Rows[row].Cells["ColumnCityLivingConditions"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
+                    if (FlagCheck(hCity.AttentionCode, 0x02)) // 0b00000010
+                        dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
+                    if (FlagCheck(hCity.AttentionCode, 0x04)) // 0b00000100
+                        dgvCity.Rows[row].Cells["ColumnCityMorale"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
+                    if (FlagCheck(hCity.AttentionCode, 0x04)) // 0b10000000
+                        dgvCity.Rows[row].Cells["ColumnCityMorale"].Style.BackColor = Color.LightPink;
                 }
                 toolStripProgressBar2.Increment(1);
             }
             foreach (var hShip in hShipList)
             {
                 dgvShip.Rows.Add();
-                dgvShip.Rows[dgvShip.RowCount - 1].Cells["ColumnShipSelection"].Value = false;
-                dgvShip.Rows[dgvShip.RowCount - 1].Cells["ColumnShipIcon"].Value = imageShip;
-                dgvShip.Rows[dgvShip.RowCount - 1].Cells["ColumnShipName"].Value = hShip.Name;
-                dgvShip.Rows[dgvShip.RowCount - 1].Cells["ColumnShipFuel"].Value = hShip.FuelShort;
-                dgvShip.Rows[dgvShip.RowCount - 1].Cells["ColumnShipDamage"].Value = hShip.DamageShort;
-                dgvShip.Rows[dgvShip.RowCount - 1].Cells["ColumnShipDate"].Value = hShip.LastUpdaredString;
+                int row = dgvShip.RowCount - 1;
+                dgvShip.Rows[row].Cells["ColumnShipSelection"].Value = false;
+                dgvShip.Rows[row].Cells["ColumnShipIcon"].Value = imageShip;
+                dgvShip.Rows[row].Cells["ColumnShipName"].Value = hShip.Name;
+                dgvShip.Rows[row].Cells["ColumnShipFuel"].Value = hShip.FuelShort;
+                dgvShip.Rows[row].Cells["ColumnShipDamage"].Value = hShip.DamageShort;
+                dgvShip.Rows[row].Cells["ColumnShipDate"].Value = hShip.LastUpdaredString;
+                // AttentionCodes
+                if (hShip.AttentionCode != 0x00)
+                {
+                    dgvShip.Rows[row].Cells["ColumnShipName"].Style.BackColor = Color.LightPink;
+                    if (FlagCheck(hShip.AttentionCode, 0x80)) // 0b10000000
+                        dgvShip.Rows[row].Cells["ColumnShipFuel"].Style.BackColor = Color.LightPink;
+                }
                 toolStripProgressBar2.Increment(1);
             }
             foreach (var hOfficer in hOfficerList)
             {
                 dgvOfficer.Rows.Add();
-                dgvOfficer.Rows[dgvOfficer.RowCount - 1].Cells["ColumnOfficerSelection"].Value = false;
-                dgvOfficer.Rows[dgvOfficer.RowCount - 1].Cells["ColumnOfficerIcon"].Value = imageOfficer;
-                dgvOfficer.Rows[dgvOfficer.RowCount - 1].Cells["ColumnOfficerName"].Value = hOfficer.Name;
-                dgvOfficer.Rows[dgvOfficer.RowCount - 1].Cells["ColumnOfficerHome"].Value = hOfficer.Home;
-                dgvOfficer.Rows[dgvOfficer.RowCount - 1].Cells["ColumnOfficerLocation"].Value = hOfficer.Location;
-                dgvOfficer.Rows[dgvOfficer.RowCount - 1].Cells["ColumnOfficerDate"].Value = hOfficer.LastUpdaredString;
+                int row = dgvOfficer.RowCount - 1;
+                dgvOfficer.Rows[row].Cells["ColumnOfficerSelection"].Value = false;
+                dgvOfficer.Rows[row].Cells["ColumnOfficerIcon"].Value = imageOfficer;
+                dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Value = hOfficer.Name;
+                dgvOfficer.Rows[row].Cells["ColumnOfficerHome"].Value = hOfficer.Home;
+                dgvOfficer.Rows[row].Cells["ColumnOfficerLocation"].Value = hOfficer.Location;
+                dgvOfficer.Rows[row].Cells["ColumnOfficerDate"].Value = hOfficer.LastUpdaredString;
+                // AttentionCodes
+                if (hOfficer.AttentionCode != 0x00)
+                {
+                    if (FlagCheck(hOfficer.AttentionCode, 0x01)) // 0b00000001
+                    {
+                        dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
+                        dgvOfficer.Rows[row].Cells["ColumnOfficerLocation"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
+                    }
+                    if (FlagCheck(hOfficer.AttentionCode, 0x80)) // 0b10000000
+                        dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Style.BackColor = Color.LightPink;
+                }
                 toolStripProgressBar2.Increment(1);
             }
             toolStripProgressBar1.Visible = false;
             toolStripProgressBar2.Visible = false;
             toolStripStatusLabel1.Text = "Done!";
+        }
+
+        private bool FlagCheck(byte attentionCode, byte flag)
+        {
+            return ((attentionCode & flag) == flag);
         }
 
         private void dgvCity_SelectionChanged(object sender, EventArgs e)

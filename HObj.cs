@@ -124,8 +124,7 @@ namespace HazeronAdviser
                 // Time for City spicific things.
                 int morale, population, homes, jobs;
 
-                if (mail.MessageType != 0x17 // MSG_CityFinalDecayReport
-                    )
+                if (mail.MessageType != 0x17) // MSG_CityFinalDecayReport
                 {
                     // MORALE
                     subStart = mail.Body.IndexOf("<b>MORALE</b>");
@@ -164,6 +163,8 @@ namespace HazeronAdviser
                         _attentionCode = (byte)(_attentionCode | 0x02); // 0b00000010
                     if (morale < 20)
                         _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100
+                    if (mail.MessageType == 0x17) // MSG_CityFinalDecayReport
+                        _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
                 }
             }
         }
@@ -247,8 +248,7 @@ namespace HazeronAdviser
                 int subStart, subEnd;
                 string[] temp;
 
-                if (mail.MessageType != 0x12 // MSG_ShipLogFinal
-                    )
+                if (mail.MessageType != 0x12) // MSG_ShipLogFinal
                 {
                     // DAMAGE REPORT
                     subStart = mail.Body.IndexOf("<b>DAMAGE REPORT</b>");
@@ -291,6 +291,10 @@ namespace HazeronAdviser
                     //temp = _roster.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                     //_rosterShort = temp[temp.Length - 1];
                 }
+
+                // AttentionCodes
+                if (mail.MessageType == 0x12) // MSG_ShipLogFinal
+                    _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
             }
         }
     }
@@ -324,14 +328,27 @@ namespace HazeronAdviser
                 int subStart, subEnd;
                 string[] temp;
 
-                if (mail.MessageType == 0x0C // MSG_OfficerReady
-                    )
+                if (mail.MessageType == 0x0C) // MSG_OfficerReady
                 {
                     subStart = mail.Body.IndexOf("Assignment Request on ") + 22; // "Assignment Request on ".Length == 22
                     subEnd = mail.Body.IndexOf("<br><br>Commander,") - subStart;
                     _home = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
                     _location = _home;
                 }
+                else if (mail.MessageType == 0x14) // MSG_OfficerContact
+                {
+                    subStart = mail.Body.IndexOf("I was deployed from ") + 20; // "I was deployed from ".Length == 20
+                    subEnd = mail.Body.Substring(subStart).IndexOf(" in ");
+                    _home = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                    _location = "ship name";
+                }
+
+                // AttentionCodes
+                if (_location != _home)
+                    _attentionCode = (byte)(_attentionCode | 0x01); // 0b00000001
+                if (mail.MessageType == 0x16)  // MSG_OfficerDeath
+                    _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
+
             }
         }
     }
