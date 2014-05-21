@@ -118,14 +118,14 @@ namespace HazeronAdviser
                 if (hCity.AttentionCode != 0x00)
                 {
                     dgvCity.Rows[row].Cells["ColumnCityName"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
-                    if (FlagCheck(hCity.AttentionCode, 0x01)) // 0b00000001
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x01)) // 0b00000001
                         dgvCity.Rows[row].Cells["ColumnCityLivingConditions"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
-                    if (FlagCheck(hCity.AttentionCode, 0x02)) // 0b00000010
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x02)) // 0b00000010
                         dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
-                    if (FlagCheck(hCity.AttentionCode, 0x04)) // 0b00000100
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x04)) // 0b00000100
                         dgvCity.Rows[row].Cells["ColumnCityMorale"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
-                    if (FlagCheck(hCity.AttentionCode, 0x04)) // 0b10000000
-                        dgvCity.Rows[row].Cells["ColumnCityMorale"].Style.BackColor = Color.LightPink;
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x04)) // 0b10000000
+                        dgvCity.Rows[row].Cells["ColumnCityName"].Style.BackColor = Color.LightPink;
                 }
                 toolStripProgressBar2.Increment(1);
             }
@@ -142,9 +142,8 @@ namespace HazeronAdviser
                 // AttentionCodes
                 if (hShip.AttentionCode != 0x00)
                 {
-                    dgvShip.Rows[row].Cells["ColumnShipName"].Style.BackColor = Color.LightPink;
-                    if (FlagCheck(hShip.AttentionCode, 0x80)) // 0b10000000
-                        dgvShip.Rows[row].Cells["ColumnShipFuel"].Style.BackColor = Color.LightPink;
+                    if (HHelper.FlagCheck(hShip.AttentionCode, 0x80)) // 0b10000000
+                        dgvShip.Rows[row].Cells["ColumnShipName"].Style.BackColor = Color.LightPink;
                 }
                 toolStripProgressBar2.Increment(1);
             }
@@ -161,12 +160,12 @@ namespace HazeronAdviser
                 // AttentionCodes
                 if (hOfficer.AttentionCode != 0x00)
                 {
-                    if (FlagCheck(hOfficer.AttentionCode, 0x01)) // 0b00000001
+                    if (HHelper.FlagCheck(hOfficer.AttentionCode, 0x01)) // 0b00000001
                     {
                         dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
                         dgvOfficer.Rows[row].Cells["ColumnOfficerLocation"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
                     }
-                    if (FlagCheck(hOfficer.AttentionCode, 0x80)) // 0b10000000
+                    if (HHelper.FlagCheck(hOfficer.AttentionCode, 0x80)) // 0b10000000
                         dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Style.BackColor = Color.LightPink;
                 }
                 toolStripProgressBar2.Increment(1);
@@ -174,11 +173,6 @@ namespace HazeronAdviser
             toolStripProgressBar1.Visible = false;
             toolStripProgressBar2.Visible = false;
             toolStripStatusLabel1.Text = "Done!";
-        }
-
-        private bool FlagCheck(byte attentionCode, byte flag)
-        {
-            return ((attentionCode & flag) == flag);
         }
 
         private void dgvCity_SelectionChanged(object sender, EventArgs e)

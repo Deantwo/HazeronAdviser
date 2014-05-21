@@ -116,6 +116,17 @@ namespace HazeronAdviser
         }
 
         /// <summary>
+        /// Returns true if flag is in bitCode.
+        /// ((bitCode AND flag) == flag)
+        /// </summary>
+        /// <param name="bitCode">Byte or int32 used for bit flags.</param>
+        /// <param name="flag">Flag to check for.</param>
+        static public bool FlagCheck(int bitCode, int flag)
+        {
+            return ((bitCode & flag) == flag);
+        }
+
+        /// <summary>
         /// Returns a string that is void of HTML tags.
         /// Attempts to add newlines where needed.
         /// </summary>
