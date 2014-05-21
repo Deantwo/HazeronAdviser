@@ -40,7 +40,7 @@ namespace HazeronAdviser
 
         static public bool IsShipLog(int messageType) // Give true if MessageType is a Ship Log (or related) mail.
         {
-            if (   messageType == 0x0A // MSG_ShipLog
+            if (   messageType == 0x0F // MSG_ShipLog
                 || messageType == 0x10 // MSG_ShipLogAlert
                 || messageType == 0x11 // MSG_ShipLogDistress
                 || messageType == 0x12 // MSG_ShipLogFinal
