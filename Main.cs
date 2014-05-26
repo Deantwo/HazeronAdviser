@@ -124,7 +124,11 @@ namespace HazeronAdviser
                         dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x04)) // 0b00000100
                         dgvCity.Rows[row].Cells["ColumnCityMorale"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
-                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x04)) // 0b10000000
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x20)) // 0b00100000
+                        dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = Color.LightPink;
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x40)) // 0b01000000
+                        dgvCity.Rows[row].Cells["ColumnCityMorale"].Style.BackColor = Color.LightPink;
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x80)) // 0b10000000
                         dgvCity.Rows[row].Cells["ColumnCityName"].Style.BackColor = Color.LightPink;
                 }
                 toolStripProgressBar2.Increment(1);

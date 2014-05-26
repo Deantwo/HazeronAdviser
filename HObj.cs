@@ -123,6 +123,7 @@ namespace HazeronAdviser
                 string[] temp;
                 // Time for City spicific things.
                 int morale, population, homes, jobs;
+                bool abandonment = false;
 
                 if (mail.MessageType != 0x17) // MSG_CityFinalDecayReport
                 {
@@ -132,6 +133,9 @@ namespace HazeronAdviser
                     _morale = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
                     temp = _morale.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                     _moraleShort = temp[temp.Length - 1].Remove(temp[temp.Length - 1].Length - 1).Substring(7);
+                    foreach (string line in temp)
+                        if (line.Contains("Abandonment Penalty"))
+                            abandonment = true;
                     temp = _moraleShort.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
                     morale = Convert.ToInt32(temp[temp.Length - 1]);
 
@@ -157,14 +161,22 @@ namespace HazeronAdviser
                     homes = Convert.ToInt32(temp[4].Split(' ')[1]);
                     
                     // AttentionCodes
-                    if (jobs >= homes)
-                        _attentionCode = (byte)(_attentionCode | 0x01); // 0b00000001
-                    if (population < homes)
-                        _attentionCode = (byte)(_attentionCode | 0x02); // 0b00000010
-                    if (morale < 20)
-                        _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100
+                    if ((jobs >= homes) || ((homes - jobs) / homes > 0.2)) // More jobs than homes, or too many unemployed.
+                        _attentionCode += (byte)(_attentionCode | 0x01); // 0b00000001
+                    if (population < homes) // Population not full.
+                        _attentionCode += (byte)(_attentionCode | 0x02); // 0b00000010
+                    if (abandonment) // There is abandonment.
+                        _attentionCode += (byte)(_attentionCode | 0x04); // 0b00000100
+                    if (false) // Nothing yet!
+                        _attentionCode += (byte)(_attentionCode | 0x08); // 0b00001000
+                    if (false) // Nothing yet!
+                        _attentionCode += (byte)(_attentionCode | 0x10); // 0b00010000
+                    if (population == 0) // Population is 0.
+                        _attentionCode += (byte)(_attentionCode | 0x20); // 0b00100000
+                    if (morale < 20) // Morale not full.
+                        _attentionCode += (byte)(_attentionCode | 0x40); // 0b01000000
                     if (mail.MessageType == 0x17) // MSG_CityFinalDecayReport
-                        _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
+                        _attentionCode += (byte)(_attentionCode | 0x80); // 0b10000000
                 }
             }
         }
@@ -293,8 +305,22 @@ namespace HazeronAdviser
                 }
 
                 // AttentionCodes
+                if (false) // Nothing yet!
+                    _attentionCode += (byte)(_attentionCode | 0x08); // 0b00000001
+                if (false) // Nothing yet!
+                    _attentionCode += (byte)(_attentionCode | 0x03); // 0b00000010
+                if (false) // Nothing yet!
+                    _attentionCode += (byte)(_attentionCode | 0x04); // 0b00000100
+                if (false) // Nothing yet!
+                    _attentionCode += (byte)(_attentionCode | 0x08); // 0b00001000
+                if (false) // Nothing yet!
+                    _attentionCode += (byte)(_attentionCode | 0x10); // 0b00010000
+                if (false) // Nothing yet!
+                    _attentionCode += (byte)(_attentionCode | 0x20); // 0b00100000
+                if (false) // Nothing yet!
+                    _attentionCode += (byte)(_attentionCode | 0x40); // 0b01000000
                 if (mail.MessageType == 0x12) // MSG_ShipLogFinal
-                    _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
+                    _attentionCode += (byte)(_attentionCode | 0x80); // 0b10000000
             }
         }
     }
@@ -318,6 +344,7 @@ namespace HazeronAdviser
             _id = mail.FilePath.Split('.')[mail.FilePath.Split('.').Length - 3];
             Update(mail);
         }
+
         public override void Update(HMailObj mail)
         {
             if (HMail.IsOfficerTenFour(mail.MailBytes) && DateTime.Compare(_lastUpdated, mail.DateTime) < 0)
@@ -345,9 +372,21 @@ namespace HazeronAdviser
 
                 // AttentionCodes
                 if (_location != _home)
-                    _attentionCode = (byte)(_attentionCode | 0x01); // 0b00000001
+                    _attentionCode += (byte)(_attentionCode | 0x01); // 0b00000001
+                if (false) // Nothing yet!
+                    _attentionCode += (byte)(_attentionCode | 0x03); // 0b00000010
+                if (false) // Nothing yet!
+                    _attentionCode += (byte)(_attentionCode | 0x04); // 0b00000100
+                if (false) // Nothing yet!
+                    _attentionCode += (byte)(_attentionCode | 0x08); // 0b00001000
+                if (false) // Nothing yet!
+                    _attentionCode += (byte)(_attentionCode | 0x10); // 0b00010000
+                if (false) // Nothing yet!
+                    _attentionCode += (byte)(_attentionCode | 0x20); // 0b00100000
+                if (false) // Nothing yet!
+                    _attentionCode += (byte)(_attentionCode | 0x40); // 0b01000000
                 if (mail.MessageType == 0x16)  // MSG_OfficerDeath
-                    _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
+                    _attentionCode += (byte)(_attentionCode | 0x80); // 0b10000000
 
             }
         }
