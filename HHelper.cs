@@ -51,6 +51,19 @@ namespace HazeronAdviser
         }
 
         /// <summary>
+        /// Converts four bytes from a byte array to a float.
+        /// </summary>
+        /// <param name="bytes">Bytes to be converted.</param>
+        /// <param name="startIndex">Index of the starting byte.</param>
+        static public float ToFloat(byte[] bytes, int startIndex)
+        {
+            byte[] subBytes = HHelper.SubArray(bytes, startIndex, 4);
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(subBytes);
+            return BitConverter.ToSingle(subBytes, 0);
+        }
+
+        /// <summary>
         /// Converts a byte array to a string, using BigEndianUnicode.
         /// </summary>
         /// <param name="bytes">Bytes to be converted.</param>
@@ -64,6 +77,26 @@ namespace HazeronAdviser
             //    Array.Reverse(subBytes);
             string text = Encoding.BigEndianUnicode.GetString(subBytes); // UTF-16 BigEndian to string.
             return text;
+        }
+
+        /// <summary>
+        /// Returns the Hexavigesimal letters only ID.
+        /// </summary>
+        /// <param name="numberID">Int32 version of the ID.</param>
+        static public string ToID(int numberID)
+        { // http://en.wikipedia.org/wiki/Hexavigesimal
+            numberID = Math.Abs(numberID);
+            String converted = "";
+            // Repeatedly divide the number by 26 and convert the
+            // remainder into the appropriate letter.
+            while (numberID > 0)
+            {
+                int remainder = (numberID) % 26;
+                converted = converted + (char)(remainder + 'A');
+                numberID = (numberID - remainder) / 26;
+            }
+
+            return converted;
         }
 
         /// <summary>

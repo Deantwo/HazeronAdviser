@@ -140,6 +140,15 @@ namespace HazeronAdviser
             get { return _mailBytes; }
         }
 
+        public byte[] Signature
+        {
+            get { return HHelper.SubArray(_mailBytes, 0, 2); }
+        }
+        public int MessageID
+        {
+            get { return HHelper.ToInt32(_mailBytes, 2); }
+        }
+
         public int Date
         {
             get { return HHelper.ToInt32(_mailBytes, 6); }
@@ -172,12 +181,48 @@ namespace HazeronAdviser
                 return DateTime.ToString("dd-MM-yyyy HH:mm:ss"); // TimeDate format information: http://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
             }
         }
+        public byte TimeZone
+        {
+            get { return _mailBytes[13]; }
+        }
 
-        protected int _from_l, _subj_l, _body_l;
+        protected int _from_l;
         public string From
         {
             get { return HHelper.ToBigEndianUnicodeString(_mailBytes, 19, _from_l); }
         }
+        public int SenderID
+        {
+            get { return HHelper.ToInt32(_mailBytes, 19 + _from_l); }
+        }
+        public int RecipientID
+        {
+            get { return HHelper.ToInt32(_mailBytes, 19 + _from_l + 4); }
+        }
+
+        public int MessageFlags
+        {
+            get { return _mailBytes[19 + _from_l + 8]; }
+        }
+        public bool MessageFlags_Syst
+        {
+            get { return HHelper.FlagCheck(this.MessageFlags, 0x01); }
+        }
+        public bool MessageFlags_Plan
+        {
+            get { return HHelper.FlagCheck(this.MessageFlags, 0x02); }
+        }
+        public bool MessageFlags_GPS
+        {
+            get { return HHelper.FlagCheck(this.MessageFlags, 0x04); }
+        }
+
+        public int MessageType
+        {
+            get { return _mailBytes[19 + _from_l + 9]; }
+        }
+
+        protected int _subj_l, _body_l;
         public string Subject
         {
             get { return HHelper.ToBigEndianUnicodeString(_mailBytes, 19 + _from_l + 14, _subj_l); }
@@ -187,9 +232,89 @@ namespace HazeronAdviser
             get { return HHelper.ToBigEndianUnicodeString(_mailBytes, 19 + _from_l + 14 + _subj_l + 4, _body_l); }
         }
 
-        public int MessageType
+        protected int _syst_l, _systSkipOffset = 0;
+        public int SystemID
         {
-            get { return _mailBytes[19 + _from_l + 9]; }
+            get
+            {
+                if (this.MessageFlags_Syst)
+                    return HHelper.ToInt32(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 1);
+                else
+                    return 0;
+            }
+        }
+        public string SystemName
+        {
+            get
+            {
+                if (this.MessageFlags_Syst)
+                    return HHelper.ToBigEndianUnicodeString(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 9, _syst_l);
+                else
+                    return "-";
+            }
+        }
+
+        protected int _plan_l, _planSkipOffset = 0;
+        public int PlanetID
+        {
+            get
+            {
+                if (this.MessageFlags_Plan)
+                    return HHelper.ToInt32(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + _systSkipOffset);
+                else
+                    return 0;
+            }
+        }
+        public string PlanetName
+        {
+            get
+            {
+                if (this.MessageFlags_Plan)
+                    return HHelper.ToBigEndianUnicodeString(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + _systSkipOffset + 8, _plan_l);
+                else
+                    return "-";
+            }
+        }
+
+        public float GPS_X
+        {
+            get
+            {
+                if (this.MessageFlags_GPS)
+                    return HHelper.ToFloat(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + _systSkipOffset + _planSkipOffset);
+                else
+                    return 0;
+            }
+        }
+        public float GPS_Y
+        {
+            get
+            {
+                if (this.MessageFlags_GPS)
+                    return HHelper.ToFloat(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + _systSkipOffset + _planSkipOffset + 4);
+                else
+                    return 0;
+            }
+        }
+        public float GPS_Z
+        {
+            get
+            {
+                if (this.MessageFlags_GPS)
+                    return HHelper.ToFloat(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + _systSkipOffset + _planSkipOffset + 8);
+                else
+                    return 0;
+            }
+        }
+        public int GPS_W
+        {
+            get
+            {
+                if (this.MessageFlags_GPS)
+                    return _mailBytes[19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + _systSkipOffset + _planSkipOffset + 12];
+                else
+                    return 0;
+            }
         }
 
         public HMailObj(string filePath)
@@ -199,6 +324,16 @@ namespace HazeronAdviser
             _from_l = HHelper.ToInt32(_mailBytes, 15);
             _subj_l = HHelper.ToInt32(_mailBytes, 19 + _from_l + 10);
             _body_l = HHelper.ToInt32(_mailBytes, 19 + _from_l + 14 + _subj_l);
+            if (this.MessageFlags_Syst)
+            {
+                _syst_l = HHelper.ToInt32(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + 4);
+                _systSkipOffset += 8 + _syst_l;
+            }
+            if (this.MessageFlags_Plan)
+            {
+                _plan_l = HHelper.ToInt32(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + _systSkipOffset + 4);
+                _planSkipOffset += 8 + _plan_l;
+            }
         }
     }
 }
