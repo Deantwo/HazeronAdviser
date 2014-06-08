@@ -6,7 +6,7 @@ using System.IO;
 
 namespace HazeronAdviser
 {
-    static class HMail
+    class HMail
     {
         static public byte[] Read(string filePath)
         {
@@ -25,7 +25,7 @@ namespace HazeronAdviser
                 return true;
             return false;
         }
-        static public bool IsCityReport(HMailObj mail) // Same as above but mail input.
+        static public bool IsCityReport(HMail mail) // Same as above but mail input.
         {
             return IsCityReport(mail.MessageType);
         }
@@ -48,7 +48,7 @@ namespace HazeronAdviser
                 return true;
             return false;
         }
-        static public bool IsShipLog(HMailObj mail) // Same as above but mail input.
+        static public bool IsShipLog(HMail mail) // Same as above but mail input.
         {
             return IsShipLog(mail.MessageType);
         }
@@ -69,7 +69,7 @@ namespace HazeronAdviser
                 return true;
             return false;
         }
-        static public bool IsGovernmentMessage(HMailObj mail) // Same as above but mail input.
+        static public bool IsGovernmentMessage(HMail mail) // Same as above but mail input.
         {
             return IsGovernmentMessage(mail.MessageType);
         }
@@ -91,7 +91,7 @@ namespace HazeronAdviser
                 return true;
             return false;
         }
-        static public bool IsOfficerTenFour(HMailObj mail) // Same as above but mail input.
+        static public bool IsOfficerTenFour(HMail mail) // Same as above but mail input.
         {
             return IsOfficerTenFour(mail.MessageType);
         }
@@ -111,7 +111,7 @@ namespace HazeronAdviser
                 return true;
             return false;
         }
-        static public bool IsShipReport(HMailObj mail) // Same as above but mail input.
+        static public bool IsShipReport(HMail mail) // Same as above but mail input.
         {
             return IsShipReport(mail.MessageType);
         }
@@ -123,10 +123,7 @@ namespace HazeronAdviser
         {
             return IsShipReport(HMail.Read(filePath));
         }
-    }
 
-    class HMailObj
-    {
         // Anr's mail header info sheet: http://goo.gl/E0yoYd
 
         protected string _filePath;
@@ -183,7 +180,7 @@ namespace HazeronAdviser
         }
         public byte TimeZone
         {
-            get { return _mailBytes[13]; }
+            get { return _mailBytes[14]; }
         }
 
         protected int _from_l;
@@ -317,7 +314,7 @@ namespace HazeronAdviser
             }
         }
 
-        public HMailObj(string filePath)
+        public HMail(string filePath)
         {
             _filePath = filePath;
             _mailBytes = HMail.Read(_filePath);

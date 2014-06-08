@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define DEBUG
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,9 @@ namespace HazeronAdviser
 {
     public partial class Main : Form
     {
-        List<HCityObj> hCityList = new List<HCityObj>();
-        List<HShipObj> hShipList = new List<HShipObj>();
-        List<HOfficerObj> hOfficerList = new List<HOfficerObj>();
+        List<HCity> hCityList = new List<HCity>();
+        List<HShip> hShipList = new List<HShip>();
+        List<HOfficer> hOfficerList = new List<HOfficer>();
 
         Image imageCity;
         Image imageShip;
@@ -24,6 +25,7 @@ namespace HazeronAdviser
         {
             InitializeComponent();
             toolStripProgressBar1.Visible = false;
+            toolStripProgressBar2.Visible = false;
             imageCity = HazeronAdviser.Properties.Resources.c_Flag;
             imageShip = HazeronAdviser.Properties.Resources.GovSpacecraft;
             imageOfficer = HazeronAdviser.Properties.Resources.Officer;
@@ -59,33 +61,36 @@ namespace HazeronAdviser
             //textBox2.Text = String.Join(Environment.NewLine, fileList); // Lists all files in the SoH mail folder.
             foreach (string file in fileList)
             {
+                #if !DEBUG
                 try
                 {
+                #endif
                     if (HMail.IsCityReport(file))
                     {
-                        HCityObj temp = new HCityObj(new HMailObj(file));
+                        HCity temp = new HCity(new HMail(file));
                         if (hCityList.Any(city => city.ID == temp.ID))
-                            hCityList[hCityList.FindIndex(city => city.ID == temp.ID)].Update(new HMailObj(file));
+                            hCityList[hCityList.FindIndex(city => city.ID == temp.ID)].Update(new HMail(file));
                         else
                             hCityList.Add(temp);
                     }
                     else if (HMail.IsShipLog(file))
                     {
-                        HShipObj temp = new HShipObj(new HMailObj(file));
+                        HShip temp = new HShip(new HMail(file));
                         if (hShipList.Any(ship => ship.ID == temp.ID))
-                            hShipList[hShipList.FindIndex(ship => ship.ID == temp.ID)].Update(new HMailObj(file));
+                            hShipList[hShipList.FindIndex(ship => ship.ID == temp.ID)].Update(new HMail(file));
                         else
                             hShipList.Add(temp);
                     }
                     else if (HMail.IsOfficerTenFour(file))
                     {
-                        HOfficerObj temp = new HOfficerObj(new HMailObj(file));
+                        HOfficer temp = new HOfficer(new HMail(file));
                         if (hOfficerList.Any(officer => officer.ID == temp.ID))
-                            hOfficerList[hOfficerList.FindIndex(ship => ship.ID == temp.ID)].Update(new HMailObj(file));
+                            hOfficerList[hOfficerList.FindIndex(ship => ship.ID == temp.ID)].Update(new HMail(file));
                         else
                             hOfficerList.Add(temp);
                     }
                     toolStripProgressBar1.Increment(1);
+                #if !DEBUG
                 }
                 catch (Exception ex)
                 {
@@ -96,6 +101,7 @@ namespace HazeronAdviser
                         Clipboard.SetText(file);
                     return;
                 }
+                #endif
             }
             toolStripProgressBar2.Value = 0;
             toolStripProgressBar2.Maximum = hCityList.Count + hShipList.Count + hOfficerList.Count;
@@ -123,7 +129,7 @@ namespace HazeronAdviser
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x02)) // 0b00000010
                         dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x04)) // 0b00000100
-                        dgvCity.Rows[row].Cells["ColumnCityMorale"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
+                        dgvCity.Rows[row].Cells["ColumnCityDate"].Style.BackColor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x20)) // 0b00100000
                         dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = Color.LightPink;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x40)) // 0b01000000

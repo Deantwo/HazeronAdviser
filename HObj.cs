@@ -5,22 +5,6 @@ using System.Text;
 
 namespace HazeronAdviser
 {
-    static class HMake
-    {
-        static public HObj Create(HMailObj mail)
-        {
-            if (HMail.IsCityReport(mail))
-                return new HCityObj(mail);
-            else if (HMail.IsShipLog(mail))
-                return new HShipObj(mail);
-            //else if (HMail.IsGovernmentMessage(mail))
-            //    return new HGovMObj(mail); // To be made. <-----------------------------------
-            else
-                return null; // Hate doing it like this, but just don't use HMake.Create() on mails that aren't CityReport, ShipLog or GovernmentMessage. Or at the very lest check the resulte before using it.
-        }
-    }
-    
-
     class HObj
     {
         protected string _name = "-"; // Name of the ship, this can change at any time.
@@ -56,7 +40,7 @@ namespace HazeronAdviser
             get { return _attentionCode; }
         }
 
-        public virtual void Update(HMailObj mail)
+        public virtual void Update(HMail mail)
         {
             _name = mail.From; // Incase sender changed name.
             _lastUpdated = mail.DateTime;
@@ -74,7 +58,7 @@ namespace HazeronAdviser
         }
     }
 
-    class HCityObj : HObj
+    class HCity : HObj
     {
         protected string _morale = "-", _moraleShort = "-";
         public string Morale
@@ -106,13 +90,13 @@ namespace HazeronAdviser
             get { return _livingConditionsShort; }
         }
 
-        public HCityObj(HMailObj mail)
+        public HCity(HMail mail)
         {
-            _id = mail.FilePath.Split('.')[mail.FilePath.Split('.').Length - 3];
+            _id = HHelper.ToID(mail.SenderID);
             Update(mail);
         }
 
-        public override void Update(HMailObj mail)
+        public override void Update(HMail mail)
         {
             if (HMail.IsCityReport(mail.MailBytes) && DateTime.Compare(_lastUpdated, mail.DateTime) < 0)
             {
@@ -135,7 +119,8 @@ namespace HazeronAdviser
                     _moraleShort = temp[temp.Length - 1].Remove(temp[temp.Length - 1].Length - 1).Substring(7);
                     foreach (string line in temp)
                         if (line.Contains("Abandonment Penalty"))
-                            abandonment = true;
+                            if (-4 >= Convert.ToInt32(line.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries)[0]))
+                                abandonment = true;
                     temp = _moraleShort.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
                     morale = Convert.ToInt32(temp[temp.Length - 1]);
 
@@ -144,7 +129,7 @@ namespace HazeronAdviser
                     subEnd = mail.Body.IndexOf("<b>LIVING CONDITIONS</b>") - subStart;
                     _population = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
                     temp = _population.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                    if (temp[temp.Length - 2].Contains("Population limits garrison") | temp[temp.Length - 2].Contains("prevents immigration. Airport needed."))
+                    if (!temp[temp.Length - 1].Contains("loyal") || temp[temp.Length - 2].Contains("prevents immigration. Airport needed."))
                         _populationShort = temp[temp.Length - 1].Remove(temp[temp.Length - 1].Length - 1).Substring(11);
                     else
                         _populationShort = temp[temp.Length - 2].Remove(temp[temp.Length - 2].Length - 1).Substring(11);
@@ -182,7 +167,7 @@ namespace HazeronAdviser
         }
     }
 
-    class HShipObj : HObj
+    class HShip : HObj
     {
         protected string _damage = "-", _damageShort = "-";
         public string Damage
@@ -244,13 +229,13 @@ namespace HazeronAdviser
             get { return _rosterShort; }
         }
 
-        public HShipObj(HMailObj mail)
+        public HShip(HMail mail)
         {
-            _id = mail.FilePath.Split('.')[mail.FilePath.Split('.').Length - 3];
+            _id = HHelper.ToID(mail.SenderID);
             Update(mail);
         }
 
-        public override void Update(HMailObj mail)
+        public override void Update(HMail mail)
         {
             if (HMail.IsShipLog(mail.MailBytes) && DateTime.Compare(_lastUpdated, mail.DateTime) < 0)
             {
@@ -325,7 +310,7 @@ namespace HazeronAdviser
         }
     }
 
-    class HOfficerObj : HObj
+    class HOfficer : HObj
     {
         protected string _home = "-";
         public string Home
@@ -339,13 +324,13 @@ namespace HazeronAdviser
             get { return _location; }
         }
 
-        public HOfficerObj(HMailObj mail)
+        public HOfficer(HMail mail)
         {
-            _id = mail.FilePath.Split('.')[mail.FilePath.Split('.').Length - 3];
+            _id = HHelper.ToID(mail.SenderID);
             Update(mail);
         }
 
-        public override void Update(HMailObj mail)
+        public override void Update(HMail mail)
         {
             if (HMail.IsOfficerTenFour(mail.MailBytes) && DateTime.Compare(_lastUpdated, mail.DateTime) < 0)
             {
