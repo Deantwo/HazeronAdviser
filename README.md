@@ -15,6 +15,13 @@ What is it
 **HazeronAdviser** is a simple little program that scans through all your HMails that are locally saved on your computer.<br>
 Once loaded it is able to nicely list all your cities and ships, and then point you to the ones that require your attention.
 
+Features
+==============
+
+- Scan all Hazeron mails automatically with one click
+- Lists all cities, ships and officers
+- Show problems with cities that need attention (low morale, bad jobs/homes ratio, abandonment, ect.)
+
 Planned
 ==============
 
