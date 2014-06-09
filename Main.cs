@@ -1,4 +1,4 @@
-﻿//#define DEBUG
+﻿#define RELEASE
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -64,7 +64,7 @@ namespace HazeronAdviser
             //textBox2.Text = String.Join(Environment.NewLine, fileList); // Lists all files in the SoH mail folder.
             foreach (string file in fileList)
             {
-                #if !DEBUG
+                #if RELEASE
                 try
                 {
                 #endif
@@ -93,7 +93,7 @@ namespace HazeronAdviser
                             hOfficerList.Add(temp);
                     }
                     toolStripProgressBar1.Increment(1);
-                #if !DEBUG
+                #if RELEASE
                 }
                 catch (Exception ex)
                 {
