@@ -136,16 +136,14 @@
             this.tbxShip.Name = "tbxShip";
             this.tbxShip.ReadOnly = true;
             this.tbxShip.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxShip.Size = new System.Drawing.Size(412, 404);
+            this.tbxShip.Size = new System.Drawing.Size(416, 410);
             this.tbxShip.TabIndex = 0;
             this.tbxShip.WordWrap = false;
             // 
             // splitContainerShip
             // 
-            this.splitContainerShip.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainerShip.Location = new System.Drawing.Point(6, 6);
+            this.splitContainerShip.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerShip.Location = new System.Drawing.Point(3, 3);
             this.splitContainerShip.Name = "splitContainerShip";
             // 
             // splitContainerShip.Panel1
@@ -155,8 +153,8 @@
             // splitContainerShip.Panel2
             // 
             this.splitContainerShip.Panel2.Controls.Add(this.tbxShip);
-            this.splitContainerShip.Size = new System.Drawing.Size(746, 404);
-            this.splitContainerShip.SplitterDistance = 330;
+            this.splitContainerShip.Size = new System.Drawing.Size(752, 410);
+            this.splitContainerShip.SplitterDistance = 332;
             this.splitContainerShip.TabIndex = 5;
             // 
             // dgvShip
@@ -165,7 +163,7 @@
             this.dgvShip.AllowUserToDeleteRows = false;
             this.dgvShip.AllowUserToOrderColumns = true;
             this.dgvShip.AllowUserToResizeRows = false;
-            this.dgvShip.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvShip.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvShip.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnShipIndex,
             this.ColumnShipSelection,
@@ -183,17 +181,21 @@
             this.dgvShip.ReadOnly = true;
             this.dgvShip.RowHeadersVisible = false;
             this.dgvShip.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvShip.Size = new System.Drawing.Size(330, 404);
+            this.dgvShip.Size = new System.Drawing.Size(332, 410);
             this.dgvShip.TabIndex = 2;
             this.dgvShip.SelectionChanged += new System.EventHandler(this.dgvShip_SelectionChanged);
             // 
             // ColumnShipIndex
             // 
+            this.ColumnShipIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnShipIndex.FillWeight = 20F;
             this.ColumnShipIndex.Frozen = true;
             this.ColumnShipIndex.HeaderText = "# Index";
+            this.ColumnShipIndex.MinimumWidth = 20;
             this.ColumnShipIndex.Name = "ColumnShipIndex";
             this.ColumnShipIndex.ReadOnly = true;
             this.ColumnShipIndex.Visible = false;
+            this.ColumnShipIndex.Width = 20;
             // 
             // ColumnShipSelection
             // 
@@ -227,24 +229,23 @@
             // 
             // ColumnShipFuel
             // 
-            this.ColumnShipFuel.Frozen = true;
             this.ColumnShipFuel.HeaderText = "Fuel";
             this.ColumnShipFuel.Name = "ColumnShipFuel";
             this.ColumnShipFuel.ReadOnly = true;
             // 
             // ColumnShipDamage
             // 
-            this.ColumnShipDamage.Frozen = true;
             this.ColumnShipDamage.HeaderText = "Damage";
             this.ColumnShipDamage.Name = "ColumnShipDamage";
             this.ColumnShipDamage.ReadOnly = true;
             // 
             // ColumnShipDate
             // 
-            this.ColumnShipDate.Frozen = true;
+            this.ColumnShipDate.FillWeight = 107F;
             this.ColumnShipDate.HeaderText = "Last Updated";
             this.ColumnShipDate.Name = "ColumnShipDate";
             this.ColumnShipDate.ReadOnly = true;
+            this.ColumnShipDate.Width = 107;
             // 
             // tabControl1
             // 
@@ -273,10 +274,8 @@
             // 
             // splitContainerCity
             // 
-            this.splitContainerCity.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainerCity.Location = new System.Drawing.Point(6, 6);
+            this.splitContainerCity.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerCity.Location = new System.Drawing.Point(3, 3);
             this.splitContainerCity.Name = "splitContainerCity";
             // 
             // splitContainerCity.Panel1
@@ -286,8 +285,8 @@
             // splitContainerCity.Panel2
             // 
             this.splitContainerCity.Panel2.Controls.Add(this.tbxCity);
-            this.splitContainerCity.Size = new System.Drawing.Size(746, 404);
-            this.splitContainerCity.SplitterDistance = 330;
+            this.splitContainerCity.Size = new System.Drawing.Size(752, 410);
+            this.splitContainerCity.SplitterDistance = 332;
             this.splitContainerCity.TabIndex = 6;
             // 
             // dgvCity
@@ -296,7 +295,7 @@
             this.dgvCity.AllowUserToDeleteRows = false;
             this.dgvCity.AllowUserToOrderColumns = true;
             this.dgvCity.AllowUserToResizeRows = false;
-            this.dgvCity.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCity.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCity.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnCityIndex,
             this.ColumnCitySelection,
@@ -315,17 +314,21 @@
             this.dgvCity.ReadOnly = true;
             this.dgvCity.RowHeadersVisible = false;
             this.dgvCity.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCity.Size = new System.Drawing.Size(330, 404);
+            this.dgvCity.Size = new System.Drawing.Size(332, 410);
             this.dgvCity.TabIndex = 2;
             this.dgvCity.SelectionChanged += new System.EventHandler(this.dgvCity_SelectionChanged);
             // 
             // ColumnCityIndex
             // 
+            this.ColumnCityIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnCityIndex.FillWeight = 20F;
             this.ColumnCityIndex.Frozen = true;
             this.ColumnCityIndex.HeaderText = "# Index";
+            this.ColumnCityIndex.MinimumWidth = 20;
             this.ColumnCityIndex.Name = "ColumnCityIndex";
             this.ColumnCityIndex.ReadOnly = true;
             this.ColumnCityIndex.Visible = false;
+            this.ColumnCityIndex.Width = 20;
             // 
             // ColumnCitySelection
             // 
@@ -359,27 +362,35 @@
             // 
             // ColumnCityMorale
             // 
+            this.ColumnCityMorale.FillWeight = 112F;
             this.ColumnCityMorale.HeaderText = "Morale";
             this.ColumnCityMorale.Name = "ColumnCityMorale";
             this.ColumnCityMorale.ReadOnly = true;
+            this.ColumnCityMorale.Width = 112;
             // 
             // ColumnCityPopulation
             // 
+            this.ColumnCityPopulation.FillWeight = 118F;
             this.ColumnCityPopulation.HeaderText = "Population";
             this.ColumnCityPopulation.Name = "ColumnCityPopulation";
             this.ColumnCityPopulation.ReadOnly = true;
+            this.ColumnCityPopulation.Width = 118;
             // 
             // ColumnCityLivingConditions
             // 
+            this.ColumnCityLivingConditions.FillWeight = 112F;
             this.ColumnCityLivingConditions.HeaderText = "Living Conditions";
             this.ColumnCityLivingConditions.Name = "ColumnCityLivingConditions";
             this.ColumnCityLivingConditions.ReadOnly = true;
+            this.ColumnCityLivingConditions.Width = 112;
             // 
             // ColumnCityDate
             // 
+            this.ColumnCityDate.FillWeight = 107F;
             this.ColumnCityDate.HeaderText = "Last Updated";
             this.ColumnCityDate.Name = "ColumnCityDate";
             this.ColumnCityDate.ReadOnly = true;
+            this.ColumnCityDate.Width = 107;
             // 
             // tbxCity
             // 
@@ -389,7 +400,7 @@
             this.tbxCity.Name = "tbxCity";
             this.tbxCity.ReadOnly = true;
             this.tbxCity.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxCity.Size = new System.Drawing.Size(412, 404);
+            this.tbxCity.Size = new System.Drawing.Size(416, 410);
             this.tbxCity.TabIndex = 0;
             this.tbxCity.WordWrap = false;
             // 
@@ -417,10 +428,8 @@
             // 
             // splitContainerOfficer
             // 
-            this.splitContainerOfficer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainerOfficer.Location = new System.Drawing.Point(6, 6);
+            this.splitContainerOfficer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerOfficer.Location = new System.Drawing.Point(3, 3);
             this.splitContainerOfficer.Name = "splitContainerOfficer";
             // 
             // splitContainerOfficer.Panel1
@@ -430,8 +439,8 @@
             // splitContainerOfficer.Panel2
             // 
             this.splitContainerOfficer.Panel2.Controls.Add(this.tbxOfficer);
-            this.splitContainerOfficer.Size = new System.Drawing.Size(746, 404);
-            this.splitContainerOfficer.SplitterDistance = 330;
+            this.splitContainerOfficer.Size = new System.Drawing.Size(752, 410);
+            this.splitContainerOfficer.SplitterDistance = 332;
             this.splitContainerOfficer.TabIndex = 6;
             // 
             // dgvOfficer
@@ -440,7 +449,7 @@
             this.dgvOfficer.AllowUserToDeleteRows = false;
             this.dgvOfficer.AllowUserToOrderColumns = true;
             this.dgvOfficer.AllowUserToResizeRows = false;
-            this.dgvOfficer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOfficer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvOfficer.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnOfficerIndex,
             this.ColumnOfficerSelection,
@@ -458,17 +467,21 @@
             this.dgvOfficer.ReadOnly = true;
             this.dgvOfficer.RowHeadersVisible = false;
             this.dgvOfficer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOfficer.Size = new System.Drawing.Size(330, 404);
+            this.dgvOfficer.Size = new System.Drawing.Size(332, 410);
             this.dgvOfficer.TabIndex = 2;
             this.dgvOfficer.SelectionChanged += new System.EventHandler(this.dgvOfficer_SelectionChanged);
             // 
             // ColumnOfficerIndex
             // 
+            this.ColumnOfficerIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnOfficerIndex.FillWeight = 20F;
             this.ColumnOfficerIndex.Frozen = true;
             this.ColumnOfficerIndex.HeaderText = "# Index";
+            this.ColumnOfficerIndex.MinimumWidth = 20;
             this.ColumnOfficerIndex.Name = "ColumnOfficerIndex";
             this.ColumnOfficerIndex.ReadOnly = true;
             this.ColumnOfficerIndex.Visible = false;
+            this.ColumnOfficerIndex.Width = 20;
             // 
             // ColumnOfficerSelection
             // 
@@ -509,17 +522,17 @@
             // 
             // ColumnOfficerLocation
             // 
-            this.ColumnOfficerLocation.Frozen = true;
             this.ColumnOfficerLocation.HeaderText = "Location";
             this.ColumnOfficerLocation.Name = "ColumnOfficerLocation";
             this.ColumnOfficerLocation.ReadOnly = true;
             // 
             // ColumnOfficerDate
             // 
-            this.ColumnOfficerDate.Frozen = true;
+            this.ColumnOfficerDate.FillWeight = 107F;
             this.ColumnOfficerDate.HeaderText = "Last Updated";
             this.ColumnOfficerDate.Name = "ColumnOfficerDate";
             this.ColumnOfficerDate.ReadOnly = true;
+            this.ColumnOfficerDate.Width = 107;
             // 
             // tbxOfficer
             // 
@@ -529,7 +542,7 @@
             this.tbxOfficer.Name = "tbxOfficer";
             this.tbxOfficer.ReadOnly = true;
             this.tbxOfficer.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxOfficer.Size = new System.Drawing.Size(412, 404);
+            this.tbxOfficer.Size = new System.Drawing.Size(416, 410);
             this.tbxOfficer.TabIndex = 0;
             this.tbxOfficer.WordWrap = false;
             // 
