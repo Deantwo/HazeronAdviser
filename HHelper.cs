@@ -193,7 +193,9 @@ namespace HazeronAdviser
                         //    break;
                     }
                 }
-                return processed.Trim().Replace(Environment.NewLine + Environment.NewLine + Environment.NewLine, Environment.NewLine).Replace("&nbsp;", " "); // Trim for good measure and remove triple NewLine.
+                processed = processed.Replace(Environment.NewLine + Environment.NewLine + Environment.NewLine, Environment.NewLine); // Remove triple NewLines.
+                processed = processed.Replace("&nbsp;", " "); // Replace "&nbsp;" with a normal " ".
+                return processed.Trim(); // Trim for good measure before reuturning the text.
             }
             else
                 return input.Trim();
