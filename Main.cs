@@ -135,8 +135,8 @@ namespace HazeronAdviser
                         dgvCity.Rows[row].Cells["ColumnCityDate"].Style.BackColor = attantionMinor;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x08)) // 0b00001000 // There is -7 abandonment.
                         dgvCity.Rows[row].Cells["ColumnCityDate"].Style.BackColor = attantionMajor;
-                    //if (HHelper.FlagCheck(hCity.AttentionCode, 0x10)) // 0b00010000 // Nothing yet!
-                    //    dgvCity.Rows[row].Cells["ColumnCityIndex"].Style.BackColor = attantionMajor;
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x10)) // 0b00010000 // Over populated!
+                        dgvCity.Rows[row].Cells["ColumnCityPopulatio"].Style.BackColor = attantionMajor;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x20)) // 0b00100000 // Population is 0.
                         dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = attantionMajor;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x40)) // 0b01000000 // Morale not full.
