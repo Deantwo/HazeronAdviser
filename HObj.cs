@@ -106,7 +106,7 @@ namespace HazeronAdviser
                 int subStart, subEnd;
                 string[] temp;
                 // Time for City spicific things.
-                int morale, population, homes, jobs;
+                int morale, population, homes, jobs, populationLimit;
                 int abandonment = 0;
 
                 if (mail.MessageType != 0x17) // MSG_CityFinalDecayReport
@@ -143,6 +143,55 @@ namespace HazeronAdviser
                     _livingConditionsShort = temp[1] + ", " + temp[4];
                     jobs = Convert.ToInt32(temp[1].Split(' ')[1]);
                     homes = Convert.ToInt32(temp[4].Split(' ')[1]);
+
+                    // Planet Size
+                    if (!mail.Body.Contains("Ringworld Arc"))
+                    {
+                        subStart = mail.Body.IndexOf("m dia, ");
+                        temp = mail.Body.Remove(subStart).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                        populationLimit = Convert.ToInt32(temp[temp.Length - 1].Replace(",", ""));
+                        switch (populationLimit)
+                        {
+                            case 1800:
+                                populationLimit = 100;
+                                break;
+                            case 3800:
+                                populationLimit = 200;
+                                break;
+                            case 5600:
+                                populationLimit = 300;
+                                break;
+                            case 7600:
+                                populationLimit = 400;
+                                break;
+                            case 9400:
+                                populationLimit = 500;
+                                break;
+                            case 11400:
+                                populationLimit = 600;
+                                break;
+                            case 15200:
+                                populationLimit = 800;
+                                break;
+                            case 17000:
+                                populationLimit = 900;
+                                break;
+                            case 19000:
+                                populationLimit = 1000;
+                                break;
+                            case 20800:
+                                populationLimit = 1100;
+                                break;
+                            case 22800:
+                                populationLimit = 1200;
+                                break;
+                            default:
+                                populationLimit = 0;
+                                break;
+                        }
+                    }
+                    else
+                        populationLimit = 1000;
                     
                     // AttentionCodes
                     if ((jobs >= homes) || (((float)(homes - jobs) / homes) > 0.2)) // More jobs than homes, or too many unemployed.
@@ -153,8 +202,8 @@ namespace HazeronAdviser
                         _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100
                     if (-7 >= abandonment) // There is -7 abandonment.
                         _attentionCode = (byte)(_attentionCode | 0x08); // 0b00001000
-                    if (false) // Nothing yet!
-                        _attentionCode = (byte)(_attentionCode | 0x10); // 0b00010000
+                    //if (population >= populationLimit) // Over populated!
+                    //    _attentionCode = (byte)(_attentionCode | 0x10); // 0b00010000
                     if (population == 0) // Population is 0.
                         _attentionCode = (byte)(_attentionCode | 0x20); // 0b00100000
                     if (morale < 20) // Morale not full.
