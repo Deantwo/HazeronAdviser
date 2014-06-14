@@ -96,6 +96,13 @@ namespace HazeronAdviser
             get { return _livingConditionsShort; }
         }
 
+        protected List<HCitySlice> _slice = new List<HCitySlice>();
+        public List<HCitySlice> Timeslice
+        {
+            get { return _slice; }
+            set { _slice = value; }
+        }
+
         public HCity(HMail mail)
         {
             _id = HHelper.ToID(mail.SenderID);
@@ -104,6 +111,8 @@ namespace HazeronAdviser
 
         public override void Update(HMail mail)
         {
+            _slice.Add(new HCitySlice(mail));
+
             if (HMail.IsCityReport(mail.MailBytes) && DateTime.Compare(_lastUpdated, mail.DateTime) < 0)
             {
                 base.Update(mail);

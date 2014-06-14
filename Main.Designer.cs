@@ -43,7 +43,7 @@
             this.ColumnShipFuel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnShipDamage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnShipDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabCity = new System.Windows.Forms.TabPage();
             this.splitContainerCity = new System.Windows.Forms.SplitContainer();
             this.dgvCity = new System.Windows.Forms.DataGridView();
@@ -52,9 +52,14 @@
             this.ColumnCityIcon = new System.Windows.Forms.DataGridViewImageColumn();
             this.ColumnCityName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCityMorale = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCityPopulation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCityLivingConditions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCityDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabControlCity = new System.Windows.Forms.TabControl();
+            this.tabCityStatistics = new System.Windows.Forms.TabPage();
+            this.pCityStatistics = new System.Windows.Forms.Panel();
+            this.tabCityMail = new System.Windows.Forms.TabPage();
             this.tbxCity = new System.Windows.Forms.TextBox();
             this.tabShip = new System.Windows.Forms.TabPage();
             this.tabPageOfficer = new System.Windows.Forms.TabPage();
@@ -74,13 +79,16 @@
             this.splitContainerShip.Panel2.SuspendLayout();
             this.splitContainerShip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShip)).BeginInit();
-            this.tabControl1.SuspendLayout();
+            this.tabControlMain.SuspendLayout();
             this.tabCity.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerCity)).BeginInit();
             this.splitContainerCity.Panel1.SuspendLayout();
             this.splitContainerCity.Panel2.SuspendLayout();
             this.splitContainerCity.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCity)).BeginInit();
+            this.tabControlCity.SuspendLayout();
+            this.tabCityStatistics.SuspendLayout();
+            this.tabCityMail.SuspendLayout();
             this.tabShip.SuspendLayout();
             this.tabPageOfficer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerOfficer)).BeginInit();
@@ -247,19 +255,19 @@
             this.ColumnShipDate.ReadOnly = true;
             this.ColumnShipDate.Width = 107;
             // 
-            // tabControl1
+            // tabControlMain
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabCity);
-            this.tabControl1.Controls.Add(this.tabShip);
-            this.tabControl1.Controls.Add(this.tabPageOfficer);
-            this.tabControl1.Location = new System.Drawing.Point(12, 41);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(766, 442);
-            this.tabControl1.TabIndex = 1;
+            this.tabControlMain.Controls.Add(this.tabCity);
+            this.tabControlMain.Controls.Add(this.tabShip);
+            this.tabControlMain.Controls.Add(this.tabPageOfficer);
+            this.tabControlMain.Location = new System.Drawing.Point(12, 41);
+            this.tabControlMain.Name = "tabControlMain";
+            this.tabControlMain.SelectedIndex = 0;
+            this.tabControlMain.Size = new System.Drawing.Size(766, 442);
+            this.tabControlMain.TabIndex = 1;
             // 
             // tabCity
             // 
@@ -284,9 +292,9 @@
             // 
             // splitContainerCity.Panel2
             // 
-            this.splitContainerCity.Panel2.Controls.Add(this.tbxCity);
+            this.splitContainerCity.Panel2.Controls.Add(this.tabControlCity);
             this.splitContainerCity.Size = new System.Drawing.Size(752, 410);
-            this.splitContainerCity.SplitterDistance = 332;
+            this.splitContainerCity.SplitterDistance = 331;
             this.splitContainerCity.TabIndex = 6;
             // 
             // dgvCity
@@ -302,6 +310,7 @@
             this.ColumnCityIcon,
             this.ColumnCityName,
             this.ColumnCityMorale,
+            this.ColumnCityAbandonment,
             this.ColumnCityPopulation,
             this.ColumnCityLivingConditions,
             this.ColumnCityDate});
@@ -314,7 +323,7 @@
             this.dgvCity.ReadOnly = true;
             this.dgvCity.RowHeadersVisible = false;
             this.dgvCity.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCity.Size = new System.Drawing.Size(332, 410);
+            this.dgvCity.Size = new System.Drawing.Size(331, 410);
             this.dgvCity.TabIndex = 2;
             this.dgvCity.SelectionChanged += new System.EventHandler(this.dgvCity_SelectionChanged);
             // 
@@ -368,6 +377,14 @@
             this.ColumnCityMorale.ReadOnly = true;
             this.ColumnCityMorale.Width = 112;
             // 
+            // ColumnCityAbandonment
+            // 
+            this.ColumnCityAbandonment.FillWeight = 80F;
+            this.ColumnCityAbandonment.HeaderText = "Abandonment";
+            this.ColumnCityAbandonment.Name = "ColumnCityAbandonment";
+            this.ColumnCityAbandonment.ReadOnly = true;
+            this.ColumnCityAbandonment.Width = 80;
+            // 
             // ColumnCityPopulation
             // 
             this.ColumnCityPopulation.FillWeight = 118F;
@@ -392,15 +409,61 @@
             this.ColumnCityDate.ReadOnly = true;
             this.ColumnCityDate.Width = 107;
             // 
+            // tabControlCity
+            // 
+            this.tabControlCity.Controls.Add(this.tabCityStatistics);
+            this.tabControlCity.Controls.Add(this.tabCityMail);
+            this.tabControlCity.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlCity.Location = new System.Drawing.Point(0, 0);
+            this.tabControlCity.Name = "tabControlCity";
+            this.tabControlCity.SelectedIndex = 0;
+            this.tabControlCity.Size = new System.Drawing.Size(417, 410);
+            this.tabControlCity.TabIndex = 1;
+            // 
+            // tabCityStatistics
+            // 
+            this.tabCityStatistics.Controls.Add(this.pCityStatistics);
+            this.tabCityStatistics.Location = new System.Drawing.Point(4, 22);
+            this.tabCityStatistics.Name = "tabCityStatistics";
+            this.tabCityStatistics.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCityStatistics.Size = new System.Drawing.Size(409, 384);
+            this.tabCityStatistics.TabIndex = 0;
+            this.tabCityStatistics.Text = "Statistics";
+            this.tabCityStatistics.UseVisualStyleBackColor = true;
+            // 
+            // pCityStatistics
+            // 
+            this.pCityStatistics.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pCityStatistics.BackColor = System.Drawing.Color.LightGray;
+            this.pCityStatistics.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pCityStatistics.Location = new System.Drawing.Point(6, 6);
+            this.pCityStatistics.Name = "pCityStatistics";
+            this.pCityStatistics.Size = new System.Drawing.Size(397, 372);
+            this.pCityStatistics.TabIndex = 0;
+            this.pCityStatistics.Paint += new System.Windows.Forms.PaintEventHandler(this.pCityStatistics_Paint);
+            // 
+            // tabCityMail
+            // 
+            this.tabCityMail.Controls.Add(this.tbxCity);
+            this.tabCityMail.Location = new System.Drawing.Point(4, 22);
+            this.tabCityMail.Name = "tabCityMail";
+            this.tabCityMail.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCityMail.Size = new System.Drawing.Size(408, 384);
+            this.tabCityMail.TabIndex = 1;
+            this.tabCityMail.Text = "Raw Mail";
+            this.tabCityMail.UseVisualStyleBackColor = true;
+            // 
             // tbxCity
             // 
             this.tbxCity.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbxCity.Location = new System.Drawing.Point(0, 0);
+            this.tbxCity.Location = new System.Drawing.Point(3, 3);
             this.tbxCity.Multiline = true;
             this.tbxCity.Name = "tbxCity";
             this.tbxCity.ReadOnly = true;
             this.tbxCity.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxCity.Size = new System.Drawing.Size(416, 410);
+            this.tbxCity.Size = new System.Drawing.Size(402, 378);
             this.tbxCity.TabIndex = 0;
             this.tbxCity.WordWrap = false;
             // 
@@ -551,7 +614,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(790, 508);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.button1);
             this.Name = "Main";
@@ -564,14 +627,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).EndInit();
             this.splitContainerShip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvShip)).EndInit();
-            this.tabControl1.ResumeLayout(false);
+            this.tabControlMain.ResumeLayout(false);
             this.tabCity.ResumeLayout(false);
             this.splitContainerCity.Panel1.ResumeLayout(false);
             this.splitContainerCity.Panel2.ResumeLayout(false);
-            this.splitContainerCity.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerCity)).EndInit();
             this.splitContainerCity.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCity)).EndInit();
+            this.tabControlCity.ResumeLayout(false);
+            this.tabCityStatistics.ResumeLayout(false);
+            this.tabCityMail.ResumeLayout(false);
+            this.tabCityMail.PerformLayout();
             this.tabShip.ResumeLayout(false);
             this.tabPageOfficer.ResumeLayout(false);
             this.splitContainerOfficer.Panel1.ResumeLayout(false);
@@ -593,7 +659,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.TextBox tbxShip;
         private System.Windows.Forms.SplitContainer splitContainerShip;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabCity;
         private System.Windows.Forms.TabPage tabShip;
         private System.Windows.Forms.SplitContainer splitContainerCity;
@@ -612,14 +678,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipFuel;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDamage;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityIndex;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnCitySelection;
-        private System.Windows.Forms.DataGridViewImageColumn ColumnCityIcon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityMorale;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityPopulation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLivingConditions;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerIndex;
         private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnOfficerSelection;
         private System.Windows.Forms.DataGridViewImageColumn ColumnOfficerIcon;
@@ -627,6 +685,19 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerHome;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerLocation;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerDate;
+        private System.Windows.Forms.TabControl tabControlCity;
+        private System.Windows.Forms.TabPage tabCityStatistics;
+        private System.Windows.Forms.TabPage tabCityMail;
+        private System.Windows.Forms.Panel pCityStatistics;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityIndex;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnCitySelection;
+        private System.Windows.Forms.DataGridViewImageColumn ColumnCityIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityMorale;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityAbandonment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityPopulation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLivingConditions;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityDate;
     }
 }
 

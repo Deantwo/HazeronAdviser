@@ -46,9 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DrawingTools.cs" />
     <Compile Include="HHelper.cs" />
     <Compile Include="HMail.cs" />
     <Compile Include="HObj.cs" />
+    <Compile Include="HSlice.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

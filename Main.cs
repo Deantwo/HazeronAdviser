@@ -32,6 +32,8 @@ namespace HazeronAdviser
             imageCity = HazeronAdviser.Properties.Resources.c_Flag;
             imageShip = HazeronAdviser.Properties.Resources.GovSpacecraft;
             imageOfficer = HazeronAdviser.Properties.Resources.Officer;
+            dgvCity.Columns["ColumnCityAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvCity.Columns["ColumnCityAbandonment"].DefaultCellStyle.Font = new Font("Lucida Console", 9); 
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -111,6 +113,7 @@ namespace HazeronAdviser
             toolStripStatusLabel1.Text = "Filling tables...";
             toolStripStatusLabel1.Invalidate();
             statusStrip1.Update();
+            #region Fill City Table
             foreach (var hCity in hCityList)
             {
                 dgvCity.Rows.Add();
@@ -120,9 +123,12 @@ namespace HazeronAdviser
                 dgvCity.Rows[row].Cells["ColumnCityIcon"].Value = imageCity;
                 dgvCity.Rows[row].Cells["ColumnCityName"].Value = hCity.Name;
                 dgvCity.Rows[row].Cells["ColumnCityMorale"].Value = hCity.MoraleShort;
+                dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Value = hCity.DecayDay;
                 dgvCity.Rows[row].Cells["ColumnCityPopulation"].Value = hCity.PopulationShort;
                 dgvCity.Rows[row].Cells["ColumnCityLivingConditions"].Value = hCity.LivingShort;
                 dgvCity.Rows[row].Cells["ColumnCityDate"].Value = hCity.LastUpdaredString;
+                // Graph
+                hCity.Timeslice.Sort((x, y) => y.Timestamp.CompareTo(x.Timestamp));
                 // AttentionCodes
                 if (hCity.AttentionCode != 0x00)
                 {
@@ -131,10 +137,10 @@ namespace HazeronAdviser
                         dgvCity.Rows[row].Cells["ColumnCityLivingConditions"].Style.BackColor = attantionMinor;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x02)) // 0b00000010 // Population not full.
                         dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = attantionMinor;
-                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x04)) // 0b00000100 // There is -4 abandonment.
-                        dgvCity.Rows[row].Cells["ColumnCityDate"].Style.BackColor = attantionMinor;
-                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x08)) // 0b00001000 // There is -7 abandonment.
-                        dgvCity.Rows[row].Cells["ColumnCityDate"].Style.BackColor = attantionMajor;
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x04)) // 0b00000100 // Less than 21 days to decay.
+                        dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Style.BackColor = attantionMinor;
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x08)) // 0b00001000 // Less than 7 days to decay.
+                        dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Style.BackColor = attantionMajor;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x10)) // 0b00010000 // Over populated!
                         dgvCity.Rows[row].Cells["ColumnCityPopulatio"].Style.BackColor = attantionMajor;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x20)) // 0b00100000 // Population is 0.
@@ -146,6 +152,8 @@ namespace HazeronAdviser
                 }
                 toolStripProgressBar2.Increment(1);
             }
+            #endregion
+            #region Fill Ship Table
             foreach (var hShip in hShipList)
             {
                 dgvShip.Rows.Add();
@@ -179,6 +187,8 @@ namespace HazeronAdviser
                 }
                 toolStripProgressBar2.Increment(1);
             }
+            #endregion
+            #region Fill Officer Table
             foreach (var hOfficer in hOfficerList)
             {
                 dgvOfficer.Rows.Add();
@@ -213,16 +223,19 @@ namespace HazeronAdviser
                 }
                 toolStripProgressBar2.Increment(1);
             }
+            #endregion
             toolStripProgressBar1.Visible = false;
             toolStripProgressBar2.Visible = false;
             toolStripStatusLabel1.Text = "Done!";
         }
 
+        #region List Selection
         private void dgvCity_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvCity.SelectedRows.Count != 0 && dgvCity.SelectedRows[0].Index != -1 && dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value != null)
             {
                 tbxCity.Text = hCityList[(int)dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value].BodyTest;
+                pCityStatistics.Refresh();
             }
         }
 
@@ -241,5 +254,27 @@ namespace HazeronAdviser
                 tbxOfficer.Text = hOfficerList[(int)dgvOfficer.Rows[(int)dgvOfficer.SelectedRows[0].Index].Cells["ColumnOfficerIndex"].Value].BodyTest;
             }
         }
+        #endregion
+
+        #region Statistics Graphics
+        private void pCityStatistics_Paint(object sender, PaintEventArgs e) // gCityStatistics
+        {
+            Graphics gCityStatistics = e.Graphics;
+            if (dgvCity.SelectedRows.Count != 0 && dgvCity.SelectedRows[0].Index != -1 && dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value != null)
+            {
+                DrawingTools.DrawGraphAxles(pCityStatistics, gCityStatistics, "Tick", "Pop");
+                List<HCitySlice> citySlices = hCityList[(int)dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value].Timeslice;
+                int[] yValue;
+                yValue = citySlices.Select(x => x.PopulationLimit).ToArray();
+                DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.Red);
+                yValue = citySlices.Select(x => x.Population).ToArray();
+                DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.LightGreen);
+                yValue = citySlices.Select(x => x.Homes).ToArray();
+                DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.Green);
+                yValue = citySlices.Select(x => x.Jobs).ToArray();
+                DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.Blue);
+            }
+        }
+        #endregion
     }
 }
