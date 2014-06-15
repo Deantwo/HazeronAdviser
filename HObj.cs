@@ -31,8 +31,8 @@ namespace HazeronAdviser
             }
         }
 
-        protected bool _info = false;
-        protected bool _distress = false;
+        protected bool _flagInfo = false;
+        protected bool _flagDistress = false;
 
         protected byte _attentionCode = 0x00; // 0b00000000
         public byte AttentionCode
@@ -60,6 +60,18 @@ namespace HazeronAdviser
 
     class HCity : HObj
     {
+        protected string _info = "-";
+        public string Info
+        {
+            get { return _info; }
+        }
+
+        protected string _distress = "-";
+        public string Distress
+        {
+            get { return _distress; }
+        }
+
         protected string _morale = "-", _moraleShort = "-";
         public string Morale
         {
@@ -127,6 +139,25 @@ namespace HazeronAdviser
 
                 if (mail.MessageType != 0x17) // MSG_CityFinalDecayReport
                 {
+                    //INFO
+                    if (mail.MessageType == 0x06) // MSG_CityStatusReportInfo
+                    {
+                        subStart = mail.Body.IndexOf("<b>EVENT LOG</b>");
+                        subEnd = mail.Body.IndexOf("<b>MORALE</b>") - subStart;
+                        _info = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                    }
+
+                    //DISTRESS
+                    if (mail.MessageType == 0x04) // MSG_CityDistressReport
+                    {
+                        subStart = mail.Body.IndexOf("<b style=\"color: rgb(255, 255, 0);\">DISTRESS</b>");
+                        if (mail.Body.Contains("<b>DECAY</b>"))
+                            subEnd = mail.Body.IndexOf("<b>DECAY</b>") - subStart;
+                        else
+                            throw new Exception("Unknown DISTRESS message format"); // Need more info on this!
+                        _distress = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                    }
+
                     // MORALE
                     subStart = mail.Body.IndexOf("<b>MORALE</b>");
                     subEnd = mail.Body.IndexOf("<b>POPULATION</b>") - subStart;
@@ -146,8 +177,10 @@ namespace HazeronAdviser
                     dDay = ((modifier + 1) * abandonmentInterval) - (abandonedDays % abandonmentInterval);
                     if (abandonedDays != 0)
                         _decayDay = dDay.ToString("00") + "  days";
-                    else
+                    else if (!mail.Body.Contains("<span style=\"color: rgb(255, 255, 0);\">City is decaying.<br></span>"))
                         _decayDay = dDay.ToString("00") + "~ days";
+                    else
+                        _decayDay = " Decaying";
                     tempArray = _moraleShort.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
                     morale = Convert.ToInt32(tempArray[tempArray.Length - 1]);
 

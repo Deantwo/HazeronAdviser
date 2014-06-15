@@ -276,6 +276,11 @@ namespace HazeronAdviser
                 DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.Green);
                 yValue = citySlices.Select(x => x.Jobs).ToArray();
                 DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.Blue);
+                //yValue = citySlices.Select(x => x.Loyal).ToArray(); // Need to think more about how to do this.
+                //if (yValue > 0)
+                //    DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.Yellow);
+                //else if (yValue < 0)
+                //    DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, -yValue, Color.Orange);
             }
         }
         #endregion

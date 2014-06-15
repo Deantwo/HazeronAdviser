@@ -29,10 +29,22 @@ namespace HazeronAdviser
             get { return _morale; }
         }
 
+        protected int _moraleModifier = 0;
+        public int MoraleModifier
+        {
+            get { return _moraleModifier; }
+        }
+
         protected int _population = 0;
         public int Population
         {
             get { return _population; }
+        }
+
+        protected int _loyalty = 0;
+        public int Loyalty
+        {
+            get { return _loyalty; }
         }
 
         protected int _homes = 0;
@@ -61,7 +73,7 @@ namespace HazeronAdviser
             int subStart, subEnd;
             string[] tempArray;
             // Time for City spicific things.
-            string tempMorale, tempPopulation, tempLivingConditions;
+            string tempMorale, tempPopulation, tempPopulation2, tempLivingConditions;
 
             if (mail.MessageType != 0x17) // MSG_CityFinalDecayReport
             {
@@ -70,6 +82,12 @@ namespace HazeronAdviser
                 subEnd = mail.Body.IndexOf("<b>POPULATION</b>") - subStart;
                 tempMorale = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
                 tempArray = tempMorale.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string line in tempArray)
+                    if (!line.ToLower().Contains("morale"))
+                    {
+                        string[] tempLineArray = line.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                        _moraleModifier += Convert.ToInt32(tempLineArray[0]);
+                    }
                 tempMorale = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1).Substring(7);
                 tempArray = tempMorale.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
                 _morale = Convert.ToInt32(tempArray[tempArray.Length - 1]);
@@ -80,11 +98,18 @@ namespace HazeronAdviser
                 tempPopulation = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
                 tempArray = tempPopulation.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 if (!tempArray[tempArray.Length - 1].Contains("loyal") || tempArray[tempArray.Length - 2].Contains("prevents immigration. Airport needed."))
-                    tempPopulation = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1).Substring(11);
+                    tempPopulation2 = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1).Substring(11);
                 else
-                    tempPopulation = tempArray[tempArray.Length - 2].Remove(tempArray[tempArray.Length - 2].Length - 1).Substring(11);
-                tempArray = tempPopulation.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                    tempPopulation2 = tempArray[tempArray.Length - 2].Remove(tempArray[tempArray.Length - 2].Length - 1).Substring(11);
+                tempArray = tempPopulation2.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
                 _population = Convert.ToInt32(tempArray[tempArray.Length - 1]);
+                tempArray = tempPopulation.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                tempPopulation2 = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1).Substring(11);
+                tempArray = tempPopulation2.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                if (tempPopulation2.Contains("loyal"))
+                    _loyalty = Convert.ToInt32(tempArray[0]);
+                else if (tempPopulation2.Contains("disloyal"))
+                    _loyalty = -Convert.ToInt32(tempArray[0]);
 
                 // LIVING CONDITIONS
                 subStart = mail.Body.IndexOf("<b>LIVING CONDITIONS</b>");
