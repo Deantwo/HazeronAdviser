@@ -98,13 +98,13 @@ namespace HazeronAdviser
                 tempPopulation = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
                 tempArray = tempPopulation.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 if (!tempArray[tempArray.Length - 1].Contains("loyal") || tempArray[tempArray.Length - 2].Contains("prevents immigration. Airport needed."))
-                    tempPopulation2 = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1).Substring(11);
+                    tempPopulation2 = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1);
                 else
-                    tempPopulation2 = tempArray[tempArray.Length - 2].Remove(tempArray[tempArray.Length - 2].Length - 1).Substring(11);
+                    tempPopulation2 = tempArray[tempArray.Length - 2].Remove(tempArray[tempArray.Length - 2].Length - 1);
                 tempArray = tempPopulation2.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
                 _population = Convert.ToInt32(tempArray[tempArray.Length - 1]);
                 tempArray = tempPopulation.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                tempPopulation2 = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1).Substring(11);
+                tempPopulation2 = tempArray[tempArray.Length - 1];
                 tempArray = tempPopulation2.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
                 if (tempPopulation2.Contains("loyal"))
                     _loyalty = Convert.ToInt32(tempArray[0]);
