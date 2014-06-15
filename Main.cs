@@ -27,6 +27,9 @@ namespace HazeronAdviser
         public Main()
         {
             InitializeComponent();
+            #if !RELEASE
+            this.Text += " (DEBUG MODE)";
+            #endif
             toolStripProgressBar1.Visible = false;
             toolStripProgressBar2.Visible = false;
             imageCity = HazeronAdviser.Properties.Resources.c_Flag;
@@ -142,7 +145,7 @@ namespace HazeronAdviser
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x08)) // 0b00001000 // Less than 7 days to decay.
                         dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Style.BackColor = attantionMajor;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x10)) // 0b00010000 // Over populated!
-                        dgvCity.Rows[row].Cells["ColumnCityPopulatio"].Style.BackColor = attantionMajor;
+                        dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = attantionMajor;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x20)) // 0b00100000 // Population is 0.
                         dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = attantionMajor;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x40)) // 0b01000000 // Morale not full.
