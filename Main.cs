@@ -268,19 +268,19 @@ namespace HazeronAdviser
                 DrawingTools.DrawGraphAxles(pCityStatistics, gCityStatistics, "Tick", "Pop");
                 List<HCitySlice> citySlices = hCityList[(int)dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value].Timeslice;
                 int[] yValue;
-                yValue = citySlices.Select(x => x.PopulationLimit).ToArray();
-                DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.Red);
+                yValue = citySlices.Select(x => x.Loyalty).ToArray(); // Need to think more about how to do this.
+                if (yValue.Average() > 0)
+                    DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue.Select(x => Math.Abs(x)).ToArray(), Color.Yellow);
+                else if (yValue.Average() < 0)
+                    DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue.Select(x => Math.Abs(x)).ToArray(), Color.Orange);
                 yValue = citySlices.Select(x => x.Population).ToArray();
                 DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.LightGreen);
                 yValue = citySlices.Select(x => x.Homes).ToArray();
                 DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.Green);
                 yValue = citySlices.Select(x => x.Jobs).ToArray();
                 DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.Blue);
-                //yValue = citySlices.Select(x => x.Loyal).ToArray(); // Need to think more about how to do this.
-                //if (yValue > 0)
-                //    DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.Yellow);
-                //else if (yValue < 0)
-                //    DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, -yValue, Color.Orange);
+                yValue = citySlices.Select(x => x.PopulationLimit).ToArray();
+                DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.Red);
             }
         }
         #endregion

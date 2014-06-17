@@ -154,7 +154,7 @@ namespace HazeronAdviser
                         if (mail.Body.Contains("<b>DECAY</b>"))
                             subEnd = mail.Body.IndexOf("<b>DECAY</b>") - subStart;
                         else
-                            throw new Exception("Unknown DISTRESS message format"); // Need more info on this!
+                            subEnd = mail.Body.IndexOf("<b>MORALE</b>") - subStart;
                         _distress = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
                     }
 

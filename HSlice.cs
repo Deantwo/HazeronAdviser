@@ -106,10 +106,10 @@ namespace HazeronAdviser
                 tempArray = tempPopulation.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 tempPopulation2 = tempArray[tempArray.Length - 1];
                 tempArray = tempPopulation2.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                if (tempPopulation2.Contains("loyal"))
-                    _loyalty = Convert.ToInt32(tempArray[0]);
-                else if (tempPopulation2.Contains("disloyal"))
+                if (tempPopulation2.Contains("disloyal"))
                     _loyalty = -Convert.ToInt32(tempArray[0]);
+                else if (tempPopulation2.Contains("loyal"))
+                    _loyalty = Convert.ToInt32(tempArray[0]);
 
                 // LIVING CONDITIONS
                 subStart = mail.Body.IndexOf("<b>LIVING CONDITIONS</b>");
