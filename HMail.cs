@@ -8,9 +8,19 @@ namespace HazeronAdviser
 {
     class HMail
     {
+        #region Static Methods
         static public byte[] Read(string filePath)
         {
             return File.ReadAllBytes(filePath);
+        }
+
+        static public bool IsUni4(byte[] mailBytes)
+        {
+            return (mailBytes[0] == 0x21 && mailBytes[1] == 0x10);
+        }
+        static public bool IsUni4(string filePath)
+        {
+            return IsUni4(HMail.Read(filePath));
         }
 
         static public bool IsCityReport(int messageType) // Give true if MessageType is a City Report (or related) mail.
@@ -123,6 +133,7 @@ namespace HazeronAdviser
         {
             return IsShipReport(HMail.Read(filePath));
         }
+        #endregion
 
         // Anr's mail header info sheet: http://goo.gl/E0yoYd
 

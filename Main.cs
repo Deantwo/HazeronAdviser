@@ -68,47 +68,50 @@ namespace HazeronAdviser
             tbxOfficer.Clear();
             foreach (string file in fileList)
             {
-                #if RELEASE
-                try
+                if (HMail.IsUni4(file)) // Check if signature is 0x2110 before trying to read it.
                 {
-                #endif
-                    if (HMail.IsCityReport(file))
+                    #if RELEASE
+                    try
                     {
-                        HCity temp = new HCity(new HMail(file));
-                        if (hCityList.Any(city => city.ID == temp.ID))
-                            hCityList[hCityList.FindIndex(city => city.ID == temp.ID)].Update(new HMail(file));
-                        else
-                            hCityList.Add(temp);
+                    #endif
+                        if (HMail.IsCityReport(file))
+                        {
+                            HCity temp = new HCity(new HMail(file));
+                            if (hCityList.Any(city => city.ID == temp.ID))
+                                hCityList[hCityList.FindIndex(city => city.ID == temp.ID)].Update(new HMail(file));
+                            else
+                                hCityList.Add(temp);
+                        }
+                        else if (HMail.IsShipLog(file))
+                        {
+                            HShip temp = new HShip(new HMail(file));
+                            if (hShipList.Any(ship => ship.ID == temp.ID))
+                                hShipList[hShipList.FindIndex(ship => ship.ID == temp.ID)].Update(new HMail(file));
+                            else
+                                hShipList.Add(temp);
+                        }
+                        else if (HMail.IsOfficerTenFour(file))
+                        {
+                            HOfficer temp = new HOfficer(new HMail(file));
+                            if (hOfficerList.Any(officer => officer.ID == temp.ID))
+                                hOfficerList[hOfficerList.FindIndex(ship => ship.ID == temp.ID)].Update(new HMail(file));
+                            else
+                                hOfficerList.Add(temp);
+                        }
+                        toolStripProgressBar1.Increment(1);
+                    #if RELEASE
                     }
-                    else if (HMail.IsShipLog(file))
+                    catch (Exception ex)
                     {
-                        HShip temp = new HShip(new HMail(file));
-                        if (hShipList.Any(ship => ship.ID == temp.ID))
-                            hShipList[hShipList.FindIndex(ship => ship.ID == temp.ID)].Update(new HMail(file));
-                        else
-                            hShipList.Add(temp);
+                        System.Diagnostics.Debug.WriteLine("### Error while scanning mail file:");
+                        System.Diagnostics.Debug.WriteLine("### " + ex.ToString());
+                        toolStripStatusLabel1.Text = "Error while scanning mail file: " + file;
+                        if (DialogResult.Yes == MessageBox.Show("Failed reading mail file:" + Environment.NewLine + file + Environment.NewLine + Environment.NewLine + "Copy mail filepath to clipboard?", "Mail Reading Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2))
+                            Clipboard.SetText(file);
+                        continue; // Continue reading the rest of the mails even though one failed, may cause more than one popup to appear if multiple failures.
                     }
-                    else if (HMail.IsOfficerTenFour(file))
-                    {
-                        HOfficer temp = new HOfficer(new HMail(file));
-                        if (hOfficerList.Any(officer => officer.ID == temp.ID))
-                            hOfficerList[hOfficerList.FindIndex(ship => ship.ID == temp.ID)].Update(new HMail(file));
-                        else
-                            hOfficerList.Add(temp);
-                    }
-                    toolStripProgressBar1.Increment(1);
-                #if RELEASE
+                    #endif
                 }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("### Error while scanning mail file:");
-                    System.Diagnostics.Debug.WriteLine("### " + ex.ToString());
-                    toolStripStatusLabel1.Text = "Error while scanning mail file: " + file;
-                    if (DialogResult.Yes == MessageBox.Show("Failed reading mail file:" + Environment.NewLine + file + Environment.NewLine + Environment.NewLine + "Copy mail filepath to clipboard?", "Mail Reading Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2))
-                        Clipboard.SetText(file);
-                    return;
-                }
-                #endif
             }
             toolStripProgressBar2.Value = 0;
             toolStripProgressBar2.Maximum = hCityList.Count + hShipList.Count + hOfficerList.Count;
