@@ -46,7 +46,7 @@ namespace HazeronAdviser
             graphObj.DrawLine(DrawingTools.Pen(Color.Black), panel.Width - edgeUR, panel.Height - edgeLD, panel.Width - edgeUR - 5, panel.Height - edgeLD - 5);
             graphObj.DrawLine(DrawingTools.Pen(Color.Black), panel.Width - edgeUR, panel.Height - edgeLD, panel.Width - edgeUR - 5, panel.Height - edgeLD + 5);
             int number = 1;
-            for (float loop = edgeLD + intervalX; loop < panel.Width - edgeUR * 2; loop += (int)intervalX)
+            for (float loop = edgeLD + intervalX; loop < panel.Width - edgeUR * 2; loop += intervalX)
             {
                 int numberOffset = 0;
                 graphObj.DrawLine(DrawingTools.Pen(Color.Black), loop, panel.Height - edgeLD - 2, loop, panel.Height - edgeLD + 5);
@@ -71,8 +71,8 @@ namespace HazeronAdviser
             graphObj.DrawEllipse(DrawingTools.Marker(color), edgeLD + 0 - 1, panel.Height - edgeLD - yAxle[0] * intervalY - 1, 2, 2);
             for (float loop = 1; loop < yAxle.Length; loop++)
             {
-                PointF from = new PointF(edgeLD + Convert.ToInt32((loop - 1) * intervalX), panel.Height - edgeLD - Convert.ToInt32(yAxle[(int)(loop - 1)] * intervalY));
-                PointF to = new PointF(edgeLD + Convert.ToInt32(loop * intervalX), panel.Height - edgeLD - Convert.ToInt32(yAxle[(int)loop] * intervalY));
+                PointF from = new PointF(edgeLD + (loop - 1) * intervalX, panel.Height - edgeLD - yAxle[(int)(loop - 1)] * intervalY);
+                PointF to = new PointF(edgeLD + loop * intervalX, panel.Height - edgeLD - yAxle[(int)loop] * intervalY);
                 graphObj.DrawLine(DrawingTools.Pen(color), from, to);
                 graphObj.DrawEllipse(DrawingTools.Marker(color), to.X - 1, to.Y - 1, 2, 2);
             }
