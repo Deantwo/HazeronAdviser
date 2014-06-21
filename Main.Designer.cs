@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.button1 = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -73,6 +75,7 @@
             this.ColumnOfficerLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnOfficerDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbxOfficer = new System.Windows.Forms.TextBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -442,6 +445,7 @@
             this.pCityStatistics.Name = "pCityStatistics";
             this.pCityStatistics.Size = new System.Drawing.Size(397, 372);
             this.pCityStatistics.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.pCityStatistics, resources.GetString("pCityStatistics.ToolTip"));
             this.pCityStatistics.Paint += new System.Windows.Forms.PaintEventHandler(this.pCityStatistics_Paint);
             // 
             // tabCityMail
@@ -450,7 +454,7 @@
             this.tabCityMail.Location = new System.Drawing.Point(4, 22);
             this.tabCityMail.Name = "tabCityMail";
             this.tabCityMail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityMail.Size = new System.Drawing.Size(408, 384);
+            this.tabCityMail.Size = new System.Drawing.Size(409, 384);
             this.tabCityMail.TabIndex = 1;
             this.tabCityMail.Text = "Raw Mail";
             this.tabCityMail.UseVisualStyleBackColor = true;
@@ -463,7 +467,7 @@
             this.tbxCity.Name = "tbxCity";
             this.tbxCity.ReadOnly = true;
             this.tbxCity.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxCity.Size = new System.Drawing.Size(402, 378);
+            this.tbxCity.Size = new System.Drawing.Size(403, 378);
             this.tbxCity.TabIndex = 0;
             this.tbxCity.WordWrap = false;
             // 
@@ -698,6 +702,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityPopulation;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLivingConditions;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityDate;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
