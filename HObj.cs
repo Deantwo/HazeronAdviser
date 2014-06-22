@@ -40,11 +40,21 @@ namespace HazeronAdviser
             get { return _attentionCode; }
         }
 
+        protected List<string> _owners = new List<string>();
+        public List<string> Onwers
+        {
+            get { return _owners; }
+        }
+
         public virtual void Update(HMail mail)
         {
             _name = mail.From; // Incase sender changed name.
             _lastUpdated = mail.DateTime;
             _attentionCode = 0x00; // 0b00000000
+
+            string tempOwner = HHelper.ToID(mail.RecipientID);
+            if (!_owners.Contains(tempOwner))
+                _owners.Add(tempOwner); // Wish I could get the name of the empire instead!!!
 
             // Full body test, mostly used for debuging.
             _body = mail.Body;

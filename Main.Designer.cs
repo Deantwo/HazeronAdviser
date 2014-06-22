@@ -78,6 +78,7 @@
             this.ColumnOfficerDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbxOfficer = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.cmbCharFilter = new System.Windows.Forms.ComboBox();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -649,11 +650,25 @@
             this.tbxOfficer.TabIndex = 0;
             this.tbxOfficer.WordWrap = false;
             // 
+            // cmbCharFilter
+            // 
+            this.cmbCharFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCharFilter.Enabled = false;
+            this.cmbCharFilter.FormattingEnabled = true;
+            this.cmbCharFilter.Items.AddRange(new object[] {
+            "Show all"});
+            this.cmbCharFilter.Location = new System.Drawing.Point(93, 14);
+            this.cmbCharFilter.Name = "cmbCharFilter";
+            this.cmbCharFilter.Size = new System.Drawing.Size(121, 21);
+            this.cmbCharFilter.TabIndex = 3;
+            this.cmbCharFilter.SelectedIndexChanged += new System.EventHandler(this.cmbCharFilter_SelectedIndexChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(790, 508);
+            this.Controls.Add(this.cmbCharFilter);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.button1);
@@ -746,6 +761,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.SplitContainer splitContainerCityStatistics;
         private System.Windows.Forms.Panel pCityStatisticsMorale;
+        private System.Windows.Forms.ComboBox cmbCharFilter;
     }
 }
 

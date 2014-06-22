@@ -189,17 +189,6 @@
   <metadata name="ColumnCityDate.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>133, 17</value>
-  </metadata>
-  <data name="pCityStatisticsPop.ToolTip" xml:space="preserve">
-    <value>Yellow - Loyal Citizens (often hidden under Population)
-Orange - Disloyal Citizens (often hidden under Population)
-Light Green - Population (often hidden under Homes)
-Green - Homes
-Blue - Jobs
-Red - Population Limit for the city's resource zone</value>
-  </data>
   <metadata name="ColumnCityIndex.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -227,6 +216,17 @@ Red - Population Limit for the city's resource zone</value>
   <metadata name="ColumnCityDate.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>133, 17</value>
+  </metadata>
+  <data name="pCityStatisticsPop.ToolTip" xml:space="preserve">
+    <value>Yellow - Loyal Citizens (often hidden under Population)
+Orange - Disloyal Citizens (often hidden under Population)
+Light Green - Population (often hidden under Homes)
+Green - Homes
+Blue - Jobs
+Red - Population Limit for the city's resource zone</value>
+  </data>
   <metadata name="ColumnOfficerIndex.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

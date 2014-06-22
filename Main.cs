@@ -17,6 +17,8 @@ namespace HazeronAdviser
         List<HShip> hShipList = new List<HShip>();
         List<HOfficer> hOfficerList = new List<HOfficer>();
 
+        List<string> charIdList = new List<string>();
+
         Image imageCity;
         Image imageShip;
         Image imageOfficer;
@@ -36,7 +38,8 @@ namespace HazeronAdviser
             imageShip = HazeronAdviser.Properties.Resources.GovSpacecraft;
             imageOfficer = HazeronAdviser.Properties.Resources.Officer;
             dgvCity.Columns["ColumnCityAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvCity.Columns["ColumnCityAbandonment"].DefaultCellStyle.Font = new Font("Lucida Console", 9); 
+            dgvCity.Columns["ColumnCityAbandonment"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
+            cmbCharFilter.SelectedIndex = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -51,6 +54,10 @@ namespace HazeronAdviser
                 return;
             }
             string[] fileList = Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail")); // %USERPROFILE%\Shores of Hazeron\Mail
+            cmbCharFilter.Enabled = false;
+            cmbCharFilter.Items.Clear();
+            cmbCharFilter.Items.Add("Show all");
+            cmbCharFilter.SelectedIndex = 0;
             toolStripProgressBar1.Value = 0;
             toolStripProgressBar1.Maximum = fileList.Length;
             toolStripProgressBar1.Visible = true;
@@ -66,6 +73,7 @@ namespace HazeronAdviser
             tbxCity.Clear();
             tbxShip.Clear();
             tbxOfficer.Clear();
+            #region Scan HMails
             foreach (string file in fileList)
             {
                 if (HMail.IsUni4(file)) // Check if signature is 0x2110 before trying to read it.
@@ -74,30 +82,33 @@ namespace HazeronAdviser
                     try
                     {
                     #endif
-                        if (HMail.IsCityReport(file))
+                        HMail mail = new HMail(file);
+                        if (HMail.IsCityReport(mail))
                         {
-                            HCity temp = new HCity(new HMail(file));
+                            HCity temp = new HCity(mail);
                             if (hCityList.Any(city => city.ID == temp.ID))
-                                hCityList[hCityList.FindIndex(city => city.ID == temp.ID)].Update(new HMail(file));
+                                hCityList[hCityList.FindIndex(city => city.ID == temp.ID)].Update(mail);
                             else
                                 hCityList.Add(temp);
                         }
-                        else if (HMail.IsShipLog(file))
+                        else if (HMail.IsShipLog(mail))
                         {
-                            HShip temp = new HShip(new HMail(file));
+                            HShip temp = new HShip(mail);
                             if (hShipList.Any(ship => ship.ID == temp.ID))
-                                hShipList[hShipList.FindIndex(ship => ship.ID == temp.ID)].Update(new HMail(file));
+                                hShipList[hShipList.FindIndex(ship => ship.ID == temp.ID)].Update(mail);
                             else
                                 hShipList.Add(temp);
                         }
-                        else if (HMail.IsOfficerTenFour(file))
+                        else if (HMail.IsOfficerTenFour(mail))
                         {
-                            HOfficer temp = new HOfficer(new HMail(file));
+                            HOfficer temp = new HOfficer(mail);
                             if (hOfficerList.Any(officer => officer.ID == temp.ID))
-                                hOfficerList[hOfficerList.FindIndex(ship => ship.ID == temp.ID)].Update(new HMail(file));
+                                hOfficerList[hOfficerList.FindIndex(ship => ship.ID == temp.ID)].Update(mail);
                             else
                                 hOfficerList.Add(temp);
                         }
+                        if (!charIdList.Contains(HHelper.ToID(mail.RecipientID)))
+                            charIdList.Add(HHelper.ToID(mail.RecipientID));
                         toolStripProgressBar1.Increment(1);
                     #if RELEASE
                     }
@@ -113,6 +124,7 @@ namespace HazeronAdviser
                     #endif
                 }
             }
+            #endregion
             toolStripProgressBar2.Value = 0;
             toolStripProgressBar2.Maximum = hCityList.Count + hShipList.Count + hOfficerList.Count;
             toolStripProgressBar2.Visible = true;
@@ -230,8 +242,14 @@ namespace HazeronAdviser
                 toolStripProgressBar2.Increment(1);
             }
             #endregion
+            foreach (string charId in charIdList)
+                cmbCharFilter.Items.Add(charId);
+            cmbCharFilter.Enabled = true;
             toolStripProgressBar1.Visible = false;
             toolStripProgressBar2.Visible = false;
+            dgvCity.ClearSelection();
+            dgvShip.ClearSelection();
+            dgvOfficer.ClearSelection();
             toolStripStatusLabel1.Text = "Done!";
         }
 
@@ -262,6 +280,39 @@ namespace HazeronAdviser
             }
         }
         #endregion
+
+        private void cmbCharFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbCharFilter.Enabled)
+            {
+                if (cmbCharFilter.SelectedIndex == 0)
+                {
+                    foreach (DataGridViewRow row in dgvCity.Rows)
+                        row.Visible = true;
+                    foreach (DataGridViewRow row in dgvShip.Rows)
+                        row.Visible = true;
+                    foreach (DataGridViewRow row in dgvOfficer.Rows)
+                        row.Visible = true;
+                }
+                else
+                {
+                    foreach (DataGridViewRow row in dgvCity.Rows)
+                        row.Visible = hCityList[(int)row.Cells["ColumnCityIndex"].Value].Onwers.Contains(charIdList[cmbCharFilter.SelectedIndex - 1]);
+                    foreach (DataGridViewRow row in dgvShip.Rows)
+                        row.Visible = hShipList[(int)row.Cells["ColumnShipIndex"].Value].Onwers.Contains(charIdList[cmbCharFilter.SelectedIndex - 1]);
+                    foreach (DataGridViewRow row in dgvOfficer.Rows)
+                        row.Visible = hOfficerList[(int)row.Cells["ColumnOfficerIndex"].Value].Onwers.Contains(charIdList[cmbCharFilter.SelectedIndex - 1]);
+                }
+                dgvCity.ClearSelection();
+                dgvShip.ClearSelection();
+                dgvOfficer.ClearSelection();
+                tbxCity.Clear();
+                tbxShip.Clear();
+                tbxOfficer.Clear();
+                pCityStatisticsPop.Refresh();
+                pCityStatisticsMorale.Refresh();
+            }
+        }
 
         #region Statistics Graphics
         private void pCityStatistics_Paint(object sender, PaintEventArgs e) // gCityStatisticsPop
