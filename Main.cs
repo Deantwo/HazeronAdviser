@@ -241,7 +241,8 @@ namespace HazeronAdviser
             if (dgvCity.SelectedRows.Count != 0 && dgvCity.SelectedRows[0].Index != -1 && dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value != null)
             {
                 tbxCity.Text = hCityList[(int)dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value].BodyTest;
-                pCityStatistics.Refresh();
+                pCityStatisticsPop.Refresh();
+                pCityStatisticsMorale.Refresh();
             }
         }
 
@@ -263,28 +264,61 @@ namespace HazeronAdviser
         #endregion
 
         #region Statistics Graphics
-        private void pCityStatistics_Paint(object sender, PaintEventArgs e) // gCityStatistics
+        private void pCityStatistics_Paint(object sender, PaintEventArgs e) // gCityStatisticsPop
         {
-            Graphics gCityStatistics = e.Graphics;
             if (dgvCity.SelectedRows.Count != 0 && dgvCity.SelectedRows[0].Index != -1 && dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value != null)
             {
-                DrawingTools.DrawGraphAxles(pCityStatistics, gCityStatistics, "Tick", "Pop");
+                StatisticsGraph graphPop = new StatisticsGraph(sender, e, 1250);
+                graphPop.DrawGraphAxles("Tick", "Population");
                 List<HCitySlice> citySlices = hCityList[(int)dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value].Timeslice;
                 int[] yValue;
                 yValue = citySlices.Select(x => x.Loyalty).ToArray(); // Need to think more about how to do this.
                 if (yValue.Average() > 0)
-                    DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue.Select(x => Math.Abs(x)).ToArray(), Color.Yellow);
+                    graphPop.DrawGraph(yValue.Select(x => Math.Abs(x)).ToArray(), Color.Yellow);
                 else if (yValue.Average() < 0)
-                    DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue.Select(x => Math.Abs(x)).ToArray(), Color.Orange);
+                    graphPop.DrawGraph(yValue.Select(x => Math.Abs(x)).ToArray(), Color.Orange);
                 yValue = citySlices.Select(x => x.Population).ToArray();
-                DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.LightGreen);
+                graphPop.DrawGraph(yValue, Color.LightGreen);
                 yValue = citySlices.Select(x => x.Homes).ToArray();
-                DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.Green);
+                graphPop.DrawGraph(yValue, Color.Green);
                 yValue = citySlices.Select(x => x.Jobs).ToArray();
-                DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.Blue);
+                graphPop.DrawGraph(yValue, Color.Blue);
                 yValue = citySlices.Select(x => x.PopulationLimit).ToArray();
-                DrawingTools.DrawGraph(pCityStatistics, gCityStatistics, yValue, Color.Red);
+                graphPop.DrawGraph(yValue, Color.Red);
             }
+        }
+
+        private void pCityStatisticsMorale_Paint(object sender, PaintEventArgs e) // gCityStatisticsMorale
+        {
+            if (dgvCity.SelectedRows.Count != 0 && dgvCity.SelectedRows[0].Index != -1 && dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value != null)
+            {
+                StatisticsGraph graphMorale = new StatisticsGraph(sender, e, 20, -20);
+                graphMorale.DrawGraphAxles("Tick", "Morale");
+                List<HCitySlice> citySlices = hCityList[(int)dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value].Timeslice;
+                int[] yValue;
+                yValue = citySlices.Select(x => x.MoraleModifiers.Where(y => y < 0).Sum()).ToArray();
+                if (yValue.Sum() != 0)
+                    graphMorale.DrawGraph(yValue, Color.Red);
+                yValue = citySlices.Select(x => x.MoraleModifiers.Where(y => y > 0).Sum()).ToArray();
+                if (yValue.Sum() != 0)
+                    graphMorale.DrawGraph(yValue, Color.Green);
+                yValue = citySlices.Select(x => x.MoraleModifiers.Sum()).ToArray();
+                graphMorale.DrawGraph(yValue, Color.Yellow);
+                yValue = citySlices.Select(x => x.Morale).ToArray();
+                graphMorale.DrawGraph(yValue, Color.Blue);
+            }
+        }
+
+        private void splitContainerCityStatistics_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            pCityStatisticsPop.Refresh();
+            pCityStatisticsMorale.Refresh();
+        }
+
+        private void Main_SizeChanged(object sender, EventArgs e)
+        {
+            pCityStatisticsPop.Refresh();
+            pCityStatisticsMorale.Refresh();
         }
         #endregion
     }

@@ -60,7 +60,9 @@
             this.ColumnCityDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlCity = new System.Windows.Forms.TabControl();
             this.tabCityStatistics = new System.Windows.Forms.TabPage();
-            this.pCityStatistics = new System.Windows.Forms.Panel();
+            this.splitContainerCityStatistics = new System.Windows.Forms.SplitContainer();
+            this.pCityStatisticsPop = new System.Windows.Forms.Panel();
+            this.pCityStatisticsMorale = new System.Windows.Forms.Panel();
             this.tabCityMail = new System.Windows.Forms.TabPage();
             this.tbxCity = new System.Windows.Forms.TextBox();
             this.tabShip = new System.Windows.Forms.TabPage();
@@ -91,6 +93,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCity)).BeginInit();
             this.tabControlCity.SuspendLayout();
             this.tabCityStatistics.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityStatistics)).BeginInit();
+            this.splitContainerCityStatistics.Panel1.SuspendLayout();
+            this.splitContainerCityStatistics.Panel2.SuspendLayout();
+            this.splitContainerCityStatistics.SuspendLayout();
             this.tabCityMail.SuspendLayout();
             this.tabShip.SuspendLayout();
             this.tabPageOfficer.SuspendLayout();
@@ -425,7 +431,7 @@
             // 
             // tabCityStatistics
             // 
-            this.tabCityStatistics.Controls.Add(this.pCityStatistics);
+            this.tabCityStatistics.Controls.Add(this.splitContainerCityStatistics);
             this.tabCityStatistics.Location = new System.Drawing.Point(4, 22);
             this.tabCityStatistics.Name = "tabCityStatistics";
             this.tabCityStatistics.Padding = new System.Windows.Forms.Padding(3);
@@ -434,19 +440,49 @@
             this.tabCityStatistics.Text = "Statistics";
             this.tabCityStatistics.UseVisualStyleBackColor = true;
             // 
-            // pCityStatistics
+            // splitContainerCityStatistics
             // 
-            this.pCityStatistics.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.pCityStatistics.BackColor = System.Drawing.Color.LightGray;
-            this.pCityStatistics.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pCityStatistics.Location = new System.Drawing.Point(6, 6);
-            this.pCityStatistics.Name = "pCityStatistics";
-            this.pCityStatistics.Size = new System.Drawing.Size(397, 372);
-            this.pCityStatistics.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.pCityStatistics, resources.GetString("pCityStatistics.ToolTip"));
-            this.pCityStatistics.Paint += new System.Windows.Forms.PaintEventHandler(this.pCityStatistics_Paint);
+            this.splitContainerCityStatistics.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerCityStatistics.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerCityStatistics.Name = "splitContainerCityStatistics";
+            this.splitContainerCityStatistics.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerCityStatistics.Panel1
+            // 
+            this.splitContainerCityStatistics.Panel1.Controls.Add(this.pCityStatisticsPop);
+            // 
+            // splitContainerCityStatistics.Panel2
+            // 
+            this.splitContainerCityStatistics.Panel2.Controls.Add(this.pCityStatisticsMorale);
+            this.splitContainerCityStatistics.Size = new System.Drawing.Size(403, 378);
+            this.splitContainerCityStatistics.SplitterDistance = 263;
+            this.splitContainerCityStatistics.TabIndex = 1;
+            this.splitContainerCityStatistics.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainerCityStatistics_SplitterMoved);
+            // 
+            // pCityStatisticsPop
+            // 
+            this.pCityStatisticsPop.BackColor = System.Drawing.Color.LightGray;
+            this.pCityStatisticsPop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pCityStatisticsPop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pCityStatisticsPop.Location = new System.Drawing.Point(0, 0);
+            this.pCityStatisticsPop.Name = "pCityStatisticsPop";
+            this.pCityStatisticsPop.Size = new System.Drawing.Size(403, 263);
+            this.pCityStatisticsPop.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.pCityStatisticsPop, resources.GetString("pCityStatisticsPop.ToolTip"));
+            this.pCityStatisticsPop.Paint += new System.Windows.Forms.PaintEventHandler(this.pCityStatistics_Paint);
+            // 
+            // pCityStatisticsMorale
+            // 
+            this.pCityStatisticsMorale.BackColor = System.Drawing.Color.LightGray;
+            this.pCityStatisticsMorale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pCityStatisticsMorale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pCityStatisticsMorale.Location = new System.Drawing.Point(0, 0);
+            this.pCityStatisticsMorale.Name = "pCityStatisticsMorale";
+            this.pCityStatisticsMorale.Size = new System.Drawing.Size(403, 111);
+            this.pCityStatisticsMorale.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.pCityStatisticsMorale, "Blue - Morale\r\nYellow - Morale Modifier total\r\nGreen - sum of Positive Morale Mod" +
+                    "ifiers\r\nRed - sum of Negative Morale Modifiers");
+            this.pCityStatisticsMorale.Paint += new System.Windows.Forms.PaintEventHandler(this.pCityStatisticsMorale_Paint);
             // 
             // tabCityMail
             // 
@@ -623,6 +659,7 @@
             this.Controls.Add(this.button1);
             this.Name = "Main";
             this.Text = "Hazeron Adviser";
+            this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.splitContainerShip.Panel1.ResumeLayout(false);
@@ -640,6 +677,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCity)).EndInit();
             this.tabControlCity.ResumeLayout(false);
             this.tabCityStatistics.ResumeLayout(false);
+            this.splitContainerCityStatistics.Panel1.ResumeLayout(false);
+            this.splitContainerCityStatistics.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityStatistics)).EndInit();
+            this.splitContainerCityStatistics.ResumeLayout(false);
             this.tabCityMail.ResumeLayout(false);
             this.tabCityMail.PerformLayout();
             this.tabShip.ResumeLayout(false);
@@ -692,7 +733,7 @@
         private System.Windows.Forms.TabControl tabControlCity;
         private System.Windows.Forms.TabPage tabCityStatistics;
         private System.Windows.Forms.TabPage tabCityMail;
-        private System.Windows.Forms.Panel pCityStatistics;
+        private System.Windows.Forms.Panel pCityStatisticsPop;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityIndex;
         private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnCitySelection;
         private System.Windows.Forms.DataGridViewImageColumn ColumnCityIcon;
@@ -703,6 +744,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLivingConditions;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityDate;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.SplitContainer splitContainerCityStatistics;
+        private System.Windows.Forms.Panel pCityStatisticsMorale;
     }
 }
 

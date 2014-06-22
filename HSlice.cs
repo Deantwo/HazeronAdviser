@@ -29,10 +29,10 @@ namespace HazeronAdviser
             get { return _morale; }
         }
 
-        protected int _moraleModifier = 0;
-        public int MoraleModifier
+        protected List<int> _moraleModifiers = new List<int>();
+        public int[] MoraleModifiers
         {
-            get { return _moraleModifier; }
+            get { return _moraleModifiers.ToArray(); }
         }
 
         protected int _population = 0;
@@ -86,7 +86,7 @@ namespace HazeronAdviser
                     if (!line.ToLower().Contains("morale"))
                     {
                         string[] tempLineArray = line.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                        _moraleModifier += Convert.ToInt32(tempLineArray[0]);
+                        _moraleModifiers.Add(Convert.ToInt32(tempLineArray[0]));
                     }
                 tempMorale = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1).Substring(7);
                 tempArray = tempMorale.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
