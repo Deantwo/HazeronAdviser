@@ -478,4 +478,83 @@ namespace HazeronAdviser
             }
         }
     }
+
+    class HEvent : HObj
+    {
+        protected int _messageId = 0;
+        public int MessageID
+        {
+            get { return _messageId; }
+        }
+
+        protected string _subject = "-";
+        public string Subject
+        {
+            get { return _subject; }
+        }
+
+        public HEvent(HMail mail)
+        {
+            _id = HHelper.ToID(mail.SenderID);
+            Update(mail);
+        }
+
+        public override void Update(HMail mail)
+        {
+            //if (HMail.IsOfficerTenFour(mail.MailBytes) && DateTime.Compare(_lastUpdated, mail.DateTime) < 0)
+            //{
+                base.Update(mail);
+
+                // String working vars.
+                int subStart, subEnd;
+                string[] tempArray;
+
+                _messageId = mail.MessageID;
+                _subject = mail.Subject;
+                //if (mail.MessageType == 0x05) // MSG_CityIntelligenceReport
+                //{
+                //    ?
+                //}
+                //else if (mail.MessageType == 0x12) // MSG_ShipLogFinal
+                //{
+                //    ?
+                //}
+                //else if (mail.MessageType == 0x13) // MSG_Government
+                //{
+                //    ?
+                //}
+                //else if (mail.MessageType == 0x16) // MSG_OfficerDeath
+                //{
+                //    ?
+                //}
+                //else if (mail.MessageType == 0x17) // MSG_CityFinalDecayReport
+                //{
+                //    ?
+                //}
+                //else if (mail.MessageType == 0x18) // MSG_DiplomaticMessage
+                //{
+                //    ?
+                //}
+
+                // AttentionCodes
+                if (false) // Nothing yet!
+                    _attentionCode = (byte)(_attentionCode | 0x01); // 0b00000001
+                if (false) // Nothing yet!
+                    _attentionCode = (byte)(_attentionCode | 0x03); // 0b00000010
+                if (false) // Nothing yet!
+                    _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100
+                if (false) // Nothing yet!
+                    _attentionCode = (byte)(_attentionCode | 0x08); // 0b00001000
+                if (false) // Nothing yet!
+                    _attentionCode = (byte)(_attentionCode | 0x10); // 0b00010000
+                if (false) // Nothing yet!
+                    _attentionCode = (byte)(_attentionCode | 0x20); // 0b00100000
+                if (false) // Nothing yet!
+                    _attentionCode = (byte)(_attentionCode | 0x40); // 0b01000000
+                if (false) // Nothing yet!
+                    _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
+
+            //}
+        }
+    }
 }

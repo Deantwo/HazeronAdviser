@@ -79,6 +79,16 @@
             this.tbxOfficer = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmbCharFilter = new System.Windows.Forms.ComboBox();
+            this.tabPageEvent = new System.Windows.Forms.TabPage();
+            this.splitContainerEvent = new System.Windows.Forms.SplitContainer();
+            this.dgvEvent = new System.Windows.Forms.DataGridView();
+            this.ColumnEventIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEventSelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ColumnEventIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ColumnEventName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEventSubject = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEventDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbxEvent = new System.Windows.Forms.TextBox();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -106,6 +116,12 @@
             this.splitContainerOfficer.Panel2.SuspendLayout();
             this.splitContainerOfficer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOfficer)).BeginInit();
+            this.tabPageEvent.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEvent)).BeginInit();
+            this.splitContainerEvent.Panel1.SuspendLayout();
+            this.splitContainerEvent.Panel2.SuspendLayout();
+            this.splitContainerEvent.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEvent)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -273,6 +289,7 @@
             this.tabControlMain.Controls.Add(this.tabCity);
             this.tabControlMain.Controls.Add(this.tabShip);
             this.tabControlMain.Controls.Add(this.tabPageOfficer);
+            this.tabControlMain.Controls.Add(this.tabPageEvent);
             this.tabControlMain.Location = new System.Drawing.Point(12, 41);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
@@ -663,15 +680,139 @@
             this.cmbCharFilter.TabIndex = 3;
             this.cmbCharFilter.SelectedIndexChanged += new System.EventHandler(this.cmbCharFilter_SelectedIndexChanged);
             // 
+            // tabPageEvent
+            // 
+            this.tabPageEvent.Controls.Add(this.splitContainerEvent);
+            this.tabPageEvent.Location = new System.Drawing.Point(4, 22);
+            this.tabPageEvent.Name = "tabPageEvent";
+            this.tabPageEvent.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageEvent.Size = new System.Drawing.Size(758, 416);
+            this.tabPageEvent.TabIndex = 3;
+            this.tabPageEvent.Text = "Event";
+            this.tabPageEvent.UseVisualStyleBackColor = true;
+            // 
+            // splitContainerEvent
+            // 
+            this.splitContainerEvent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerEvent.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerEvent.Name = "splitContainerEvent";
+            // 
+            // splitContainerEvent.Panel1
+            // 
+            this.splitContainerEvent.Panel1.Controls.Add(this.dgvEvent);
+            // 
+            // splitContainerEvent.Panel2
+            // 
+            this.splitContainerEvent.Panel2.Controls.Add(this.tbxEvent);
+            this.splitContainerEvent.Size = new System.Drawing.Size(752, 410);
+            this.splitContainerEvent.SplitterDistance = 332;
+            this.splitContainerEvent.TabIndex = 0;
+            // 
+            // dgvEvent
+            // 
+            this.dgvEvent.AllowUserToAddRows = false;
+            this.dgvEvent.AllowUserToDeleteRows = false;
+            this.dgvEvent.AllowUserToOrderColumns = true;
+            this.dgvEvent.AllowUserToResizeRows = false;
+            this.dgvEvent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvEvent.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnEventIndex,
+            this.ColumnEventSelection,
+            this.ColumnEventIcon,
+            this.ColumnEventName,
+            this.ColumnEventSubject,
+            this.ColumnEventDate});
+            this.dgvEvent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvEvent.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvEvent.EnableHeadersVisualStyles = false;
+            this.dgvEvent.Location = new System.Drawing.Point(0, 0);
+            this.dgvEvent.MultiSelect = false;
+            this.dgvEvent.Name = "dgvEvent";
+            this.dgvEvent.ReadOnly = true;
+            this.dgvEvent.RowHeadersVisible = false;
+            this.dgvEvent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvEvent.Size = new System.Drawing.Size(332, 410);
+            this.dgvEvent.TabIndex = 3;
+            this.dgvEvent.SelectionChanged += new System.EventHandler(this.dgvEvent_SelectionChanged);
+            // 
+            // ColumnEventIndex
+            // 
+            this.ColumnEventIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnEventIndex.FillWeight = 20F;
+            this.ColumnEventIndex.Frozen = true;
+            this.ColumnEventIndex.HeaderText = "# Index";
+            this.ColumnEventIndex.MinimumWidth = 20;
+            this.ColumnEventIndex.Name = "ColumnEventIndex";
+            this.ColumnEventIndex.ReadOnly = true;
+            this.ColumnEventIndex.Visible = false;
+            this.ColumnEventIndex.Width = 20;
+            // 
+            // ColumnEventSelection
+            // 
+            this.ColumnEventSelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnEventSelection.FillWeight = 20F;
+            this.ColumnEventSelection.Frozen = true;
+            this.ColumnEventSelection.HeaderText = "Selection";
+            this.ColumnEventSelection.MinimumWidth = 20;
+            this.ColumnEventSelection.Name = "ColumnEventSelection";
+            this.ColumnEventSelection.ReadOnly = true;
+            this.ColumnEventSelection.Visible = false;
+            this.ColumnEventSelection.Width = 20;
+            // 
+            // ColumnEventIcon
+            // 
+            this.ColumnEventIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnEventIcon.FillWeight = 20F;
+            this.ColumnEventIcon.Frozen = true;
+            this.ColumnEventIcon.HeaderText = "Icon";
+            this.ColumnEventIcon.MinimumWidth = 20;
+            this.ColumnEventIcon.Name = "ColumnEventIcon";
+            this.ColumnEventIcon.ReadOnly = true;
+            this.ColumnEventIcon.Width = 20;
+            // 
+            // ColumnEventName
+            // 
+            this.ColumnEventName.Frozen = true;
+            this.ColumnEventName.HeaderText = "Name";
+            this.ColumnEventName.Name = "ColumnEventName";
+            this.ColumnEventName.ReadOnly = true;
+            // 
+            // ColumnEventSubject
+            // 
+            this.ColumnEventSubject.Frozen = true;
+            this.ColumnEventSubject.HeaderText = "Subject";
+            this.ColumnEventSubject.Name = "ColumnEventSubject";
+            this.ColumnEventSubject.ReadOnly = true;
+            // 
+            // ColumnEventDate
+            // 
+            this.ColumnEventDate.FillWeight = 107F;
+            this.ColumnEventDate.HeaderText = "Last Updated";
+            this.ColumnEventDate.Name = "ColumnEventDate";
+            this.ColumnEventDate.ReadOnly = true;
+            this.ColumnEventDate.Width = 107;
+            // 
+            // tbxEvent
+            // 
+            this.tbxEvent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxEvent.Location = new System.Drawing.Point(0, 0);
+            this.tbxEvent.Multiline = true;
+            this.tbxEvent.Name = "tbxEvent";
+            this.tbxEvent.ReadOnly = true;
+            this.tbxEvent.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbxEvent.Size = new System.Drawing.Size(416, 410);
+            this.tbxEvent.TabIndex = 1;
+            this.tbxEvent.WordWrap = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(790, 508);
-            this.Controls.Add(this.cmbCharFilter);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.cmbCharFilter);
             this.Name = "Main";
             this.Text = "Hazeron Adviser";
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
@@ -706,6 +847,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerOfficer)).EndInit();
             this.splitContainerOfficer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOfficer)).EndInit();
+            this.tabPageEvent.ResumeLayout(false);
+            this.splitContainerEvent.Panel1.ResumeLayout(false);
+            this.splitContainerEvent.Panel2.ResumeLayout(false);
+            this.splitContainerEvent.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEvent)).EndInit();
+            this.splitContainerEvent.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEvent)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -762,6 +910,16 @@
         private System.Windows.Forms.SplitContainer splitContainerCityStatistics;
         private System.Windows.Forms.Panel pCityStatisticsMorale;
         private System.Windows.Forms.ComboBox cmbCharFilter;
+        private System.Windows.Forms.TabPage tabPageEvent;
+        private System.Windows.Forms.SplitContainer splitContainerEvent;
+        private System.Windows.Forms.DataGridView dgvEvent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventIndex;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnEventSelection;
+        private System.Windows.Forms.DataGridViewImageColumn ColumnEventIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventSubject;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventDate;
+        private System.Windows.Forms.TextBox tbxEvent;
     }
 }
 

@@ -16,6 +16,7 @@ namespace HazeronAdviser
         List<HCity> hCityList = new List<HCity>();
         List<HShip> hShipList = new List<HShip>();
         List<HOfficer> hOfficerList = new List<HOfficer>();
+        List<HEvent> hEventList = new List<HEvent>();
 
         List<string> charIdList = new List<string>();
 
@@ -67,12 +68,15 @@ namespace HazeronAdviser
             dgvCity.Rows.Clear();
             dgvShip.Rows.Clear();
             dgvOfficer.Rows.Clear();
+            dgvEvent.Rows.Clear();
             dgvCity.Refresh();
             dgvShip.Refresh();
             dgvOfficer.Refresh();
+            dgvEvent.Refresh();
             tbxCity.Clear();
             tbxShip.Clear();
             tbxOfficer.Clear();
+            tbxEvent.Clear();
             #region Scan HMails
             foreach (string file in fileList)
             {
@@ -103,9 +107,17 @@ namespace HazeronAdviser
                         {
                             HOfficer temp = new HOfficer(mail);
                             if (hOfficerList.Any(officer => officer.ID == temp.ID))
-                                hOfficerList[hOfficerList.FindIndex(ship => ship.ID == temp.ID)].Update(mail);
+                                hOfficerList[hOfficerList.FindIndex(officer => officer.ID == temp.ID)].Update(mail);
                             else
                                 hOfficerList.Add(temp);
+                        }
+                        else if (HMail.IsEventNotice(mail))
+                        {
+                            HEvent temp = new HEvent(mail);
+                            if (hEventList.Any(notice => notice.MessageID == temp.MessageID))
+                                hEventList[hEventList.FindIndex(notice => notice.MessageID == temp.MessageID)].Update(mail);
+                            else
+                                hEventList.Add(temp);
                         }
                         if (!charIdList.Contains(HHelper.ToID(mail.RecipientID)))
                             charIdList.Add(HHelper.ToID(mail.RecipientID));
@@ -126,7 +138,7 @@ namespace HazeronAdviser
             }
             #endregion
             toolStripProgressBar2.Value = 0;
-            toolStripProgressBar2.Maximum = hCityList.Count + hShipList.Count + hOfficerList.Count;
+            toolStripProgressBar2.Maximum = hCityList.Count + hShipList.Count + hOfficerList.Count + hEventList.Count;
             toolStripProgressBar2.Visible = true;
             toolStripStatusLabel1.Text = "Filling tables...";
             toolStripStatusLabel1.Invalidate();
@@ -242,6 +254,44 @@ namespace HazeronAdviser
                 toolStripProgressBar2.Increment(1);
             }
             #endregion
+            #region Fill Event Table
+            foreach (var hEvent in hEventList)
+            {
+                dgvEvent.Rows.Add();
+                int row = dgvEvent.RowCount - 1;
+                dgvEvent.Rows[row].Cells["ColumnEventIndex"].Value = row;
+                dgvEvent.Rows[row].Cells["ColumnEventSelection"].Value = false;
+                if (true)
+                    dgvEvent.Rows[row].Cells["ColumnEventIcon"].Value = imageCity;
+                else
+                    dgvEvent.Rows[row].Cells["ColumnEventIcon"].Value = imageShip;
+                dgvEvent.Rows[row].Cells["ColumnEventName"].Value = hEvent.Name;
+                dgvEvent.Rows[row].Cells["ColumnEventSubject"].Value = hEvent.Subject;
+                dgvEvent.Rows[row].Cells["ColumnEventDate"].Value = hEvent.LastUpdaredString;
+                // AttentionCodes
+                if (hEvent.AttentionCode != 0x00)
+                {
+                    dgvEvent.Rows[row].Cells["ColumnEventName"].Style.BackColor = attantionMinor;
+                    //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x01)) // 0b00000001 // Nothing yet!
+                    //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMinor;
+                    //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x02)) // 0b00000010 // Nothing yet!
+                    //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMajor;
+                    //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x04)) // 0b00000100 // Nothing yet!
+                    //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMajor;
+                    //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x08)) // 0b00001000 // Nothing yet!
+                    //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMajor;
+                    //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x10)) // 0b00010000 // Nothing yet!
+                    //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMajor;
+                    //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x20)) // 0b00100000 // Nothing yet!
+                    //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMajor;
+                    //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x40)) // 0b01000000 // Nothing yet!
+                    //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMajor;
+                    //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x80)) // 0b10000000 // Nothing yet!
+                    //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMajor;
+                }
+                toolStripProgressBar2.Increment(1);
+            }
+            #endregion
             foreach (string charId in charIdList)
                 cmbCharFilter.Items.Add(charId);
             cmbCharFilter.Enabled = true;
@@ -250,6 +300,7 @@ namespace HazeronAdviser
             dgvCity.ClearSelection();
             dgvShip.ClearSelection();
             dgvOfficer.ClearSelection();
+            dgvEvent.ClearSelection();
             toolStripStatusLabel1.Text = "Done!";
         }
 
@@ -279,6 +330,14 @@ namespace HazeronAdviser
                 tbxOfficer.Text = hOfficerList[(int)dgvOfficer.Rows[(int)dgvOfficer.SelectedRows[0].Index].Cells["ColumnOfficerIndex"].Value].BodyTest;
             }
         }
+
+        private void dgvEvent_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvEvent.SelectedRows.Count != 0 && dgvEvent.SelectedRows[0].Index != -1 && dgvEvent.Rows[(int)dgvEvent.SelectedRows[0].Index].Cells["ColumnEventIndex"].Value != null)
+            {
+                tbxEvent.Text = hEventList[(int)dgvEvent.Rows[(int)dgvEvent.SelectedRows[0].Index].Cells["ColumnEventIndex"].Value].BodyTest;
+            }
+        }
         #endregion
 
         private void cmbCharFilter_SelectedIndexChanged(object sender, EventArgs e)
@@ -293,6 +352,8 @@ namespace HazeronAdviser
                         row.Visible = true;
                     foreach (DataGridViewRow row in dgvOfficer.Rows)
                         row.Visible = true;
+                    foreach (DataGridViewRow row in dgvEvent.Rows)
+                        row.Visible = true;
                 }
                 else
                 {
@@ -302,13 +363,17 @@ namespace HazeronAdviser
                         row.Visible = hShipList[(int)row.Cells["ColumnShipIndex"].Value].Onwers.Contains(charIdList[cmbCharFilter.SelectedIndex - 1]);
                     foreach (DataGridViewRow row in dgvOfficer.Rows)
                         row.Visible = hOfficerList[(int)row.Cells["ColumnOfficerIndex"].Value].Onwers.Contains(charIdList[cmbCharFilter.SelectedIndex - 1]);
+                    foreach (DataGridViewRow row in dgvEvent.Rows)
+                        row.Visible = hEventList[(int)row.Cells["ColumnEventIndex"].Value].Onwers.Contains(charIdList[cmbCharFilter.SelectedIndex - 1]);
                 }
                 dgvCity.ClearSelection();
                 dgvShip.ClearSelection();
                 dgvOfficer.ClearSelection();
+                dgvEvent.ClearSelection();
                 tbxCity.Clear();
                 tbxShip.Clear();
                 tbxOfficer.Clear();
+                tbxEvent.Clear();
                 pCityStatisticsPop.Refresh();
                 pCityStatisticsMorale.Refresh();
             }
