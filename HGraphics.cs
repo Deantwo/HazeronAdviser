@@ -48,7 +48,7 @@ namespace HazeronAdviser
             InitializeGraph();
         }
 
-        public void InitializeGraph()
+        protected void InitializeGraph()
         {
             _edgeTop = 15;
             _edgeRight = _panel.Width - 10;
@@ -59,17 +59,17 @@ namespace HazeronAdviser
             _yZero = _edgeBottom + _yBottom * _intervalY;
         }
 
-        internal Panel _panel;
-        internal Graphics _graphObj;
-        internal int _yTop;
-        internal int _yBottom;
-        internal int _edgeTop;
-        internal int _edgeRight;
-        internal int _edgeBottom;
-        internal int _edgeLeft;
-        internal float _intervalX;
-        internal float _intervalY;
-        internal float _yZero;
+        protected Panel _panel;
+        protected Graphics _graphObj;
+        protected int _yTop;
+        protected int _yBottom;
+        protected int _edgeTop;
+        protected int _edgeRight;
+        protected int _edgeBottom;
+        protected int _edgeLeft;
+        protected float _intervalX;
+        protected float _intervalY;
+        protected float _yZero;
 
         public void DrawGraphAxles(string xAxleName, string yAxleName)
         {
