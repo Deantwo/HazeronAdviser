@@ -13,6 +13,12 @@ namespace HazeronAdviser
             get { return _timestamp; }
         }
 
+        protected int _sliceId = 0;
+        public int SliceID
+        {
+            get { return _sliceId; }
+        }
+
         // Full body test, mostly used for debuging.
         protected string _body = "";
         public string BodyTest
@@ -68,6 +74,7 @@ namespace HazeronAdviser
         public HCitySlice(HMail mail)
         {
             _timestamp = mail.DateTime;
+            _sliceId = mail.MessageID;
 
             // String working vars.
             int subStart, subEnd;
@@ -116,8 +123,13 @@ namespace HazeronAdviser
                 subEnd = mail.Body.IndexOf("<b>POWER RESERVE</b>") - subStart;
                 tempLivingConditions = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
                 tempArray = tempLivingConditions.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _jobs = Convert.ToInt32(tempArray[1].Split(' ')[1]);
-                _homes = Convert.ToInt32(tempArray[4].Split(' ')[1]);
+                foreach (string line in tempArray)
+                {
+                    if (line.Remove(4) == "Jobs")
+                        _jobs = Convert.ToInt32(line.Split(' ')[1]);
+                    if (line.Remove(5) == "Homes")
+                        _homes = Convert.ToInt32(line.Split(' ')[1]);
+                }
 
                 // Planet Size
                 if (!mail.Body.Contains("Ringworld Arc"))

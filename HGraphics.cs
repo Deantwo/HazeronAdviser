@@ -79,8 +79,10 @@ namespace HazeronAdviser
                 intervalNumber = 1;
             else if (_intervalY > 5)
                 intervalNumber = 2;
-            else if (_intervalY > 1)
+            else if (_intervalY > 1.5)
                 intervalNumber = 5;
+            else if (_intervalY > 1)
+                intervalNumber = 10;
             else if (_intervalY > 0.4)
                 intervalNumber = 20;
             else if (_intervalY > 0.24)

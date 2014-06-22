@@ -23,14 +23,12 @@ namespace HazeronAdviser
             return IsUni4(HMail.Read(filePath));
         }
 
-        static public bool IsCityReport(int messageType) // Give true if MessageType is a City Report (or related) mail.
+        static public bool IsCityReport(int messageType) // Give true if MessageType is a CityReport (or related) mail.
         {
             if (   messageType == 0x01 // MSG_CityStatusReport
                 || messageType == 0x03 // MSG_CityOccupationReport
                 || messageType == 0x04 // MSG_CityDistressReport
-                || messageType == 0x05 // MSG_CityIntelligenceReport
                 || messageType == 0x06 // MSG_CityStatusReportInfo
-                || messageType == 0x17 // MSG_CityFinalDecayReport
                 )
                 return true;
             return false;
@@ -48,12 +46,11 @@ namespace HazeronAdviser
             return IsCityReport(HMail.Read(filePath));
         }
 
-        static public bool IsShipLog(int messageType) // Give true if MessageType is a Ship Log (or related) mail.
+        static public bool IsShipLog(int messageType) // Give true if MessageType is a ShipLog (or related) mail.
         {
             if (   messageType == 0x0F // MSG_ShipLog
                 || messageType == 0x10 // MSG_ShipLogAlert
                 || messageType == 0x11 // MSG_ShipLogDistress
-                || messageType == 0x12 // MSG_ShipLogFinal
                 )
                 return true;
             return false;
@@ -71,32 +68,35 @@ namespace HazeronAdviser
             return IsShipLog(HMail.Read(filePath));
         }
 
-        static public bool IsGovernmentMessage(int messageType) // Give true if MessageType is a Government (or related) mail.
+        static public bool IsEventNotice(int messageType) // Give true if MessageType is an EventNotice (or related) mail.
         {
-            if (   messageType == 0x13 // MSG_Government
+            if (   messageType == 0x05 // MSG_CityIntelligenceReport
+                || messageType == 0x12 // MSG_ShipLogFinal
+                || messageType == 0x13 // MSG_Government
+                || messageType == 0x16 // MSG_OfficerDeath
+                || messageType == 0x17 // MSG_CityFinalDecayReport
                 || messageType == 0x18 // MSG_DiplomaticMessage
                 )
                 return true;
             return false;
         }
-        static public bool IsGovernmentMessage(HMail mail) // Same as above but mail input.
+        static public bool IsEventNotice(HMail mail) // Same as above but mail input.
         {
-            return IsGovernmentMessage(mail.MessageType);
+            return IsEventNotice(mail.MessageType);
         }
-        static public bool IsGovernmentMessage(byte[] mailBytes) // Same as above but mailBytes input.
+        static public bool IsEventNotice(byte[] mailBytes) // Same as above but mailBytes input.
         {
-            return IsGovernmentMessage(mailBytes[19 + HHelper.ToInt32(mailBytes, 15) + 9]);
+            return IsEventNotice(mailBytes[19 + HHelper.ToInt32(mailBytes, 15) + 9]);
         }
-        static public bool IsGovernmentMessage(string filePath) // Same as above but filePath input.
+        static public bool IsEventNotice(string filePath) // Same as above but filePath input.
         {
-            return IsGovernmentMessage(HMail.Read(filePath));
+            return IsEventNotice(HMail.Read(filePath));
         }
 
         static public bool IsOfficerTenFour(int messageType) // Give true if MessageType is a OfficerUpdate (or related) mail.
         {
             if (   messageType == 0x0C // MSG_OfficerReady
                 || messageType == 0x14 // MSG_OfficerContact
-                || messageType == 0x16 // MSG_OfficerDeath
                 )
                 return true;
             return false;

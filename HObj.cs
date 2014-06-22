@@ -133,7 +133,8 @@ namespace HazeronAdviser
 
         public override void Update(HMail mail)
         {
-            _slice.Add(new HCitySlice(mail));
+            if (!_slice.Any(x => x.SliceID == mail.MessageID))
+                _slice.Add(new HCitySlice(mail));
 
             if (HMail.IsCityReport(mail.MailBytes) && DateTime.Compare(_lastUpdated, mail.DateTime) < 0)
             {
@@ -143,7 +144,7 @@ namespace HazeronAdviser
                 int subStart, subEnd;
                 string[] tempArray;
                 // Time for City spicific things.
-                int morale, population, homes, jobs, populationLimit;
+                int morale, population, homes = 0, jobs = 0, populationLimit;
                 int dDay = 0;
                 const int abandonmentInterval = 4;
 
@@ -211,9 +212,19 @@ namespace HazeronAdviser
                     subEnd = mail.Body.IndexOf("<b>POWER RESERVE</b>") - subStart;
                     _livingConditions = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
                     tempArray = _livingConditions.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                    _livingConditionsShort = tempArray[1] + ", " + tempArray[4];
-                    jobs = Convert.ToInt32(tempArray[1].Split(' ')[1]);
-                    homes = Convert.ToInt32(tempArray[4].Split(' ')[1]);
+                    foreach (string line in tempArray)
+                    {
+                        if (line.Remove(4) == "Jobs")
+                        {
+                            _livingConditionsShort = line;
+                            jobs = Convert.ToInt32(line.Split(' ')[1]);
+                        }
+                        if (line.Remove(5) == "Homes")
+                        {
+                            _livingConditionsShort += ", " + line;
+                            homes = Convert.ToInt32(line.Split(' ')[1]);
+                        }
+                    }
 
                     // Planet Size
                     if (!mail.Body.Contains("Ringworld Arc"))
