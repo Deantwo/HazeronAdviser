@@ -26,7 +26,6 @@ namespace HazeronAdviser
         static public bool IsCityReport(int messageType) // Give true if MessageType is a CityReport (or related) mail.
         {
             if (   messageType == 0x01 // MSG_CityStatusReport
-                || messageType == 0x03 // MSG_CityOccupationReport
                 || messageType == 0x04 // MSG_CityDistressReport
                 || messageType == 0x06 // MSG_CityStatusReportInfo
                 )
@@ -70,12 +69,13 @@ namespace HazeronAdviser
 
         static public bool IsEventNotice(int messageType) // Give true if MessageType is an EventNotice (or related) mail.
         {
-            if (   messageType == 0x05 // MSG_CityIntelligenceReport
+            if (   messageType == 0x03 // MSG_CityOccupationReport
+                || messageType == 0x05 // MSG_CityIntelligenceReport
                 || messageType == 0x12 // MSG_ShipLogFinal
                 || messageType == 0x13 // MSG_Government
                 || messageType == 0x16 // MSG_OfficerDeath
                 || messageType == 0x17 // MSG_CityFinalDecayReport
-                || messageType == 0x18 // MSG_DiplomaticMessage
+                || messageType == 0x18 // MSG_DiplomaticMessage (?)
                 )
                 return true;
             return false;

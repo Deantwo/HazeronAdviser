@@ -23,6 +23,17 @@ namespace HazeronAdviser
         Image imageCity;
         Image imageShip;
         Image imageOfficer;
+        Image imageDiplomacy;
+        Image imageFriend;
+        Image imageGovernment;
+        Image imageChannel;
+        Image imageAccept;
+        Image imageTreasury;
+        Image imageLocator;
+        Image imageStation;
+        Image imageVoice;
+        Image imageFlag;
+        Image imageTarget;
 
         Color attantionMinor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
         Color attantionMajor = Color.LightPink;
@@ -35,9 +46,20 @@ namespace HazeronAdviser
             #endif
             toolStripProgressBar1.Visible = false;
             toolStripProgressBar2.Visible = false;
-            imageCity = HazeronAdviser.Properties.Resources.c_Flag;
-            imageShip = HazeronAdviser.Properties.Resources.GovSpacecraft;
+            imageCity = HazeronAdviser.Properties.Resources.MsgCity;
+            imageShip = HazeronAdviser.Properties.Resources.c_Spacecraft;
             imageOfficer = HazeronAdviser.Properties.Resources.Officer;
+            imageDiplomacy = HazeronAdviser.Properties.Resources.CommDiplomacy;
+            imageFriend = HazeronAdviser.Properties.Resources.CommFriend;
+            imageGovernment = HazeronAdviser.Properties.Resources.CommGovernment;
+            imageChannel = HazeronAdviser.Properties.Resources.CommStdChannel;
+            imageAccept = HazeronAdviser.Properties.Resources.MsgAccept;
+            imageTreasury = HazeronAdviser.Properties.Resources.c_Money;
+            imageLocator = HazeronAdviser.Properties.Resources.Locator;
+            imageStation = HazeronAdviser.Properties.Resources.CommStation;
+            imageVoice = HazeronAdviser.Properties.Resources.CommVoice;
+            imageFlag = HazeronAdviser.Properties.Resources.c_Flag;
+            imageTarget = HazeronAdviser.Properties.Resources.MsgSpot;
             dgvCity.Columns["ColumnCityAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvCity.Columns["ColumnCityAbandonment"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
             cmbCharFilter.SelectedIndex = 0;
@@ -177,8 +199,8 @@ namespace HazeronAdviser
                         dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = attantionMajor;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x40)) // 0b01000000 // Morale not full.
                         dgvCity.Rows[row].Cells["ColumnCityMorale"].Style.BackColor = attantionMajor;
-                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x80)) // 0b10000000 // MSG_CityFinalDecayReport
-                        dgvCity.Rows[row].Cells["ColumnCityName"].Style.BackColor = attantionMajor;
+                    //if (HHelper.FlagCheck(hCity.AttentionCode, 0x80)) // 0b10000000 // Nothing yet!
+                    //    dgvCity.Rows[row].Cells["ColumnCityIndex"].Style.BackColor = attantionMajor;
                 }
                 toolStripProgressBar2.Increment(1);
             }
@@ -212,8 +234,8 @@ namespace HazeronAdviser
                     //    dgvShip.Rows[row].Cells["ColumnShipIndex"].Style.BackColor = attantionMajor;
                     //if (HHelper.FlagCheck(hShip.AttentionCode, 0x40)) // 0b01000000 // Nothing yet!
                     //    dgvShip.Rows[row].Cells["ColumnShipIndex"].Style.BackColor = attantionMajor;
-                    if (HHelper.FlagCheck(hShip.AttentionCode, 0x80)) // 0b10000000 // MSG_ShipLogFinal
-                        dgvShip.Rows[row].Cells["ColumnShipName"].Style.BackColor = attantionMajor;
+                    //if (HHelper.FlagCheck(hSHip.AttentionCode, 0x80)) // 0b10000000 // Nothing yet!
+                    //    dgvShip.Rows[row].Cells["ColumnShipIndex"].Style.BackColor = attantionMajor;
                 }
                 toolStripProgressBar2.Increment(1);
             }
@@ -248,8 +270,8 @@ namespace HazeronAdviser
                     //    dgvOfficer.Rows[row].Cells["ColumnOfficerIndex"].Style.BackColor = attantionMajor;
                     //if (HHelper.FlagCheck(hOfficer.AttentionCode, 0x40)) // 0b01000000 // Nothing yet!
                     //    dgvOfficer.Rows[row].Cells["ColumnOfficerIndex"].Style.BackColor = attantionMajor;
-                    if (HHelper.FlagCheck(hOfficer.AttentionCode, 0x80)) // 0b10000000 // MSG_OfficerDeath
-                        dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Style.BackColor = attantionMajor;
+                    //if (HHelper.FlagCheck(hOfficer.AttentionCode, 0x80)) // 0b10000000 // Nothing yet!
+                    //    dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Style.BackColor = attantionMajor;
                 }
                 toolStripProgressBar2.Increment(1);
             }
@@ -261,33 +283,48 @@ namespace HazeronAdviser
                 int row = dgvEvent.RowCount - 1;
                 dgvEvent.Rows[row].Cells["ColumnEventIndex"].Value = row;
                 dgvEvent.Rows[row].Cells["ColumnEventSelection"].Value = false;
-                if (true)
+                if (hEvent.MessageType == 0x13) // MSG_Government
+                {
+                    if (hEvent.Name == "State Department")
+                        dgvEvent.Rows[row].Cells["ColumnEventIcon"].Value = imageFriend;
+                    if (hEvent.Name == "War Department")
+                        dgvEvent.Rows[row].Cells["ColumnEventIcon"].Value = imageTarget;
+                    if (hEvent.Name == "Treasury Department")
+                        dgvEvent.Rows[row].Cells["ColumnEventIcon"].Value = imageTreasury;
+                }
+                else if (hEvent.MessageType == 0x16) // MSG_OfficerDeath
+                    dgvEvent.Rows[row].Cells["ColumnEventIcon"].Value = imageOfficer;
+                else if (hEvent.MessageType == 0x17) // MSG_CityFinalDecayReport
                     dgvEvent.Rows[row].Cells["ColumnEventIcon"].Value = imageCity;
-                else
+                else if (hEvent.MessageType == 0x12) // MSG_ShipLogFinal
                     dgvEvent.Rows[row].Cells["ColumnEventIcon"].Value = imageShip;
+                else if (hEvent.MessageType == 0x18) // MSG_DiplomaticMessage (?)
+                    dgvEvent.Rows[row].Cells["ColumnEventIcon"].Value = imageDiplomacy;
+                else if (hEvent.MessageType == 0x03 || hEvent.MessageType == 0x05) // MSG_CityOccupationReport or MSG_CityIntelligenceReport
+                    dgvEvent.Rows[row].Cells["ColumnEventIcon"].Value = imageFlag;
                 dgvEvent.Rows[row].Cells["ColumnEventName"].Value = hEvent.Name;
                 dgvEvent.Rows[row].Cells["ColumnEventSubject"].Value = hEvent.Subject;
                 dgvEvent.Rows[row].Cells["ColumnEventDate"].Value = hEvent.LastUpdaredString;
                 // AttentionCodes
                 if (hEvent.AttentionCode != 0x00)
                 {
-                    dgvEvent.Rows[row].Cells["ColumnEventName"].Style.BackColor = attantionMinor;
+                    //dgvEvent.Rows[row].Cells["ColumnEventName"].Style.BackColor = attantionMinor;
                     //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x01)) // 0b00000001 // Nothing yet!
                     //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMinor;
                     //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x02)) // 0b00000010 // Nothing yet!
                     //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMajor;
                     //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x04)) // 0b00000100 // Nothing yet!
                     //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMajor;
-                    //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x08)) // 0b00001000 // Nothing yet!
-                    //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMajor;
+                    if (HHelper.FlagCheck(hEvent.AttentionCode, 0x08)) // 0b00001000 // Attantion
+                        dgvEvent.Rows[row].Cells["ColumnEventName"].Style.BackColor = attantionMinor;
                     //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x10)) // 0b00010000 // Nothing yet!
                     //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMajor;
                     //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x20)) // 0b00100000 // Nothing yet!
                     //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMajor;
                     //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x40)) // 0b01000000 // Nothing yet!
                     //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMajor;
-                    //if (HHelper.FlagCheck(hEvent.AttentionCode, 0x80)) // 0b10000000 // Nothing yet!
-                    //    dgvEvent.Rows[row].Cells["ColumnEventIndex"].Style.BackColor = attantionMajor;
+                    if (HHelper.FlagCheck(hEvent.AttentionCode, 0x80)) // 0b10000000 // Death
+                        dgvEvent.Rows[row].Cells["ColumnEventName"].Style.BackColor = attantionMajor;
                 }
                 toolStripProgressBar2.Increment(1);
             }

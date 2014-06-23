@@ -252,7 +252,7 @@ namespace HazeronAdviser
                         _attentionCode = (byte)(_attentionCode | 0x20); // 0b00100000
                     if (morale < 20) // Morale not full.
                         _attentionCode = (byte)(_attentionCode | 0x40); // 0b01000000
-                    if (mail.MessageType == 0x17) // MSG_CityFinalDecayReport
+                    if (false) // Nothing yet!
                         _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
                 }
                 else
@@ -406,7 +406,7 @@ namespace HazeronAdviser
                     _attentionCode = (byte)(_attentionCode | 0x20); // 0b00100000
                 if (false) // Nothing yet!
                     _attentionCode = (byte)(_attentionCode | 0x40); // 0b01000000
-                if (mail.MessageType == 0x12) // MSG_ShipLogFinal
+                if (false) // Nothing yet!
                     _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
             }
         }
@@ -472,7 +472,7 @@ namespace HazeronAdviser
                     _attentionCode = (byte)(_attentionCode | 0x20); // 0b00100000
                 if (false) // Nothing yet!
                     _attentionCode = (byte)(_attentionCode | 0x40); // 0b01000000
-                if (mail.MessageType == 0x16) // MSG_OfficerDeath
+                if (false) // Nothing yet!
                     _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
 
             }
@@ -493,6 +493,12 @@ namespace HazeronAdviser
             get { return _subject; }
         }
 
+        protected int _messageType = 0;
+        public int MessageType
+        {
+            get { return _messageType; }
+        }
+
         public HEvent(HMail mail)
         {
             _id = HHelper.ToID(mail.SenderID);
@@ -511,27 +517,32 @@ namespace HazeronAdviser
 
                 _messageId = mail.MessageID;
                 _subject = mail.Subject;
-                //if (mail.MessageType == 0x05) // MSG_CityIntelligenceReport
+                _messageType = mail.MessageType;
+                //if (_messageType == 0x03) // MSG_CityOccupationReport
                 //{
                 //    ?
                 //}
-                //else if (mail.MessageType == 0x12) // MSG_ShipLogFinal
+                //if (_messageType == 0x05) // MSG_CityIntelligenceReport
                 //{
                 //    ?
                 //}
-                //else if (mail.MessageType == 0x13) // MSG_Government
+                //else if (_messageType == 0x12) // MSG_ShipLogFinal
                 //{
                 //    ?
                 //}
-                //else if (mail.MessageType == 0x16) // MSG_OfficerDeath
+                //else if (_messageType == 0x13) // MSG_Government
                 //{
                 //    ?
                 //}
-                //else if (mail.MessageType == 0x17) // MSG_CityFinalDecayReport
+                //else if (_messageType == 0x16) // MSG_OfficerDeath
                 //{
                 //    ?
                 //}
-                //else if (mail.MessageType == 0x18) // MSG_DiplomaticMessage
+                //else if (_messageType == 0x17) // MSG_CityFinalDecayReport
+                //{
+                //    ?
+                //}
+                //else if (_messageType == 0x18) // MSG_DiplomaticMessage
                 //{
                 //    ?
                 //}
@@ -543,7 +554,7 @@ namespace HazeronAdviser
                     _attentionCode = (byte)(_attentionCode | 0x03); // 0b00000010
                 if (false) // Nothing yet!
                     _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100
-                if (false) // Nothing yet!
+                if (_messageType == 0x05) // MSG_CityIntelligenceReport
                     _attentionCode = (byte)(_attentionCode | 0x08); // 0b00001000
                 if (false) // Nothing yet!
                     _attentionCode = (byte)(_attentionCode | 0x10); // 0b00010000
@@ -551,7 +562,7 @@ namespace HazeronAdviser
                     _attentionCode = (byte)(_attentionCode | 0x20); // 0b00100000
                 if (false) // Nothing yet!
                     _attentionCode = (byte)(_attentionCode | 0x40); // 0b01000000
-                if (false) // Nothing yet!
+                if (_messageType == 0x03 || _messageType == 0x12 || _messageType == 0x16 || _messageType == 0x17) // MSG_CityOccupationReport, MSG_ShipLogFinal, MSG_OfficerDeath or MSG_CityFinalDecayReport
                     _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
 
             //}

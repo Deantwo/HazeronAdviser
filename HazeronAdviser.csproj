@@ -91,6 +91,48 @@
   <ItemGroup>
     <None Include="Officer.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\c_Spacecraft.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="c_Spacecraft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MsgCity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MsgBuyOffer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CommGovernment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CommFriend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CommVoice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CommStdChannel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CommStation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Locator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MsgAccept.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CommDiplomacy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="c_Money.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MsgSpot.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -130,4 +130,52 @@
     <value>..\Officer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>http://hazeron.com/images/Officer.png</comment>
   </data>
+  <data name="CommDiplomacy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\CommDiplomacy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>http://hazeron.com/images/CommDiplomacy.png</comment>
+  </data>
+  <data name="CommFriend" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\CommFriend.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>http://hazeron.com/images/CommFriend.png</comment>
+  </data>
+  <data name="CommGovernment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\CommGovernment.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>http://hazeron.com/images/CommGovernment.png</comment>
+  </data>
+  <data name="CommStation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\CommStation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>http://hazeron.com/images/CommStation.png</comment>
+  </data>
+  <data name="CommStdChannel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\CommStdChannel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>http://hazeron.com/images/CommStdChannel.png</comment>
+  </data>
+  <data name="CommVoice" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\CommVoice.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>http://hazeron.com/images/CommVoice.png</comment>
+  </data>
+  <data name="c_Spacecraft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\c_Spacecraft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>http://hazeron.com/images/c_Spacecraft.png</comment>
+  </data>
+  <data name="Locator" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Locator.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>http://hazeron.com/images/Locator.png</comment>
+  </data>
+  <data name="MsgAccept" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MsgAccept.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>http://hazeron.com/images/MsgAccept.png</comment>
+  </data>
+  <data name="MsgCity" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MsgCity.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>http://hazeron.com/images/MsgCity.png</comment>
+  </data>
+  <data name="c_Money" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\c_Money.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>http://hazeron.com/images/c_Money.png</comment>
+  </data>
+  <data name="MsgSpot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MsgSpot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>http://hazeron.com/images/MsgSpot.png</comment>
+  </data>
 </root>
