@@ -117,65 +117,209 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="c_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\c_Flag.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="c_Flag" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxEAAAsRAX9kX5EAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfWAgcFADNWv522
+        AAAApklEQVQ4T52Riw3DIAxEGa1rdJvulAXYjHLxXXyQj2ifZGMgfrGSAj6v0rZ3aftmp/UasUgKWqu1
+        DuuSyAUIFViWRBLoSTWoGCWIiXmCOSIFeW7cCS7pFzkReZrAOc56ipo8CfA2R+dIbD8LskhcpGu2p0A3
+        Q69teG1BfAL/ZaojeaOCnL+BiP0xPg90zodccEeKsCL9KBApCglZF4gQcfOPAEBQyhdC4oKEekp2KAAA
+        AABJRU5ErkJggg==
+</value>
     <comment>http://hazeron.com/images/c_Flag.png</comment>
   </data>
-  <data name="GovSpacecraft" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\GovSpacecraft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="GovSpacecraft" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxEAAAsRAX9kX5EAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfXCwcWBSqXj23O
+        AAAAoElEQVQ4T72QwQ0FIQhEadRerMIuPNiBFyvw7MVG+ELAuEZd9/JfMlkWmIkB3sACKOV3mpkD6KvU
+        WqVaIIZRZFY9Zltk+ShZ3bMyqWTlnbY8B90zmuX/WwgtqlnZBpRScJaM7vDe4ywZgXMOrbUsY8w+OOeM
+        Kml1Vj16Ze9TkVLqCiFgjPEoCtBdDqFCxY2BVe9hHo+n4kHj6ganI/4BgB9mDyfagVXVoQAAAABJRU5E
+        rkJggg==
+</value>
     <comment>http://hazeron.com/images/GovSpacecraft.png</comment>
   </data>
-  <data name="Officer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Officer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Officer" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfYCQMXAyVUXMsM
+        AAAAHXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBUaGUgR0lNUO9kJW4AAAE7SURBVDhPjZKxSgNBFEXf
+        NwiLRSCtbQg2YmcqtbFIoa2gIFYiBGxCIIVgbLSxiCBEENtt7MRGIcVqaaedtZ8wznnLm8zEjfHCySQ7
+        c+/cnYygm9cvWRs8uRidmCHWQ/hh+v64dMpLza2c3FXS2D9XltrHTr18HKwKDRTM1uIvMxuGANSqa4OS
+        t42yCaMPhMfrzN2eLujoQwSSBl6uKAqS54L5/uG9DMAcs9MU+RyPnbG5nFUhnd7VpMFo3ed6+QblFzRy
+        qgozCIQAdo2JGzzn+cwA+BUQm/8dALuH3ckZDIcOMM8NwGghdpBmNGhiZo4nCTBpyF5NzrYXk4D4dVgX
+        m5MAREB3K0vOg5CLfl/NyD8LZv7KoPyoHrArazvbVcZs8OoQxAKuro0WQIOqOTwhgIlpWGTm6eeGiMgP
+        Age2r7kHbZsAAAAASUVORK5CYII=
+</value>
     <comment>http://hazeron.com/images/Officer.png</comment>
   </data>
-  <data name="CommDiplomacy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\CommDiplomacy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CommDiplomacy" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAGYktHRAB7AEQADudqYroAAAAHdElNRQfXAQUQMBeJ4k/x
+        AAAAHXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBUaGUgR0lNUO9kJW4AAAIJSURBVDhPXdNPSFRRFIDx
+        Q7mSpkUxtAnahRu3A7ZpE0yEQYuYhKHA0pXipiB1yGjTRpBaaJsgIkOIbCNkBGZQFKFSSZFG0aK0zOwf
+        ExYR0/e93hPpwY+Zc9495953333hdfBG/Vnc9TdJpBdxAa1pmFzEDzBWGxgImcjjK277Px1nfgLf0F/Z
+        szkutWwx9xHTNe6bk8lpfEJvRF/U1Z0xdwsOnrBZbWW7uZuYq/3oXyvOGjzCLArVqDN22c8xFXE6K3aV
+        5hpcSVZM3Jl19rm626LZuAIHn3NQuvQhPFw/O3ErhrMGr9C1MU4Zl7CAosVpg2PoWVfchZcYNxiBMx5y
+        D/h1tkUULL52ZKtFeUyRu4LH+ALjggV9sKCUNvB5Z9CSFl7HIrzXjMOTsSN+xoaEyXa8xWi1+itb8u7u
+        5tz5k/tzC50dm5Yp3mcDbYvj0RStUY4DCQc3YA7P4Iz6jhXsIvcEnzHofVeZrtS9ysfRjiRw5y9QMILf
+        WIKNvLcTNnkPD1wVnpElTHpOslcz07M39+dEKTeWFaup6WI0Ng7ayNfWCzdvDK7838ll4CxWy0P1r0n6
+        St3EqyjCg6Vk+eXyaMzPL4f7JYvH4bLb0g28jA+pd3BG37kn9g2ewuNf8aTaYBVuWjts4GzDKb/SO7CB
+        b+oF7sN7xazBPRSx9iVmF4Oy5aeP8P8V8RfukFQ8L1NLuwAAAABJRU5ErkJggg==
+</value>
     <comment>http://hazeron.com/images/CommDiplomacy.png</comment>
   </data>
-  <data name="CommFriend" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\CommFriend.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CommFriend" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfXAQQQGhG3VkGJ
+        AAAAHXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBUaGUgR0lNUO9kJW4AAAIeSURBVDhPlY9daJJRGMcf
+        5dUY5vRiwjCobRdRMWO7KBjiTYvwIqPLQIqFJBFFdbHP1LU1WoXkx0WDWHVT0VtIHxeRUCCjae4iiT5g
+        DQbDBoNY0ZChIft3znl95Swvoj/8OA9/3vN7z0NYGAGD5PCuNv47hdtb8btcYRciO8zmcVtT0xUj75x0
+        ISB3tc8bc+lgsxDI8G6cPBtBOrziNfWpNuPQOSZzE43aatdEBi5PaQI2NwjOkBcJ2oeHhk6otLtyng4t
+        trfH0ibT2JDFMrGLCY2PXn7RBK4VvgLV0aRhNNMgei2ncdbkg6rsxVpmFo8VF9zGABQKzRoofKwukOGd
+        w3FNSFpbbyAZncHck7dYLnzF/e7jeGPtxFPaiUE6gPoKHFmgqh8RCr2G2z0Nu/0qqtWqWC/76hPCJ+7C
+        a+7DgC7Qd5dXiEZT8HjuIB7PIpNZFAJOLJYVQsUQxhYa3izQ4V3h/Tcm28M4AqdzBOn0AvL5IlKpz/D5
+        HqCt7Sas1glNwGA/jphlAT9La+soLq1i7t0SOjp6mcjPX5Xv70+vxuO5jWQyJwtGuYSfRt6x2aELy+tl
+        /PpZwnLxB+/3M052dU3dSiRyHyQBDxdERKcoYxQMvqCenmne2XUZgwKBZ6JjuDYJ7p3aRpGjDtFJL6qh
+        yf3+FM3Pf6dSqSKoC55f3F5HE8jRLnNRS8t1mpycEbNAF8hpFMj562X/L5BD9Acb+JTS5PHMzgAAAABJ
+        RU5ErkJggg==
+</value>
     <comment>http://hazeron.com/images/CommFriend.png</comment>
   </data>
-  <data name="CommGovernment" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\CommGovernment.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CommGovernment" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAGYktHRAB7AEQADudqYroAAAAHdElNRQfXAQUQLCWnQkMs
+        AAAAHXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBUaGUgR0lNUO9kJW4AAAGbSURBVDhPlZI/SEJRFMa/
+        yiGlGlKoMGhqlIYmB6EhamnIJYIHQplTDUHYUOQrKjQKaYkgFMdCCJrCFoPaGmoTTHBwjbDBoga53XPe
+        uy/FP9XH+3zX8/x+53jvA0kUNvj+Fwl5iXjcMhefznrkZ8R0ozYn+0Rqvl+I12HBAAVhnvED+DEnVxHY
+        bDtwOPbYShQkAEPeD8WzLJHrAA8YQgU2JDrGMd0dlFWaRucwWwbTAac1iYJYgAkEsIQZJDGGHJwoofdn
+        dBlWpu9ULz4OivXtU84zgDp2YQujWIHmCmEVU1BjU2cGmNMQgMxT7h+nLYCyz5esC6s1hakzmQB2yNO7
+        uM4xwO8/twDNwqorhW8xgk90sq0JyuUPVCpfbcPkAazBiwVomGWDNoIAmUyhbbj2L9Z5cTli7oHOgGbh
+        arWKcPgGbvdRI4BEgFZhrzcBj+cEsdg9SqU3ZLNFBINXsNt32axWYaODbtroqGmXyOdfeL/ILDqe2nAq
+        5DYeWFLj6nC5DhCN3vGazS+HfEnU2crqL1LTKIAZpkf/F/ANZ/hLLylajjwAAAAASUVORK5CYII=
+</value>
     <comment>http://hazeron.com/images/CommGovernment.png</comment>
   </data>
-  <data name="CommStation" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\CommStation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CommStation" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAGYktHRADSANIA0uymxeAAAAAHdElNRQfaAhIRHyFjdo4a
+        AAAAHXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBUaGUgR0lNUO9kJW4AAAC2SURBVDhPY8AH1qxZ0xoW
+        FtYK5ZIGgJr/NzU1gTHQkP9QYdIAyBBTU1P8mhUUFBguXbr0nxwM0suwZ88eEAPuXGQME8clD9LLMHny
+        ZLgALoUwjG4gSC/YCyEhIf/JwSC9eAEsJqBc0gDl0fj/fysQ/4di8hITfYBl+r3/MNzoLUy6X9ENkOsw
+        AtMwDBKHKsUOkBXyLdECGwCiYWyY4SA2suFQ7RADYIqRFSEbAsMwPsyQRm/h/wDjmByaK7nI/AAAAABJ
+        RU5ErkJggg==
+</value>
     <comment>http://hazeron.com/images/CommStation.png</comment>
   </data>
-  <data name="CommStdChannel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\CommStdChannel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CommStdChannel" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfXAQUQDCarzzY0
+        AAAAHXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBUaGUgR0lNUO9kJW4AAAFgSURBVDhPnZPNK0RRGMaf
+        v0NJsyFKUTa+QkxN+UiymJF8lI+mRGksLAYhlI1Bo5BsGNFQvlYysxghGjYkTTJbUmyUpMc9TnfcW+PM
+        zeLXuZ3e5/ee+95zwQfw6gDHYrXK0Rp4tvOToy4wFTxdgJFN856JrzfGH2/+FtTbwapi8PPevJ9AJQit
+        g65aMMsGRvcMISMqwaAbrK4AWxrAwxXw9doQ1FEJFsbAvGywywn2tYHPl+DHHdjbCno6LAjEKwjB/hK4
+        Og0uT4IZaWBpARj0WxQ4yuRJPJ2gLR0M+MCTrd8apWBX6+wo1wZZB9pLwHAAjIUMYYFKIHA3g4X5cqDz
+        I/JrvN8aalSCuWHQWaPNIQesLAK9PaBvCIxHLAj0KftHwW6XHFxuJjjjBU+DKQSi8/m2LFickNe5vVET
+        NclbOTVgQbAxC473S/TnWFge/yWaQiBW0TUZiaBOEsE/f2fwG9P4o0e9VTyaAAAAAElFTkSuQmCC
+</value>
     <comment>http://hazeron.com/images/CommStdChannel.png</comment>
   </data>
-  <data name="CommVoice" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\CommVoice.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CommVoice" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfWCgoTERUN2neF
+        AAAAHXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBUaGUgR0lNUO9kJW4AAAB6SURBVDhPYxgFmOB/Y+N/
+        GIYKYRXDAMiKiMFQbRAAE/z8+fP/W7duEaRRDIFxSvT1/8eoqhI0AKQGpBZuCLoByBgkhkscbgA2VyAr
+        xCaGohkGkA35HxoKxh8CAsAYxsepGQZgkmCMZAiYjSQHVY4bICtGxlDp4QUYGACaeCL+ke+EuAAAAABJ
+        RU5ErkJggg==
+</value>
     <comment>http://hazeron.com/images/CommVoice.png</comment>
   </data>
-  <data name="c_Spacecraft" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\c_Spacecraft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="c_Spacecraft" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxEAAAsRAX9kX5EAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfWAgcDLxzr/+Qw
+        AAAAhklEQVQ4T82QwQnAIAxFXdRdnMItPLiBFyfw7MVFUiOJWGtVWih98OHz03xsxOeklIDsFciQHYLL
+        yLRkxavlR6x+6wfEGKEXjfYwxkAvGgmtNSiliqSU98UhBGBRVBll+Mqao/HeV1lrwTk3FRbwt6UEDasE
+        DaPstNwej1UGma0bzI74AUIcADXMQzdqsGkAAAAASUVORK5CYII=
+</value>
     <comment>http://hazeron.com/images/c_Spacecraft.png</comment>
   </data>
-  <data name="Locator" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Locator.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Locator" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfXDBgSJCBGlqI2
+        AAADMElEQVQ4T43Sa0ySYRQH8PdFyLnKrmurrRWtlmY3L5WSGmKUASrmZaBGppSlDRBNSTNGmmRpkDPw
+        hkWjME0lTQNJLbt4iVZbV7OZq1xrfak+tNaW/6zYalmt3/PxPP+z5zk7xN+oFV5Ed1Oo3/2eiCSrmbmB
+        HTiLdJb+DuMnCKNEk41J3mz3d+m38Ri9Vq7mbPmaVc/vRJCcc70E4uKdt/+go6CAHB0KpJaVxyyI3h2n
+        94uOfrpXzHjvxeHfFYjDimqreDPspnBqSMAsZ+I3ljIBtVIvTFjMF7+h8NXwSMxGf2cZZvKy4MLci+Wb
+        wh7UaAOZB5WLKB+1LGfKiRz/YddlJT0gOf2t1nAUjDwDck4U4+VQFxIKa8DMKEWGSg5PVmh/RQ13cuGN
+        /B8zWbF0CkGqsoldHkEUqTrbSArKIKluwvDgddhbSvHonh3NjVUYGWqHd3IRaGuEY0lJPumMxH7K9wa3
+        2jYvaW+Rub14mj3Vd7t02D3hBBJVh2Cu2IdGswbN53UwndLAWJmDdUlSuDJE8A8LstxzcKf2WTnTiQG7
+        kD44EKe60xkpz8sL/9TTmoNXg63ovGyCTquALG0bavUq9FhPYfRZByx1WZDsCR4ZfSI+4LgSvpG4bY9x
+        dXRwd7eZ2Zu8owTvRPnH0Oe4hbNGDWp1KlQez4LJUIT62ky0dlgQmZyK9Wzv+44rUTuuWtirieIjKjIt
+        V0btKuHT/EU7eylbS0EXa3FGJ0GdsQTWZgMaThfgnC4dszky0HxjERUfYpDs50xSype5fJ/DN4dzfSgZ
+        BwQi143SL0eqNdCa66CvOgT7BSXyCuQwtTRDVqjGPH/2p+qTfG6Fes7EzbR0JbsK0rZe9I1JGSN5SkTv
+        U2Nk8BpWxMlBXZ+CAF7kmEIRqR/oFtEAYmKDTK3U5fqleI/tMsFpepjws3tALMq1crit2oKFgaz30qzY
+        kod9KZ7FuV4/n/6rYcwlUx+3ksa28Y0sYQWLd4UqCvOD2+QSltTaELHWlp9Oe/1BTIqFdGfiH1Z6TiNs
+        9aFuD27wM8sPe9Pcp1Cdlf+UuXMRYTsfMsdWFxKVGj//x9ZNQBBfAbGsdRxuY4EPAAAAAElFTkSuQmCC
+</value>
     <comment>http://hazeron.com/images/Locator.png</comment>
   </data>
-  <data name="MsgAccept" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MsgAccept.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="MsgAccept" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfXAQgPBivKgZ6T
+        AAAAHXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBUaGUgR0lNUO9kJW4AAADDSURBVDhPnZArFsIwEEVn
+        iZUsANFNILAYLKYGwQZQLAAMiiXguoPKNG/gpdNJwqc95zYnybybSeS2WwUQP1mC9Mc2PLu1SpaIVED+
+        FfWXffwZwa8iBMFwPZQFFiuxwXDvFDlvGj3RB9kFJT6YBDB/k2gXLkiSgKeVqAn0DXi/WhcUewnCj9N2
+        EpQkNmwlCONNMgEltXAa32HUZwLwSYI9hkEW1s3YZk2CdVs/CwMIrMTj62cTwHBxdLUgWwAo9viaF0FG
+        02r2fWJj8wQAAAAASUVORK5CYII=
+</value>
     <comment>http://hazeron.com/images/MsgAccept.png</comment>
   </data>
-  <data name="MsgCity" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MsgCity.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="MsgCity" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfYARYWKhFn2yYJ
+        AAAAHXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBUaGUgR0lNUO9kJW4AAAHZSURBVDhPY4CAA1jxrFmz
+        /mMTR2AwgDPgYOO28/9hOD5zFhhDpdAAWC+mAe392/7DMFkGDF4XQAIVGRDpgt1nTsBxVl8rGENUYjHg
+        7Nld/9vbk1EwUQZwc3MLiomJyO3du+ozyQZs377389SpU883Nzfc3bp1EdyAbVvOwnFh7jwwxmrAli37
+        3y1fu/zn5Fl9v3fsWvIXmwFVZYv/lZXM/bds5bp/DQ0N/0EYbsCyFRvf987v/R3c4/v3wOG1/3p6Mv91
+        dWX927zx6D+YAeXV8/7llU38O3X+rL9oBjCIKqlIf9SolP2tVaHyZ8eBpf+a2hP/NbQl/1u2agvcgKLK
+        CX+Nq63/GGWb/M4pSv+ZEZ9z00WnNJdhWTBDe6k3wxvpKMYfUmkCv3Wipf56hGr+9SjU/RtYZf93zpzZ
+        /1bMXPgvpzjnr1qK9B/hIJ5fsppCX3IdZO9UOsvuBRnA0OjJcEsxkOGFhDfDHwNjpr/xPix/bSPZ/zol
+        CP2dGCf+d0G8/N/+aNG/prHcf9S8GH8ryTI91RZjOl5gwZoL9gMnHwMHrxhDT5Inw4NiD4a/+V4Mf4uD
+        Gf6WhjL97QtmfrAwmKlhcgiTWlMII39tIENbvx/DbZA+TREGbgBzH5FQvS0r5AAAAABJRU5ErkJggg==
+</value>
     <comment>http://hazeron.com/images/MsgCity.png</comment>
   </data>
-  <data name="c_Money" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\c_Money.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="c_Money" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfXAQQXMDifwANI
+        AAAAHXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBUaGUgR0lNUO9kJW4AAACjSURBVDhPYwCBPXv2kIXh
+        mnt7e8nCCQkJDAwndor9v3dO4v//r93//7+VAWMQH4RBcr29zQxPn14DakClQRYTZQA2zSAabgCIQY4h
+        JBkA0wRTgywHNgAUIMQYApNHFifaAJgcshhRgQjkg2yGYUwXkGAAeS4AeRGEYWqQ5YgyAKQIhmHqkOXB
+        yZmQITijEAYIGYDPG8RrvnePPANALsTtfwYGAPCRfaRX3MWLAAAAAElFTkSuQmCC
+</value>
     <comment>http://hazeron.com/images/c_Money.png</comment>
   </data>
-  <data name="MsgSpot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MsgSpot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="MsgSpot" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAGYktHRAA/AFgAmTFOwMAAAAAHdElNRQfYCRMULhPpk+28
+        AAAAHXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBUaGUgR0lNUO9kJW4AAACASURBVDhPnY0BCsAwCAP9
+        zP4P++C2FFNScc7uQKoxplZxml3e7oHDWL6qUfPhPV72ZZAeoqixBwzycSWaQVdbfh+Ck5of6J9Uxk8d
+        w98aAQADEmN19CVgDMKWDtHbSWakLw3IzB1tgiV/AGrW3WsAwJJmLe7KY4VBPGofRupDsxse2JqCP3kL
+        MwAAAABJRU5ErkJggg==
+</value>
     <comment>http://hazeron.com/images/MsgSpot.png</comment>
   </data>
 </root>
