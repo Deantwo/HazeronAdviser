@@ -12,7 +12,7 @@ I started after seeing **se5a**'s [HazeronMapper](https://github.com/se5a/Hazero
 What is it
 ==============
 
-**HazeronAdviser** is a simple little program that scans through all your HMails that are locally saved on your computer.<br>
+**HazeronAdviser** is a simple little program written in C# that scans through all your HMails that are locally saved on your computer.<br>
 Once loaded it is able to nicely list all your cities and ships, and then point you to the ones that require your attention.
 
 Features
@@ -20,15 +20,23 @@ Features
 
 - Scan all Hazeron mails automatically with one click
 - Lists all cities, ships and officers
-- Show problems with cities that need attention (low morale, bad jobs/homes ratio, abandonment, ect.)
+- Highlights cities that need attention (low morale, bad jobs/homes ratio, abandonment, ect.)
+- Calculates the time before abandonment decay starts
+- Visually shows changes in population, homes, and jobs
+- Visually shows changes in morale
 
 Planned
 ==============
 
+- More attention highlights for cities (no/low food, more?)
+- Attention highlights for ships (no/low fuel, damaged, more?)
 - A better overview of building TLs in a city
-- An overview  of resources in city storage
+- An overview of resources in city storage
 - Calculate the highest TL spacecraft that can be build
 - What is keeping it from making higher TL spacecrafts
+- Better overview of all officers and their home (in charge of ships, on planet, etc.) [(problem)](http://hazeron.com/phpBB3/viewtopic.php?f=5&t=6893)
+- New tab just for "detected enermies" and the like
+- Include scan results for a city's system
 
 Want to help
 ==============
