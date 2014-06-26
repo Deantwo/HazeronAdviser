@@ -18,7 +18,8 @@ namespace HazeronAdviser
         List<HOfficer> hOfficerList = new List<HOfficer>();
         List<HEvent> hEventList = new List<HEvent>();
 
-        List<string> charIdList = new List<string>();
+        List<int> charFilterList = new List<int>();
+        List<HCharacter> charList = new List<HCharacter>();
 
         Image imageCity;
         Image imageShip;
@@ -113,7 +114,7 @@ namespace HazeronAdviser
                         {
                             HCity temp = new HCity(mail);
                             if (hCityList.Any(city => city.ID == temp.ID))
-                                hCityList[hCityList.FindIndex(city => city.ID == temp.ID)].Update(mail);
+                                hCityList.Find(city => city.ID == temp.ID).Update(mail);
                             else
                                 hCityList.Add(temp);
                         }
@@ -121,7 +122,7 @@ namespace HazeronAdviser
                         {
                             HShip temp = new HShip(mail);
                             if (hShipList.Any(ship => ship.ID == temp.ID))
-                                hShipList[hShipList.FindIndex(ship => ship.ID == temp.ID)].Update(mail);
+                                hShipList.Find(ship => ship.ID == temp.ID).Update(mail);
                             else
                                 hShipList.Add(temp);
                         }
@@ -129,7 +130,7 @@ namespace HazeronAdviser
                         {
                             HOfficer temp = new HOfficer(mail);
                             if (hOfficerList.Any(officer => officer.ID == temp.ID))
-                                hOfficerList[hOfficerList.FindIndex(officer => officer.ID == temp.ID)].Update(mail);
+                                hOfficerList.Find(officer => officer.ID == temp.ID).Update(mail);
                             else
                                 hOfficerList.Add(temp);
                         }
@@ -137,12 +138,14 @@ namespace HazeronAdviser
                         {
                             HEvent temp = new HEvent(mail);
                             if (hEventList.Any(notice => notice.MessageID == temp.MessageID))
-                                hEventList[hEventList.FindIndex(notice => notice.MessageID == temp.MessageID)].Update(mail);
+                                hEventList.Find(notice => notice.MessageID == temp.MessageID).Update(mail);
                             else
                                 hEventList.Add(temp);
                         }
-                        if (!charIdList.Contains(HHelper.ToID(mail.RecipientID)))
-                            charIdList.Add(HHelper.ToID(mail.RecipientID));
+                        else if (mail.MessageType == 0x00 && !charList.Any(x => x.IdNum == mail.SenderID)) // Add to character list.
+                            charList.Add(new HCharacter(mail));
+                        if (!charFilterList.Contains(mail.RecipientID))
+                            charFilterList.Add(mail.RecipientID);
                         toolStripProgressBar1.Increment(1);
                     #if RELEASE
                     }
@@ -329,8 +332,16 @@ namespace HazeronAdviser
                 toolStripProgressBar2.Increment(1);
             }
             #endregion
-            foreach (string charId in charIdList)
-                cmbCharFilter.Items.Add(charId);
+            foreach (int charId in charFilterList) // Fill the Character filter dropdown box.
+            {
+                if (charList.Any(x => x.IdNum == charId))
+                {
+                    HCharacter hChar = charList.Find(x => x.IdNum == charId);
+                    cmbCharFilter.Items.Add(hChar.Name + " (" + hChar.ID + ")");
+                }
+                else
+                    cmbCharFilter.Items.Add(HHelper.ToID(charId));
+            }
             cmbCharFilter.Enabled = true;
             toolStripProgressBar1.Visible = false;
             toolStripProgressBar2.Visible = false;
@@ -394,14 +405,15 @@ namespace HazeronAdviser
                 }
                 else
                 {
+                    int charId = charFilterList[cmbCharFilter.SelectedIndex - 1];
                     foreach (DataGridViewRow row in dgvCity.Rows)
-                        row.Visible = hCityList[(int)row.Cells["ColumnCityIndex"].Value].Onwers.Contains(charIdList[cmbCharFilter.SelectedIndex - 1]);
+                        row.Visible = hCityList[(int)row.Cells["ColumnCityIndex"].Value].Onwers.Contains(charId);
                     foreach (DataGridViewRow row in dgvShip.Rows)
-                        row.Visible = hShipList[(int)row.Cells["ColumnShipIndex"].Value].Onwers.Contains(charIdList[cmbCharFilter.SelectedIndex - 1]);
+                        row.Visible = hShipList[(int)row.Cells["ColumnShipIndex"].Value].Onwers.Contains(charId);
                     foreach (DataGridViewRow row in dgvOfficer.Rows)
-                        row.Visible = hOfficerList[(int)row.Cells["ColumnOfficerIndex"].Value].Onwers.Contains(charIdList[cmbCharFilter.SelectedIndex - 1]);
+                        row.Visible = hOfficerList[(int)row.Cells["ColumnOfficerIndex"].Value].Onwers.Contains(charId);
                     foreach (DataGridViewRow row in dgvEvent.Rows)
-                        row.Visible = hEventList[(int)row.Cells["ColumnEventIndex"].Value].Onwers.Contains(charIdList[cmbCharFilter.SelectedIndex - 1]);
+                        row.Visible = hEventList[(int)row.Cells["ColumnEventIndex"].Value].Onwers.Contains(charId);
                 }
                 dgvCity.ClearSelection();
                 dgvShip.ClearSelection();

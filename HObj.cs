@@ -40,8 +40,8 @@ namespace HazeronAdviser
             get { return _attentionCode; }
         }
 
-        protected List<string> _owners = new List<string>();
-        public List<string> Onwers
+        protected List<int> _owners = new List<int>();
+        public List<int> Onwers
         {
             get { return _owners; }
         }
@@ -52,9 +52,9 @@ namespace HazeronAdviser
             _lastUpdated = mail.DateTime;
             _attentionCode = 0x00; // 0b00000000
 
-            string tempOwner = HHelper.ToID(mail.RecipientID);
+            int tempOwner = mail.RecipientID;
             if (!_owners.Contains(tempOwner))
-                _owners.Add(tempOwner); // Wish I could get the name of the empire instead!!!
+                _owners.Add(tempOwner);
 
             // Full body test, mostly used for debuging.
             _body = mail.Body;
