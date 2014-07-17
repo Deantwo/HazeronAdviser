@@ -284,12 +284,22 @@ namespace HazeronAdviser
             }
         }
 
+        public int GPS_W
+        {
+            get
+            {
+                if (this.MessageFlags_GPS)
+                    return _mailBytes[19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + _systSkipOffset + _planSkipOffset];
+                else
+                    return 0;
+            }
+        }
         public float GPS_X
         {
             get
             {
                 if (this.MessageFlags_GPS)
-                    return HHelper.ToFloat(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + _systSkipOffset + _planSkipOffset);
+                    return HHelper.ToFloat(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + _systSkipOffset + _planSkipOffset + 1);
                 else
                     return 0;
             }
@@ -299,7 +309,7 @@ namespace HazeronAdviser
             get
             {
                 if (this.MessageFlags_GPS)
-                    return HHelper.ToFloat(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + _systSkipOffset + _planSkipOffset + 4);
+                    return HHelper.ToFloat(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + _systSkipOffset + _planSkipOffset + 5);
                 else
                     return 0;
             }
@@ -309,17 +319,7 @@ namespace HazeronAdviser
             get
             {
                 if (this.MessageFlags_GPS)
-                    return HHelper.ToFloat(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + _systSkipOffset + _planSkipOffset + 8);
-                else
-                    return 0;
-            }
-        }
-        public int GPS_W
-        {
-            get
-            {
-                if (this.MessageFlags_GPS)
-                    return _mailBytes[19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + _systSkipOffset + _planSkipOffset + 12];
+                    return HHelper.ToFloat(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + _systSkipOffset + _planSkipOffset + 9);
                 else
                     return 0;
             }
