@@ -149,11 +149,20 @@ namespace HazeronAdviser
                         toolStripProgressBar1.Increment(1);
                     #if RELEASE
                     }
-                    catch (Exception ex)
+                    catch (IOException ioex)
                     {
                         System.Diagnostics.Debug.WriteLine("### Error while scanning mail file:");
-                        System.Diagnostics.Debug.WriteLine("### " + ex.ToString());
+                        System.Diagnostics.Debug.WriteLine("### " + ioex.ToString());
                         toolStripStatusLabel1.Text = "Error while scanning mail file: " + file;
+                        if (DialogResult.Yes == MessageBox.Show("Failed to located or open mail file:" + Environment.NewLine + file + Environment.NewLine + Environment.NewLine + "Copy mail filepath to clipboard?", "Mail Scanning Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2))
+                            Clipboard.SetText(file);
+                        continue; // Continue reading the rest of the mails even though one failed, may cause more than one popup to appear if multiple failures.
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("### Error while reading mail file:");
+                        System.Diagnostics.Debug.WriteLine("### " + ex.ToString());
+                        toolStripStatusLabel1.Text = "Error while reading mail file: " + file;
                         if (DialogResult.Yes == MessageBox.Show("Failed reading mail file:" + Environment.NewLine + file + Environment.NewLine + Environment.NewLine + "Copy mail filepath to clipboard?", "Mail Reading Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2))
                             Clipboard.SetText(file);
                         continue; // Continue reading the rest of the mails even though one failed, may cause more than one popup to appear if multiple failures.
@@ -163,7 +172,7 @@ namespace HazeronAdviser
             }
             #endregion
             toolStripProgressBar2.Value = 0;
-            toolStripProgressBar2.Maximum = hCityList.Count + hShipList.Count + hOfficerList.Count + hEventList.Count;
+            toolStripProgressBar2.Maximum = hCityList.Count + (hShipList.Count * 2) + hOfficerList.Count + hEventList.Count;
             toolStripProgressBar2.Visible = true;
             toolStripStatusLabel1.Text = "Filling tables...";
             toolStripStatusLabel1.Invalidate();
@@ -177,29 +186,28 @@ namespace HazeronAdviser
                 dgvCity.Rows[row].Cells["ColumnCitySelection"].Value = false;
                 dgvCity.Rows[row].Cells["ColumnCityIcon"].Value = imageCity;
                 dgvCity.Rows[row].Cells["ColumnCityName"].Value = hCity.Name;
-                dgvCity.Rows[row].Cells["ColumnCityMorale"].Value = hCity.MoraleShort;
-                dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Value = hCity.DecayDay;
-                dgvCity.Rows[row].Cells["ColumnCityPopulation"].Value = hCity.PopulationShort;
-                dgvCity.Rows[row].Cells["ColumnCityLivingConditions"].Value = hCity.LivingShort;
+                dgvCity.Rows[row].Cells["ColumnCityMorale"].Value = hCity.SMoraleShort;
+                dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Value = hCity.SDecayDay;
+                dgvCity.Rows[row].Cells["ColumnCityPopulation"].Value = hCity.SPopulationShort;
+                dgvCity.Rows[row].Cells["ColumnCityLoyalty"].Value = hCity.SLoyalty;
+                dgvCity.Rows[row].Cells["ColumnCityLivingConditions"].Value = hCity.SLivingShort;
                 dgvCity.Rows[row].Cells["ColumnCityDate"].Value = hCity.LastUpdaredString;
-                // Graph
-                hCity.Timeslice.Sort((x, y) => y.Timestamp.CompareTo(x.Timestamp));
                 // AttentionCodes
                 if (hCity.AttentionCode != 0x00)
                 {
                     dgvCity.Rows[row].Cells["ColumnCityName"].Style.BackColor = attantionMinor;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x01)) // 0b00000001 // More jobs than homes, or too many unemployed.
                         dgvCity.Rows[row].Cells["ColumnCityLivingConditions"].Style.BackColor = attantionMinor;
-                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x02)) // 0b00000010 // Population not full.
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x02)) // 0b00000010 // Population not full, or more than full.
                         dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = attantionMinor;
-                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x04)) // 0b00000100 // Less than 21 days to decay.
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x04)) // 0b00000100 // Less than 12 days to decay.
                         dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Style.BackColor = attantionMinor;
-                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x08)) // 0b00001000 // Less than 7 days to decay.
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x08)) // 0b00001000 // Less than 4 days to decay.
                         dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Style.BackColor = attantionMajor;
-                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x10)) // 0b00010000 // Over populated!
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x10)) // 0b00010000 // Population is 0, or zone over populated!
                         dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = attantionMajor;
-                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x20)) // 0b00100000 // Population is 0.
-                        dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = attantionMajor;
+                    //if (HHelper.FlagCheck(hCity.AttentionCode, 0x20)) // 0b00100000 // Nothing yet!
+                    //    dgvCity.Rows[row].Cells["ColumnCityIndex"].Style.BackColor = attantionMajor;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x40)) // 0b01000000 // Morale not full.
                         dgvCity.Rows[row].Cells["ColumnCityMorale"].Style.BackColor = attantionMajor;
                     //if (HHelper.FlagCheck(hCity.AttentionCode, 0x80)) // 0b10000000 // Nothing yet!
@@ -259,7 +267,7 @@ namespace HazeronAdviser
                 if (hOfficer.AttentionCode != 0x00)
                 {
                     dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Style.BackColor = attantionMinor;
-                    if (HHelper.FlagCheck(hOfficer.AttentionCode, 0x01)) // 0b00000001 // MSG_OfficerReady
+                    if (HHelper.FlagCheck(hOfficer.AttentionCode, 0x01)) // 0b00000001 // MSG_OfficerContact
                         dgvOfficer.Rows[row].Cells["ColumnOfficerLocation"].Style.BackColor = attantionMinor;
                     //if (HHelper.FlagCheck(hOfficer.AttentionCode, 0x02)) // 0b00000010 // Nothing yet!
                     //    dgvOfficer.Rows[row].Cells["ColumnOfficerIndex"].Style.BackColor = attantionMajor;
@@ -276,6 +284,40 @@ namespace HazeronAdviser
                     //if (HHelper.FlagCheck(hOfficer.AttentionCode, 0x80)) // 0b10000000 // Nothing yet!
                     //    dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Style.BackColor = attantionMajor;
                 }
+                toolStripProgressBar2.Increment(1);
+            }
+            foreach (var hShipOfficer in hShipList)
+            {
+                dgvOfficer.Rows.Add();
+                int row = dgvOfficer.RowCount - 1;
+                dgvOfficer.Rows[row].Cells["ColumnOfficerIndex"].Value = -(hShipList.FindIndex(ship => ship.ID == hShipOfficer.ID) + 1);
+                dgvOfficer.Rows[row].Cells["ColumnOfficerSelection"].Value = false;
+                dgvOfficer.Rows[row].Cells["ColumnOfficerIcon"].Value = imageShip;
+                dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Value = hShipOfficer.OfficerName;
+                dgvOfficer.Rows[row].Cells["ColumnOfficerHome"].Value = hShipOfficer.OfficerHome;
+                dgvOfficer.Rows[row].Cells["ColumnOfficerLocation"].Value = hShipOfficer.Name;
+                dgvOfficer.Rows[row].Cells["ColumnOfficerDate"].Value = hShipOfficer.LastUpdaredString;
+                // AttentionCodes
+                //if (hShipOfficer.AttentionCode != 0x00)
+                //{
+                //    dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Style.BackColor = attantionMinor;
+                //    if (HHelper.FlagCheck(hShipOfficer.AttentionCode, 0x01)) // 0b00000001 // Nothing yet!
+                //        dgvOfficer.Rows[row].Cells["ColumnOfficerIndex"].Style.BackColor = attantionMajor;
+                //    if (HHelper.FlagCheck(hShipOfficer.AttentionCode, 0x02)) // 0b00000010 // Nothing yet!
+                //        dgvOfficer.Rows[row].Cells["ColumnOfficerIndex"].Style.BackColor = attantionMajor;
+                //    if (HHelper.FlagCheck(hShipOfficer.AttentionCode, 0x04)) // 0b00000100 // Nothing yet!
+                //        dgvOfficer.Rows[row].Cells["ColumnOfficerIndex"].Style.BackColor = attantionMajor;
+                //    if (HHelper.FlagCheck(hShipOfficer.AttentionCode, 0x08)) // 0b00001000 // Nothing yet!
+                //        dgvOfficer.Rows[row].Cells["ColumnOfficerIndex"].Style.BackColor = attantionMajor;
+                //    if (HHelper.FlagCheck(hShipOfficer.AttentionCode, 0x10)) // 0b00010000 // Nothing yet!
+                //        dgvOfficer.Rows[row].Cells["ColumnOfficerIndex"].Style.BackColor = attantionMajor;
+                //    if (HHelper.FlagCheck(hShipOfficer.AttentionCode, 0x20)) // 0b00100000 // Nothing yet!
+                //        dgvOfficer.Rows[row].Cells["ColumnOfficerIndex"].Style.BackColor = attantionMajor;
+                //    if (HHelper.FlagCheck(hShipOfficer.AttentionCode, 0x40)) // 0b01000000 // Nothing yet!
+                //        dgvOfficer.Rows[row].Cells["ColumnOfficerIndex"].Style.BackColor = attantionMajor;
+                //    if (HHelper.FlagCheck(hShipOfficer.AttentionCode, 0x80)) // 0b10000000 // Nothing yet!
+                //        dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Style.BackColor = attantionMajor;
+                //}
                 toolStripProgressBar2.Increment(1);
             }
             #endregion
@@ -340,7 +382,7 @@ namespace HazeronAdviser
                     cmbCharFilter.Items.Add(hChar.Name + " (" + hChar.ID + ")");
                 }
                 else
-                    cmbCharFilter.Items.Add(HHelper.ToID(charId));
+                    cmbCharFilter.Items.Add("??? (" + HHelper.ToID(charId) + ")");
             }
             cmbCharFilter.Enabled = true;
             toolStripProgressBar1.Visible = false;
@@ -357,7 +399,9 @@ namespace HazeronAdviser
         {
             if (dgvCity.SelectedRows.Count != 0 && dgvCity.SelectedRows[0].Index != -1 && dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value != null)
             {
-                tbxCity.Text = hCityList[(int)dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value].BodyTest;
+                int rowIndex = (int)dgvCity.SelectedRows[0].Index;
+                int listIndex = (int)dgvCity.Rows[rowIndex].Cells["ColumnCityIndex"].Value;
+                tbxCity.Text = hCityList[listIndex].BodyTest;
                 pCityStatisticsPop.Refresh();
                 pCityStatisticsMorale.Refresh();
             }
@@ -367,7 +411,9 @@ namespace HazeronAdviser
         {
             if (dgvShip.SelectedRows.Count != 0 && dgvShip.SelectedRows[0].Index != -1 && dgvShip.Rows[(int)dgvShip.SelectedRows[0].Index].Cells["ColumnShipIndex"].Value != null)
             {
-                tbxShip.Text = hShipList[(int)dgvShip.Rows[(int)dgvShip.SelectedRows[0].Index].Cells["ColumnShipIndex"].Value].BodyTest;
+                int rowIndex = (int)dgvShip.SelectedRows[0].Index;
+                int listIndex = (int)dgvShip.Rows[rowIndex].Cells["ColumnShipIndex"].Value;
+                tbxShip.Text = hShipList[listIndex].BodyTest;
             }
         }
 
@@ -375,7 +421,12 @@ namespace HazeronAdviser
         {
             if (dgvOfficer.SelectedRows.Count != 0 && dgvOfficer.SelectedRows[0].Index != -1 && dgvOfficer.Rows[(int)dgvOfficer.SelectedRows[0].Index].Cells["ColumnOfficerIndex"].Value != null)
             {
-                tbxOfficer.Text = hOfficerList[(int)dgvOfficer.Rows[(int)dgvOfficer.SelectedRows[0].Index].Cells["ColumnOfficerIndex"].Value].BodyTest;
+                int rowIndex = (int)dgvOfficer.SelectedRows[0].Index;
+                int listIndex = (int)dgvOfficer.Rows[rowIndex].Cells["ColumnOfficerIndex"].Value;
+                if (listIndex >= 0)
+                    tbxOfficer.Text = hOfficerList[listIndex].BodyTest;
+                else
+                    tbxOfficer.Text = hShipList[Math.Abs(listIndex)-1].BodyTest;
             }
         }
 
@@ -383,7 +434,9 @@ namespace HazeronAdviser
         {
             if (dgvEvent.SelectedRows.Count != 0 && dgvEvent.SelectedRows[0].Index != -1 && dgvEvent.Rows[(int)dgvEvent.SelectedRows[0].Index].Cells["ColumnEventIndex"].Value != null)
             {
-                tbxEvent.Text = hEventList[(int)dgvEvent.Rows[(int)dgvEvent.SelectedRows[0].Index].Cells["ColumnEventIndex"].Value].BodyTest;
+                int rowIndex = (int)dgvEvent.SelectedRows[0].Index;
+                int listIndex = (int)dgvEvent.Rows[rowIndex].Cells["ColumnEventIndex"].Value;
+                tbxEvent.Text = hEventList[listIndex].BodyTest;
             }
         }
         #endregion
@@ -407,13 +460,28 @@ namespace HazeronAdviser
                 {
                     int charId = charFilterList[cmbCharFilter.SelectedIndex - 1];
                     foreach (DataGridViewRow row in dgvCity.Rows)
-                        row.Visible = hCityList[(int)row.Cells["ColumnCityIndex"].Value].Onwers.Contains(charId);
+                    {
+                        int listIndex = (int)row.Cells["ColumnCityIndex"].Value;
+                        row.Visible = hCityList[listIndex].Onwers.Contains(charId);
+                    }
                     foreach (DataGridViewRow row in dgvShip.Rows)
-                        row.Visible = hShipList[(int)row.Cells["ColumnShipIndex"].Value].Onwers.Contains(charId);
+                    {
+                        int listIndex = (int)row.Cells["ColumnShipIndex"].Value;
+                        row.Visible = hShipList[listIndex].Onwers.Contains(charId);
+                    }
                     foreach (DataGridViewRow row in dgvOfficer.Rows)
-                        row.Visible = hOfficerList[(int)row.Cells["ColumnOfficerIndex"].Value].Onwers.Contains(charId);
+                    {
+                        int listIndex = (int)row.Cells["ColumnOfficerIndex"].Value;
+                        if (listIndex >= 0)
+                            row.Visible = hOfficerList[listIndex].Onwers.Contains(charId);
+                        else
+                            row.Visible = hShipList[Math.Abs(listIndex) - 1].Onwers.Contains(charId);
+                    }
                     foreach (DataGridViewRow row in dgvEvent.Rows)
-                        row.Visible = hEventList[(int)row.Cells["ColumnEventIndex"].Value].Onwers.Contains(charId);
+                    {
+                        int listIndex = (int)row.Cells["ColumnEventIndex"].Value;
+                        row.Visible = hEventList[listIndex].Onwers.Contains(charId);
+                    }
                 }
                 dgvCity.ClearSelection();
                 dgvShip.ClearSelection();
@@ -433,23 +501,24 @@ namespace HazeronAdviser
         {
             if (dgvCity.SelectedRows.Count != 0 && dgvCity.SelectedRows[0].Index != -1 && dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value != null)
             {
-                StatisticsGraph graphPop = new StatisticsGraph(sender, e, 1250);
-                graphPop.DrawGraphAxles("Tick", "Population");
-                List<HCitySlice> citySlices = hCityList[(int)dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value].Timeslice;
-                int[] yValue;
-                yValue = citySlices.Select(x => x.Loyalty).ToArray(); // Need to think more about how to do this.
-                if (yValue.Average() > 0)
-                    graphPop.DrawGraph(yValue.Select(x => Math.Abs(x)).ToArray(), Color.Yellow);
-                else if (yValue.Average() < 0)
-                    graphPop.DrawGraph(yValue.Select(x => Math.Abs(x)).ToArray(), Color.Orange);
-                yValue = citySlices.Select(x => x.Population).ToArray();
-                graphPop.DrawGraph(yValue, Color.LightGreen);
-                yValue = citySlices.Select(x => x.Homes).ToArray();
-                graphPop.DrawGraph(yValue, Color.Green);
-                yValue = citySlices.Select(x => x.Jobs).ToArray();
-                graphPop.DrawGraph(yValue, Color.Blue);
-                yValue = citySlices.Select(x => x.PopulationLimit).ToArray();
-                graphPop.DrawGraph(yValue, Color.Red);
+                HCity city = hCityList[(int)dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value];
+                int yValue;
+                BarGraph graphPop = new BarGraph(sender, e);
+                graphPop.DrawXAxle("?", 5);
+                graphPop.DrawYAxle("Population", (int)(city.VPopulationLimit * 1.05));
+                yValue = city.VLoyalty;
+                if (yValue > 0)
+                    graphPop.DrawBar(Color.Yellow, 0, yValue);
+                else if (yValue < 0)
+                    graphPop.DrawBar(Color.Orange, 0, yValue);
+                yValue = city.VPopulation;
+                graphPop.DrawBar(Color.LightGreen, 1, yValue);
+                yValue = city.VHomes;
+                graphPop.DrawBar(Color.Green, 2, yValue);
+                yValue = city.VJobs;
+                graphPop.DrawBar(Color.Blue, 3, yValue);
+                yValue = city.VPopulationLimit;
+                graphPop.DrawBar(Color.Red, 4, yValue);
             }
         }
 
@@ -457,20 +526,21 @@ namespace HazeronAdviser
         {
             if (dgvCity.SelectedRows.Count != 0 && dgvCity.SelectedRows[0].Index != -1 && dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value != null)
             {
-                StatisticsGraph graphMorale = new StatisticsGraph(sender, e, 20, -20);
-                graphMorale.DrawGraphAxles("Tick", "Morale");
-                List<HCitySlice> citySlices = hCityList[(int)dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value].Timeslice;
-                int[] yValue;
-                yValue = citySlices.Select(x => x.MoraleModifiers.Where(y => y < 0).Sum()).ToArray();
-                if (yValue.Sum() != 0)
-                    graphMorale.DrawGraph(yValue, Color.Red);
-                yValue = citySlices.Select(x => x.MoraleModifiers.Where(y => y > 0).Sum()).ToArray();
-                if (yValue.Sum() != 0)
-                    graphMorale.DrawGraph(yValue, Color.Green);
-                yValue = citySlices.Select(x => x.MoraleModifiers.Sum()).ToArray();
-                graphMorale.DrawGraph(yValue, Color.Yellow);
-                yValue = citySlices.Select(x => x.Morale).ToArray();
-                graphMorale.DrawGraph(yValue, Color.Blue);
+                HCity city = hCityList[(int)dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value];
+                int yValue;
+                BarGraph graphMorale = new BarGraph(sender, e);
+                graphMorale.DrawXAxle("?", 3);
+                graphMorale.DrawYAxle("Morale", 20, -20);
+                yValue = city.VMorale;
+                graphMorale.DrawBar(Color.Blue, 0, yValue);
+                yValue = city.VMoraleModifiers.Sum();
+                graphMorale.DrawBar(Color.Yellow, 1, yValue);
+                yValue = city.VMoraleModifiers.Where(y => y > 0).Sum();
+                if (yValue != 0)
+                    graphMorale.DrawBar(Color.Green, 2, yValue);
+                yValue = city.VMoraleModifiers.Where(y => y < 0).Sum();
+                if (yValue != 0)
+                    graphMorale.DrawBar(Color.Red, 2, yValue);
             }
         }
 

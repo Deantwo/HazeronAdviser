@@ -186,7 +186,7 @@ namespace HazeronAdviser
         {
             get
             {
-                return DateTime.ToString("dd-MM-yyyy HH:mm"); // TimeDate format information: http://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
+                return DateTime.ToString("yyyy-MM-d HH:mm"); // TimeDate format information: http://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
             }
         }
         public byte TimeZone

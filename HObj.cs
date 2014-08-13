@@ -27,7 +27,7 @@ namespace HazeronAdviser
         {
             get
             {
-                return LastUpdared.ToString("dd-MM-yyyy HH:mm"); // TimeDate format information: http://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
+                return LastUpdared.ToString("yyyy-MM-dd HH:mm"); // TimeDate format information: http://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
             }
         }
 
@@ -70,59 +70,88 @@ namespace HazeronAdviser
 
     class HCity : HObj
     {
-        protected string _info = "-";
-        public string Info
+        protected string _sMorale = "-", _sMoraleShort = "-";
+        public string SMorale
         {
-            get { return _info; }
+            get { return _sMorale; }
+        }
+        public string SMoraleShort
+        {
+            get { return _sMoraleShort; }
         }
 
-        protected string _distress = "-";
-        public string Distress
+        protected string _sDecayDay = "-";
+        public string SDecayDay
         {
-            get { return _distress; }
+            get { return _sDecayDay; }
         }
 
-        protected string _morale = "-", _moraleShort = "-";
-        public string Morale
+        protected string _sPopulation = "-", _sPopulationShort = "-";
+        public string SPopulation
         {
-            get { return _morale; }
+            get { return _sPopulation; }
         }
-        public string MoraleShort
+        public string SPopulationShort
         {
-            get { return _moraleShort; }
-        }
-
-        protected string _decayDay = "-";
-        public string DecayDay
-        {
-            get { return _decayDay; }
+            get { return _sPopulationShort; }
         }
 
-        protected string _population = "-", _populationShort = "-";
-        public string Population
+        protected string _sLoyalty = "-";
+        public string SLoyalty
         {
-            get { return _population; }
-        }
-        public string PopulationShort
-        {
-            get { return _populationShort; }
+            get { return _sLoyalty; }
         }
 
-        protected string _livingConditions = "-", _livingConditionsShort = "-";
-        public string Living
+        protected string _sLivingConditions = "-", _sLivingConditionsShort = "-";
+        public string SLiving
         {
-            get { return _livingConditions; }
+            get { return _sLivingConditions; }
         }
-        public string LivingShort
+        public string SLivingShort
         {
-            get { return _livingConditionsShort; }
+            get { return _sLivingConditionsShort; }
         }
 
-        protected List<HCitySlice> _slice = new List<HCitySlice>();
-        public List<HCitySlice> Timeslice
+        protected int _vMorale = 0;
+        public int VMorale
         {
-            get { return _slice; }
-            set { _slice = value; }
+            get { return _vMorale; }
+        }
+
+        protected List<int> _vMoraleModifiers = new List<int>();
+        public int[] VMoraleModifiers
+        {
+            get { return _vMoraleModifiers.ToArray(); }
+        }
+
+        protected int _vPopulation = 0;
+        public int VPopulation
+        {
+            get { return _vPopulation; }
+        }
+
+        protected int _vLoyalty = 0;
+        public int VLoyalty
+        {
+            get { return _vLoyalty; }
+        }
+
+        protected int _vHomes = 0;
+        public int VHomes
+        {
+            get { return _vHomes; }
+        }
+
+        protected int _vJobs = 0;
+        public int VJobs
+        {
+            get { return _vJobs; }
+        }
+
+        protected int _vPopulationLimit = 0;
+        public int VPopulationLimit
+        {
+            get { return _vPopulationLimit; }
         }
 
         public HCity(HMail mail)
@@ -133,9 +162,6 @@ namespace HazeronAdviser
 
         public override void Update(HMail mail)
         {
-            if (!_slice.Any(x => x.SliceID == mail.MessageID))
-                _slice.Add(new HCitySlice(mail));
-
             if (HMail.IsCityReport(mail.MailBytes) && DateTime.Compare(_lastUpdated, mail.DateTime) < 0)
             {
                 base.Update(mail);
@@ -144,127 +170,133 @@ namespace HazeronAdviser
                 int subStart, subEnd;
                 string[] tempArray;
                 // Time for City spicific things.
-                int morale, population, homes = 0, jobs = 0, populationLimit;
                 int dDay = 0;
+                int dDayMax = 0;
                 const int abandonmentInterval = 4;
 
-                if (mail.MessageType != 0x17) // MSG_CityFinalDecayReport
+                //INFO
+                //if (mail.MessageType == 0x06 && mail.Body.Contains("<b>EVENT LOG</b>")) // MSG_CityStatusReportInfo
+                //{
+                //    subStart = mail.Body.IndexOf("<b>EVENT LOG</b>");
+                //    subEnd = mail.Body.IndexOf("<b>MORALE</b>") - subStart;
+                //    _info = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                //}
+
+                //DISTRESS
+                //if (mail.MessageType == 0x04 && mail.Body.Contains("<b style=\"color: rgb(255, 255, 0);\">DISTRESS</b>") // MSG_CityDistressReport
+                //{
+                //    subStart = mail.Body.IndexOf("<b style=\"color: rgb(255, 255, 0);\">DISTRESS</b>");
+                //    if (mail.Body.Contains("<b>DECAY</b>"))
+                //        subEnd = mail.Body.IndexOf("<b>DECAY</b>") - subStart;
+                //    else
+                //        subEnd = mail.Body.IndexOf("<b>MORALE</b>") - subStart;
+                //    _distress = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                //}
+
+                // MORALE
+                subStart = mail.Body.IndexOf("<b>MORALE</b>");
+                subEnd = mail.Body.IndexOf("<b>POPULATION</b>") - subStart;
+                _sMorale = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                tempArray = _sMorale.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                _sMoraleShort = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1).Substring(7);
+                int abandonedDays = 0;
+                int abandonedPenalty = 0;
+                foreach (string line in tempArray)
+                    if (!line.ToLower().Contains("morale"))
+                    {
+                        string[] tempLineArray = line.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                        _vMoraleModifiers.Add(Convert.ToInt32(tempLineArray[0]));
+                        if (line.Contains("Abandonment Penalty"))
+                        {
+                            abandonedPenalty = Convert.ToInt32(tempLineArray[0]);
+                            abandonedDays = Convert.ToInt32(tempLineArray[tempLineArray.Length - 2]);
+                        }
+                    }
+                dDay = ((_vMoraleModifiers.Sum() + 1) * abandonmentInterval) - (abandonedDays % abandonmentInterval);
+                dDayMax = ((_vMoraleModifiers.Sum() - abandonedPenalty + 1) * abandonmentInterval);
+                if (abandonedDays != 0)
+                    _sDecayDay = dDay.ToString("00") + " /" + dDayMax.ToString("00") + " days";
+                else if (!mail.Body.Contains("<span style=\"color: rgb(255, 255, 0);\">City is decaying.<br></span>"))
+                    _sDecayDay = dDay.ToString("00") + "~/" + dDayMax.ToString("00") + " days";
+                else
+                    _sDecayDay = " Decaying";
+                tempArray = _sMoraleShort.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                _vMorale = Convert.ToInt32(tempArray[tempArray.Length - 1]);
+
+                // POPULATION
+                subStart = mail.Body.IndexOf("<b>POPULATION</b>");
+                subEnd = mail.Body.IndexOf("<b>LIVING CONDITIONS</b>") - subStart;
+                _sPopulation = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                tempArray = _sPopulation.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                if (!tempArray[tempArray.Length - 1].Contains("loyal") || tempArray[tempArray.Length - 2].Contains("prevents immigration. Airport needed."))
+                    _sPopulationShort = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1).Substring(11);
+                else
+                    _sPopulationShort = tempArray[tempArray.Length - 2].Remove(tempArray[tempArray.Length - 2].Length - 1).Substring(11);
+                tempArray = _sPopulationShort.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                _vPopulation = Convert.ToInt32(tempArray[tempArray.Length - 1]);
+                tempArray = _sPopulation.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                _sLoyalty = tempArray[tempArray.Length - 1];
+                if (_sLoyalty.Contains("loyal"))
                 {
-                    //INFO
-                    if (mail.MessageType == 0x06) // MSG_CityStatusReportInfo
+                    tempArray = _sLoyalty.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                    _vLoyalty = Convert.ToInt32(tempArray[0]);
+                    if (_sLoyalty.Contains("disloyal"))
                     {
-                        subStart = mail.Body.IndexOf("<b>EVENT LOG</b>");
-                        subEnd = mail.Body.IndexOf("<b>MORALE</b>") - subStart;
-                        _info = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                        _vLoyalty = -_vLoyalty;
+                        _sLoyalty = "-" + _sLoyalty;
                     }
-
-                    //DISTRESS
-                    if (mail.MessageType == 0x04) // MSG_CityDistressReport
-                    {
-                        subStart = mail.Body.IndexOf("<b style=\"color: rgb(255, 255, 0);\">DISTRESS</b>");
-                        if (mail.Body.Contains("<b>DECAY</b>"))
-                            subEnd = mail.Body.IndexOf("<b>DECAY</b>") - subStart;
-                        else
-                            subEnd = mail.Body.IndexOf("<b>MORALE</b>") - subStart;
-                        _distress = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
-                    }
-
-                    // MORALE
-                    subStart = mail.Body.IndexOf("<b>MORALE</b>");
-                    subEnd = mail.Body.IndexOf("<b>POPULATION</b>") - subStart;
-                    _morale = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
-                    tempArray = _morale.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                    _moraleShort = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1).Substring(7);
-                    int modifier = 0;
-                    int abandonedDays = 0;
-                    foreach (string line in tempArray)
-                        if (!line.ToLower().Contains("morale"))
-                        {
-                            string[] tempLineArray = line.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                            modifier += Convert.ToInt32(tempLineArray[0]);
-                            if (line.Contains("Abandonment Penalty"))
-                                abandonedDays = Convert.ToInt32(tempLineArray[tempLineArray.Length - 2]);
-                        }
-                    dDay = ((modifier + 1) * abandonmentInterval) - (abandonedDays % abandonmentInterval);
-                    if (abandonedDays != 0)
-                        _decayDay = dDay.ToString("00") + "  days";
-                    else if (!mail.Body.Contains("<span style=\"color: rgb(255, 255, 0);\">City is decaying.<br></span>"))
-                        _decayDay = dDay.ToString("00") + "~ days";
-                    else
-                        _decayDay = " Decaying";
-                    tempArray = _moraleShort.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                    morale = Convert.ToInt32(tempArray[tempArray.Length - 1]);
-
-                    // POPULATION
-                    subStart = mail.Body.IndexOf("<b>POPULATION</b>");
-                    subEnd = mail.Body.IndexOf("<b>LIVING CONDITIONS</b>") - subStart;
-                    _population = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
-                    tempArray = _population.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                    if (!tempArray[tempArray.Length - 1].Contains("loyal") || tempArray[tempArray.Length - 2].Contains("prevents immigration. Airport needed."))
-                        _populationShort = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1).Substring(11);
-                    else
-                        _populationShort = tempArray[tempArray.Length - 2].Remove(tempArray[tempArray.Length - 2].Length - 1).Substring(11);
-                    tempArray = _populationShort.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                    population = Convert.ToInt32(tempArray[tempArray.Length - 1]);
-
-                    // LIVING CONDITIONS
-                    subStart = mail.Body.IndexOf("<b>LIVING CONDITIONS</b>");
-                    subEnd = mail.Body.IndexOf("<b>POWER RESERVE</b>") - subStart;
-                    _livingConditions = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
-                    tempArray = _livingConditions.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (string line in tempArray)
-                    {
-                        if (line.Remove(4) == "Jobs")
-                        {
-                            _livingConditionsShort = line;
-                            jobs = Convert.ToInt32(line.Split(' ')[1]);
-                        }
-                        if (line.Remove(5) == "Homes")
-                        {
-                            _livingConditionsShort += ", " + line;
-                            homes = Convert.ToInt32(line.Split(' ')[1]);
-                        }
-                    }
-
-                    // Planet Size
-                    if (!mail.Body.Contains("Ringworld Arc"))
-                    {
-                        subStart = mail.Body.IndexOf("m dia, ");
-                        tempArray = mail.Body.Remove(subStart).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                        populationLimit = Convert.ToInt32(tempArray[tempArray.Length - 1].Replace(",", ""));
-                        populationLimit = Convert.ToInt32(100 * Math.Floor((float)populationLimit / 1800));
-                    }
-                    else
-                        populationLimit = 1000;
-
-                    // AttentionCodes
-                    if ((jobs >= homes) || (((float)(homes - jobs) / homes) > 0.2)) // More jobs than homes, or too many unemployed.
-                        _attentionCode = (byte)(_attentionCode | 0x01); // 0b00000001
-                    if (population < homes) // Population not full.
-                        _attentionCode = (byte)(_attentionCode | 0x02); // 0b00000010
-                    if (21 > dDay) // Less than 21 days to decay.
-                        _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100
-                    if (7 >= dDay) // Less than 7 days to decay.
-                        _attentionCode = (byte)(_attentionCode | 0x08); // 0b00001000
-                    if (population >= populationLimit) // Over populated!
-                        _attentionCode = (byte)(_attentionCode | 0x10); // 0b00010000
-                    if (population == 0) // Population is 0.
-                        _attentionCode = (byte)(_attentionCode | 0x20); // 0b00100000
-                    if (morale < 20) // Morale not full.
-                        _attentionCode = (byte)(_attentionCode | 0x40); // 0b01000000
-                    if (false) // Nothing yet!
-                        _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
+                    _sLoyalty = _sLoyalty.Remove(_sLoyalty.Length - 11);
                 }
                 else
+                    _sLoyalty = "-";
+
+                // LIVING CONDITIONS
+                subStart = mail.Body.IndexOf("<b>LIVING CONDITIONS</b>");
+                subEnd = mail.Body.IndexOf("<b>POWER RESERVE</b>") - subStart;
+                _sLivingConditions = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                tempArray = _sLivingConditions.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string line in tempArray)
                 {
-                    _morale = "-";
-                    _moraleShort = "-";
-                    _decayDay = "-";
-                    _population = "-";
-                    _populationShort = "-";
-                    _livingConditions = "-";
-                    _livingConditionsShort = "-";
+                    if (line.Remove(4) == "Jobs")
+                    {
+                        _sLivingConditionsShort = line;
+                        _vJobs = Convert.ToInt32(line.Split(' ')[1]);
+                    }
+                    if (line.Remove(5) == "Homes")
+                    {
+                        _sLivingConditionsShort += ", " + line;
+                        _vHomes = Convert.ToInt32(line.Split(' ')[1]);
+                    }
                 }
+
+                // Planet Size
+                if (!mail.Body.Contains("Ringworld Arc"))
+                {
+                    subStart = mail.Body.IndexOf("m dia, ");
+                    tempArray = mail.Body.Remove(subStart).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                    _vPopulationLimit = Convert.ToInt32(tempArray[tempArray.Length - 1].Replace(",", ""));
+                    _vPopulationLimit = Convert.ToInt32(100 * Math.Floor((float)_vPopulationLimit / 1800));
+                }
+                else
+                    _vPopulationLimit = 1000;
+
+                // AttentionCodes
+                if ((_vJobs >= _vHomes) || (((float)(_vHomes - _vJobs) / _vHomes) > 0.2)) // More jobs than homes, or too many unemployed.
+                    _attentionCode = (byte)(_attentionCode | 0x01); // 0b00000001
+                if (_vPopulation < _vHomes || _vPopulation > _vHomes) // Population not full, or more than full.
+                    _attentionCode = (byte)(_attentionCode | 0x02); // 0b00000010
+                if (12 > dDay) // Less than 12 days to decay.
+                    _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100
+                if (4 >= dDay) // Less than 4 days to decay.
+                    _attentionCode = (byte)(_attentionCode | 0x08); // 0b00001000
+                if (_vPopulation == 0 || _vPopulation >= _vPopulationLimit) // Population is 0, or zone over populated!
+                    _attentionCode = (byte)(_attentionCode | 0x10); // 0b00010000
+                if (false) // Nothing yet!
+                    _attentionCode = (byte)(_attentionCode | 0x20); // 0b00100000
+                if (_vMorale < 20) // Morale not full.
+                    _attentionCode = (byte)(_attentionCode | 0x40); // 0b01000000
+                if (false) // Nothing yet!
+                    _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
             }
         }
     }
@@ -331,6 +363,17 @@ namespace HazeronAdviser
             get { return _rosterShort; }
         }
 
+        protected string _officerName = "-";
+        public string OfficerName
+        {
+            get { return _officerName; }
+        }
+        protected string _officerHome = "-";
+        public string OfficerHome
+        {
+            get { return _officerHome; }
+        }
+
         public HShip(HMail mail)
         {
             _id = HHelper.ToID(mail.SenderID);
@@ -347,49 +390,56 @@ namespace HazeronAdviser
                 int subStart, subEnd;
                 string[] tempArray;
 
-                if (mail.MessageType != 0x12) // MSG_ShipLogFinal
-                {
-                    // DAMAGE REPORT
-                    subStart = mail.Body.IndexOf("<b>DAMAGE REPORT</b>");
-                    subEnd = mail.Body.IndexOf("<b>ACCOUNT</b>") - subStart;
-                    _damage = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
-                    //temp = _damage.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                    //_damageShort = temp[temp.Length - 1];
+                // DAMAGE REPORT
+                subStart = mail.Body.IndexOf("<b>DAMAGE REPORT</b>");
+                subEnd = mail.Body.IndexOf("<b>ACCOUNT</b>") - subStart;
+                _damage = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                //temp = _damage.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //_damageShort = temp[temp.Length - 1];
 
-                    // ACCOUNT
-                    subStart = mail.Body.IndexOf("<b>ACCOUNT</b>");
-                    subEnd = mail.Body.IndexOf("<b>FUEL</b>") - subStart;
-                    _account = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
-                    //temp = _account.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                    //_accountShort = temp[temp.Length - 1];
+                // ACCOUNT
+                subStart = mail.Body.IndexOf("<b>ACCOUNT</b>");
+                subEnd = mail.Body.IndexOf("<b>FUEL</b>") - subStart;
+                _account = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                //temp = _account.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //_accountShort = temp[temp.Length - 1];
 
-                    // FUEL
-                    subStart = mail.Body.IndexOf("<b>FUEL</b>");
-                    subEnd = mail.Body.IndexOf("<b>CARGO</b>") - subStart;
-                    _fuel = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
-                    tempArray = _fuel.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                    _fuelShort = tempArray[1];
+                // FUEL
+                subStart = mail.Body.IndexOf("<b>FUEL</b>");
+                subEnd = mail.Body.IndexOf("<b>CARGO</b>") - subStart;
+                _fuel = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                tempArray = _fuel.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                _fuelShort = tempArray[1];
 
-                    // CARGO
-                    subStart = mail.Body.IndexOf("<b>CARGO</b>");
-                    subEnd = mail.Body.IndexOf("<b>MISSION</b>") - subStart;
-                    _cargo = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
-                    //temp = _cargo.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                    //_cargoShort = temp[temp.Length - 1];
+                // CARGO
+                subStart = mail.Body.IndexOf("<b>CARGO</b>");
+                subEnd = mail.Body.IndexOf("<b>MISSION</b>") - subStart;
+                _cargo = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                //temp = _cargo.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //_cargoShort = temp[temp.Length - 1];
 
-                    // MISSION
-                    subStart = mail.Body.IndexOf("<b>MISSION</b>");
-                    subEnd = mail.Body.IndexOf("<b>ROSTER</b>") - subStart;
-                    _mission = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
-                    //temp = _mission.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                    //_missionShort = temp[temp.Length - 1];
+                // MISSION
+                subStart = mail.Body.IndexOf("<b>MISSION</b>");
+                subEnd = mail.Body.IndexOf("<b>ROSTER</b>") - subStart;
+                _mission = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                //temp = _mission.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //_missionShort = temp[temp.Length - 1];
 
-                    // ROSTER
-                    subStart = mail.Body.IndexOf("<b>ROSTER</b>");
-                    _roster = HHelper.CleanText(mail.Body.Substring(subStart)); // All the way to the end.
-                    //temp = _roster.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                    //_rosterShort = temp[temp.Length - 1];
-                }
+                // ROSTER
+                subStart = mail.Body.IndexOf("<b>ROSTER</b>");
+                _roster = HHelper.CleanText(mail.Body.Substring(subStart)); // All the way to the end.
+                //temp = _roster.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //_rosterShort = temp[temp.Length - 1];
+
+                // Officer Info
+                //// Name
+                subStart = mail.Body.IndexOf("<p>") + 3; // "<p>".Length == 3
+                subEnd = mail.Body.Substring(subStart).IndexOf("<div style");
+                _officerName = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                //// Home
+                subStart = mail.Body.IndexOf("I was deployed from ") + 20; // "I was deployed from ".Length == 20
+                subEnd = mail.Body.Substring(subStart).IndexOf(" in ");
+                _officerHome = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
 
                 // AttentionCodes
                 if (false) // Nothing yet!
@@ -454,11 +504,11 @@ namespace HazeronAdviser
                     subStart = mail.Body.IndexOf("I was deployed from ") + 20; // "I was deployed from ".Length == 20
                     subEnd = mail.Body.Substring(subStart).IndexOf(" in ");
                     _home = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
-                    _location = "ship name";
+                    _location = "\"ship name\"";
                 }
 
                 // AttentionCodes
-                if (_location != _home) // MSG_OfficerReady
+                if (mail.MessageType == 0x14) // MSG_OfficerContact
                     _attentionCode = (byte)(_attentionCode | 0x01); // 0b00000001
                 if (false) // Nothing yet!
                     _attentionCode = (byte)(_attentionCode | 0x03); // 0b00000010
