@@ -201,6 +201,7 @@ namespace HazeronAdviser
                 _sMoraleShort = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1).Substring(7);
                 int abandonedDays = 0;
                 int abandonedPenalty = 0;
+                _vMoraleModifiers.Clear();
                 foreach (string line in tempArray)
                     if (!line.ToLower().Contains("morale"))
                     {
