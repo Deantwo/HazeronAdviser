@@ -98,6 +98,8 @@
             this.tbxEvent = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmbCharFilter = new System.Windows.Forms.ComboBox();
+            this.tabAlerts = new System.Windows.Forms.TabPage();
+            this.richTextBoxAlerts = new System.Windows.Forms.RichTextBox();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -134,6 +136,7 @@
             this.splitContainerEvent.Panel2.SuspendLayout();
             this.splitContainerEvent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEvent)).BeginInit();
+            this.tabAlerts.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -459,6 +462,7 @@
             // 
             this.tabControlCity.Controls.Add(this.tabCityStatistics);
             this.tabControlCity.Controls.Add(this.tabCityMail);
+            this.tabControlCity.Controls.Add(this.tabAlerts);
             this.tabControlCity.Controls.Add(this.tabMorale);
             this.tabControlCity.Controls.Add(this.tabPop);
             this.tabControlCity.Controls.Add(this.tabLivPow);
@@ -937,6 +941,29 @@
             this.cmbCharFilter.TabIndex = 3;
             this.cmbCharFilter.SelectedIndexChanged += new System.EventHandler(this.cmbCharFilter_SelectedIndexChanged);
             // 
+            // tabAlerts
+            // 
+            this.tabAlerts.Controls.Add(this.richTextBoxAlerts);
+            this.tabAlerts.Location = new System.Drawing.Point(4, 22);
+            this.tabAlerts.Name = "tabAlerts";
+            this.tabAlerts.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAlerts.Size = new System.Drawing.Size(409, 384);
+            this.tabAlerts.TabIndex = 5;
+            this.tabAlerts.Text = "Warnings";
+            this.tabAlerts.UseVisualStyleBackColor = true;
+            // 
+            // richTextBoxAlerts
+            // 
+            this.richTextBoxAlerts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxAlerts.Enabled = false;
+            this.richTextBoxAlerts.Location = new System.Drawing.Point(3, 6);
+            this.richTextBoxAlerts.Name = "richTextBoxAlerts";
+            this.richTextBoxAlerts.Size = new System.Drawing.Size(400, 372);
+            this.richTextBoxAlerts.TabIndex = 3;
+            this.richTextBoxAlerts.Text = "";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -993,6 +1020,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEvent)).EndInit();
             this.splitContainerEvent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEvent)).EndInit();
+            this.tabAlerts.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1069,6 +1097,8 @@
         private System.Windows.Forms.TabPage tabLivPow;
         private System.Windows.Forms.RichTextBox richTextBoxLP;
         private System.Windows.Forms.TextBox tbxLP;
+        private System.Windows.Forms.TabPage tabAlerts;
+        private System.Windows.Forms.RichTextBox richTextBoxAlerts;
     }
 }
 
