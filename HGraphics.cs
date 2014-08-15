@@ -233,15 +233,17 @@ namespace HazeronAdviser
             // See the base constructor
         }
 
+        const int barSpacing = 2;
+
         public void DrawBar(Color color, int x, int y)
         {
-            float barWidth = _intervalX - 10;
+            float barWidth = _intervalX - barSpacing;
             if (MinimumSizeCheck()) // If the panel is too small, don't draw anything.
             {
                 if (y > 0)
-                    _graphObj.FillRectangle(DrawingTools.Brush(color), _edgeLeft + 5 + ((barWidth + 10) * x), _yZero - y * _intervalY, barWidth, y * _intervalY);
+                    _graphObj.FillRectangle(DrawingTools.Brush(color), _edgeLeft + (barSpacing / 2) + ((barWidth + barSpacing) * x), _yZero - y * _intervalY, barWidth, y * _intervalY);
                 else
-                    _graphObj.FillRectangle(DrawingTools.Brush(color), _edgeLeft + 5 + ((barWidth + 10) * x), _yZero, barWidth, -y * _intervalY);
+                    _graphObj.FillRectangle(DrawingTools.Brush(color), _edgeLeft + (barSpacing / 2) + ((barWidth + barSpacing) * x), _yZero, barWidth, -y * _intervalY);
             }
         }
     }
