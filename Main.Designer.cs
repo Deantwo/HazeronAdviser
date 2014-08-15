@@ -71,6 +71,9 @@
             this.tabPop = new System.Windows.Forms.TabPage();
             this.richTextBoxPop = new System.Windows.Forms.RichTextBox();
             this.tbxpop = new System.Windows.Forms.TextBox();
+            this.tabLivPow = new System.Windows.Forms.TabPage();
+            this.richTextBoxLP = new System.Windows.Forms.RichTextBox();
+            this.tbxLP = new System.Windows.Forms.TextBox();
             this.tabShip = new System.Windows.Forms.TabPage();
             this.tabPageOfficer = new System.Windows.Forms.TabPage();
             this.splitContainerOfficer = new System.Windows.Forms.SplitContainer();
@@ -95,9 +98,6 @@
             this.tbxEvent = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmbCharFilter = new System.Windows.Forms.ComboBox();
-            this.tabLivPow = new System.Windows.Forms.TabPage();
-            this.tbxLP = new System.Windows.Forms.TextBox();
-            this.richTextLP = new System.Windows.Forms.RichTextBox();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -120,6 +120,7 @@
             this.tabCityMail.SuspendLayout();
             this.tabMorale.SuspendLayout();
             this.tabPop.SuspendLayout();
+            this.tabLivPow.SuspendLayout();
             this.tabShip.SuspendLayout();
             this.tabPageOfficer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerOfficer)).BeginInit();
@@ -133,7 +134,6 @@
             this.splitContainerEvent.Panel2.SuspendLayout();
             this.splitContainerEvent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEvent)).BeginInit();
-            this.tabLivPow.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -622,6 +622,43 @@
             this.tbxpop.TabIndex = 2;
             this.tbxpop.WordWrap = false;
             // 
+            // tabLivPow
+            // 
+            this.tabLivPow.Controls.Add(this.richTextBoxLP);
+            this.tabLivPow.Controls.Add(this.tbxLP);
+            this.tabLivPow.Location = new System.Drawing.Point(4, 22);
+            this.tabLivPow.Name = "tabLivPow";
+            this.tabLivPow.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLivPow.Size = new System.Drawing.Size(409, 384);
+            this.tabLivPow.TabIndex = 4;
+            this.tabLivPow.Text = "Living and Power";
+            this.tabLivPow.UseVisualStyleBackColor = true;
+            // 
+            // richTextBoxLP
+            // 
+            this.richTextBoxLP.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxLP.Enabled = false;
+            this.richTextBoxLP.Location = new System.Drawing.Point(3, 0);
+            this.richTextBoxLP.Name = "richTextBoxLP";
+            this.richTextBoxLP.Size = new System.Drawing.Size(400, 234);
+            this.richTextBoxLP.TabIndex = 4;
+            this.richTextBoxLP.Text = "";
+            // 
+            // tbxLP
+            // 
+            this.tbxLP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbxLP.Location = new System.Drawing.Point(3, 240);
+            this.tbxLP.Multiline = true;
+            this.tbxLP.Name = "tbxLP";
+            this.tbxLP.ReadOnly = true;
+            this.tbxLP.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbxLP.Size = new System.Drawing.Size(403, 141);
+            this.tbxLP.TabIndex = 3;
+            this.tbxLP.WordWrap = false;
+            // 
             // tabShip
             // 
             this.tabShip.Controls.Add(this.splitContainerShip);
@@ -900,43 +937,6 @@
             this.cmbCharFilter.TabIndex = 3;
             this.cmbCharFilter.SelectedIndexChanged += new System.EventHandler(this.cmbCharFilter_SelectedIndexChanged);
             // 
-            // tabLivPow
-            // 
-            this.tabLivPow.Controls.Add(this.richTextLP);
-            this.tabLivPow.Controls.Add(this.tbxLP);
-            this.tabLivPow.Location = new System.Drawing.Point(4, 22);
-            this.tabLivPow.Name = "tabLivPow";
-            this.tabLivPow.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLivPow.Size = new System.Drawing.Size(409, 384);
-            this.tabLivPow.TabIndex = 4;
-            this.tabLivPow.Text = "Living and Power";
-            this.tabLivPow.UseVisualStyleBackColor = true;
-            // 
-            // tbxLP
-            // 
-            this.tbxLP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbxLP.Location = new System.Drawing.Point(3, 240);
-            this.tbxLP.Multiline = true;
-            this.tbxLP.Name = "tbxLP";
-            this.tbxLP.ReadOnly = true;
-            this.tbxLP.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxLP.Size = new System.Drawing.Size(403, 141);
-            this.tbxLP.TabIndex = 3;
-            this.tbxLP.WordWrap = false;
-            // 
-            // richTextLP
-            // 
-            this.richTextLP.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextLP.Enabled = false;
-            this.richTextLP.Location = new System.Drawing.Point(3, 0);
-            this.richTextLP.Name = "richTextLP";
-            this.richTextLP.Size = new System.Drawing.Size(400, 234);
-            this.richTextLP.TabIndex = 4;
-            this.richTextLP.Text = "";
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -976,6 +976,8 @@
             this.tabMorale.PerformLayout();
             this.tabPop.ResumeLayout(false);
             this.tabPop.PerformLayout();
+            this.tabLivPow.ResumeLayout(false);
+            this.tabLivPow.PerformLayout();
             this.tabShip.ResumeLayout(false);
             this.tabPageOfficer.ResumeLayout(false);
             this.splitContainerOfficer.Panel1.ResumeLayout(false);
@@ -991,8 +993,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEvent)).EndInit();
             this.splitContainerEvent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEvent)).EndInit();
-            this.tabLivPow.ResumeLayout(false);
-            this.tabLivPow.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1067,7 +1067,7 @@
         private System.Windows.Forms.RichTextBox richTextBoxPop;
         private System.Windows.Forms.TextBox tbxpop;
         private System.Windows.Forms.TabPage tabLivPow;
-        private System.Windows.Forms.RichTextBox richTextLP;
+        private System.Windows.Forms.RichTextBox richTextBoxLP;
         private System.Windows.Forms.TextBox tbxLP;
     }
 }

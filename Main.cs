@@ -206,8 +206,8 @@ namespace HazeronAdviser
                         dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Style.BackColor = attantionMajor;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x10)) // 0b00010000 // Population is 0, or zone over populated!
                         dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = attantionMajor;
-                    //if (HHelper.FlagCheck(hCity.AttentionCode, 0x20)) // 0b00100000 // Nothing yet!
-                    //    dgvCity.Rows[row].Cells["ColumnCityIndex"].Style.BackColor = attantionMajor;
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x20)) // 0b00100000 // No/Low food!!
+                        dgvCity.Rows[row].Cells["ColumnCityName"].Style.BackColor = attantionMajor;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x40)) // 0b01000000 // Morale not full.
                         dgvCity.Rows[row].Cells["ColumnCityMorale"].Style.BackColor = attantionMajor;
                     //if (HHelper.FlagCheck(hCity.AttentionCode, 0x80)) // 0b10000000 // Nothing yet!
@@ -462,7 +462,7 @@ namespace HazeronAdviser
                 {
                     richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
                     richTextBoxPop.SelectionColor = Color.Green;
-                    richTextBoxPop.AppendText("City will be completely loyal in " + Convert.ToString(pop - loyality) + " reports, or ~" + Convert.ToString((pop - loyality) * 13) + " minutes, or ~" + Convert.ToString((pop - loyality) * 13 / 60) + " hours.");
+                    richTextBoxPop.AppendText("City will be completely loyal in " + Convert.ToString(pop - loyality) + " report(s), or ~" + Convert.ToString((pop - loyality) * 13) + " minute(s), or ~" + Convert.ToString((pop - loyality) * 13 / 60) + " hour(s).");
                     richTextBoxPop.AppendText(Environment.NewLine);
                     richTextBoxPop.SelectionColor = richTextBoxPop.ForeColor;
                 }
@@ -474,11 +474,11 @@ namespace HazeronAdviser
                     richTextBoxPop.AppendText(Environment.NewLine);
                     richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
                     richTextBoxPop.SelectionColor = Color.Red;
-                    richTextBoxPop.AppendText("City will flip allegiance in " + Convert.ToString(-loyality) + " reports, or ~" + Convert.ToString((-loyality) * 13) + " minutes, or ~" + Convert.ToString((-loyality) * 13 / 60) + " hours.");
+                    richTextBoxPop.AppendText("City will flip allegiance in " + Convert.ToString(-loyality) + " report(s), or ~" + Convert.ToString((-loyality) * 13) + " minute(s), or ~" + Convert.ToString((-loyality) * 13 / 60) + " hour(s).");
                     richTextBoxPop.AppendText(Environment.NewLine);
                     richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
                     richTextBoxPop.SelectionColor = Color.Red;
-                    richTextBoxPop.AppendText("City will be completely loyal in " + Convert.ToString(-loyality + pop) + " reports, or ~" + Convert.ToString((-loyality + pop) * 13) + " minutes, or ~" + Convert.ToString((-loyality + pop) * 13 / 60) + " hours.");
+                    richTextBoxPop.AppendText("City will be completely loyal in " + Convert.ToString(-loyality + pop) + " report(s), or ~" + Convert.ToString((-loyality + pop) * 13) + " minute(s), or ~" + Convert.ToString((-loyality + pop) * 13 / 60) + " hour(s).");
                     richTextBoxPop.AppendText(Environment.NewLine);
                     richTextBoxPop.SelectionColor = richTextBoxPop.ForeColor;
                 }
@@ -499,7 +499,7 @@ namespace HazeronAdviser
                     richTextBoxPop.AppendText(Environment.NewLine);
                     richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
                     richTextBoxPop.SelectionColor = Color.Green;
-                    richTextBoxPop.AppendText("You need " + Convert.ToString(poplimit - pop) + " citizens to reach the limit.");
+                    richTextBoxPop.AppendText("You need " + Convert.ToString(poplimit - pop) + " citizen(s) to reach the limit.");
                     richTextBoxPop.AppendText(Environment.NewLine);
                     richTextBoxPop.SelectionColor = richTextBoxPop.ForeColor;
                 }
@@ -511,7 +511,7 @@ namespace HazeronAdviser
                     richTextBoxPop.AppendText(Environment.NewLine);
                     richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
                     richTextBoxPop.SelectionColor = Color.Red;
-                    richTextBoxPop.AppendText("You need to get rid of " + Convert.ToString(pop - poplimit) + " citizens.");
+                    richTextBoxPop.AppendText("You need to get rid of " + Convert.ToString(pop - poplimit) + " citizen(s).");
                     richTextBoxPop.AppendText(Environment.NewLine);
                     richTextBoxPop.SelectionColor = richTextBoxPop.ForeColor;
                 }
@@ -522,7 +522,83 @@ namespace HazeronAdviser
                     richTextBoxPop.AppendText("The city has reached population limit (" + Convert.ToString(poplimit) + ").");
                     richTextBoxPop.SelectionColor = richTextBoxPop.ForeColor;
                 }
-                
+                tbxLP.Text = hCityList[listIndex].SLiving + Environment.NewLine + hCityList[listIndex].SPowerReserve;
+                int jobs = hCityList[listIndex].VJobs;
+                int homes = hCityList[listIndex].VHomes;
+                int food = hCityList[listIndex].VFood;
+                richTextBoxLP.Clear();
+                if (pop != 0)
+                {
+                    if (jobs >= homes)
+                    {
+                        richTextBoxLP.SelectionStart = richTextBoxLP.TextLength;
+                        richTextBoxLP.SelectionColor = Color.Red;
+                        richTextBoxLP.AppendText("Citizens are (or will be) overworking!");
+                        richTextBoxLP.AppendText(Environment.NewLine);
+                        richTextBoxLP.SelectionColor = Color.Red;
+                        richTextBoxLP.AppendText("You need to get rid of " + Convert.ToString(jobs - homes + 1) + " job(s), or build " + Convert.ToString(jobs - homes + 1) + " house(s).");
+                        richTextBoxLP.AppendText(Environment.NewLine);
+                        richTextBoxLP.SelectionColor = richTextBoxPop.ForeColor;
+                    }
+                    else if (jobs <= homes * 0.8)
+                    {
+                        richTextBoxLP.SelectionStart = richTextBoxLP.TextLength;
+                        richTextBoxLP.SelectionColor = Color.Red;
+                        richTextBoxLP.AppendText("Citizens are suffering from unemployment!");
+                        richTextBoxLP.AppendText(Environment.NewLine);
+                        richTextBoxLP.SelectionColor = Color.Red;
+                        richTextBoxLP.AppendText("You need to provide them " + Convert.ToString(Convert.ToInt32(homes * 0.8 - jobs)) + " job(s).");
+                        richTextBoxLP.AppendText(Environment.NewLine);
+                        richTextBoxLP.SelectionColor = richTextBoxPop.ForeColor;
+                    }
+                    if (food >= pop * 10)
+                    {
+                        if (food >= pop * 1000)
+                        {
+                            richTextBoxLP.SelectionStart = richTextBoxLP.TextLength;
+                            richTextBoxLP.SelectionColor = Color.Indigo;
+                        }
+                        else if (food >= pop * 250)
+                        {
+                            richTextBoxLP.SelectionStart = richTextBoxLP.TextLength;
+                            richTextBoxLP.SelectionColor = Color.Blue;
+                        }
+                        else if (food >= pop * 100)
+                        {
+                            richTextBoxLP.SelectionStart = richTextBoxLP.TextLength;
+                            richTextBoxLP.SelectionColor = Color.Green;
+                        }
+                        else
+                        {
+                            richTextBoxLP.SelectionStart = richTextBoxLP.TextLength;
+                            richTextBoxLP.SelectionColor = Color.Maroon;
+                        }
+                        richTextBoxLP.AppendText("There is enough food to feed citizens for " + Convert.ToString(Convert.ToInt32(food / pop)) + " reports.");
+                        //I'm not very sure about rates of food consumption, so for now it'll be 1 food/citizen/report.
+                        richTextBoxLP.AppendText(Environment.NewLine);
+                        richTextBoxLP.SelectionColor = richTextBoxPop.ForeColor;
+                    }
+                    else if (food < pop * 10 && food >= pop)
+                    {
+                        richTextBoxLP.SelectionStart = richTextBoxLP.TextLength;
+                        richTextBoxLP.SelectionColor = Color.Red;
+                        richTextBoxLP.AppendText("The city will run out from food in " + Convert.ToString(Convert.ToInt32(food / pop)) + " reports.");
+                        richTextBoxLP.AppendText(Environment.NewLine);
+                        richTextBoxLP.SelectionColor = richTextBoxPop.ForeColor;
+                    }
+                    else
+                    {
+                        richTextBoxLP.SelectionStart = richTextBoxLP.TextLength;
+                        richTextBoxLP.SelectionColor = Color.Red;
+                        richTextBoxLP.AppendText("The citizens are starving!");
+                        richTextBoxLP.AppendText(Environment.NewLine);
+                        richTextBoxLP.SelectionColor = richTextBoxPop.ForeColor;
+                    }
+                }
+                else
+                {
+                    richTextBoxLP.AppendText("The city is empty. Move along, governor, nothing to see here.");
+                }
                 //the update ends here
                 pCityStatisticsPop.Refresh();
                 pCityStatisticsMorale.Refresh();
