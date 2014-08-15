@@ -112,6 +112,42 @@ namespace HazeronAdviser
             get { return _sLivingConditionsShort; }
         }
 
+        protected string _sPowerReserve = "-";
+        public string SPowerReserve
+        {
+            get { return _sPowerReserve; }
+        }
+
+        protected string _sBankActivity = "-";
+        public string SBankActivity
+        {
+            get { return _sBankActivity; }
+        }
+
+        protected string _sRnD = "-";
+        public string SRnD
+        {
+            get { return _sRnD; }
+        }
+
+        protected string _sScraftPotential = "-";
+        public string SScraftPotential
+        {
+            get { return _sScraftPotential; }
+        }
+
+        protected string _sFacilities = "-";
+        public string SFacilities
+        {
+            get { return _sFacilities; }
+        }
+
+        protected string _sInventory = "-";
+        public string SInventory
+        {
+            get { return _sInventory; }
+        }
+
         protected int _vMorale = 0;
         public int VMorale
         {
@@ -146,6 +182,12 @@ namespace HazeronAdviser
         public int VJobs
         {
             get { return _vJobs; }
+        }
+
+        protected int _vFood = 0;
+        public int VFood
+        {
+            get { return _vFood; }
         }
 
         protected int _vPopulationLimit = 0;
@@ -268,7 +310,75 @@ namespace HazeronAdviser
                         _sLivingConditionsShort += ", " + line;
                         _vHomes = Convert.ToInt32(line.Split(' ')[1]);
                     }
+                    if (line.Remove(4) == "Food")
+                    {
+                        _vFood = Convert.ToInt32(line.Split(' ')[1]);
+                    }
                 }
+
+                // another update starts here
+                // POWER RESERVE
+                subStart = mail.Body.IndexOf("<b>POWER RESERVE</b>");
+                if (mail.Body.Contains("<b>BANK ACTIVITY</b>")) //nonexistant if no bank
+                    subEnd = mail.Body.IndexOf("<b>BANK ACTIVITY</b>") - subStart;
+                else if (mail.Body.Contains("<b>RESEARCH AND DEVELOPMENT</b>")) //nonexistant if no active researching buildings
+                    subEnd = mail.Body.IndexOf("<b>RESEARCH AND DEVELOPMENT</b>") - subStart;
+                else if (mail.Body.Contains("<b>SPACECRAFT MANUFACTURING POTENTIAL</b>")) //nonexistant if no spacecraft factory
+                    subEnd = mail.Body.IndexOf("<b>SPACECRAFT MANUFACTURING POTENTIAL</b>") - subStart;
+                else
+                    subEnd = mail.Body.IndexOf("<b>FACILITIES</b>") - subStart; //always exists
+                _sPowerReserve = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                tempArray = _sLivingConditions.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+                // BANK ACTIVITY
+                // Yes, I just copied it from POWER RESERVE
+                //if (mail.Body.Contains("<b>BANK ACTIVITY</b>"))
+                //{
+                //    subStart = mail.Body.IndexOf("<b>BANK ACTIVITY</b>");
+                //    if (mail.Body.Contains("<b>RESEARCH AND DEVELOPMENT</b>")) //nonexistant if no active researching buildings
+                //        subEnd = mail.Body.IndexOf("<b>RESEARCH AND DEVELOPMENT</b>") - subStart;
+                //    else if (mail.Body.Contains("<b>SPACECRAFT MANUFACTURING POTENTIAL</b>")) //nonexistant if no spacecraft factory
+                //        subEnd = mail.Body.IndexOf("<b>SPACECRAFT MANUFACTURING POTENTIAL</b>") - subStart;
+                //    else
+                //        subEnd = mail.Body.IndexOf("<b>FACILITIES</b>") - subStart; //always exists
+                //    _sBankActivity = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                //    tempArray = _sBankActivity.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //}
+
+                // RESEARCH AND DEVELOPMENT (RnD)
+                //if (mail.Body.Contains("<b>RESEARCH AND DEVELOPMENT</b>"))
+                //{
+                //    subStart = mail.Body.IndexOf("<b>RESEARCH AND DEVELOPMENT</b>");
+                //    if (mail.Body.Contains("<b>SPACECRAFT MANUFACTURING POTENTIAL</b>")) //nonexistant if no spacecraft factory
+                //        subEnd = mail.Body.IndexOf("<b>SPACECRAFT MANUFACTURING POTENTIAL</b>") - subStart;
+                //    else
+                //        subEnd = mail.Body.IndexOf("<b>FACILITIES</b>") - subStart; //always exists
+                //    _sRnD = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                //    tempArray = _sRnD.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //}
+
+                // SPACECRAFT MANUFACTURING POTENTIAL
+                //if (mail.Body.Contains("<b>SPACECRAFT MANUFACTURING POTENTIAL</b>"))
+                //{
+                //    subStart = mail.Body.IndexOf("<b>SPACECRAFT MANUFACTURING POTENTIAL</b>");
+                //    subEnd = mail.Body.IndexOf("<b>FACILITIES</b>") - subStart; //always exists
+                //    _sScraftPotential = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                //    tempArray = _sScraftPotential.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //}
+
+                // FACILITIES
+                //subStart = mail.Body.IndexOf("<b>FACILITIES</b>");
+                //subEnd = mail.Body.IndexOf("<b>INVENTORY</b>") - subStart;
+                //_sFacilities = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                //tempArray = _sFacilities.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+                // INVENTORY
+                //subStart = mail.Body.IndexOf("<b>INVENTORY</b>");
+                //subEnd = mail.Body.Length - subStart;
+                //_sInventory = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                //tempArray = _sInventory.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+                // another update ends here
 
                 // Planet Size
                 if (!mail.Body.Contains("Ringworld Arc"))
@@ -290,9 +400,9 @@ namespace HazeronAdviser
                     _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100
                 if (4 >= dDay) // Less than 4 days to decay.
                     _attentionCode = (byte)(_attentionCode | 0x08); // 0b00001000
-                if (_vPopulation == 0 || _vPopulation >= _vPopulationLimit) // Population is 0, or zone over populated!
+                if (_vPopulation == 0 || _vPopulation > _vPopulationLimit) // Population is 0, or zone over populated!
                     _attentionCode = (byte)(_attentionCode | 0x10); // 0b00010000
-                if (false) // Nothing yet!
+                if (_vFood < _vPopulation) // No/Low food stocks.
                     _attentionCode = (byte)(_attentionCode | 0x20); // 0b00100000
                 if (_vMorale < 20) // Morale not full.
                     _attentionCode = (byte)(_attentionCode | 0x40); // 0b01000000
