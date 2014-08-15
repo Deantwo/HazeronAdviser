@@ -387,28 +387,48 @@ namespace HazeronAdviser
             cmbCharFilter.Enabled = true;
             toolStripProgressBar1.Visible = false;
             toolStripProgressBar2.Visible = false;
+            ClearSelectedInfo();
+            ClearSeletion();
+            toolStripStatusLabel1.Text = "Done!";
+        }
+
+        private void ClearSeletion()
+        {
             dgvCity.ClearSelection();
             dgvShip.ClearSelection();
             dgvOfficer.ClearSelection();
             dgvEvent.ClearSelection();
-            toolStripStatusLabel1.Text = "Done!";
+        }
+
+        private void ClearSelectedInfo()
+        {
+            tbxCity.Clear();
+            tbxShip.Clear();
+            tbxOfficer.Clear();
+            tbxEvent.Clear();
+            tabControlCity.Refresh();
+            tabControlShip.Refresh();
+            tabControlOfficer.Refresh();
+            tabControlEvent.Refresh();
         }
 
         #region List Selection
         private void dgvCity_SelectionChanged(object sender, EventArgs e)
         {
+            ClearSelectedInfo();
             if (dgvCity.SelectedRows.Count != 0 && dgvCity.SelectedRows[0].Index != -1 && dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value != null)
             {
                 int rowIndex = (int)dgvCity.SelectedRows[0].Index;
                 int listIndex = (int)dgvCity.Rows[rowIndex].Cells["ColumnCityIndex"].Value;
                 tbxCity.Text = hCityList[listIndex].BodyTest;
-                pCityStatisticsPop.Refresh();
-                pCityStatisticsMorale.Refresh();
+                pCityOverviewPopulation.Refresh();
+                pCityOverviewMorale.Refresh();
             }
         }
 
         private void dgvShip_SelectionChanged(object sender, EventArgs e)
         {
+            ClearSelectedInfo();
             if (dgvShip.SelectedRows.Count != 0 && dgvShip.SelectedRows[0].Index != -1 && dgvShip.Rows[(int)dgvShip.SelectedRows[0].Index].Cells["ColumnShipIndex"].Value != null)
             {
                 int rowIndex = (int)dgvShip.SelectedRows[0].Index;
@@ -419,6 +439,7 @@ namespace HazeronAdviser
 
         private void dgvOfficer_SelectionChanged(object sender, EventArgs e)
         {
+            ClearSelectedInfo();
             if (dgvOfficer.SelectedRows.Count != 0 && dgvOfficer.SelectedRows[0].Index != -1 && dgvOfficer.Rows[(int)dgvOfficer.SelectedRows[0].Index].Cells["ColumnOfficerIndex"].Value != null)
             {
                 int rowIndex = (int)dgvOfficer.SelectedRows[0].Index;
@@ -432,6 +453,7 @@ namespace HazeronAdviser
 
         private void dgvEvent_SelectionChanged(object sender, EventArgs e)
         {
+            ClearSelectedInfo();
             if (dgvEvent.SelectedRows.Count != 0 && dgvEvent.SelectedRows[0].Index != -1 && dgvEvent.Rows[(int)dgvEvent.SelectedRows[0].Index].Cells["ColumnEventIndex"].Value != null)
             {
                 int rowIndex = (int)dgvEvent.SelectedRows[0].Index;
@@ -483,21 +505,13 @@ namespace HazeronAdviser
                         row.Visible = hEventList[listIndex].Onwers.Contains(charId);
                     }
                 }
-                dgvCity.ClearSelection();
-                dgvShip.ClearSelection();
-                dgvOfficer.ClearSelection();
-                dgvEvent.ClearSelection();
-                tbxCity.Clear();
-                tbxShip.Clear();
-                tbxOfficer.Clear();
-                tbxEvent.Clear();
-                pCityStatisticsPop.Refresh();
-                pCityStatisticsMorale.Refresh();
+                ClearSelectedInfo();
+                ClearSeletion();
             }
         }
 
-        #region Statistics Graphics
-        private void pCityStatistics_Paint(object sender, PaintEventArgs e) // gCityStatisticsPop
+        #region Graph Graphics
+        private void pCityPopulation_Paint(object sender, PaintEventArgs e)
         {
             if (dgvCity.SelectedRows.Count != 0 && dgvCity.SelectedRows[0].Index != -1 && dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value != null)
             {
@@ -522,7 +536,7 @@ namespace HazeronAdviser
             }
         }
 
-        private void pCityStatisticsMorale_Paint(object sender, PaintEventArgs e) // gCityStatisticsMorale
+        private void pCityMorale_Paint(object sender, PaintEventArgs e)
         {
             if (dgvCity.SelectedRows.Count != 0 && dgvCity.SelectedRows[0].Index != -1 && dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value != null)
             {
@@ -544,16 +558,9 @@ namespace HazeronAdviser
             }
         }
 
-        private void splitContainerCityStatistics_SplitterMoved(object sender, SplitterEventArgs e)
+        private void GraphicPanel_SizeChanged(object sender, EventArgs e) // SizeChanged event for all graph panels.
         {
-            pCityStatisticsPop.Refresh();
-            pCityStatisticsMorale.Refresh();
-        }
-
-        private void Main_SizeChanged(object sender, EventArgs e)
-        {
-            pCityStatisticsPop.Refresh();
-            pCityStatisticsMorale.Refresh();
+            (sender as Panel).Refresh();
         }
         #endregion
     }
