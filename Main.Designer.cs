@@ -48,6 +48,16 @@
             this.tabCity = new System.Windows.Forms.TabPage();
             this.splitContainerCity = new System.Windows.Forms.SplitContainer();
             this.dgvCity = new System.Windows.Forms.DataGridView();
+            this.ColumnCityIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCitySelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ColumnCityIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ColumnCityName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityMorale = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityLivingConditions = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityPopulation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityLoyalty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlCity = new System.Windows.Forms.TabControl();
             this.tabCityStatistics = new System.Windows.Forms.TabPage();
             this.splitContainerCityStatistics = new System.Windows.Forms.SplitContainer();
@@ -55,6 +65,12 @@
             this.pCityStatisticsMorale = new System.Windows.Forms.Panel();
             this.tabCityMail = new System.Windows.Forms.TabPage();
             this.tbxCity = new System.Windows.Forms.TextBox();
+            this.tabMorale = new System.Windows.Forms.TabPage();
+            this.richTextBoxMorale = new System.Windows.Forms.RichTextBox();
+            this.tbxmorale = new System.Windows.Forms.TextBox();
+            this.tabPop = new System.Windows.Forms.TabPage();
+            this.richTextBoxPop = new System.Windows.Forms.RichTextBox();
+            this.tbxpop = new System.Windows.Forms.TextBox();
             this.tabShip = new System.Windows.Forms.TabPage();
             this.tabPageOfficer = new System.Windows.Forms.TabPage();
             this.splitContainerOfficer = new System.Windows.Forms.SplitContainer();
@@ -79,16 +95,9 @@
             this.tbxEvent = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmbCharFilter = new System.Windows.Forms.ComboBox();
-            this.ColumnCityIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCitySelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ColumnCityIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ColumnCityName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityMorale = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityLivingConditions = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityPopulation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityLoyalty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabLivPow = new System.Windows.Forms.TabPage();
+            this.tbxLP = new System.Windows.Forms.TextBox();
+            this.richTextLP = new System.Windows.Forms.RichTextBox();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -109,6 +118,8 @@
             this.splitContainerCityStatistics.Panel2.SuspendLayout();
             this.splitContainerCityStatistics.SuspendLayout();
             this.tabCityMail.SuspendLayout();
+            this.tabMorale.SuspendLayout();
+            this.tabPop.SuspendLayout();
             this.tabShip.SuspendLayout();
             this.tabPageOfficer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerOfficer)).BeginInit();
@@ -122,6 +133,7 @@
             this.splitContainerEvent.Panel2.SuspendLayout();
             this.splitContainerEvent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEvent)).BeginInit();
+            this.tabLivPow.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -355,10 +367,101 @@
             this.dgvCity.TabIndex = 2;
             this.dgvCity.SelectionChanged += new System.EventHandler(this.dgvCity_SelectionChanged);
             // 
+            // ColumnCityIndex
+            // 
+            this.ColumnCityIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnCityIndex.FillWeight = 20F;
+            this.ColumnCityIndex.Frozen = true;
+            this.ColumnCityIndex.HeaderText = "# Index";
+            this.ColumnCityIndex.MinimumWidth = 20;
+            this.ColumnCityIndex.Name = "ColumnCityIndex";
+            this.ColumnCityIndex.ReadOnly = true;
+            this.ColumnCityIndex.Visible = false;
+            this.ColumnCityIndex.Width = 20;
+            // 
+            // ColumnCitySelection
+            // 
+            this.ColumnCitySelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnCitySelection.FillWeight = 20F;
+            this.ColumnCitySelection.Frozen = true;
+            this.ColumnCitySelection.HeaderText = "Selection";
+            this.ColumnCitySelection.MinimumWidth = 20;
+            this.ColumnCitySelection.Name = "ColumnCitySelection";
+            this.ColumnCitySelection.ReadOnly = true;
+            this.ColumnCitySelection.Visible = false;
+            this.ColumnCitySelection.Width = 20;
+            // 
+            // ColumnCityIcon
+            // 
+            this.ColumnCityIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnCityIcon.FillWeight = 20F;
+            this.ColumnCityIcon.Frozen = true;
+            this.ColumnCityIcon.HeaderText = "Icon";
+            this.ColumnCityIcon.MinimumWidth = 20;
+            this.ColumnCityIcon.Name = "ColumnCityIcon";
+            this.ColumnCityIcon.ReadOnly = true;
+            this.ColumnCityIcon.Width = 20;
+            // 
+            // ColumnCityName
+            // 
+            this.ColumnCityName.Frozen = true;
+            this.ColumnCityName.HeaderText = "Name";
+            this.ColumnCityName.Name = "ColumnCityName";
+            this.ColumnCityName.ReadOnly = true;
+            // 
+            // ColumnCityMorale
+            // 
+            this.ColumnCityMorale.FillWeight = 112F;
+            this.ColumnCityMorale.HeaderText = "Morale";
+            this.ColumnCityMorale.Name = "ColumnCityMorale";
+            this.ColumnCityMorale.ReadOnly = true;
+            this.ColumnCityMorale.Width = 112;
+            // 
+            // ColumnCityAbandonment
+            // 
+            this.ColumnCityAbandonment.FillWeight = 90F;
+            this.ColumnCityAbandonment.HeaderText = "Abandonment";
+            this.ColumnCityAbandonment.Name = "ColumnCityAbandonment";
+            this.ColumnCityAbandonment.ReadOnly = true;
+            this.ColumnCityAbandonment.Width = 90;
+            // 
+            // ColumnCityLivingConditions
+            // 
+            this.ColumnCityLivingConditions.FillWeight = 112F;
+            this.ColumnCityLivingConditions.HeaderText = "Living Conditions";
+            this.ColumnCityLivingConditions.Name = "ColumnCityLivingConditions";
+            this.ColumnCityLivingConditions.ReadOnly = true;
+            this.ColumnCityLivingConditions.Width = 112;
+            // 
+            // ColumnCityPopulation
+            // 
+            this.ColumnCityPopulation.FillWeight = 118F;
+            this.ColumnCityPopulation.HeaderText = "Population";
+            this.ColumnCityPopulation.Name = "ColumnCityPopulation";
+            this.ColumnCityPopulation.ReadOnly = true;
+            this.ColumnCityPopulation.Width = 118;
+            // 
+            // ColumnCityLoyalty
+            // 
+            this.ColumnCityLoyalty.HeaderText = "Loyalty";
+            this.ColumnCityLoyalty.Name = "ColumnCityLoyalty";
+            this.ColumnCityLoyalty.ReadOnly = true;
+            // 
+            // ColumnCityDate
+            // 
+            this.ColumnCityDate.FillWeight = 107F;
+            this.ColumnCityDate.HeaderText = "Last Updated";
+            this.ColumnCityDate.Name = "ColumnCityDate";
+            this.ColumnCityDate.ReadOnly = true;
+            this.ColumnCityDate.Width = 107;
+            // 
             // tabControlCity
             // 
             this.tabControlCity.Controls.Add(this.tabCityStatistics);
             this.tabControlCity.Controls.Add(this.tabCityMail);
+            this.tabControlCity.Controls.Add(this.tabMorale);
+            this.tabControlCity.Controls.Add(this.tabPop);
+            this.tabControlCity.Controls.Add(this.tabLivPow);
             this.tabControlCity.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlCity.Location = new System.Drawing.Point(0, 0);
             this.tabControlCity.Name = "tabControlCity";
@@ -444,6 +547,80 @@
             this.tbxCity.Size = new System.Drawing.Size(403, 378);
             this.tbxCity.TabIndex = 0;
             this.tbxCity.WordWrap = false;
+            // 
+            // tabMorale
+            // 
+            this.tabMorale.Controls.Add(this.richTextBoxMorale);
+            this.tabMorale.Controls.Add(this.tbxmorale);
+            this.tabMorale.Location = new System.Drawing.Point(4, 22);
+            this.tabMorale.Name = "tabMorale";
+            this.tabMorale.Padding = new System.Windows.Forms.Padding(3);
+            this.tabMorale.Size = new System.Drawing.Size(409, 384);
+            this.tabMorale.TabIndex = 2;
+            this.tabMorale.Text = "City morale";
+            this.tabMorale.UseVisualStyleBackColor = true;
+            // 
+            // richTextBoxMorale
+            // 
+            this.richTextBoxMorale.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxMorale.Enabled = false;
+            this.richTextBoxMorale.Location = new System.Drawing.Point(3, 0);
+            this.richTextBoxMorale.Name = "richTextBoxMorale";
+            this.richTextBoxMorale.Size = new System.Drawing.Size(400, 234);
+            this.richTextBoxMorale.TabIndex = 2;
+            this.richTextBoxMorale.Text = "";
+            // 
+            // tbxmorale
+            // 
+            this.tbxmorale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbxmorale.Location = new System.Drawing.Point(3, 240);
+            this.tbxmorale.Multiline = true;
+            this.tbxmorale.Name = "tbxmorale";
+            this.tbxmorale.ReadOnly = true;
+            this.tbxmorale.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbxmorale.Size = new System.Drawing.Size(403, 141);
+            this.tbxmorale.TabIndex = 1;
+            this.tbxmorale.WordWrap = false;
+            // 
+            // tabPop
+            // 
+            this.tabPop.Controls.Add(this.richTextBoxPop);
+            this.tabPop.Controls.Add(this.tbxpop);
+            this.tabPop.Location = new System.Drawing.Point(4, 22);
+            this.tabPop.Name = "tabPop";
+            this.tabPop.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPop.Size = new System.Drawing.Size(409, 384);
+            this.tabPop.TabIndex = 3;
+            this.tabPop.Text = "Population";
+            this.tabPop.UseVisualStyleBackColor = true;
+            // 
+            // richTextBoxPop
+            // 
+            this.richTextBoxPop.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxPop.Enabled = false;
+            this.richTextBoxPop.Location = new System.Drawing.Point(3, 0);
+            this.richTextBoxPop.Name = "richTextBoxPop";
+            this.richTextBoxPop.Size = new System.Drawing.Size(400, 234);
+            this.richTextBoxPop.TabIndex = 3;
+            this.richTextBoxPop.Text = "";
+            // 
+            // tbxpop
+            // 
+            this.tbxpop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbxpop.Location = new System.Drawing.Point(3, 240);
+            this.tbxpop.Multiline = true;
+            this.tbxpop.Name = "tbxpop";
+            this.tbxpop.ReadOnly = true;
+            this.tbxpop.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbxpop.Size = new System.Drawing.Size(403, 141);
+            this.tbxpop.TabIndex = 2;
+            this.tbxpop.WordWrap = false;
             // 
             // tabShip
             // 
@@ -723,93 +900,42 @@
             this.cmbCharFilter.TabIndex = 3;
             this.cmbCharFilter.SelectedIndexChanged += new System.EventHandler(this.cmbCharFilter_SelectedIndexChanged);
             // 
-            // ColumnCityIndex
+            // tabLivPow
             // 
-            this.ColumnCityIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnCityIndex.FillWeight = 20F;
-            this.ColumnCityIndex.Frozen = true;
-            this.ColumnCityIndex.HeaderText = "# Index";
-            this.ColumnCityIndex.MinimumWidth = 20;
-            this.ColumnCityIndex.Name = "ColumnCityIndex";
-            this.ColumnCityIndex.ReadOnly = true;
-            this.ColumnCityIndex.Visible = false;
-            this.ColumnCityIndex.Width = 20;
+            this.tabLivPow.Controls.Add(this.richTextLP);
+            this.tabLivPow.Controls.Add(this.tbxLP);
+            this.tabLivPow.Location = new System.Drawing.Point(4, 22);
+            this.tabLivPow.Name = "tabLivPow";
+            this.tabLivPow.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLivPow.Size = new System.Drawing.Size(409, 384);
+            this.tabLivPow.TabIndex = 4;
+            this.tabLivPow.Text = "Living and Power";
+            this.tabLivPow.UseVisualStyleBackColor = true;
             // 
-            // ColumnCitySelection
+            // tbxLP
             // 
-            this.ColumnCitySelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnCitySelection.FillWeight = 20F;
-            this.ColumnCitySelection.Frozen = true;
-            this.ColumnCitySelection.HeaderText = "Selection";
-            this.ColumnCitySelection.MinimumWidth = 20;
-            this.ColumnCitySelection.Name = "ColumnCitySelection";
-            this.ColumnCitySelection.ReadOnly = true;
-            this.ColumnCitySelection.Visible = false;
-            this.ColumnCitySelection.Width = 20;
+            this.tbxLP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbxLP.Location = new System.Drawing.Point(3, 240);
+            this.tbxLP.Multiline = true;
+            this.tbxLP.Name = "tbxLP";
+            this.tbxLP.ReadOnly = true;
+            this.tbxLP.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbxLP.Size = new System.Drawing.Size(403, 141);
+            this.tbxLP.TabIndex = 3;
+            this.tbxLP.WordWrap = false;
             // 
-            // ColumnCityIcon
+            // richTextLP
             // 
-            this.ColumnCityIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnCityIcon.FillWeight = 20F;
-            this.ColumnCityIcon.Frozen = true;
-            this.ColumnCityIcon.HeaderText = "Icon";
-            this.ColumnCityIcon.MinimumWidth = 20;
-            this.ColumnCityIcon.Name = "ColumnCityIcon";
-            this.ColumnCityIcon.ReadOnly = true;
-            this.ColumnCityIcon.Width = 20;
-            // 
-            // ColumnCityName
-            // 
-            this.ColumnCityName.Frozen = true;
-            this.ColumnCityName.HeaderText = "Name";
-            this.ColumnCityName.Name = "ColumnCityName";
-            this.ColumnCityName.ReadOnly = true;
-            // 
-            // ColumnCityMorale
-            // 
-            this.ColumnCityMorale.FillWeight = 112F;
-            this.ColumnCityMorale.HeaderText = "Morale";
-            this.ColumnCityMorale.Name = "ColumnCityMorale";
-            this.ColumnCityMorale.ReadOnly = true;
-            this.ColumnCityMorale.Width = 112;
-            // 
-            // ColumnCityAbandonment
-            // 
-            this.ColumnCityAbandonment.FillWeight = 90F;
-            this.ColumnCityAbandonment.HeaderText = "Abandonment";
-            this.ColumnCityAbandonment.Name = "ColumnCityAbandonment";
-            this.ColumnCityAbandonment.ReadOnly = true;
-            this.ColumnCityAbandonment.Width = 90;
-            // 
-            // ColumnCityLivingConditions
-            // 
-            this.ColumnCityLivingConditions.FillWeight = 112F;
-            this.ColumnCityLivingConditions.HeaderText = "Living Conditions";
-            this.ColumnCityLivingConditions.Name = "ColumnCityLivingConditions";
-            this.ColumnCityLivingConditions.ReadOnly = true;
-            this.ColumnCityLivingConditions.Width = 112;
-            // 
-            // ColumnCityPopulation
-            // 
-            this.ColumnCityPopulation.FillWeight = 118F;
-            this.ColumnCityPopulation.HeaderText = "Population";
-            this.ColumnCityPopulation.Name = "ColumnCityPopulation";
-            this.ColumnCityPopulation.ReadOnly = true;
-            this.ColumnCityPopulation.Width = 118;
-            // 
-            // ColumnCityLoyalty
-            // 
-            this.ColumnCityLoyalty.HeaderText = "Loyalty";
-            this.ColumnCityLoyalty.Name = "ColumnCityLoyalty";
-            this.ColumnCityLoyalty.ReadOnly = true;
-            // 
-            // ColumnCityDate
-            // 
-            this.ColumnCityDate.FillWeight = 107F;
-            this.ColumnCityDate.HeaderText = "Last Updated";
-            this.ColumnCityDate.Name = "ColumnCityDate";
-            this.ColumnCityDate.ReadOnly = true;
-            this.ColumnCityDate.Width = 107;
+            this.richTextLP.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextLP.Enabled = false;
+            this.richTextLP.Location = new System.Drawing.Point(3, 0);
+            this.richTextLP.Name = "richTextLP";
+            this.richTextLP.Size = new System.Drawing.Size(400, 234);
+            this.richTextLP.TabIndex = 4;
+            this.richTextLP.Text = "";
             // 
             // Main
             // 
@@ -846,6 +972,10 @@
             this.splitContainerCityStatistics.ResumeLayout(false);
             this.tabCityMail.ResumeLayout(false);
             this.tabCityMail.PerformLayout();
+            this.tabMorale.ResumeLayout(false);
+            this.tabMorale.PerformLayout();
+            this.tabPop.ResumeLayout(false);
+            this.tabPop.PerformLayout();
             this.tabShip.ResumeLayout(false);
             this.tabPageOfficer.ResumeLayout(false);
             this.splitContainerOfficer.Panel1.ResumeLayout(false);
@@ -861,6 +991,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEvent)).EndInit();
             this.splitContainerEvent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEvent)).EndInit();
+            this.tabLivPow.ResumeLayout(false);
+            this.tabLivPow.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -928,6 +1060,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityPopulation;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLoyalty;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityDate;
+        private System.Windows.Forms.TabPage tabMorale;
+        private System.Windows.Forms.TextBox tbxmorale;
+        private System.Windows.Forms.RichTextBox richTextBoxMorale;
+        private System.Windows.Forms.TabPage tabPop;
+        private System.Windows.Forms.RichTextBox richTextBoxPop;
+        private System.Windows.Forms.TextBox tbxpop;
+        private System.Windows.Forms.TabPage tabLivPow;
+        private System.Windows.Forms.RichTextBox richTextLP;
+        private System.Windows.Forms.TextBox tbxLP;
     }
 }
 

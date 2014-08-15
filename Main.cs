@@ -402,6 +402,128 @@ namespace HazeronAdviser
                 int rowIndex = (int)dgvCity.SelectedRows[0].Index;
                 int listIndex = (int)dgvCity.Rows[rowIndex].Cells["ColumnCityIndex"].Value;
                 tbxCity.Text = hCityList[listIndex].BodyTest;
+                //the update starts here
+                tbxmorale.Text = hCityList[listIndex].SMorale;
+                richTextBoxMorale.Clear();
+                int moral = hCityList[listIndex].VMoraleModifiers.Sum();
+                foreach (string line in tbxmorale.Lines)
+                    if (line.Contains("+"))
+                    {
+                        richTextBoxMorale.SelectionStart = richTextBoxMorale.TextLength;
+                        richTextBoxMorale.SelectionColor = Color.Green;
+                        richTextBoxMorale.AppendText(line);
+                        richTextBoxMorale.AppendText(Environment.NewLine);
+                        richTextBoxMorale.SelectionColor = richTextBoxMorale.ForeColor;
+                    }
+                //foreach (string line in tbxmorale.Lines)
+                    else if (line.Contains("-") && !line.Contains("Morale"))
+                    {
+                        richTextBoxMorale.SelectionStart = richTextBoxMorale.TextLength;
+                        richTextBoxMorale.SelectionColor = Color.Red;
+                        richTextBoxMorale.AppendText(line);
+                        richTextBoxMorale.AppendText(Environment.NewLine);
+                        richTextBoxMorale.SelectionColor = richTextBoxMorale.ForeColor;
+                    }
+                if (moral > 0)
+                {
+                    richTextBoxMorale.SelectionStart = richTextBoxMorale.TextLength;
+                    richTextBoxMorale.SelectionColor = Color.Blue;
+                }
+                else if (moral < 0)
+                {
+                    richTextBoxMorale.SelectionStart = richTextBoxMorale.TextLength;
+                    richTextBoxMorale.SelectionColor = Color.Orange;
+                }
+                richTextBoxMorale.AppendText("Morale change is " + Convert.ToString(moral));
+                richTextBoxMorale.AppendText(Environment.NewLine);
+                richTextBoxMorale.SelectionColor = richTextBoxMorale.ForeColor;
+                tbxpop.Text = hCityList[listIndex].SPopulation;
+                richTextBoxPop.Clear();
+                int loyality = hCityList[listIndex].VLoyalty;
+                int pop = hCityList[listIndex].VPopulation;
+                foreach (string line in tbxpop.Lines)
+                    if (line.Contains("Star Fleet Academy"))
+                    {
+                        richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
+                        richTextBoxPop.SelectionColor = Color.Indigo;
+                        richTextBoxPop.AppendText(line);
+                        richTextBoxPop.AppendText(Environment.NewLine);
+                        richTextBoxPop.SelectionColor = richTextBoxPop.ForeColor;
+                    }
+                if (loyality == pop)
+                {
+                    richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
+                    richTextBoxPop.SelectionColor = Color.Blue;
+                    richTextBoxPop.AppendText("City is completely loyal.");
+                    richTextBoxPop.AppendText(Environment.NewLine);
+                    richTextBoxPop.SelectionColor = richTextBoxPop.ForeColor;
+                }
+                else if (loyality > 0)
+                {
+                    richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
+                    richTextBoxPop.SelectionColor = Color.Green;
+                    richTextBoxPop.AppendText("City will be completely loyal in " + Convert.ToString(pop - loyality) + " reports, or ~" + Convert.ToString((pop - loyality) * 13) + " minutes, or ~" + Convert.ToString((pop - loyality) * 13 / 60) + " hours.");
+                    richTextBoxPop.AppendText(Environment.NewLine);
+                    richTextBoxPop.SelectionColor = richTextBoxPop.ForeColor;
+                }
+                else
+                {
+                    richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
+                    richTextBoxPop.SelectionColor = Color.Red;
+                    richTextBoxPop.AppendText("City is occupied!");
+                    richTextBoxPop.AppendText(Environment.NewLine);
+                    richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
+                    richTextBoxPop.SelectionColor = Color.Red;
+                    richTextBoxPop.AppendText("City will flip allegiance in " + Convert.ToString(-loyality) + " reports, or ~" + Convert.ToString((-loyality) * 13) + " minutes, or ~" + Convert.ToString((-loyality) * 13 / 60) + " hours.");
+                    richTextBoxPop.AppendText(Environment.NewLine);
+                    richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
+                    richTextBoxPop.SelectionColor = Color.Red;
+                    richTextBoxPop.AppendText("City will be completely loyal in " + Convert.ToString(-loyality + pop) + " reports, or ~" + Convert.ToString((-loyality + pop) * 13) + " minutes, or ~" + Convert.ToString((-loyality + pop) * 13 / 60) + " hours.");
+                    richTextBoxPop.AppendText(Environment.NewLine);
+                    richTextBoxPop.SelectionColor = richTextBoxPop.ForeColor;
+                }
+                int poplimit = hCityList[listIndex].VPopulationLimit;
+                if (pop == 0)
+                {
+                    richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
+                    richTextBoxPop.SelectionColor = Color.Maroon;
+                    richTextBoxPop.AppendText("The city is completely empty!");
+                    richTextBoxPop.AppendText(Environment.NewLine);
+                    richTextBoxPop.SelectionColor = richTextBoxPop.ForeColor;
+                }
+                else if (poplimit > pop)
+                {
+                    richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
+                    richTextBoxPop.SelectionColor = Color.Green;
+                    richTextBoxPop.AppendText("The city hasn't reached population limit (" + Convert.ToString(poplimit) + ") yet.");
+                    richTextBoxPop.AppendText(Environment.NewLine);
+                    richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
+                    richTextBoxPop.SelectionColor = Color.Green;
+                    richTextBoxPop.AppendText("You need " + Convert.ToString(poplimit - pop) + " citizens to reach the limit.");
+                    richTextBoxPop.AppendText(Environment.NewLine);
+                    richTextBoxPop.SelectionColor = richTextBoxPop.ForeColor;
+                }
+                else if (poplimit < pop)
+                {
+                    richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
+                    richTextBoxPop.SelectionColor = Color.Red;
+                    richTextBoxPop.AppendText("The city is overpopulated!");
+                    richTextBoxPop.AppendText(Environment.NewLine);
+                    richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
+                    richTextBoxPop.SelectionColor = Color.Red;
+                    richTextBoxPop.AppendText("You need to get rid of " + Convert.ToString(pop - poplimit) + " citizens.");
+                    richTextBoxPop.AppendText(Environment.NewLine);
+                    richTextBoxPop.SelectionColor = richTextBoxPop.ForeColor;
+                }
+                else
+                {
+                    richTextBoxPop.SelectionStart = richTextBoxPop.TextLength;
+                    richTextBoxPop.SelectionColor = Color.Blue;
+                    richTextBoxPop.AppendText("The city has reached population limit (" + Convert.ToString(poplimit) + ").");
+                    richTextBoxPop.SelectionColor = richTextBoxPop.ForeColor;
+                }
+                
+                //the update ends here
                 pCityStatisticsPop.Refresh();
                 pCityStatisticsMorale.Refresh();
             }
