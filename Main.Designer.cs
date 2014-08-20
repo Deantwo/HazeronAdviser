@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnScan = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripProgressBar2 = new System.Windows.Forms.ToolStripProgressBar();
@@ -67,8 +67,10 @@
             this.tabControlCity = new System.Windows.Forms.TabControl();
             this.tabCityOverview = new System.Windows.Forms.TabPage();
             this.splitContainerCityOverview = new System.Windows.Forms.SplitContainer();
-            this.pCityOverviewPopulation = new System.Windows.Forms.Panel();
+            this.splitContainerCityOverview2 = new System.Windows.Forms.SplitContainer();
             this.pCityOverviewMorale = new System.Windows.Forms.Panel();
+            this.pCityOverviewPopulation = new System.Windows.Forms.Panel();
+            this.rtbCityOverview = new System.Windows.Forms.RichTextBox();
             this.tabCityMorale = new System.Windows.Forms.TabPage();
             this.splitContainerCityMorale = new System.Windows.Forms.SplitContainer();
             this.pCityMorale = new System.Windows.Forms.Panel();
@@ -119,8 +121,6 @@
             this.tbxEvent = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmbCharFilter = new System.Windows.Forms.ComboBox();
-            this.splitContainerCityOverview2 = new System.Windows.Forms.SplitContainer();
-            this.rtbCityOverview = new System.Windows.Forms.RichTextBox();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -147,6 +147,10 @@
             this.splitContainerCityOverview.Panel1.SuspendLayout();
             this.splitContainerCityOverview.Panel2.SuspendLayout();
             this.splitContainerCityOverview.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityOverview2)).BeginInit();
+            this.splitContainerCityOverview2.Panel1.SuspendLayout();
+            this.splitContainerCityOverview2.Panel2.SuspendLayout();
+            this.splitContainerCityOverview2.SuspendLayout();
             this.tabCityMorale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityMorale)).BeginInit();
             this.splitContainerCityMorale.Panel1.SuspendLayout();
@@ -190,21 +194,17 @@
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.tabEventMail.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityOverview2)).BeginInit();
-            this.splitContainerCityOverview2.Panel1.SuspendLayout();
-            this.splitContainerCityOverview2.Panel2.SuspendLayout();
-            this.splitContainerCityOverview2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // btnScan
             // 
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Scan HMails";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnScan.Location = new System.Drawing.Point(12, 12);
+            this.btnScan.Name = "btnScan";
+            this.btnScan.Size = new System.Drawing.Size(75, 23);
+            this.btnScan.TabIndex = 1;
+            this.btnScan.Text = "Scan HMails";
+            this.btnScan.UseVisualStyleBackColor = true;
+            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
             // 
             // statusStrip1
             // 
@@ -633,19 +633,22 @@
             this.splitContainerCityOverview.SplitterDistance = 199;
             this.splitContainerCityOverview.TabIndex = 1;
             // 
-            // pCityOverviewPopulation
+            // splitContainerCityOverview2
             // 
-            this.pCityOverviewPopulation.BackColor = System.Drawing.Color.LightGray;
-            this.pCityOverviewPopulation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pCityOverviewPopulation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pCityOverviewPopulation.Location = new System.Drawing.Point(0, 0);
-            this.pCityOverviewPopulation.Name = "pCityOverviewPopulation";
-            this.pCityOverviewPopulation.Size = new System.Drawing.Size(263, 199);
-            this.pCityOverviewPopulation.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.pCityOverviewPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
-                    "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
-            this.pCityOverviewPopulation.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
-            this.pCityOverviewPopulation.Paint += new System.Windows.Forms.PaintEventHandler(this.pCityPopulation_Paint);
+            this.splitContainerCityOverview2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerCityOverview2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerCityOverview2.Name = "splitContainerCityOverview2";
+            // 
+            // splitContainerCityOverview2.Panel1
+            // 
+            this.splitContainerCityOverview2.Panel1.Controls.Add(this.pCityOverviewMorale);
+            // 
+            // splitContainerCityOverview2.Panel2
+            // 
+            this.splitContainerCityOverview2.Panel2.Controls.Add(this.pCityOverviewPopulation);
+            this.splitContainerCityOverview2.Size = new System.Drawing.Size(403, 199);
+            this.splitContainerCityOverview2.SplitterDistance = 136;
+            this.splitContainerCityOverview2.TabIndex = 0;
             // 
             // pCityOverviewMorale
             // 
@@ -660,6 +663,31 @@
                     "ifiers\r\nRed - sum of Negative Morale Modifiers");
             this.pCityOverviewMorale.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
             this.pCityOverviewMorale.Paint += new System.Windows.Forms.PaintEventHandler(this.pCityMorale_Paint);
+            // 
+            // pCityOverviewPopulation
+            // 
+            this.pCityOverviewPopulation.BackColor = System.Drawing.Color.LightGray;
+            this.pCityOverviewPopulation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pCityOverviewPopulation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pCityOverviewPopulation.Location = new System.Drawing.Point(0, 0);
+            this.pCityOverviewPopulation.Name = "pCityOverviewPopulation";
+            this.pCityOverviewPopulation.Size = new System.Drawing.Size(263, 199);
+            this.pCityOverviewPopulation.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.pCityOverviewPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
+                    "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
+            this.pCityOverviewPopulation.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
+            this.pCityOverviewPopulation.Paint += new System.Windows.Forms.PaintEventHandler(this.pCityPopulation_Paint);
+            // 
+            // rtbCityOverview
+            // 
+            this.rtbCityOverview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rtbCityOverview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbCityOverview.Location = new System.Drawing.Point(0, 0);
+            this.rtbCityOverview.Name = "rtbCityOverview";
+            this.rtbCityOverview.ReadOnly = true;
+            this.rtbCityOverview.Size = new System.Drawing.Size(403, 175);
+            this.rtbCityOverview.TabIndex = 1;
+            this.rtbCityOverview.Text = "";
             // 
             // tabCityMorale
             // 
@@ -1272,34 +1300,6 @@
             this.cmbCharFilter.TabIndex = 3;
             this.cmbCharFilter.SelectedIndexChanged += new System.EventHandler(this.cmbCharFilter_SelectedIndexChanged);
             // 
-            // splitContainerCityOverview2
-            // 
-            this.splitContainerCityOverview2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerCityOverview2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainerCityOverview2.Name = "splitContainerCityOverview2";
-            // 
-            // splitContainerCityOverview2.Panel1
-            // 
-            this.splitContainerCityOverview2.Panel1.Controls.Add(this.pCityOverviewMorale);
-            // 
-            // splitContainerCityOverview2.Panel2
-            // 
-            this.splitContainerCityOverview2.Panel2.Controls.Add(this.pCityOverviewPopulation);
-            this.splitContainerCityOverview2.Size = new System.Drawing.Size(403, 199);
-            this.splitContainerCityOverview2.SplitterDistance = 136;
-            this.splitContainerCityOverview2.TabIndex = 0;
-            // 
-            // rtbCityOverview
-            // 
-            this.rtbCityOverview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtbCityOverview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbCityOverview.Location = new System.Drawing.Point(0, 0);
-            this.rtbCityOverview.Name = "rtbCityOverview";
-            this.rtbCityOverview.ReadOnly = true;
-            this.rtbCityOverview.Size = new System.Drawing.Size(403, 175);
-            this.rtbCityOverview.TabIndex = 1;
-            this.rtbCityOverview.Text = "";
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1307,7 +1307,7 @@
             this.ClientSize = new System.Drawing.Size(790, 508);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnScan);
             this.Controls.Add(this.cmbCharFilter);
             this.Name = "Main";
             this.Text = "Hazeron Adviser";
@@ -1339,6 +1339,10 @@
             this.splitContainerCityOverview.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityOverview)).EndInit();
             this.splitContainerCityOverview.ResumeLayout(false);
+            this.splitContainerCityOverview2.Panel1.ResumeLayout(false);
+            this.splitContainerCityOverview2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityOverview2)).EndInit();
+            this.splitContainerCityOverview2.ResumeLayout(false);
             this.tabCityMorale.ResumeLayout(false);
             this.splitContainerCityMorale.Panel1.ResumeLayout(false);
             this.splitContainerCityMorale.Panel2.ResumeLayout(false);
@@ -1385,10 +1389,6 @@
             this.splitContainer2.ResumeLayout(false);
             this.tabEventMail.ResumeLayout(false);
             this.tabEventMail.PerformLayout();
-            this.splitContainerCityOverview2.Panel1.ResumeLayout(false);
-            this.splitContainerCityOverview2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityOverview2)).EndInit();
-            this.splitContainerCityOverview2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1396,7 +1396,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnScan;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;

@@ -66,10 +66,12 @@ namespace HazeronAdviser
             cmbCharFilter.SelectedIndex = 0;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnScan_Click(object sender, EventArgs e)
         {
             toolStripProgressBar1.Visible = false;
             toolStripProgressBar2.Visible = false;
+
+            // Scan the Hazeron Mail folder and get all file names.
             if (!Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail")))
             {
                 toolStripStatusLabel1.Text = "\""+Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail")+"\" does not exist.";
@@ -78,16 +80,14 @@ namespace HazeronAdviser
                 return;
             }
             string[] fileList = Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail")); // %USERPROFILE%\Shores of Hazeron\Mail
+
+            // Clear Character Filter dropdown box.
             cmbCharFilter.Enabled = false;
             cmbCharFilter.Items.Clear();
             cmbCharFilter.Items.Add("Show all");
             cmbCharFilter.SelectedIndex = 0;
-            toolStripProgressBar1.Value = 0;
-            toolStripProgressBar1.Maximum = fileList.Length;
-            toolStripProgressBar1.Visible = true;
-            toolStripStatusLabel1.Text = "Scanning mails...";
-            toolStripStatusLabel1.Invalidate();
-            statusStrip1.Update();
+
+            // Clear the DataGridView tables.
             dgvCity.Rows.Clear();
             dgvShip.Rows.Clear();
             dgvOfficer.Rows.Clear();
@@ -96,10 +96,15 @@ namespace HazeronAdviser
             dgvShip.Refresh();
             dgvOfficer.Refresh();
             dgvEvent.Refresh();
-            tbxCity.Clear();
-            tbxShip.Clear();
-            tbxOfficer.Clear();
-            tbxEvent.Clear();
+
+            ClearSelectedInfo();
+
+            toolStripProgressBar1.Value = 0;
+            toolStripProgressBar1.Maximum = fileList.Length;
+            toolStripProgressBar1.Visible = true;
+            toolStripStatusLabel1.Text = "Scanning mails...";
+            toolStripStatusLabel1.Invalidate();
+            statusStrip1.Update();
             #region Scan HMails
             foreach (string file in fileList)
             {
@@ -374,7 +379,8 @@ namespace HazeronAdviser
                 toolStripProgressBar2.Increment(1);
             }
             #endregion
-            foreach (int charId in charFilterList) // Fill the Character filter dropdown box.
+
+            foreach (int charId in charFilterList) // Fill the Character Filter dropdown box.
             {
                 if (charList.Any(x => x.IdNum == charId))
                 {
@@ -385,9 +391,9 @@ namespace HazeronAdviser
                     cmbCharFilter.Items.Add("??? (" + HHelper.ToID(charId) + ")");
             }
             cmbCharFilter.Enabled = true;
+
             toolStripProgressBar1.Visible = false;
             toolStripProgressBar2.Visible = false;
-            ClearSelectedInfo();
             ClearSeletion();
             toolStripStatusLabel1.Text = "Done!";
         }
@@ -463,6 +469,7 @@ namespace HazeronAdviser
         }
         #endregion
 
+        #region Character Filter
         private void cmbCharFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbCharFilter.Enabled)
@@ -509,6 +516,7 @@ namespace HazeronAdviser
                 ClearSeletion();
             }
         }
+        #endregion
 
         #region Graph Graphics
         private void pCityPopulation_Paint(object sender, PaintEventArgs e)
