@@ -38,16 +38,19 @@ namespace HazeronAdviser
         }
 
         /// <summary>
-        /// Converts four bytes from a byte array to a int32.
+        /// Converts four bytes from a byte array to a int32. Using BigEndian.
         /// </summary>
         /// <param name="bytes">Bytes to be converted.</param>
         /// <param name="startIndex">Index of the starting byte.</param>
         static public int ToInt32(byte[] bytes, int startIndex)
         {
-            byte[] subBytes = HHelper.SubArray(bytes, startIndex, 4);
             if (BitConverter.IsLittleEndian)
-                Array.Reverse(subBytes);
-            return BitConverter.ToInt32(subBytes, 0);
+            {
+                bytes = HHelper.SubArray(bytes, startIndex, 4);
+                Array.Reverse(bytes);
+                startIndex = 0;
+            }
+            return BitConverter.ToInt32(bytes, startIndex);
         }
 
         /// <summary>
