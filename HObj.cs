@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define CrewMoraleTest
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -304,6 +305,12 @@ namespace HazeronAdviser
 
     class HShip : HObj
     {
+        protected string _decayDay = "-";
+        public string DecayDay
+        {
+            get { return _decayDay; }
+        }
+
         protected string _damage = "-", _damageShort = "-";
         public string Damage
         {
@@ -391,6 +398,38 @@ namespace HazeronAdviser
                 int subStart, subEnd;
                 string[] tempArray;
 
+                // DECAY
+                subStart = mail.Body.IndexOf("Commander,") + 10; // "I was deployed from ".Length == 20
+                subEnd = mail.Body.Substring(subStart).IndexOf("I was deployed from ");
+                string crewMorale = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
+                int dDay = 0;
+                switch (crewMorale)
+                {
+                    case "The crew has high spirits. Every day seems filled with anticipation.":
+                        dDay = 4;
+                        break;
+                    case "More than a week has passed since we were last hailed by command. The crew is quiet, intent on their work as they attend to their duties.":
+                        dDay = 3;
+                        break;
+                    case "?":
+                        dDay = 2;
+                        break;
+                    case "??":
+                        dDay = 1;
+                        break;
+#if CrewMoraleTest
+                    default:
+                        // Debug code. Need to learn the other messages to check for!
+                        tempArray = mail.FilePath.Split(new char[] { '\\' });
+                        _decayDay = tempArray[tempArray.Length - 1];
+                        break;
+#endif
+                }
+#if CrewMoraleTest
+                if(dDay == 0)
+#endif
+                    _decayDay = dDay + " /4 weeks";
+
                 // DAMAGE REPORT
                 subStart = mail.Body.IndexOf("<b>DAMAGE REPORT</b>");
                 subEnd = mail.Body.IndexOf("<b>ACCOUNT</b>") - subStart;
@@ -443,9 +482,9 @@ namespace HazeronAdviser
                 _officerHome = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
 
                 // AttentionCodes
-                if (false) // Nothing yet!
+                if (dDay == 2) // 2 weeks until decay.
                     _attentionCode = (byte)(_attentionCode | 0x08); // 0b00000001
-                if (false) // Nothing yet!
+                if (dDay == 1) // 1 weeks until decay.
                     _attentionCode = (byte)(_attentionCode | 0x03); // 0b00000010
                 if (false) // Nothing yet!
                     _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100

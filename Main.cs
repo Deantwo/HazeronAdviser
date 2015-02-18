@@ -1,5 +1,4 @@
-﻿#define RELEASE
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -39,10 +38,12 @@ namespace HazeronAdviser
         Color attantionMinor = Color.FromArgb(255, 255, 150); // Somewhere between LightYellow and Yellow.
         Color attantionMajor = Color.LightPink;
 
+        string hMailFolder;
+
         public Main()
         {
             InitializeComponent();
-            #if !RELEASE
+            #if DEBUG
             this.Text += " (DEBUG MODE)";
             #endif
             toolStripProgressBar1.Visible = false;
@@ -63,7 +64,14 @@ namespace HazeronAdviser
             imageTarget = HazeronAdviser.Properties.Resources.MsgSpot;
             dgvCity.Columns["ColumnCityAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvCity.Columns["ColumnCityAbandonment"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
+            dgvShip.Columns["ColumnShipAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvShip.Columns["ColumnShipAbandonment"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
             cmbCharFilter.SelectedIndex = 0;
+#if !DEBUG
+            hMailFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail"); // %USERPROFILE%\Shores of Hazeron\Mail
+#else
+            hMailFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail (Backup)"); // %USERPROFILE%\Shores of Hazeron\Mail (Backup)
+#endif
         }
 
         private void btnScan_Click(object sender, EventArgs e)
@@ -72,14 +80,14 @@ namespace HazeronAdviser
             toolStripProgressBar2.Visible = false;
 
             // Scan the Hazeron Mail folder and get all file names.
-            if (!Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail")))
+            if (!Directory.Exists(hMailFolder))
             {
-                toolStripStatusLabel1.Text = "\""+Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail")+"\" does not exist.";
-                if (DialogResult.Yes == MessageBox.Show("Could not find Hazeron Mail folder:" + Environment.NewLine + Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail") + Environment.NewLine + Environment.NewLine + "Copy directory path to clipboard?", "Mail Folder Not Found", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2))
-                    Clipboard.SetText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail"));
+                toolStripStatusLabel1.Text = "\"" + hMailFolder + "\" does not exist.";
+                if (DialogResult.Yes == MessageBox.Show("Could not find Hazeron Mail folder:" + Environment.NewLine + hMailFolder + Environment.NewLine + Environment.NewLine + "Copy directory path to clipboard?", "Mail Folder Not Found", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2))
+                    Clipboard.SetText(hMailFolder);
                 return;
             }
-            string[] fileList = Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail")); // %USERPROFILE%\Shores of Hazeron\Mail
+            string[] fileList = Directory.GetFiles(hMailFolder);
 
             // Clear Character Filter dropdown box.
             cmbCharFilter.Enabled = false;
@@ -110,7 +118,7 @@ namespace HazeronAdviser
             {
                 if (HMail.IsUni4(file)) // Check if signature is 0x2110 before trying to read it.
                 {
-                    #if RELEASE
+                    #if !DEBUG
                     try
                     {
                     #endif
@@ -152,7 +160,7 @@ namespace HazeronAdviser
                         if (!charFilterList.Contains(mail.RecipientID))
                             charFilterList.Add(mail.RecipientID);
                         toolStripProgressBar1.Increment(1);
-                    #if RELEASE
+                    #if !DEBUG
                     }
                     catch (IOException ioex)
                     {
@@ -230,16 +238,17 @@ namespace HazeronAdviser
                 dgvShip.Rows[row].Cells["ColumnShipSelection"].Value = false;
                 dgvShip.Rows[row].Cells["ColumnShipIcon"].Value = imageShip;
                 dgvShip.Rows[row].Cells["ColumnShipName"].Value = hShip.Name;
+                dgvShip.Rows[row].Cells["ColumnShipAbandonment"].Value = hShip.DecayDay;
                 dgvShip.Rows[row].Cells["ColumnShipFuel"].Value = hShip.FuelShort;
                 dgvShip.Rows[row].Cells["ColumnShipDamage"].Value = hShip.DamageShort;
                 dgvShip.Rows[row].Cells["ColumnShipDate"].Value = hShip.LastUpdaredString;
                 // AttentionCodes
                 if (hShip.AttentionCode != 0x00)
                 {
-                    //if (HHelper.FlagCheck(hShip.AttentionCode, 0x01)) // 0b00000001 // Nothing yet!
-                    //    dgvShip.Rows[row].Cells["ColumnShipIndex"].Style.BackColor = attantionMajor;
-                    //if (HHelper.FlagCheck(hShip.AttentionCode, 0x02)) // 0b00000010 // Nothing yet!
-                    //    dgvShip.Rows[row].Cells["ColumnShipIndex"].Style.BackColor = attantionMajor;
+                    if (HHelper.FlagCheck(hShip.AttentionCode, 0x01)) // 0b00000001 // 2 weeks until decay.
+                        dgvShip.Rows[row].Cells["ColumnShipAbandonment"].Style.BackColor = attantionMinor;
+                    if (HHelper.FlagCheck(hShip.AttentionCode, 0x02)) // 0b00000010 // 1 weeks until decay.
+                        dgvShip.Rows[row].Cells["ColumnShipAbandonment"].Style.BackColor = attantionMajor;
                     //if (HHelper.FlagCheck(hShip.AttentionCode, 0x04)) // 0b00000100 // Nothing yet!
                     //    dgvShip.Rows[row].Cells["ColumnShipIndex"].Style.BackColor = attantionMajor;
                     //if (HHelper.FlagCheck(hShip.AttentionCode, 0x08)) // 0b00001000 // Nothing yet!
@@ -426,7 +435,12 @@ namespace HazeronAdviser
             {
                 int rowIndex = (int)dgvCity.SelectedRows[0].Index;
                 int listIndex = (int)dgvCity.Rows[rowIndex].Cells["ColumnCityIndex"].Value;
-                tbxCity.Text = hCityList[listIndex].BodyTest;
+                HCity city = hCityList[listIndex];
+                rtbCityMorale.Text = city.SMorale;
+                rtbCityPopulation.Text = city.SPopulation;
+                rtbCityLivingConditions.Text = city.SLiving;
+                tbxCity.Text = city.BodyTest;
+                // Refresh graphs to make them update.
                 pCityOverviewPopulation.Refresh();
                 pCityOverviewMorale.Refresh();
             }
@@ -439,7 +453,9 @@ namespace HazeronAdviser
             {
                 int rowIndex = (int)dgvShip.SelectedRows[0].Index;
                 int listIndex = (int)dgvShip.Rows[rowIndex].Cells["ColumnShipIndex"].Value;
-                tbxShip.Text = hShipList[listIndex].BodyTest;
+                HShip ship = hShipList[listIndex];
+                rtbShipOverview.Text = ship.Account + Environment.NewLine + Environment.NewLine + ship.Cargo;
+                tbxShip.Text = ship.BodyTest;
             }
         }
 
@@ -451,9 +467,15 @@ namespace HazeronAdviser
                 int rowIndex = (int)dgvOfficer.SelectedRows[0].Index;
                 int listIndex = (int)dgvOfficer.Rows[rowIndex].Cells["ColumnOfficerIndex"].Value;
                 if (listIndex >= 0)
-                    tbxOfficer.Text = hOfficerList[listIndex].BodyTest;
+                {
+                    HOfficer officer = hOfficerList[listIndex];
+                    tbxOfficer.Text = officer.BodyTest;
+                }
                 else
-                    tbxOfficer.Text = hShipList[Math.Abs(listIndex)-1].BodyTest;
+                {
+                    HShip ship = hShipList[Math.Abs(listIndex) - 1];
+                    tbxOfficer.Text = ship.BodyTest;
+                }
             }
         }
 
@@ -464,7 +486,8 @@ namespace HazeronAdviser
             {
                 int rowIndex = (int)dgvEvent.SelectedRows[0].Index;
                 int listIndex = (int)dgvEvent.Rows[rowIndex].Cells["ColumnEventIndex"].Value;
-                tbxEvent.Text = hEventList[listIndex].BodyTest;
+                HEvent hevent = hEventList[listIndex]; // "event" is a reserved word.
+                tbxEvent.Text = hevent.BodyTest;
             }
         }
         #endregion
