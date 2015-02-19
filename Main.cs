@@ -436,6 +436,7 @@ namespace HazeronAdviser
                 int rowIndex = (int)dgvCity.SelectedRows[0].Index;
                 int listIndex = (int)dgvCity.Rows[rowIndex].Cells["ColumnCityIndex"].Value;
                 HCity city = hCityList[listIndex];
+                rtbCityOverview.Text = city.SOverview;
                 rtbCityMorale.Text = city.SMorale;
                 rtbCityPopulation.Text = city.SPopulation;
                 rtbCityLivingConditions.Text = city.SLiving;

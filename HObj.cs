@@ -113,6 +113,12 @@ namespace HazeronAdviser
             get { return _sLivingConditionsShort; }
         }
 
+        protected string _sOverview = "-";
+        public string SOverview
+        {
+            get { return _sOverview; }
+        }
+
         protected int _vMorale = 0;
         public int VMorale
         {
@@ -194,7 +200,7 @@ namespace HazeronAdviser
                 //    _distress = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
                 //}
 
-                // MORALE
+                // MORALE & DECAY
                 subStart = mail.Body.IndexOf("<b>MORALE</b>");
                 subEnd = mail.Body.IndexOf("<b>POPULATION</b>") - subStart;
                 _sMorale = HHelper.CleanText(mail.Body.Substring(subStart, subEnd));
@@ -203,6 +209,7 @@ namespace HazeronAdviser
                 int abandonedDays = 0;
                 int abandonedPenalty = 0;
                 _vMoraleModifiers.Clear();
+                List<string> moraleBuildingsWanted = new List<string>();
                 foreach (string line in tempArray)
                     if (!line.ToLower().Contains("morale"))
                     {
@@ -212,6 +219,10 @@ namespace HazeronAdviser
                         {
                             abandonedPenalty = Convert.ToInt32(tempLineArray[0]);
                             abandonedDays = Convert.ToInt32(tempLineArray[tempLineArray.Length - 2]);
+                        }
+                        else if (line.Contains("wanted."))
+                        {
+                            moraleBuildingsWanted.Add("Need " + Math.Abs(Convert.ToInt32(tempLineArray[0])) + " levels more of " + tempLineArray[tempLineArray.Length - 2] + ".");
                         }
                     }
                 dDay = ((_vMoraleModifiers.Sum() + 1) * abandonmentInterval) - (abandonedDays % abandonmentInterval);
@@ -281,6 +292,13 @@ namespace HazeronAdviser
                 }
                 else
                     _vPopulationLimit = 1000;
+
+                // OVERVIEW
+                if (moraleBuildingsWanted.Count > 0)
+                {
+                    _sOverview = "Missing morale buildings:" + Environment.NewLine + "\t";
+                    _sOverview += String.Join(Environment.NewLine + "\t", moraleBuildingsWanted.ToArray());
+                }
 
                 // AttentionCodes
                 if ((_vJobs >= _vHomes) || (((float)(_vHomes - _vJobs) / _vHomes) > 0.2)) // More jobs than homes, or too many unemployed.
@@ -417,18 +435,19 @@ namespace HazeronAdviser
                     case "??":
                         dDay = 1;
                         break;
-#if CrewMoraleTest
-                    default:
-                        // Debug code. Need to learn the other messages to check for!
-                        tempArray = mail.FilePath.Split(new char[] { '\\' });
-                        _decayDay = tempArray[tempArray.Length - 1];
-                        break;
-#endif
                 }
 #if CrewMoraleTest
-                if(dDay == 0)
-#endif
+                if (dDay > 2)
                     _decayDay = dDay + " /4 weeks";
+                else
+                {
+                    // Debug code. Need to learn the other messages to check for!
+                    tempArray = mail.FilePath.Split(new char[] { '\\' });
+                    _decayDay = tempArray[tempArray.Length - 1];
+                }
+#else
+                _decayDay = dDay + " /4 weeks";
+#endif
 
                 // DAMAGE REPORT
                 subStart = mail.Body.IndexOf("<b>DAMAGE REPORT</b>");
