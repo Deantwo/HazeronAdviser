@@ -221,8 +221,12 @@ namespace HazeronAdviser
                             abandonedDays = Convert.ToInt32(tempLineArray[tempLineArray.Length - 2]);
                         }
                         else if (line.Contains("wanted."))
-                        {
-                            moraleBuildingsWanted.Add("Need " + Math.Abs(Convert.ToInt32(tempLineArray[0])) + " levels more of " + tempLineArray[tempLineArray.Length - 2] + ".");
+                        { // Freaking hell, I should just do the calculation for the needed structers. Need to make the Facltiies section!
+                            string building = "";
+                            for (int i = 2; i < tempLineArray.Length - 1; i++)
+                                building += " " + tempLineArray[i];
+                            int levels = Math.Abs(Convert.ToInt32(tempLineArray[0]));
+                            moraleBuildingsWanted.Add("Need " + levels + " level" + (levels > 1 ? "s" : "") + " more of" + building + ".");
                         }
                     }
                 dDay = ((_vMoraleModifiers.Sum() + 1) * abandonmentInterval) - (abandonedDays % abandonmentInterval);
