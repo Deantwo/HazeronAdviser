@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define BACKUP_FOLDER
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -67,10 +68,10 @@ namespace HazeronAdviser
             dgvShip.Columns["ColumnShipAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvShip.Columns["ColumnShipAbandonment"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
             cmbCharFilter.SelectedIndex = 0;
-#if !DEBUG
-            hMailFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail"); // %USERPROFILE%\Shores of Hazeron\Mail
-#else
+#if BACKUP_FOLDER
             hMailFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail (Backup)"); // %USERPROFILE%\Shores of Hazeron\Mail (Backup)
+#else
+            hMailFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail"); // %USERPROFILE%\Shores of Hazeron\Mail
 #endif
         }
 
@@ -438,8 +439,8 @@ namespace HazeronAdviser
                 HCity city = hCityList[listIndex];
                 rtbCityOverview.Text = city.SOverview;
                 rtbCityMorale.Text = city.SMorale;
-                rtbCityPopulation.Text = city.SPopulation;
-                rtbCityLivingConditions.Text = city.SLiving;
+                rtbCityPopulation.Text = city.SPopOverview;
+                rtbCityTechnology.Text = city.STechnology;
                 tbxCity.Text = city.BodyTest;
                 // Refresh graphs to make them update.
                 pCityOverviewPopulation.Refresh();
@@ -455,6 +456,7 @@ namespace HazeronAdviser
                 int rowIndex = (int)dgvShip.SelectedRows[0].Index;
                 int listIndex = (int)dgvShip.Rows[rowIndex].Cells["ColumnShipIndex"].Value;
                 HShip ship = hShipList[listIndex];
+                rtbShipOverview.Text = ship.SOverview;
                 rtbShipOverview.Text = ship.Account + Environment.NewLine + Environment.NewLine + ship.Cargo;
                 tbxShip.Text = ship.BodyTest;
             }
@@ -470,11 +472,13 @@ namespace HazeronAdviser
                 if (listIndex >= 0)
                 {
                     HOfficer officer = hOfficerList[listIndex];
+                    rtbOfficerOverview.Text = officer.SOverview;
                     tbxOfficer.Text = officer.BodyTest;
                 }
                 else
                 {
                     HShip ship = hShipList[Math.Abs(listIndex) - 1];
+                    rtbOfficerOverview.Text = ship.SOverview;
                     tbxOfficer.Text = ship.BodyTest;
                 }
             }
@@ -488,6 +492,7 @@ namespace HazeronAdviser
                 int rowIndex = (int)dgvEvent.SelectedRows[0].Index;
                 int listIndex = (int)dgvEvent.Rows[rowIndex].Cells["ColumnEventIndex"].Value;
                 HEvent hevent = hEventList[listIndex]; // "event" is a reserved word.
+                rtbEventOverview.Text = hevent.SOverview;
                 tbxEvent.Text = hevent.BodyTest;
             }
         }

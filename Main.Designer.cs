@@ -37,6 +37,14 @@
             this.tbxShip = new System.Windows.Forms.TextBox();
             this.splitContainerShip = new System.Windows.Forms.SplitContainer();
             this.dgvShip = new System.Windows.Forms.DataGridView();
+            this.ColumnShipIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnShipSelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ColumnShipIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ColumnShipName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnShipAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnShipFuel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnShipDamage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnShipDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlShip = new System.Windows.Forms.TabControl();
             this.tabShipOverview = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -72,10 +80,8 @@
             this.splitContainerCityPopulation = new System.Windows.Forms.SplitContainer();
             this.pCityPopulation = new System.Windows.Forms.Panel();
             this.rtbCityPopulation = new System.Windows.Forms.RichTextBox();
-            this.tabCityLivingConditions = new System.Windows.Forms.TabPage();
-            this.splitContainerCityLivingConditions = new System.Windows.Forms.SplitContainer();
-            this.pCityLivingConditions = new System.Windows.Forms.Panel();
-            this.rtbCityLivingConditions = new System.Windows.Forms.RichTextBox();
+            this.tabCityTechnology = new System.Windows.Forms.TabPage();
+            this.rtbCityTechnology = new System.Windows.Forms.RichTextBox();
             this.tabCityMail = new System.Windows.Forms.TabPage();
             this.tbxCity = new System.Windows.Forms.TextBox();
             this.tabShip = new System.Windows.Forms.TabPage();
@@ -114,14 +120,6 @@
             this.tbxEvent = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmbCharFilter = new System.Windows.Forms.ComboBox();
-            this.ColumnShipIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnShipSelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ColumnShipIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ColumnShipName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnShipAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnShipFuel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnShipDamage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnShipDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -162,11 +160,7 @@
             this.splitContainerCityPopulation.Panel1.SuspendLayout();
             this.splitContainerCityPopulation.Panel2.SuspendLayout();
             this.splitContainerCityPopulation.SuspendLayout();
-            this.tabCityLivingConditions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityLivingConditions)).BeginInit();
-            this.splitContainerCityLivingConditions.Panel1.SuspendLayout();
-            this.splitContainerCityLivingConditions.Panel2.SuspendLayout();
-            this.splitContainerCityLivingConditions.SuspendLayout();
+            this.tabCityTechnology.SuspendLayout();
             this.tabCityMail.SuspendLayout();
             this.tabShip.SuspendLayout();
             this.tabPageOfficer.SuspendLayout();
@@ -292,6 +286,76 @@
             this.dgvShip.Size = new System.Drawing.Size(332, 410);
             this.dgvShip.TabIndex = 2;
             this.dgvShip.SelectionChanged += new System.EventHandler(this.dgvShip_SelectionChanged);
+            // 
+            // ColumnShipIndex
+            // 
+            this.ColumnShipIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnShipIndex.FillWeight = 20F;
+            this.ColumnShipIndex.Frozen = true;
+            this.ColumnShipIndex.HeaderText = "# Index";
+            this.ColumnShipIndex.MinimumWidth = 20;
+            this.ColumnShipIndex.Name = "ColumnShipIndex";
+            this.ColumnShipIndex.ReadOnly = true;
+            this.ColumnShipIndex.Visible = false;
+            this.ColumnShipIndex.Width = 20;
+            // 
+            // ColumnShipSelection
+            // 
+            this.ColumnShipSelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnShipSelection.FillWeight = 20F;
+            this.ColumnShipSelection.Frozen = true;
+            this.ColumnShipSelection.HeaderText = "Selection";
+            this.ColumnShipSelection.MinimumWidth = 20;
+            this.ColumnShipSelection.Name = "ColumnShipSelection";
+            this.ColumnShipSelection.ReadOnly = true;
+            this.ColumnShipSelection.Visible = false;
+            this.ColumnShipSelection.Width = 20;
+            // 
+            // ColumnShipIcon
+            // 
+            this.ColumnShipIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnShipIcon.FillWeight = 20F;
+            this.ColumnShipIcon.Frozen = true;
+            this.ColumnShipIcon.HeaderText = "Icon";
+            this.ColumnShipIcon.MinimumWidth = 20;
+            this.ColumnShipIcon.Name = "ColumnShipIcon";
+            this.ColumnShipIcon.ReadOnly = true;
+            this.ColumnShipIcon.Width = 20;
+            // 
+            // ColumnShipName
+            // 
+            this.ColumnShipName.Frozen = true;
+            this.ColumnShipName.HeaderText = "Name";
+            this.ColumnShipName.Name = "ColumnShipName";
+            this.ColumnShipName.ReadOnly = true;
+            // 
+            // ColumnShipAbandonment
+            // 
+            this.ColumnShipAbandonment.FillWeight = 90F;
+            this.ColumnShipAbandonment.HeaderText = "Abandonment";
+            this.ColumnShipAbandonment.Name = "ColumnShipAbandonment";
+            this.ColumnShipAbandonment.ReadOnly = true;
+            this.ColumnShipAbandonment.Width = 90;
+            // 
+            // ColumnShipFuel
+            // 
+            this.ColumnShipFuel.HeaderText = "Fuel";
+            this.ColumnShipFuel.Name = "ColumnShipFuel";
+            this.ColumnShipFuel.ReadOnly = true;
+            // 
+            // ColumnShipDamage
+            // 
+            this.ColumnShipDamage.HeaderText = "Damage";
+            this.ColumnShipDamage.Name = "ColumnShipDamage";
+            this.ColumnShipDamage.ReadOnly = true;
+            // 
+            // ColumnShipDate
+            // 
+            this.ColumnShipDate.FillWeight = 107F;
+            this.ColumnShipDate.HeaderText = "Last Updated";
+            this.ColumnShipDate.Name = "ColumnShipDate";
+            this.ColumnShipDate.ReadOnly = true;
+            this.ColumnShipDate.Width = 107;
             // 
             // tabControlShip
             // 
@@ -535,7 +599,7 @@
             this.tabControlCity.Controls.Add(this.tabCityOverview);
             this.tabControlCity.Controls.Add(this.tabCityMorale);
             this.tabControlCity.Controls.Add(this.tabCityPopulation);
-            this.tabControlCity.Controls.Add(this.tabCityLivingConditions);
+            this.tabControlCity.Controls.Add(this.tabCityTechnology);
             this.tabControlCity.Controls.Add(this.tabCityMail);
             this.tabControlCity.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlCity.Location = new System.Drawing.Point(0, 0);
@@ -729,6 +793,7 @@
             // 
             this.rtbCityPopulation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbCityPopulation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbCityPopulation.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbCityPopulation.Location = new System.Drawing.Point(0, 0);
             this.rtbCityPopulation.Name = "rtbCityPopulation";
             this.rtbCityPopulation.ReadOnly = true;
@@ -736,58 +801,27 @@
             this.rtbCityPopulation.TabIndex = 1;
             this.rtbCityPopulation.Text = "";
             // 
-            // tabCityLivingConditions
+            // tabCityTechnology
             // 
-            this.tabCityLivingConditions.Controls.Add(this.splitContainerCityLivingConditions);
-            this.tabCityLivingConditions.Location = new System.Drawing.Point(4, 22);
-            this.tabCityLivingConditions.Name = "tabCityLivingConditions";
-            this.tabCityLivingConditions.Size = new System.Drawing.Size(409, 384);
-            this.tabCityLivingConditions.TabIndex = 4;
-            this.tabCityLivingConditions.Text = "Living Conditions";
-            this.tabCityLivingConditions.UseVisualStyleBackColor = true;
+            this.tabCityTechnology.Controls.Add(this.rtbCityTechnology);
+            this.tabCityTechnology.Location = new System.Drawing.Point(4, 22);
+            this.tabCityTechnology.Name = "tabCityTechnology";
+            this.tabCityTechnology.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCityTechnology.Size = new System.Drawing.Size(409, 384);
+            this.tabCityTechnology.TabIndex = 5;
+            this.tabCityTechnology.Text = "Technology";
+            this.tabCityTechnology.UseVisualStyleBackColor = true;
             // 
-            // splitContainerCityLivingConditions
+            // rtbCityTechnology
             // 
-            this.splitContainerCityLivingConditions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerCityLivingConditions.Location = new System.Drawing.Point(0, 0);
-            this.splitContainerCityLivingConditions.Name = "splitContainerCityLivingConditions";
-            this.splitContainerCityLivingConditions.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainerCityLivingConditions.Panel1
-            // 
-            this.splitContainerCityLivingConditions.Panel1.Controls.Add(this.pCityLivingConditions);
-            // 
-            // splitContainerCityLivingConditions.Panel2
-            // 
-            this.splitContainerCityLivingConditions.Panel2.Controls.Add(this.rtbCityLivingConditions);
-            this.splitContainerCityLivingConditions.Size = new System.Drawing.Size(409, 384);
-            this.splitContainerCityLivingConditions.SplitterDistance = 170;
-            this.splitContainerCityLivingConditions.TabIndex = 3;
-            // 
-            // pCityLivingConditions
-            // 
-            this.pCityLivingConditions.BackColor = System.Drawing.Color.LightGray;
-            this.pCityLivingConditions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pCityLivingConditions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pCityLivingConditions.Location = new System.Drawing.Point(0, 0);
-            this.pCityLivingConditions.Name = "pCityLivingConditions";
-            this.pCityLivingConditions.Size = new System.Drawing.Size(409, 170);
-            this.pCityLivingConditions.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.pCityLivingConditions, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
-        "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
-            this.pCityLivingConditions.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
-            this.pCityLivingConditions.Paint += new System.Windows.Forms.PaintEventHandler(this.pCityPopulation_Paint);
-            // 
-            // rtbCityLivingConditions
-            // 
-            this.rtbCityLivingConditions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtbCityLivingConditions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbCityLivingConditions.Location = new System.Drawing.Point(0, 0);
-            this.rtbCityLivingConditions.Name = "rtbCityLivingConditions";
-            this.rtbCityLivingConditions.ReadOnly = true;
-            this.rtbCityLivingConditions.Size = new System.Drawing.Size(409, 210);
-            this.rtbCityLivingConditions.TabIndex = 2;
-            this.rtbCityLivingConditions.Text = "";
+            this.rtbCityTechnology.Dock = System.Windows.Forms.DockStyle.Top;
+            this.rtbCityTechnology.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbCityTechnology.Location = new System.Drawing.Point(3, 3);
+            this.rtbCityTechnology.Name = "rtbCityTechnology";
+            this.rtbCityTechnology.ReadOnly = true;
+            this.rtbCityTechnology.Size = new System.Drawing.Size(403, 372);
+            this.rtbCityTechnology.TabIndex = 0;
+            this.rtbCityTechnology.Text = "";
             // 
             // tabCityMail
             // 
@@ -1240,76 +1274,6 @@
             this.cmbCharFilter.TabIndex = 3;
             this.cmbCharFilter.SelectedIndexChanged += new System.EventHandler(this.cmbCharFilter_SelectedIndexChanged);
             // 
-            // ColumnShipIndex
-            // 
-            this.ColumnShipIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnShipIndex.FillWeight = 20F;
-            this.ColumnShipIndex.Frozen = true;
-            this.ColumnShipIndex.HeaderText = "# Index";
-            this.ColumnShipIndex.MinimumWidth = 20;
-            this.ColumnShipIndex.Name = "ColumnShipIndex";
-            this.ColumnShipIndex.ReadOnly = true;
-            this.ColumnShipIndex.Visible = false;
-            this.ColumnShipIndex.Width = 20;
-            // 
-            // ColumnShipSelection
-            // 
-            this.ColumnShipSelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnShipSelection.FillWeight = 20F;
-            this.ColumnShipSelection.Frozen = true;
-            this.ColumnShipSelection.HeaderText = "Selection";
-            this.ColumnShipSelection.MinimumWidth = 20;
-            this.ColumnShipSelection.Name = "ColumnShipSelection";
-            this.ColumnShipSelection.ReadOnly = true;
-            this.ColumnShipSelection.Visible = false;
-            this.ColumnShipSelection.Width = 20;
-            // 
-            // ColumnShipIcon
-            // 
-            this.ColumnShipIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnShipIcon.FillWeight = 20F;
-            this.ColumnShipIcon.Frozen = true;
-            this.ColumnShipIcon.HeaderText = "Icon";
-            this.ColumnShipIcon.MinimumWidth = 20;
-            this.ColumnShipIcon.Name = "ColumnShipIcon";
-            this.ColumnShipIcon.ReadOnly = true;
-            this.ColumnShipIcon.Width = 20;
-            // 
-            // ColumnShipName
-            // 
-            this.ColumnShipName.Frozen = true;
-            this.ColumnShipName.HeaderText = "Name";
-            this.ColumnShipName.Name = "ColumnShipName";
-            this.ColumnShipName.ReadOnly = true;
-            // 
-            // ColumnShipAbandonment
-            // 
-            this.ColumnShipAbandonment.FillWeight = 90F;
-            this.ColumnShipAbandonment.HeaderText = "Abandonment";
-            this.ColumnShipAbandonment.Name = "ColumnShipAbandonment";
-            this.ColumnShipAbandonment.ReadOnly = true;
-            this.ColumnShipAbandonment.Width = 90;
-            // 
-            // ColumnShipFuel
-            // 
-            this.ColumnShipFuel.HeaderText = "Fuel";
-            this.ColumnShipFuel.Name = "ColumnShipFuel";
-            this.ColumnShipFuel.ReadOnly = true;
-            // 
-            // ColumnShipDamage
-            // 
-            this.ColumnShipDamage.HeaderText = "Damage";
-            this.ColumnShipDamage.Name = "ColumnShipDamage";
-            this.ColumnShipDamage.ReadOnly = true;
-            // 
-            // ColumnShipDate
-            // 
-            this.ColumnShipDate.FillWeight = 107F;
-            this.ColumnShipDate.HeaderText = "Last Updated";
-            this.ColumnShipDate.Name = "ColumnShipDate";
-            this.ColumnShipDate.ReadOnly = true;
-            this.ColumnShipDate.Width = 107;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1363,11 +1327,7 @@
             this.splitContainerCityPopulation.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityPopulation)).EndInit();
             this.splitContainerCityPopulation.ResumeLayout(false);
-            this.tabCityLivingConditions.ResumeLayout(false);
-            this.splitContainerCityLivingConditions.Panel1.ResumeLayout(false);
-            this.splitContainerCityLivingConditions.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityLivingConditions)).EndInit();
-            this.splitContainerCityLivingConditions.ResumeLayout(false);
+            this.tabCityTechnology.ResumeLayout(false);
             this.tabCityMail.ResumeLayout(false);
             this.tabCityMail.PerformLayout();
             this.tabShip.ResumeLayout(false);
@@ -1460,12 +1420,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityDate;
         private System.Windows.Forms.TabPage tabCityMorale;
         private System.Windows.Forms.TabPage tabCityPopulation;
-        private System.Windows.Forms.TabPage tabCityLivingConditions;
         private System.Windows.Forms.SplitContainer splitContainerCityMorale;
         private System.Windows.Forms.Panel pCityMorale;
         private System.Windows.Forms.RichTextBox rtbCityMorale;
         private System.Windows.Forms.SplitContainer splitContainerCityPopulation;
-        private System.Windows.Forms.SplitContainer splitContainerCityLivingConditions;
         private System.Windows.Forms.TabControl tabControlShip;
         private System.Windows.Forms.TabPage tabShipOverview;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -1474,8 +1432,6 @@
         private System.Windows.Forms.TabPage tabShipMail;
         private System.Windows.Forms.Panel pCityPopulation;
         private System.Windows.Forms.RichTextBox rtbCityPopulation;
-        private System.Windows.Forms.Panel pCityLivingConditions;
-        private System.Windows.Forms.RichTextBox rtbCityLivingConditions;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Panel pEventOverview;
         private System.Windows.Forms.RichTextBox rtbEventOverview;
@@ -1499,6 +1455,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipFuel;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDamage;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDate;
+        private System.Windows.Forms.TabPage tabCityTechnology;
+        private System.Windows.Forms.RichTextBox rtbCityTechnology;
     }
 }
 
