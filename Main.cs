@@ -88,7 +88,7 @@ namespace HazeronAdviser
                     Clipboard.SetText(hMailFolder);
                 return;
             }
-            string[] fileList = Directory.GetFiles(hMailFolder);
+            string[] fileList = Directory.GetFiles(hMailFolder, "*.*.m");
 
             // Clear Character Filter dropdown box.
             cmbCharFilter.Enabled = false;
@@ -117,12 +117,12 @@ namespace HazeronAdviser
             #region Scan HMails
             foreach (string file in fileList)
             {
-                if (HMail.IsUni4(file)) // Check if signature is 0x2110 before trying to read it.
+                #if !DEBUG
+                try
                 {
-                    #if !DEBUG
-                    try
+                #endif
+                    if (HMail.IsUni4(file)) // Check if signature is 0x2110 before trying to read it.
                     {
-                    #endif
                         HMail mail = new HMail(file);
                         if (HMail.IsCityReport(mail))
                         {
@@ -161,28 +161,28 @@ namespace HazeronAdviser
                         if (!charFilterList.Contains(mail.RecipientID))
                             charFilterList.Add(mail.RecipientID);
                         toolStripProgressBar1.Increment(1);
-                    #if !DEBUG
                     }
-                    catch (IOException ioex)
-                    {
-                        System.Diagnostics.Debug.WriteLine("### Error while scanning mail file:");
-                        System.Diagnostics.Debug.WriteLine("### " + ioex.ToString());
-                        toolStripStatusLabel1.Text = "Error while scanning mail file: " + file;
-                        if (DialogResult.Yes == MessageBox.Show("Failed to located or open mail file:" + Environment.NewLine + file + Environment.NewLine + Environment.NewLine + "Copy mail filepath to clipboard?", "Mail Scanning Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2))
-                            Clipboard.SetText(file);
-                        continue; // Continue reading the rest of the mails even though one failed, may cause more than one popup to appear if multiple failures.
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Debug.WriteLine("### Error while reading mail file:");
-                        System.Diagnostics.Debug.WriteLine("### " + ex.ToString());
-                        toolStripStatusLabel1.Text = "Error while reading mail file: " + file;
-                        if (DialogResult.Yes == MessageBox.Show("Failed reading mail file:" + Environment.NewLine + file + Environment.NewLine + Environment.NewLine + "Copy mail filepath to clipboard?", "Mail Reading Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2))
-                            Clipboard.SetText(file);
-                        continue; // Continue reading the rest of the mails even though one failed, may cause more than one popup to appear if multiple failures.
-                    }
-                    #endif
+                #if !DEBUG
                 }
+                catch (IOException ioex)
+                {
+                    System.Diagnostics.Debug.WriteLine("### Error while scanning mail file:");
+                    System.Diagnostics.Debug.WriteLine("### " + ioex.ToString());
+                    toolStripStatusLabel1.Text = "Error while scanning mail file: " + file;
+                    if (DialogResult.Yes == MessageBox.Show("Failed to located or open mail file:" + Environment.NewLine + file + Environment.NewLine + Environment.NewLine + "Copy mail filepath to clipboard?", "Mail Scanning Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2))
+                        Clipboard.SetText(file);
+                    continue; // Continue reading the rest of the mails even though one failed, may cause more than one popup to appear if multiple failures.
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("### Error while reading mail file:");
+                    System.Diagnostics.Debug.WriteLine("### " + ex.ToString());
+                    toolStripStatusLabel1.Text = "Error while reading mail file: " + file;
+                    if (DialogResult.Yes == MessageBox.Show("Failed reading mail file:" + Environment.NewLine + file + Environment.NewLine + Environment.NewLine + "Copy mail filepath to clipboard?", "Mail Reading Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2))
+                        Clipboard.SetText(file);
+                    continue; // Continue reading the rest of the mails even though one failed, may cause more than one popup to appear if multiple failures.
+                }
+                #endif
             }
             #endregion
             toolStripProgressBar2.Value = 0;
