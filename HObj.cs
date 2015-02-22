@@ -335,7 +335,7 @@ namespace HazeronAdviser
                     {
                         if (line.Contains("Citizens are"))
                         {
-                            race = line.Substring(13);
+                            race = line.Remove(line.Length - 1).Substring(13);
                         }
                         else if (line.Contains("Population") && !line.Contains("troops"))
                         {
@@ -510,18 +510,18 @@ namespace HazeronAdviser
                 {
                     int minutesToLoyal = ((_vPopulation - _vLoyalty) * 13);
                     if (minutesToLoyal < 120) // Less than two hours.
-                        _sPopOverview += " (" + minutesToLoyal + " minutes)";
+                        _sPopOverview += " (" + minutesToLoyal + " minutes to full)";
                     else if (minutesToLoyal < 2980) // Less than two days.
-                        _sPopOverview += " (" + (minutesToLoyal / 60) + " hours)";
+                        _sPopOverview += " (" + (minutesToLoyal / 60) + " hours to full)";
                     else // More than two days.
-                        _sPopOverview += " (" + (minutesToLoyal / 1490) + " days)";
+                        _sPopOverview += " (" + (minutesToLoyal / 1490) + " days to full)";
                 }
                 _sPopOverview += Environment.NewLine + " " + _vPopulation.ToString().PadLeft(4) + ", Citizens";
                 _sPopOverview += Environment.NewLine + " " + _vHomes.ToString().PadLeft(4) + ", Homes";
                 _sPopOverview += Environment.NewLine + " " + _vJobs.ToString().PadLeft(4) + ", Jobs";
                 _sPopOverview += Environment.NewLine + " " + _vPopulationLimit.ToString().PadLeft(4) + ", Population limit";
                 _sPopOverview += Environment.NewLine + Environment.NewLine + "City's living conditions:";
-                _sPopOverview += Environment.NewLine + " " + race + ", citizens";
+                _sPopOverview += Environment.NewLine + " Citizens are " + race;
                 _sPopOverview += Environment.NewLine + " " + powerConsumption + " power comsumption, ";
                 _sPopOverview += Environment.NewLine + " " + powerReserve.ToString().PadLeft(powerConsumption.ToString().Length) + "/" + powerReserveCapacity + " power capacity (" + Math.Floor(((float)powerReserve / powerReserveCapacity) * 100) + "%)";
                 {
