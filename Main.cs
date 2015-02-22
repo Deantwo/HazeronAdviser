@@ -88,7 +88,7 @@ namespace HazeronAdviser
                     Clipboard.SetText(hMailFolder);
                 return;
             }
-            string[] fileList = Directory.GetFiles(hMailFolder, "*.*.m");
+            string[] fileList = Directory.GetFiles(hMailFolder, "*.*.*.m");
 
             // Clear Character Filter dropdown box.
             cmbCharFilter.Enabled = false;
