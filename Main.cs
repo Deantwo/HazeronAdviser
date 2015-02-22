@@ -559,9 +559,9 @@ namespace HazeronAdviser
                 graphPop.DrawYAxle("Population", (int)(city.VPopulationLimit * 1.05));
                 yValue = city.VLoyalty;
                 if (yValue > 0)
-                    graphPop.DrawBar(Color.Yellow, 0, yValue);
+                    graphPop.DrawBar(Color.Yellow, 0, Math.Abs(yValue));
                 else if (yValue < 0)
-                    graphPop.DrawBar(Color.Orange, 0, yValue);
+                    graphPop.DrawBar(Color.Orange, 0, Math.Abs(yValue));
                 yValue = city.VPopulation;
                 graphPop.DrawBar(Color.LightGreen, 1, yValue);
                 yValue = city.VHomes;
