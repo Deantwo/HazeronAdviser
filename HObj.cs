@@ -578,7 +578,10 @@ namespace HazeronAdviser
                     _sTechnology = "City's technology projects:";
                     foreach (string building in reseatchProjects.Keys)
                     {
-                        _sTechnology += Environment.NewLine + " " + reseatchProjects[building].ToString().PadLeft(2) + (_vFactilitiesTL.ContainsKey(building) ? " (TL" + Math.Abs(_vFactilitiesTL[building]).ToString().PadLeft(2) + ")" : "") + " running, " + building;
+                        if (_vFactilitiesTL.ContainsKey(building))
+                            _sTechnology += Environment.NewLine + " " + reseatchProjects[building].ToString().PadLeft(2) + " (TL" + Math.Abs(_vFactilitiesTL[building]).ToString().PadLeft(2) + ") running, " + building;
+                        else
+                            _sTechnology += Environment.NewLine + " [color=red]" + reseatchProjects[building].ToString().PadLeft(2) + " running, " + building + " (wasted, none in city)[/color]";
                     }
                 }
                 if (_sTechnology != "")
