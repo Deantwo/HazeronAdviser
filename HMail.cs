@@ -27,7 +27,7 @@ namespace HazeronAdviser
         {
             if (   messageType == 0x01 // MSG_CityStatusReport
             //    || messageType == 0x04 // MSG_CityDistressReport
-            //    || messageType == 0x06 // MSG_CityStatusReportInfo
+                || messageType == 0x06 // MSG_CityStatusReportInfo
                 )
                 return true;
             return false;
