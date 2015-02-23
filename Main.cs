@@ -439,11 +439,11 @@ namespace HazeronAdviser
                 int rowIndex = (int)dgvCity.SelectedRows[0].Index;
                 int listIndex = (int)dgvCity.Rows[rowIndex].Cells["ColumnCityIndex"].Value;
                 HCity city = hCityList[listIndex];
-                rtbCityOverview.Text = city.SOverview;
-                rtbCityMorale.Text = city.SMorale;
-                rtbCityPopulation.Text = city.SPopOverview;
-                rtbCityTechnology.Text = city.STechnology;
-                rtbCityBuildings.Text = city.SBuildings;
+                RichBBCodeBox(rtbCityOverview, city.SOverview);
+                RichBBCodeBox(rtbCityMorale, city.SMorale);
+                RichBBCodeBox(rtbCityPopulation, city.SPopOverview);
+                RichBBCodeBox(rtbCityTechnology, city.STechnology);
+                RichBBCodeBox(rtbCityBuildings, city.SBuildings);
                 tbxCity.Text = city.BodyTest;
                 // Refresh graphs to make them update.
                 pCityOverviewPopulation.Refresh();
@@ -603,5 +603,41 @@ namespace HazeronAdviser
             (sender as Panel).Refresh();
         }
         #endregion
+
+        private void RichBBCodeBox(RichTextBox rtb, string text)
+        {
+            int tag = 0;
+            string command, affectedText;
+            rtb.Clear();
+            while (text.Contains("[") && text.Contains("]"))
+            {
+                tag = text.IndexOf('[');
+                rtb.AppendText(text.Remove(tag));
+                text = text.Substring(tag + 1);
+                if (text.Contains(']'))
+                {
+                    tag = text.IndexOf(']');
+                    command = text.Remove(tag);
+                    text = text.Substring(tag + 1);
+                    if (command.Remove(6) == "color=" && text.Contains("[/color]"))
+                    {
+                        tag = text.IndexOf("[/color]");
+                        affectedText = text.Remove(tag);
+                        text = text.Substring(tag + 8);
+                        int lengthBeforeAppend = rtb.Text.Length;
+                        rtb.AppendText(affectedText);
+                        rtb.Focus();
+                        rtb.SelectionStart = lengthBeforeAppend;
+                        rtb.SelectionLength = affectedText.Length;
+                        rtb.SelectionColor = Color.FromName(command.Substring(6));
+                        rtb.Select(rtb.Text.Length, 0);
+                        rtb.SelectionColor = Color.Black;
+                    }
+                }
+                else
+                    break;
+            }
+            rtb.AppendText(text);
+        }
     }
 }

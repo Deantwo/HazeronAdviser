@@ -452,7 +452,7 @@ namespace HazeronAdviser
                     for (int i = 3; i < tempArray.Length; i += 2)
                     {
                         if (tempArray[i] != "Technology")
-                            reseatchProjects.Add(tempArray[i], Convert.ToInt32(tempArray[i + 1]));
+                            reseatchProjects.Add(tempArray[i].Remove(tempArray[i].Length - 11), Convert.ToInt32(tempArray[i + 1]));
                     }
                 }
 
@@ -527,23 +527,17 @@ namespace HazeronAdviser
                 if (_vLoyalty != _vPopulation)
                 {
                     int minutesToLoyal;
-                    string until = "";
-                    if (_vLoyalty >= 0)
-                    {
+                    bool disloyal = _vLoyalty < 0;
+                    if (!disloyal)
                         minutesToLoyal = ((_vPopulation - _vLoyalty) * 13);
-                        until = "full";
-                    }
                     else
-                    {
                         minutesToLoyal = (Math.Abs(_vLoyalty) * 13);
-                        until = "loyal";
-                    }
                     if (minutesToLoyal < 120) // Less than two hours.
-                        _sPopOverview += " (" + minutesToLoyal + " minutes to " + until + ")";
+                        _sPopOverview += " [color=" + (disloyal ? "red" : "orange") + "](" + minutesToLoyal + " minutes to " + (disloyal ? "loyal" : "full") + ")[/color]";
                     else if (minutesToLoyal < 2980) // Less than two days.
-                        _sPopOverview += " (" + (minutesToLoyal / 60) + " hours to " + until + ")";
+                        _sPopOverview += " [color=" + (disloyal ? "red" : "orange") + "](" + (minutesToLoyal / 60) + " hours to " + (disloyal ? "loyal" : "full") + ")[/color]";
                     else // More than two days.
-                        _sPopOverview += " (" + (minutesToLoyal / 1490) + " days to " + until + ")";
+                        _sPopOverview += " [color=" + (disloyal ? "red" : "orange") + "](" + (minutesToLoyal / 1490) + " days to " + (disloyal ? "loyal" : "full") + ")[/color]";
                 }
                 _sPopOverview += Environment.NewLine + " " + _vPopulation.ToString().PadLeft(4) + ", Citizens";
                 _sPopOverview += Environment.NewLine + " " + _vHomes.ToString().PadLeft(4) + ", Homes";
@@ -584,7 +578,7 @@ namespace HazeronAdviser
                     _sTechnology = "City's technology projects:";
                     foreach (string building in reseatchProjects.Keys)
                     {
-                        _sTechnology += Environment.NewLine + " " + reseatchProjects[building].ToString().PadLeft(2) + " running, " + building;
+                        _sTechnology += Environment.NewLine + " " + reseatchProjects[building].ToString().PadLeft(2) + (_vFactilitiesTL.ContainsKey(building) ? " (TL" + Math.Abs(_vFactilitiesTL[building]).ToString().PadLeft(2) + ")" : "") + " running, " + building;
                     }
                 }
                 if (_sTechnology != "")
@@ -620,7 +614,7 @@ namespace HazeronAdviser
                         if (levels < levelsNeeded)
                             _sBuildings += " [color=red](need " + (levelsNeeded - levels) + " more levels)[/color]";
                         else if (levels > levelsNeeded && !(building != "Church" || building != "University"))
-                            _sBuildings += " [color=yellow](" + (levels - levelsNeeded) + " too many levels)[/color]";
+                            _sBuildings += " [color=orange](" + (levels - levelsNeeded) + " too many levels)[/color]";
                     }
                 }
 
