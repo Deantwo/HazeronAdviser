@@ -356,11 +356,10 @@ namespace HazeronAdviser
                             if (line.Contains("disloyal"))
                             {
                                 _vLoyalty = -_vLoyalty;
-                                _sLoyalty = "-";
+                                _sLoyalty = "-" + line.Remove(line.Length - 33); // "9 citizens (1%) remain disloyal to the occupier."
                             }
                             else
-                                _sLoyalty = "";
-                            _sLoyalty += line.Remove(line.Length - 11);
+                                _sLoyalty = line.Remove(line.Length - 11);
                         }
                     }
                 }
@@ -508,13 +507,24 @@ namespace HazeronAdviser
                 _sPopOverview += Environment.NewLine + " " + _vLoyalty.ToString().PadLeft(4) + ", Loyal citizens";
                 if (_vLoyalty != _vPopulation)
                 {
-                    int minutesToLoyal = ((_vPopulation - _vLoyalty) * 13);
+                    int minutesToLoyal;
+                    string until = "";
+                    if (_vLoyalty >= 0)
+                    {
+                        minutesToLoyal = ((_vPopulation - _vLoyalty) * 13);
+                        until = "full";
+                    }
+                    else
+                    {
+                        minutesToLoyal = (Math.Abs(_vLoyalty) * 13);
+                        until = "loyal";
+                    }
                     if (minutesToLoyal < 120) // Less than two hours.
-                        _sPopOverview += " (" + minutesToLoyal + " minutes to full)";
+                        _sPopOverview += " (" + minutesToLoyal + " minutes to " + until + ")";
                     else if (minutesToLoyal < 2980) // Less than two days.
-                        _sPopOverview += " (" + (minutesToLoyal / 60) + " hours to full)";
+                        _sPopOverview += " (" + (minutesToLoyal / 60) + " hours to " + until + ")";
                     else // More than two days.
-                        _sPopOverview += " (" + (minutesToLoyal / 1490) + " days to full)";
+                        _sPopOverview += " (" + (minutesToLoyal / 1490) + " days to " + until + ")";
                 }
                 _sPopOverview += Environment.NewLine + " " + _vPopulation.ToString().PadLeft(4) + ", Citizens";
                 _sPopOverview += Environment.NewLine + " " + _vHomes.ToString().PadLeft(4) + ", Homes";
