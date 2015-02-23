@@ -46,6 +46,8 @@ namespace HazeronAdviser
             InitializeComponent();
             #if DEBUG
             this.Text += " (DEBUG MODE)";
+            #else
+            tabSystem.Parent = null; // System tab/feature is not ready yet.
             #endif
             toolStripProgressBar1.Visible = false;
             toolStripProgressBar2.Visible = false;
@@ -441,6 +443,7 @@ namespace HazeronAdviser
                 rtbCityMorale.Text = city.SMorale;
                 rtbCityPopulation.Text = city.SPopOverview;
                 rtbCityTechnology.Text = city.STechnology;
+                rtbCityBuildings.Text = city.SBuildings;
                 tbxCity.Text = city.BodyTest;
                 // Refresh graphs to make them update.
                 pCityOverviewPopulation.Refresh();

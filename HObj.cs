@@ -143,6 +143,12 @@ namespace HazeronAdviser
             get { return _sFactilities; }
         }
 
+        protected string _sBuildings = "";
+        public string SBuildings
+        {
+            get { return _sBuildings; }
+        }
+
         protected Dictionary<string, int> _vFactilitiesLV = new Dictionary<string, int>();
         public Dictionary<string, int> VFactilitiesLV
         {
@@ -255,6 +261,18 @@ namespace HazeronAdviser
                                                 , "VEHICLES"
                                                 , "INVENTORY"
                                                 };
+                Dictionary<string, int> moraleBuildingsPop = new Dictionary<string, int>();
+                moraleBuildingsPop.Add("Church", 45);
+                moraleBuildingsPop.Add("Cantina", 50);
+                moraleBuildingsPop.Add("Retail Store", 55);
+                moraleBuildingsPop.Add("Police Station", 60);
+                moraleBuildingsPop.Add("University", 70);
+                moraleBuildingsPop.Add("Hospital", 80);
+                moraleBuildingsPop.Add("Park", 90);
+                moraleBuildingsPop.Add("Grocery", 100);
+                moraleBuildingsPop.Add("Zoo", 150);
+                moraleBuildingsPop.Add("Arena", 175);
+                moraleBuildingsPop.Add("Casino", 200);
                 // Time for City spicific things.
                 string race = "";
                 int dDay = 0, dDayMax = 0;
@@ -264,6 +282,7 @@ namespace HazeronAdviser
                 _sTechnology = "";
                 _vFactilitiesTL = new Dictionary<string, int>(); // Really need to just have everything be reset when a new mail is read.
                 _vFactilitiesLV = new Dictionary<string, int>();
+                List<string> buildingList = new List<string>();
 
                 //INFO
                 //if (mail.MessageType == 0x06 && mail.Body.Contains("<b>EVENT LOG</b>")) // MSG_CityStatusReportInfo
@@ -571,11 +590,38 @@ namespace HazeronAdviser
                 if (_sTechnology != "")
                     _sTechnology += Environment.NewLine + Environment.NewLine;
                 _sTechnology += "City's technology levels:";
-                foreach (string building in _vFactilitiesLV.Keys)
+                buildingList = _vFactilitiesTL.Keys.ToList();
+                buildingList.Sort();
+                foreach (string building in buildingList)
                 {
                     _sTechnology += Environment.NewLine + " TL" + Math.Abs(_vFactilitiesTL[building]).ToString().PadLeft(2) + ", " + building;
                     if (_vFactilitiesTL[building] < 0)
                         _sTechnology += " [color=red](not all buildings)[/color]";
+                }
+
+                // Buildings overview
+                _sBuildings = "City's buildings:";
+                buildingList = _vFactilitiesLV.Keys.ToList();
+                foreach (string moraleBuilding in moraleBuildingsPop.Keys)
+                {
+                    if (!_vFactilitiesLV.ContainsKey(moraleBuilding) && _vHomes > moraleBuildingsPop[moraleBuilding])
+                        buildingList.Add(moraleBuilding);
+                }
+                buildingList.Sort();
+                foreach (string building in buildingList)
+                {
+                    int levels = 0;
+                    if (_vFactilitiesLV.ContainsKey(building))
+                        levels = _vFactilitiesLV[building];
+                    _sBuildings += Environment.NewLine + " " + levels.ToString().PadLeft(3) + " levels, " + building;
+                    if (moraleBuildingsPop.ContainsKey(building))
+                    {
+                        int levelsNeeded = _vHomes / moraleBuildingsPop[building];
+                        if (levels < levelsNeeded)
+                            _sBuildings += " [color=red](need " + (levelsNeeded - levels) + " more levels)[/color]";
+                        else if (levels > levelsNeeded && !(building != "Church" || building != "University"))
+                            _sBuildings += " [color=yellow](" + (levels - levelsNeeded) + " too many levels)[/color]";
+                    }
                 }
 
                 // Overview

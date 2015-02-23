@@ -47,7 +47,7 @@
             this.ColumnShipDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlShip = new System.Windows.Forms.TabControl();
             this.tabShipOverview = new System.Windows.Forms.TabPage();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainerShipOverview = new System.Windows.Forms.SplitContainer();
             this.pShipOverview = new System.Windows.Forms.Panel();
             this.rtbShipOverview = new System.Windows.Forms.RichTextBox();
             this.tabShipMail = new System.Windows.Forms.TabPage();
@@ -84,8 +84,38 @@
             this.rtbCityTechnology = new System.Windows.Forms.RichTextBox();
             this.tabCityMail = new System.Windows.Forms.TabPage();
             this.tbxCity = new System.Windows.Forms.TextBox();
+            this.tabSystem = new System.Windows.Forms.TabPage();
+            this.splitContainerSystem = new System.Windows.Forms.SplitContainer();
+            this.dgvSystem = new System.Windows.Forms.DataGridView();
+            this.ColumnSystemIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSystemSelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ColumnSystemIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ColumnSystemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSystemCities = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSystemMorale = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSystemAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSystemPopulation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSystemLoyalty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSystemDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabControlSystem = new System.Windows.Forms.TabControl();
+            this.tabSystemOverview = new System.Windows.Forms.TabPage();
+            this.splitContainerSystemOverview = new System.Windows.Forms.SplitContainer();
+            this.splitContainerSystemOverview2 = new System.Windows.Forms.SplitContainer();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.tabSystemMorale = new System.Windows.Forms.TabPage();
+            this.splitContainerSystemMorale = new System.Windows.Forms.SplitContainer();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.tabSystemPopulation = new System.Windows.Forms.TabPage();
+            this.splitContainerSystemPopulation = new System.Windows.Forms.SplitContainer();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
+            this.tabSystemTechnology = new System.Windows.Forms.TabPage();
+            this.richTextBox4 = new System.Windows.Forms.RichTextBox();
             this.tabShip = new System.Windows.Forms.TabPage();
-            this.tabPageOfficer = new System.Windows.Forms.TabPage();
+            this.tabOfficer = new System.Windows.Forms.TabPage();
             this.splitContainerOfficer = new System.Windows.Forms.SplitContainer();
             this.dgvOfficer = new System.Windows.Forms.DataGridView();
             this.ColumnOfficerIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -102,7 +132,7 @@
             this.rtbOfficerOverview = new System.Windows.Forms.RichTextBox();
             this.tabOfficerMail = new System.Windows.Forms.TabPage();
             this.tbxOfficer = new System.Windows.Forms.TextBox();
-            this.tabPageEvent = new System.Windows.Forms.TabPage();
+            this.tabEvent = new System.Windows.Forms.TabPage();
             this.splitContainerEvent = new System.Windows.Forms.SplitContainer();
             this.dgvEvent = new System.Windows.Forms.DataGridView();
             this.ColumnEventIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -113,13 +143,15 @@
             this.ColumnEventDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlEvent = new System.Windows.Forms.TabControl();
             this.tabEventOverview = new System.Windows.Forms.TabPage();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainerEventOverview = new System.Windows.Forms.SplitContainer();
             this.pEventOverview = new System.Windows.Forms.Panel();
             this.rtbEventOverview = new System.Windows.Forms.RichTextBox();
             this.tabEventMail = new System.Windows.Forms.TabPage();
             this.tbxEvent = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmbCharFilter = new System.Windows.Forms.ComboBox();
+            this.tabCityBuildings = new System.Windows.Forms.TabPage();
+            this.rtbCityBuildings = new System.Windows.Forms.RichTextBox();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -128,10 +160,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvShip)).BeginInit();
             this.tabControlShip.SuspendLayout();
             this.tabShipOverview.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerShipOverview)).BeginInit();
+            this.splitContainerShipOverview.Panel1.SuspendLayout();
+            this.splitContainerShipOverview.Panel2.SuspendLayout();
+            this.splitContainerShipOverview.SuspendLayout();
             this.tabShipMail.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabCity.SuspendLayout();
@@ -162,8 +194,35 @@
             this.splitContainerCityPopulation.SuspendLayout();
             this.tabCityTechnology.SuspendLayout();
             this.tabCityMail.SuspendLayout();
+            this.tabSystem.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSystem)).BeginInit();
+            this.splitContainerSystem.Panel1.SuspendLayout();
+            this.splitContainerSystem.Panel2.SuspendLayout();
+            this.splitContainerSystem.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSystem)).BeginInit();
+            this.tabControlSystem.SuspendLayout();
+            this.tabSystemOverview.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSystemOverview)).BeginInit();
+            this.splitContainerSystemOverview.Panel1.SuspendLayout();
+            this.splitContainerSystemOverview.Panel2.SuspendLayout();
+            this.splitContainerSystemOverview.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSystemOverview2)).BeginInit();
+            this.splitContainerSystemOverview2.Panel1.SuspendLayout();
+            this.splitContainerSystemOverview2.Panel2.SuspendLayout();
+            this.splitContainerSystemOverview2.SuspendLayout();
+            this.tabSystemMorale.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSystemMorale)).BeginInit();
+            this.splitContainerSystemMorale.Panel1.SuspendLayout();
+            this.splitContainerSystemMorale.Panel2.SuspendLayout();
+            this.splitContainerSystemMorale.SuspendLayout();
+            this.tabSystemPopulation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSystemPopulation)).BeginInit();
+            this.splitContainerSystemPopulation.Panel1.SuspendLayout();
+            this.splitContainerSystemPopulation.Panel2.SuspendLayout();
+            this.splitContainerSystemPopulation.SuspendLayout();
+            this.tabSystemTechnology.SuspendLayout();
             this.tabShip.SuspendLayout();
-            this.tabPageOfficer.SuspendLayout();
+            this.tabOfficer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerOfficer)).BeginInit();
             this.splitContainerOfficer.Panel1.SuspendLayout();
             this.splitContainerOfficer.Panel2.SuspendLayout();
@@ -176,7 +235,7 @@
             this.splitContainerOfficerOverview.Panel2.SuspendLayout();
             this.splitContainerOfficerOverview.SuspendLayout();
             this.tabOfficerMail.SuspendLayout();
-            this.tabPageEvent.SuspendLayout();
+            this.tabEvent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEvent)).BeginInit();
             this.splitContainerEvent.Panel1.SuspendLayout();
             this.splitContainerEvent.Panel2.SuspendLayout();
@@ -184,11 +243,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvEvent)).BeginInit();
             this.tabControlEvent.SuspendLayout();
             this.tabEventOverview.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEventOverview)).BeginInit();
+            this.splitContainerEventOverview.Panel1.SuspendLayout();
+            this.splitContainerEventOverview.Panel2.SuspendLayout();
+            this.splitContainerEventOverview.SuspendLayout();
             this.tabEventMail.SuspendLayout();
+            this.tabCityBuildings.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnScan
@@ -370,7 +430,7 @@
             // 
             // tabShipOverview
             // 
-            this.tabShipOverview.Controls.Add(this.splitContainer1);
+            this.tabShipOverview.Controls.Add(this.splitContainerShipOverview);
             this.tabShipOverview.Location = new System.Drawing.Point(4, 22);
             this.tabShipOverview.Name = "tabShipOverview";
             this.tabShipOverview.Padding = new System.Windows.Forms.Padding(3);
@@ -379,23 +439,23 @@
             this.tabShipOverview.Text = "Overview";
             this.tabShipOverview.UseVisualStyleBackColor = true;
             // 
-            // splitContainer1
+            // splitContainerShipOverview
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitContainerShipOverview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerShipOverview.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerShipOverview.Name = "splitContainerShipOverview";
+            this.splitContainerShipOverview.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer1.Panel1
+            // splitContainerShipOverview.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.pShipOverview);
+            this.splitContainerShipOverview.Panel1.Controls.Add(this.pShipOverview);
             // 
-            // splitContainer1.Panel2
+            // splitContainerShipOverview.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.rtbShipOverview);
-            this.splitContainer1.Size = new System.Drawing.Size(402, 378);
-            this.splitContainer1.SplitterDistance = 165;
-            this.splitContainer1.TabIndex = 1;
+            this.splitContainerShipOverview.Panel2.Controls.Add(this.rtbShipOverview);
+            this.splitContainerShipOverview.Size = new System.Drawing.Size(402, 378);
+            this.splitContainerShipOverview.SplitterDistance = 165;
+            this.splitContainerShipOverview.TabIndex = 1;
             // 
             // pShipOverview
             // 
@@ -438,9 +498,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlMain.Controls.Add(this.tabCity);
+            this.tabControlMain.Controls.Add(this.tabSystem);
             this.tabControlMain.Controls.Add(this.tabShip);
-            this.tabControlMain.Controls.Add(this.tabPageOfficer);
-            this.tabControlMain.Controls.Add(this.tabPageEvent);
+            this.tabControlMain.Controls.Add(this.tabOfficer);
+            this.tabControlMain.Controls.Add(this.tabEvent);
             this.tabControlMain.Location = new System.Drawing.Point(12, 41);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
@@ -600,6 +661,7 @@
             this.tabControlCity.Controls.Add(this.tabCityMorale);
             this.tabControlCity.Controls.Add(this.tabCityPopulation);
             this.tabControlCity.Controls.Add(this.tabCityTechnology);
+            this.tabControlCity.Controls.Add(this.tabCityBuildings);
             this.tabControlCity.Controls.Add(this.tabCityMail);
             this.tabControlCity.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlCity.Location = new System.Drawing.Point(0, 0);
@@ -814,12 +876,12 @@
             // 
             // rtbCityTechnology
             // 
-            this.rtbCityTechnology.Dock = System.Windows.Forms.DockStyle.Top;
+            this.rtbCityTechnology.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtbCityTechnology.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbCityTechnology.Location = new System.Drawing.Point(3, 3);
             this.rtbCityTechnology.Name = "rtbCityTechnology";
             this.rtbCityTechnology.ReadOnly = true;
-            this.rtbCityTechnology.Size = new System.Drawing.Size(403, 372);
+            this.rtbCityTechnology.Size = new System.Drawing.Size(403, 378);
             this.rtbCityTechnology.TabIndex = 0;
             this.rtbCityTechnology.Text = "";
             // 
@@ -846,6 +908,370 @@
             this.tbxCity.TabIndex = 0;
             this.tbxCity.WordWrap = false;
             // 
+            // tabSystem
+            // 
+            this.tabSystem.Controls.Add(this.splitContainerSystem);
+            this.tabSystem.Location = new System.Drawing.Point(4, 22);
+            this.tabSystem.Name = "tabSystem";
+            this.tabSystem.Size = new System.Drawing.Size(758, 416);
+            this.tabSystem.TabIndex = 4;
+            this.tabSystem.Text = "Systems";
+            this.tabSystem.UseVisualStyleBackColor = true;
+            // 
+            // splitContainerSystem
+            // 
+            this.splitContainerSystem.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerSystem.Name = "splitContainerSystem";
+            // 
+            // splitContainerSystem.Panel1
+            // 
+            this.splitContainerSystem.Panel1.Controls.Add(this.dgvSystem);
+            // 
+            // splitContainerSystem.Panel2
+            // 
+            this.splitContainerSystem.Panel2.Controls.Add(this.tabControlSystem);
+            this.splitContainerSystem.Size = new System.Drawing.Size(752, 410);
+            this.splitContainerSystem.SplitterDistance = 331;
+            this.splitContainerSystem.TabIndex = 7;
+            // 
+            // dgvSystem
+            // 
+            this.dgvSystem.AllowUserToAddRows = false;
+            this.dgvSystem.AllowUserToDeleteRows = false;
+            this.dgvSystem.AllowUserToOrderColumns = true;
+            this.dgvSystem.AllowUserToResizeRows = false;
+            this.dgvSystem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvSystem.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnSystemIndex,
+            this.ColumnSystemSelection,
+            this.ColumnSystemIcon,
+            this.ColumnSystemName,
+            this.ColumnSystemCities,
+            this.ColumnSystemMorale,
+            this.ColumnSystemAbandonment,
+            this.ColumnSystemPopulation,
+            this.ColumnSystemLoyalty,
+            this.ColumnSystemDate});
+            this.dgvSystem.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvSystem.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvSystem.EnableHeadersVisualStyles = false;
+            this.dgvSystem.Location = new System.Drawing.Point(0, 0);
+            this.dgvSystem.MultiSelect = false;
+            this.dgvSystem.Name = "dgvSystem";
+            this.dgvSystem.ReadOnly = true;
+            this.dgvSystem.RowHeadersVisible = false;
+            this.dgvSystem.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvSystem.Size = new System.Drawing.Size(331, 410);
+            this.dgvSystem.TabIndex = 2;
+            // 
+            // ColumnSystemIndex
+            // 
+            this.ColumnSystemIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnSystemIndex.FillWeight = 20F;
+            this.ColumnSystemIndex.Frozen = true;
+            this.ColumnSystemIndex.HeaderText = "# Index";
+            this.ColumnSystemIndex.MinimumWidth = 20;
+            this.ColumnSystemIndex.Name = "ColumnSystemIndex";
+            this.ColumnSystemIndex.ReadOnly = true;
+            this.ColumnSystemIndex.Visible = false;
+            this.ColumnSystemIndex.Width = 20;
+            // 
+            // ColumnSystemSelection
+            // 
+            this.ColumnSystemSelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnSystemSelection.FillWeight = 20F;
+            this.ColumnSystemSelection.Frozen = true;
+            this.ColumnSystemSelection.HeaderText = "Selection";
+            this.ColumnSystemSelection.MinimumWidth = 20;
+            this.ColumnSystemSelection.Name = "ColumnSystemSelection";
+            this.ColumnSystemSelection.ReadOnly = true;
+            this.ColumnSystemSelection.Visible = false;
+            this.ColumnSystemSelection.Width = 20;
+            // 
+            // ColumnSystemIcon
+            // 
+            this.ColumnSystemIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnSystemIcon.FillWeight = 20F;
+            this.ColumnSystemIcon.Frozen = true;
+            this.ColumnSystemIcon.HeaderText = "Icon";
+            this.ColumnSystemIcon.MinimumWidth = 20;
+            this.ColumnSystemIcon.Name = "ColumnSystemIcon";
+            this.ColumnSystemIcon.ReadOnly = true;
+            this.ColumnSystemIcon.Width = 20;
+            // 
+            // ColumnSystemName
+            // 
+            this.ColumnSystemName.Frozen = true;
+            this.ColumnSystemName.HeaderText = "Name";
+            this.ColumnSystemName.Name = "ColumnSystemName";
+            this.ColumnSystemName.ReadOnly = true;
+            // 
+            // ColumnSystemCities
+            // 
+            this.ColumnSystemCities.FillWeight = 112F;
+            this.ColumnSystemCities.HeaderText = "Cities";
+            this.ColumnSystemCities.Name = "ColumnSystemCities";
+            this.ColumnSystemCities.ReadOnly = true;
+            this.ColumnSystemCities.Width = 112;
+            // 
+            // ColumnSystemMorale
+            // 
+            this.ColumnSystemMorale.FillWeight = 112F;
+            this.ColumnSystemMorale.HeaderText = "Morale";
+            this.ColumnSystemMorale.Name = "ColumnSystemMorale";
+            this.ColumnSystemMorale.ReadOnly = true;
+            this.ColumnSystemMorale.Width = 112;
+            // 
+            // ColumnSystemAbandonment
+            // 
+            this.ColumnSystemAbandonment.FillWeight = 90F;
+            this.ColumnSystemAbandonment.HeaderText = "Abandonment";
+            this.ColumnSystemAbandonment.Name = "ColumnSystemAbandonment";
+            this.ColumnSystemAbandonment.ReadOnly = true;
+            this.ColumnSystemAbandonment.Width = 90;
+            // 
+            // ColumnSystemPopulation
+            // 
+            this.ColumnSystemPopulation.FillWeight = 118F;
+            this.ColumnSystemPopulation.HeaderText = "Population";
+            this.ColumnSystemPopulation.Name = "ColumnSystemPopulation";
+            this.ColumnSystemPopulation.ReadOnly = true;
+            this.ColumnSystemPopulation.Width = 118;
+            // 
+            // ColumnSystemLoyalty
+            // 
+            this.ColumnSystemLoyalty.HeaderText = "Loyalty";
+            this.ColumnSystemLoyalty.Name = "ColumnSystemLoyalty";
+            this.ColumnSystemLoyalty.ReadOnly = true;
+            // 
+            // ColumnSystemDate
+            // 
+            this.ColumnSystemDate.FillWeight = 107F;
+            this.ColumnSystemDate.HeaderText = "Last Updated";
+            this.ColumnSystemDate.Name = "ColumnSystemDate";
+            this.ColumnSystemDate.ReadOnly = true;
+            this.ColumnSystemDate.Width = 107;
+            // 
+            // tabControlSystem
+            // 
+            this.tabControlSystem.Controls.Add(this.tabSystemOverview);
+            this.tabControlSystem.Controls.Add(this.tabSystemMorale);
+            this.tabControlSystem.Controls.Add(this.tabSystemPopulation);
+            this.tabControlSystem.Controls.Add(this.tabSystemTechnology);
+            this.tabControlSystem.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlSystem.Location = new System.Drawing.Point(0, 0);
+            this.tabControlSystem.Name = "tabControlSystem";
+            this.tabControlSystem.SelectedIndex = 0;
+            this.tabControlSystem.Size = new System.Drawing.Size(417, 410);
+            this.tabControlSystem.TabIndex = 1;
+            // 
+            // tabSystemOverview
+            // 
+            this.tabSystemOverview.Controls.Add(this.splitContainerSystemOverview);
+            this.tabSystemOverview.Location = new System.Drawing.Point(4, 22);
+            this.tabSystemOverview.Name = "tabSystemOverview";
+            this.tabSystemOverview.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSystemOverview.Size = new System.Drawing.Size(409, 384);
+            this.tabSystemOverview.TabIndex = 0;
+            this.tabSystemOverview.Text = "Overview";
+            this.tabSystemOverview.UseVisualStyleBackColor = true;
+            // 
+            // splitContainerSystemOverview
+            // 
+            this.splitContainerSystemOverview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerSystemOverview.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerSystemOverview.Name = "splitContainerSystemOverview";
+            this.splitContainerSystemOverview.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerSystemOverview.Panel1
+            // 
+            this.splitContainerSystemOverview.Panel1.Controls.Add(this.splitContainerSystemOverview2);
+            // 
+            // splitContainerSystemOverview.Panel2
+            // 
+            this.splitContainerSystemOverview.Panel2.Controls.Add(this.richTextBox1);
+            this.splitContainerSystemOverview.Size = new System.Drawing.Size(403, 378);
+            this.splitContainerSystemOverview.SplitterDistance = 199;
+            this.splitContainerSystemOverview.TabIndex = 1;
+            // 
+            // splitContainerSystemOverview2
+            // 
+            this.splitContainerSystemOverview2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerSystemOverview2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerSystemOverview2.Name = "splitContainerSystemOverview2";
+            // 
+            // splitContainerSystemOverview2.Panel1
+            // 
+            this.splitContainerSystemOverview2.Panel1.Controls.Add(this.panel1);
+            // 
+            // splitContainerSystemOverview2.Panel2
+            // 
+            this.splitContainerSystemOverview2.Panel2.Controls.Add(this.panel2);
+            this.splitContainerSystemOverview2.Size = new System.Drawing.Size(403, 199);
+            this.splitContainerSystemOverview2.SplitterDistance = 135;
+            this.splitContainerSystemOverview2.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.LightGray;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(135, 199);
+            this.panel1.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.panel1, "Blue - Morale\r\nYellow - Morale Modifier total\r\nGreen - sum of Positive Morale Mod" +
+        "ifiers\r\nRed - sum of Negative Morale Modifiers");
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.LightGray;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(264, 199);
+            this.panel2.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.panel2, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
+        "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox1.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(403, 175);
+            this.richTextBox1.TabIndex = 1;
+            this.richTextBox1.Text = "";
+            // 
+            // tabSystemMorale
+            // 
+            this.tabSystemMorale.Controls.Add(this.splitContainerSystemMorale);
+            this.tabSystemMorale.Location = new System.Drawing.Point(4, 22);
+            this.tabSystemMorale.Name = "tabSystemMorale";
+            this.tabSystemMorale.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSystemMorale.Size = new System.Drawing.Size(409, 384);
+            this.tabSystemMorale.TabIndex = 2;
+            this.tabSystemMorale.Text = "Morale";
+            this.tabSystemMorale.UseVisualStyleBackColor = true;
+            // 
+            // splitContainerSystemMorale
+            // 
+            this.splitContainerSystemMorale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerSystemMorale.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerSystemMorale.Name = "splitContainerSystemMorale";
+            this.splitContainerSystemMorale.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerSystemMorale.Panel1
+            // 
+            this.splitContainerSystemMorale.Panel1.Controls.Add(this.panel3);
+            // 
+            // splitContainerSystemMorale.Panel2
+            // 
+            this.splitContainerSystemMorale.Panel2.Controls.Add(this.richTextBox2);
+            this.splitContainerSystemMorale.Size = new System.Drawing.Size(403, 378);
+            this.splitContainerSystemMorale.SplitterDistance = 167;
+            this.splitContainerSystemMorale.TabIndex = 2;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.LightGray;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(403, 167);
+            this.panel3.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.panel3, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
+        "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox2.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.ReadOnly = true;
+            this.richTextBox2.Size = new System.Drawing.Size(403, 207);
+            this.richTextBox2.TabIndex = 0;
+            this.richTextBox2.Text = "";
+            // 
+            // tabSystemPopulation
+            // 
+            this.tabSystemPopulation.Controls.Add(this.splitContainerSystemPopulation);
+            this.tabSystemPopulation.Location = new System.Drawing.Point(4, 22);
+            this.tabSystemPopulation.Name = "tabSystemPopulation";
+            this.tabSystemPopulation.Size = new System.Drawing.Size(409, 384);
+            this.tabSystemPopulation.TabIndex = 3;
+            this.tabSystemPopulation.Text = "Population";
+            this.tabSystemPopulation.UseVisualStyleBackColor = true;
+            // 
+            // splitContainerSystemPopulation
+            // 
+            this.splitContainerSystemPopulation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerSystemPopulation.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerSystemPopulation.Name = "splitContainerSystemPopulation";
+            this.splitContainerSystemPopulation.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerSystemPopulation.Panel1
+            // 
+            this.splitContainerSystemPopulation.Panel1.Controls.Add(this.panel4);
+            // 
+            // splitContainerSystemPopulation.Panel2
+            // 
+            this.splitContainerSystemPopulation.Panel2.Controls.Add(this.richTextBox3);
+            this.splitContainerSystemPopulation.Size = new System.Drawing.Size(409, 384);
+            this.splitContainerSystemPopulation.SplitterDistance = 169;
+            this.splitContainerSystemPopulation.TabIndex = 3;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.LightGray;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(409, 169);
+            this.panel4.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.panel4, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
+        "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
+            // 
+            // richTextBox3
+            // 
+            this.richTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox3.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox3.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox3.Name = "richTextBox3";
+            this.richTextBox3.ReadOnly = true;
+            this.richTextBox3.Size = new System.Drawing.Size(409, 211);
+            this.richTextBox3.TabIndex = 1;
+            this.richTextBox3.Text = "";
+            // 
+            // tabSystemTechnology
+            // 
+            this.tabSystemTechnology.Controls.Add(this.richTextBox4);
+            this.tabSystemTechnology.Location = new System.Drawing.Point(4, 22);
+            this.tabSystemTechnology.Name = "tabSystemTechnology";
+            this.tabSystemTechnology.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSystemTechnology.Size = new System.Drawing.Size(409, 384);
+            this.tabSystemTechnology.TabIndex = 5;
+            this.tabSystemTechnology.Text = "Technology";
+            this.tabSystemTechnology.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox4
+            // 
+            this.richTextBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox4.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox4.Location = new System.Drawing.Point(3, 3);
+            this.richTextBox4.Name = "richTextBox4";
+            this.richTextBox4.ReadOnly = true;
+            this.richTextBox4.Size = new System.Drawing.Size(403, 378);
+            this.richTextBox4.TabIndex = 0;
+            this.richTextBox4.Text = "";
+            // 
             // tabShip
             // 
             this.tabShip.Controls.Add(this.splitContainerShip);
@@ -857,16 +1283,16 @@
             this.tabShip.Text = "Ships";
             this.tabShip.UseVisualStyleBackColor = true;
             // 
-            // tabPageOfficer
+            // tabOfficer
             // 
-            this.tabPageOfficer.Controls.Add(this.splitContainerOfficer);
-            this.tabPageOfficer.Location = new System.Drawing.Point(4, 22);
-            this.tabPageOfficer.Name = "tabPageOfficer";
-            this.tabPageOfficer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOfficer.Size = new System.Drawing.Size(758, 416);
-            this.tabPageOfficer.TabIndex = 2;
-            this.tabPageOfficer.Text = "Officers";
-            this.tabPageOfficer.UseVisualStyleBackColor = true;
+            this.tabOfficer.Controls.Add(this.splitContainerOfficer);
+            this.tabOfficer.Location = new System.Drawing.Point(4, 22);
+            this.tabOfficer.Name = "tabOfficer";
+            this.tabOfficer.Padding = new System.Windows.Forms.Padding(3);
+            this.tabOfficer.Size = new System.Drawing.Size(758, 416);
+            this.tabOfficer.TabIndex = 2;
+            this.tabOfficer.Text = "Officers";
+            this.tabOfficer.UseVisualStyleBackColor = true;
             // 
             // splitContainerOfficer
             // 
@@ -1062,16 +1488,16 @@
             this.tbxOfficer.TabIndex = 1;
             this.tbxOfficer.WordWrap = false;
             // 
-            // tabPageEvent
+            // tabEvent
             // 
-            this.tabPageEvent.Controls.Add(this.splitContainerEvent);
-            this.tabPageEvent.Location = new System.Drawing.Point(4, 22);
-            this.tabPageEvent.Name = "tabPageEvent";
-            this.tabPageEvent.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageEvent.Size = new System.Drawing.Size(758, 416);
-            this.tabPageEvent.TabIndex = 3;
-            this.tabPageEvent.Text = "Event";
-            this.tabPageEvent.UseVisualStyleBackColor = true;
+            this.tabEvent.Controls.Add(this.splitContainerEvent);
+            this.tabEvent.Location = new System.Drawing.Point(4, 22);
+            this.tabEvent.Name = "tabEvent";
+            this.tabEvent.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEvent.Size = new System.Drawing.Size(758, 416);
+            this.tabEvent.TabIndex = 3;
+            this.tabEvent.Text = "Event";
+            this.tabEvent.UseVisualStyleBackColor = true;
             // 
             // splitContainerEvent
             // 
@@ -1187,7 +1613,7 @@
             // 
             // tabEventOverview
             // 
-            this.tabEventOverview.Controls.Add(this.splitContainer2);
+            this.tabEventOverview.Controls.Add(this.splitContainerEventOverview);
             this.tabEventOverview.Location = new System.Drawing.Point(4, 22);
             this.tabEventOverview.Name = "tabEventOverview";
             this.tabEventOverview.Padding = new System.Windows.Forms.Padding(3);
@@ -1196,23 +1622,23 @@
             this.tabEventOverview.Text = "Overview";
             this.tabEventOverview.UseVisualStyleBackColor = true;
             // 
-            // splitContainer2
+            // splitContainerEventOverview
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitContainerEventOverview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerEventOverview.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerEventOverview.Name = "splitContainerEventOverview";
+            this.splitContainerEventOverview.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer2.Panel1
+            // splitContainerEventOverview.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.pEventOverview);
+            this.splitContainerEventOverview.Panel1.Controls.Add(this.pEventOverview);
             // 
-            // splitContainer2.Panel2
+            // splitContainerEventOverview.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.rtbEventOverview);
-            this.splitContainer2.Size = new System.Drawing.Size(402, 378);
-            this.splitContainer2.SplitterDistance = 165;
-            this.splitContainer2.TabIndex = 1;
+            this.splitContainerEventOverview.Panel2.Controls.Add(this.rtbEventOverview);
+            this.splitContainerEventOverview.Size = new System.Drawing.Size(402, 378);
+            this.splitContainerEventOverview.SplitterDistance = 165;
+            this.splitContainerEventOverview.TabIndex = 1;
             // 
             // pEventOverview
             // 
@@ -1274,6 +1700,27 @@
             this.cmbCharFilter.TabIndex = 3;
             this.cmbCharFilter.SelectedIndexChanged += new System.EventHandler(this.cmbCharFilter_SelectedIndexChanged);
             // 
+            // tabCityBuildings
+            // 
+            this.tabCityBuildings.Controls.Add(this.rtbCityBuildings);
+            this.tabCityBuildings.Location = new System.Drawing.Point(4, 22);
+            this.tabCityBuildings.Name = "tabCityBuildings";
+            this.tabCityBuildings.Size = new System.Drawing.Size(409, 384);
+            this.tabCityBuildings.TabIndex = 6;
+            this.tabCityBuildings.Text = "Buildings";
+            this.tabCityBuildings.UseVisualStyleBackColor = true;
+            // 
+            // rtbCityBuildings
+            // 
+            this.rtbCityBuildings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbCityBuildings.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbCityBuildings.Location = new System.Drawing.Point(0, 0);
+            this.rtbCityBuildings.Name = "rtbCityBuildings";
+            this.rtbCityBuildings.ReadOnly = true;
+            this.rtbCityBuildings.Size = new System.Drawing.Size(409, 384);
+            this.rtbCityBuildings.TabIndex = 1;
+            this.rtbCityBuildings.Text = "";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1294,10 +1741,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvShip)).EndInit();
             this.tabControlShip.ResumeLayout(false);
             this.tabShipOverview.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.splitContainerShipOverview.Panel1.ResumeLayout(false);
+            this.splitContainerShipOverview.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerShipOverview)).EndInit();
+            this.splitContainerShipOverview.ResumeLayout(false);
             this.tabShipMail.ResumeLayout(false);
             this.tabShipMail.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
@@ -1330,8 +1777,35 @@
             this.tabCityTechnology.ResumeLayout(false);
             this.tabCityMail.ResumeLayout(false);
             this.tabCityMail.PerformLayout();
+            this.tabSystem.ResumeLayout(false);
+            this.splitContainerSystem.Panel1.ResumeLayout(false);
+            this.splitContainerSystem.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSystem)).EndInit();
+            this.splitContainerSystem.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSystem)).EndInit();
+            this.tabControlSystem.ResumeLayout(false);
+            this.tabSystemOverview.ResumeLayout(false);
+            this.splitContainerSystemOverview.Panel1.ResumeLayout(false);
+            this.splitContainerSystemOverview.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSystemOverview)).EndInit();
+            this.splitContainerSystemOverview.ResumeLayout(false);
+            this.splitContainerSystemOverview2.Panel1.ResumeLayout(false);
+            this.splitContainerSystemOverview2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSystemOverview2)).EndInit();
+            this.splitContainerSystemOverview2.ResumeLayout(false);
+            this.tabSystemMorale.ResumeLayout(false);
+            this.splitContainerSystemMorale.Panel1.ResumeLayout(false);
+            this.splitContainerSystemMorale.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSystemMorale)).EndInit();
+            this.splitContainerSystemMorale.ResumeLayout(false);
+            this.tabSystemPopulation.ResumeLayout(false);
+            this.splitContainerSystemPopulation.Panel1.ResumeLayout(false);
+            this.splitContainerSystemPopulation.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSystemPopulation)).EndInit();
+            this.splitContainerSystemPopulation.ResumeLayout(false);
+            this.tabSystemTechnology.ResumeLayout(false);
             this.tabShip.ResumeLayout(false);
-            this.tabPageOfficer.ResumeLayout(false);
+            this.tabOfficer.ResumeLayout(false);
             this.splitContainerOfficer.Panel1.ResumeLayout(false);
             this.splitContainerOfficer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerOfficer)).EndInit();
@@ -1345,7 +1819,7 @@
             this.splitContainerOfficerOverview.ResumeLayout(false);
             this.tabOfficerMail.ResumeLayout(false);
             this.tabOfficerMail.PerformLayout();
-            this.tabPageEvent.ResumeLayout(false);
+            this.tabEvent.ResumeLayout(false);
             this.splitContainerEvent.Panel1.ResumeLayout(false);
             this.splitContainerEvent.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEvent)).EndInit();
@@ -1353,12 +1827,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvEvent)).EndInit();
             this.tabControlEvent.ResumeLayout(false);
             this.tabEventOverview.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            this.splitContainerEventOverview.Panel1.ResumeLayout(false);
+            this.splitContainerEventOverview.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEventOverview)).EndInit();
+            this.splitContainerEventOverview.ResumeLayout(false);
             this.tabEventMail.ResumeLayout(false);
             this.tabEventMail.PerformLayout();
+            this.tabCityBuildings.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1379,7 +1854,7 @@
         private System.Windows.Forms.TextBox tbxCity;
         private System.Windows.Forms.DataGridView dgvShip;
         private System.Windows.Forms.DataGridView dgvCity;
-        private System.Windows.Forms.TabPage tabPageOfficer;
+        private System.Windows.Forms.TabPage tabOfficer;
         private System.Windows.Forms.SplitContainer splitContainerOfficer;
         private System.Windows.Forms.DataGridView dgvOfficer;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar2;
@@ -1391,7 +1866,7 @@
         private System.Windows.Forms.SplitContainer splitContainerCityOverview;
         private System.Windows.Forms.Panel pCityOverviewMorale;
         private System.Windows.Forms.ComboBox cmbCharFilter;
-        private System.Windows.Forms.TabPage tabPageEvent;
+        private System.Windows.Forms.TabPage tabEvent;
         private System.Windows.Forms.SplitContainer splitContainerEvent;
         private System.Windows.Forms.DataGridView dgvEvent;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventIndex;
@@ -1426,13 +1901,13 @@
         private System.Windows.Forms.SplitContainer splitContainerCityPopulation;
         private System.Windows.Forms.TabControl tabControlShip;
         private System.Windows.Forms.TabPage tabShipOverview;
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainerShipOverview;
         private System.Windows.Forms.Panel pShipOverview;
         private System.Windows.Forms.RichTextBox rtbShipOverview;
         private System.Windows.Forms.TabPage tabShipMail;
         private System.Windows.Forms.Panel pCityPopulation;
         private System.Windows.Forms.RichTextBox rtbCityPopulation;
-        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.SplitContainer splitContainerEventOverview;
         private System.Windows.Forms.Panel pEventOverview;
         private System.Windows.Forms.RichTextBox rtbEventOverview;
         private System.Windows.Forms.TabControl tabControlEvent;
@@ -1457,6 +1932,38 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDate;
         private System.Windows.Forms.TabPage tabCityTechnology;
         private System.Windows.Forms.RichTextBox rtbCityTechnology;
+        private System.Windows.Forms.TabPage tabSystem;
+        private System.Windows.Forms.SplitContainer splitContainerSystem;
+        private System.Windows.Forms.DataGridView dgvSystem;
+        private System.Windows.Forms.TabControl tabControlSystem;
+        private System.Windows.Forms.TabPage tabSystemOverview;
+        private System.Windows.Forms.SplitContainer splitContainerSystemOverview;
+        private System.Windows.Forms.SplitContainer splitContainerSystemOverview2;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.TabPage tabSystemMorale;
+        private System.Windows.Forms.SplitContainer splitContainerSystemMorale;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.TabPage tabSystemPopulation;
+        private System.Windows.Forms.SplitContainer splitContainerSystemPopulation;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.RichTextBox richTextBox3;
+        private System.Windows.Forms.TabPage tabSystemTechnology;
+        private System.Windows.Forms.RichTextBox richTextBox4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemIndex;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnSystemSelection;
+        private System.Windows.Forms.DataGridViewImageColumn ColumnSystemIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemCities;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemMorale;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemAbandonment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemPopulation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemLoyalty;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemDate;
+        private System.Windows.Forms.TabPage tabCityBuildings;
+        private System.Windows.Forms.RichTextBox rtbCityBuildings;
     }
 }
 
