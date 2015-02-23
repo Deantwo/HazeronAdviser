@@ -616,7 +616,7 @@ namespace HazeronAdviser
                         int levelsNeeded = _vHomes / moraleBuildingsPop[building];
                         if (levels < levelsNeeded)
                             _sBuildings += " [color=red](need " + (levelsNeeded - levels) + " more levels)[/color]";
-                        else if (levels > levelsNeeded && !(building != "Church" || building != "University"))
+                        else if (levels > levelsNeeded && !(building == "Church" || building == "University"))
                             _sBuildings += " [color=orange](" + (levels - levelsNeeded) + " too many levels)[/color]";
                     }
                 }
