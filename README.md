@@ -7,7 +7,8 @@ Introduction
 ==============
 
 My name is **Deantwo** and this is my little C# program that I have been working on for a little while.<br>
-I started after seeing **se5a**'s [HazeronMapper](https://github.com/se5a/HazeronMapper) and thought it would be fun to try my self.
+I started after seeing **se5a**'s [HazeronMapper](https://github.com/se5a/HazeronMapper) and thought it would be fun to try my self.<br>
+Most of this is only possible thanks to **AnrDaemon**'s [Hazeron mail file header spreadsheet](http://goo.gl/E0yoYd).
 
 What is it
 ==============
@@ -42,6 +43,8 @@ Features
 - Visually shows population, homes, and jobs
 - Visually shows morale
 - Better overview of all officers and their home (in charge of ships, on planet, etc.)
+- Overview of building TLs in a city
+- List of buildings in a city (highlighting needed and unnecessary morale buildings)
 
 Planned
 ==============
@@ -53,7 +56,7 @@ Planned
 - Calculate the highest TL spacecraft that can be build
 - What is keeping it from making higher TL spacecrafts
 - Better overview of all officers and their home (in charge of ships, on planet, etc.) [(problem)](http://hazeron.com/phpBB3/viewtopic.php?f=5&t=6893)
-- New tab just for "detected enermies" and the like
+- Improvements to the Events tab (highlight the tab when there are new events?)
 - Include scan results for a city's system ([now impossible](http://hazeron.com/phpBB3/viewtopic.php?f=3&t=6952) ([unless this](http://hazeron.com/phpBB3/viewtopic.php?f=5&t=6991)) )
 
 Want to help
