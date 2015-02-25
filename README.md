@@ -42,7 +42,7 @@ Features
 - Calculates the time before abandonment decay starts
 - Visually shows population, homes, and jobs
 - Visually shows morale
-- Better overview of all officers and their home (in charge of ships, on planet, etc.)
+- Better overview of all officers and their home (in charge of ships, on planet, etc.) ([small problem](http://hazeron.com/phpBB3/viewtopic.php?f=5&t=6893))
 - Overview of building TLs in a city
 - List of buildings in a city (highlighting needed and unnecessary morale buildings)
 
@@ -55,9 +55,8 @@ Planned
 - An overview of resources in city storage
 - Calculate the highest TL spacecraft that can be build
 - What is keeping it from making higher TL spacecrafts
-- Better overview of all officers and their home (in charge of ships, on planet, etc.) [(problem)](http://hazeron.com/phpBB3/viewtopic.php?f=5&t=6893)
 - Improvements to the Events tab (highlight the tab when there are new events?)
-- Include scan results for a city's system ([now impossible](http://hazeron.com/phpBB3/viewtopic.php?f=3&t=6952) ([unless this](http://hazeron.com/phpBB3/viewtopic.php?f=5&t=6991)) )
+- Include scan results for a city's system ([now impossible](http://hazeron.com/phpBB3/viewtopic.php?f=3&t=6952) ([unless this](http://hazeron.com/phpBB3/viewtopic.php?f=5&t=6991) [or this](http://hazeron.com/phpBB3/viewtopic.php?f=5&t=7019)) )
 
 Want to help
 ==============
