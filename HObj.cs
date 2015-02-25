@@ -365,7 +365,7 @@ namespace HazeronAdviser
                         {
                             // Nothing yet
                         }
-                        else if (line.Contains("prevents immigration. Airport needed."))
+                        else if (line.Contains("arsh environment"))
                         {
                             _vHashEnv = true;
                         }
@@ -614,10 +614,12 @@ namespace HazeronAdviser
                     if (moraleBuildingsPop.ContainsKey(building))
                     {
                         int levelsNeeded = _vHomes / moraleBuildingsPop[building];
+                        if (building == "Cantina" || building == "Church")
+                            levelsNeeded += 1;
                         if (levels < levelsNeeded)
-                            _sBuildings += " [color=red](need " + (levelsNeeded - levels) + " more levels)[/color]";
-                        else if (levels > levelsNeeded && !(building == "Church" || building == "University"))
-                            _sBuildings += " [color=orange](" + (levels - levelsNeeded) + " too many levels)[/color]";
+                            _sBuildings += " [color=red](" + (levelsNeeded - levels) + " levels more needed)[/color]";
+                        if (levels > levelsNeeded && !(building == "Church" || building == "University"))
+                            _sBuildings += " [color=orange](" + (levels - levelsNeeded) + " levels too many)[/color]";
                     }
                 }
 
@@ -633,7 +635,7 @@ namespace HazeronAdviser
                     _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100
                 if (4 >= dDay) // Less than 4 days to decay.
                     _attentionCode = (byte)(_attentionCode | 0x08); // 0b00001000
-                if (_vPopulation == 0 || _vPopulation >= _vPopulationLimit) // Population is 0, or zone over populated!
+                if (_vPopulation == 0 || _vPopulation > _vPopulationLimit) // Population is 0, or zone over populated!
                     _attentionCode = (byte)(_attentionCode | 0x10); // 0b00010000
                 if (false) // Nothing yet!
                     _attentionCode = (byte)(_attentionCode | 0x20); // 0b00100000
