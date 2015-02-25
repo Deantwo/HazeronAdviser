@@ -322,4 +322,15 @@
 </value>
     <comment>http://hazeron.com/images/MsgSpot.png</comment>
   </data>
+  <data name="RangeSystem" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAGYktHRAA/AFgAmTFOwMAAAAAHdElNRQfYCRMUNDD72WYV
+        AAAAHXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBUaGUgR0lNUO9kJW4AAACPSURBVDhPY4CB/996/kOZ
+        OIFl+j0UNXD+/x/L/v//c+s/iAYL4ABYDQDZDNb89yWExuMS2rgABigKA2IANsUUGYBV85kyObggMhtZ
+        MUycaNuxKSSoGWTLlgzp/9gUwuSgXOwApKDRWxirIgw5kC3oGCqFAfDJEQTompEDGS8g5CqcgGiNMIXo
+        GCpNADAwAABjwqQHQFsORwAAAABJRU5ErkJggg==
+</value>
+    <comment>http://www.hazeron.com/images/RangeSystem.png</comment>
+  </data>
 </root>

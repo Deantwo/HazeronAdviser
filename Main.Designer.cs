@@ -41,6 +41,7 @@
             this.ColumnShipSelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ColumnShipIcon = new System.Windows.Forms.DataGridViewImageColumn();
             this.ColumnShipName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnShipLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnShipAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnShipFuel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnShipDamage = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,6 +60,7 @@
             this.ColumnCitySelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ColumnCityIcon = new System.Windows.Forms.DataGridViewImageColumn();
             this.ColumnCityName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCityMorale = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCityAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCityLivingConditions = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -142,6 +144,7 @@
             this.ColumnEventIcon = new System.Windows.Forms.DataGridViewImageColumn();
             this.ColumnEventName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnEventSubject = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEventLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnEventDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlEvent = new System.Windows.Forms.TabControl();
             this.tabEventOverview = new System.Windows.Forms.TabPage();
@@ -330,6 +333,7 @@
             this.ColumnShipSelection,
             this.ColumnShipIcon,
             this.ColumnShipName,
+            this.ColumnShipLocation,
             this.ColumnShipAbandonment,
             this.ColumnShipFuel,
             this.ColumnShipDamage,
@@ -388,6 +392,12 @@
             this.ColumnShipName.HeaderText = "Name";
             this.ColumnShipName.Name = "ColumnShipName";
             this.ColumnShipName.ReadOnly = true;
+            // 
+            // ColumnShipLocation
+            // 
+            this.ColumnShipLocation.HeaderText = "Location";
+            this.ColumnShipLocation.Name = "ColumnShipLocation";
+            this.ColumnShipLocation.ReadOnly = true;
             // 
             // ColumnShipAbandonment
             // 
@@ -548,6 +558,7 @@
             this.ColumnCitySelection,
             this.ColumnCityIcon,
             this.ColumnCityName,
+            this.ColumnCityLocation,
             this.ColumnCityMorale,
             this.ColumnCityAbandonment,
             this.ColumnCityLivingConditions,
@@ -608,6 +619,12 @@
             this.ColumnCityName.HeaderText = "Name";
             this.ColumnCityName.Name = "ColumnCityName";
             this.ColumnCityName.ReadOnly = true;
+            // 
+            // ColumnCityLocation
+            // 
+            this.ColumnCityLocation.HeaderText = "Location";
+            this.ColumnCityLocation.Name = "ColumnCityLocation";
+            this.ColumnCityLocation.ReadOnly = true;
             // 
             // ColumnCityMorale
             // 
@@ -941,6 +958,9 @@
             // 
             // splitContainerSystem
             // 
+            this.splitContainerSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainerSystem.Location = new System.Drawing.Point(3, 3);
             this.splitContainerSystem.Name = "splitContainerSystem";
             // 
@@ -1030,19 +1050,19 @@
             // 
             // ColumnSystemCities
             // 
-            this.ColumnSystemCities.FillWeight = 112F;
+            this.ColumnSystemCities.FillWeight = 50F;
             this.ColumnSystemCities.HeaderText = "Cities";
             this.ColumnSystemCities.Name = "ColumnSystemCities";
             this.ColumnSystemCities.ReadOnly = true;
-            this.ColumnSystemCities.Width = 112;
+            this.ColumnSystemCities.Width = 50;
             // 
             // ColumnSystemMorale
             // 
-            this.ColumnSystemMorale.FillWeight = 112F;
+            this.ColumnSystemMorale.FillWeight = 50F;
             this.ColumnSystemMorale.HeaderText = "Morale";
             this.ColumnSystemMorale.Name = "ColumnSystemMorale";
             this.ColumnSystemMorale.ReadOnly = true;
-            this.ColumnSystemMorale.Width = 112;
+            this.ColumnSystemMorale.Width = 50;
             // 
             // ColumnSystemAbandonment
             // 
@@ -1144,6 +1164,8 @@
             this.pSystemOverviewMorale.TabIndex = 1;
             this.toolTip1.SetToolTip(this.pSystemOverviewMorale, "Blue - Morale\r\nYellow - Morale Modifier total\r\nGreen - sum of Positive Morale Mod" +
         "ifiers\r\nRed - sum of Negative Morale Modifiers");
+            this.pSystemOverviewMorale.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
+            this.pSystemOverviewMorale.Paint += new System.Windows.Forms.PaintEventHandler(this.pSystemMorale_Paint);
             // 
             // pSystemOverviewPopulation
             // 
@@ -1156,6 +1178,8 @@
             this.pSystemOverviewPopulation.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pSystemOverviewPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
+            this.pSystemOverviewPopulation.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
+            this.pSystemOverviewPopulation.Paint += new System.Windows.Forms.PaintEventHandler(this.pSystemPopulation_Paint);
             // 
             // rtbSystemOverview
             // 
@@ -1208,6 +1232,8 @@
             this.pSystemMorale.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pSystemMorale, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
+            this.pSystemMorale.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
+            this.pSystemMorale.Paint += new System.Windows.Forms.PaintEventHandler(this.pSystemMorale_Paint);
             // 
             // rtbSystemMorale
             // 
@@ -1259,6 +1285,8 @@
             this.pSystemPopulation.TabIndex = 1;
             this.toolTip1.SetToolTip(this.pSystemPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
+            this.pSystemPopulation.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
+            this.pSystemPopulation.Paint += new System.Windows.Forms.PaintEventHandler(this.pSystemPopulation_Paint);
             // 
             // rtbSystemPopulation
             // 
@@ -1551,6 +1579,7 @@
             this.ColumnEventIcon,
             this.ColumnEventName,
             this.ColumnEventSubject,
+            this.ColumnEventLocation,
             this.ColumnEventDate});
             this.dgvEvent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvEvent.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
@@ -1613,6 +1642,13 @@
             this.ColumnEventSubject.HeaderText = "Subject";
             this.ColumnEventSubject.Name = "ColumnEventSubject";
             this.ColumnEventSubject.ReadOnly = true;
+            // 
+            // ColumnEventLocation
+            // 
+            this.ColumnEventLocation.Frozen = true;
+            this.ColumnEventLocation.HeaderText = "Location";
+            this.ColumnEventLocation.Name = "ColumnEventLocation";
+            this.ColumnEventLocation.ReadOnly = true;
             // 
             // ColumnEventDate
             // 
@@ -1870,30 +1906,7 @@
         private System.Windows.Forms.TabPage tabEvent;
         private System.Windows.Forms.SplitContainer splitContainerEvent;
         private System.Windows.Forms.DataGridView dgvEvent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventIndex;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnEventSelection;
-        private System.Windows.Forms.DataGridViewImageColumn ColumnEventIcon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventSubject;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventDate;
         private System.Windows.Forms.TextBox tbxEvent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerIndex;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnOfficerSelection;
-        private System.Windows.Forms.DataGridViewImageColumn ColumnOfficerIcon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerHome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerLocation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityIndex;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnCitySelection;
-        private System.Windows.Forms.DataGridViewImageColumn ColumnCityIcon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityMorale;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityAbandonment;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLivingConditions;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityPopulation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLoyalty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityDate;
         private System.Windows.Forms.TabPage tabCityMorale;
         private System.Windows.Forms.TabPage tabCityPopulation;
         private System.Windows.Forms.SplitContainer splitContainerCityMorale;
@@ -1923,14 +1936,6 @@
         private System.Windows.Forms.TextBox tbxOfficer;
         private System.Windows.Forms.SplitContainer splitContainerCityOverview2;
         private System.Windows.Forms.RichTextBox rtbCityOverview;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipIndex;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnShipSelection;
-        private System.Windows.Forms.DataGridViewImageColumn ColumnShipIcon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipAbandonment;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipFuel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDamage;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDate;
         private System.Windows.Forms.TabPage tabCityTechnology;
         private System.Windows.Forms.RichTextBox rtbCityTechnology;
         private System.Windows.Forms.TabPage tabSystem;
@@ -1953,6 +1958,42 @@
         private System.Windows.Forms.RichTextBox rtbSystemPopulation;
         private System.Windows.Forms.TabPage tabSystemTechnology;
         private System.Windows.Forms.RichTextBox rtbSystemTechnology;
+        private System.Windows.Forms.TabPage tabCityBuildings;
+        private System.Windows.Forms.RichTextBox rtbCityBuildings;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerIndex;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnOfficerSelection;
+        private System.Windows.Forms.DataGridViewImageColumn ColumnOfficerIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerHome;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerLocation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipIndex;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnShipSelection;
+        private System.Windows.Forms.DataGridViewImageColumn ColumnShipIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipLocation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipAbandonment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipFuel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDamage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityIndex;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnCitySelection;
+        private System.Windows.Forms.DataGridViewImageColumn ColumnCityIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLocation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityMorale;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityAbandonment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLivingConditions;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityPopulation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLoyalty;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventIndex;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnEventSelection;
+        private System.Windows.Forms.DataGridViewImageColumn ColumnEventIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventSubject;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventLocation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemIndex;
         private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnSystemSelection;
         private System.Windows.Forms.DataGridViewImageColumn ColumnSystemIcon;
@@ -1963,8 +2004,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemPopulation;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemLoyalty;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemDate;
-        private System.Windows.Forms.TabPage tabCityBuildings;
-        private System.Windows.Forms.RichTextBox rtbCityBuildings;
     }
 }
 

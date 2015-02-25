@@ -1,5 +1,4 @@
-﻿#if DEBUG
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,10 +12,14 @@ namespace HazeronAdviser
         {
             get { return _name; }
         }
-        protected string _id = "######"; // ID of the ship, used in mail names.
-        public string ID
+        protected int _id = 0; // ID of the ship, used in mail names.
+        public int ID
         {
             get { return _id; }
+        }
+        public string IdString
+        {
+            get { return HHelper.ToID(_id); }
         }
 
         protected string _sOverview = "";
@@ -50,8 +53,8 @@ namespace HazeronAdviser
             get { return _owners; }
         }
 
-        protected Dictionary<int, HCity> _cities = new Dictionary<int, HCity>();
-        public Dictionary<int, HCity> Cities
+        protected List<HCity> _cities = new List<HCity>();
+        public List<HCity> Cities
         {
             get { return _cities; }
         }
@@ -66,10 +69,20 @@ namespace HazeronAdviser
             get { return _sMoraleShort; }
         }
 
-        protected string _sDecayDay = "-";
-        public string SDecayDay
+        protected int _vAbandonment = 0, _vAbandonmentMax = 0;
+        public int VAbandonment
         {
-            get { return _sDecayDay; }
+            get { return _vAbandonment; }
+        }
+        public int VAbandonmentMax
+        {
+            get { return _vAbandonmentMax; }
+        }
+
+        protected string _sAbandonment = "-";
+        public string SAbandonment
+        {
+            get { return _sAbandonment; }
         }
 
         protected string _sPopulation = "-", _sPopulationShort = "-";
@@ -112,10 +125,16 @@ namespace HazeronAdviser
             get { return _sTechnology; }
         }
 
-        protected Dictionary<string, int> _vFactilitiesTL = new Dictionary<string, int>();
-        public Dictionary<string, int> VFactilitiesTL
+        protected Dictionary<string, int> _lReseatchProjects = new Dictionary<string, int>();
+        public Dictionary<string, int> LReseatchProjects
         {
-            get { return _vFactilitiesTL; }
+            get { return _lReseatchProjects; }
+        }
+
+        protected Dictionary<string, int> _lFactilitiesTL = new Dictionary<string, int>();
+        public Dictionary<string, int> LFactilitiesTL
+        {
+            get { return _lFactilitiesTL; }
         }
 
         protected int _vMorale = 0;
@@ -124,22 +143,10 @@ namespace HazeronAdviser
             get { return _vMorale; }
         }
 
-        protected List<int> _vMoraleModifiers = new List<int>();
-        public int[] VMoraleModifiers
-        {
-            get { return _vMoraleModifiers.ToArray(); }
-        }
-
         protected int _vPopulation = 0;
         public int VPopulation
         {
             get { return _vPopulation; }
-        }
-
-        protected int _vLoyalty = 0;
-        public int VLoyalty
-        {
-            get { return _vLoyalty; }
         }
 
         protected int _vHomes = 0;
@@ -160,292 +167,155 @@ namespace HazeronAdviser
             get { return _vPopulationLimit; }
         }
 
-        protected int _vFood = 0;
-        public int VFood
+        protected int _vLoyalty = 0;
+        public int VLoyalty
         {
-            get { return _vFood; }
+            get { return _vLoyalty; }
         }
 
-        protected int _vAir = 0;
-        public int VAir
+        public HSystem(HCity city)
         {
-            get { return _vAir; }
-        }
+            _name = city.SystemName; // Incase sender changed name.
+            _id = city.SystemID;
 
-        public HSystem()
-        {
-
+            AddCity(city);
         }
 
         public void AddCity(HCity city)
         {
+            _cities.Add(city);
 
+            if (DateTime.Compare(city.LastUpdared, _lastUpdated) == 1)
+                _lastUpdated = city.LastUpdared;
+
+            foreach (int owner in city.Onwers)
+                if (!_owners.Contains(owner))
+                    _owners.Add(owner);
         }
 
         public void UpdateSystem()
         {
-            // String working vars.
-            string[] tempArray;
-            // Time for City spicific things.
-            string race = "";
-            int dDay = 0, dDayMax = 0;
-            const int abandonmentInterval = 4;
-            Dictionary<string, int> reseatchProjects = new Dictionary<string, int>();
-            _sTechnology = "";
-            _vFactilitiesTL = new Dictionary<string, int>(); // Really need to just have everything be reset when a new mail is read.
-            List<string> buildingList = new List<string>();
+            _attentionCode = 0x00; // 0b00000000
 
-            // MORALE & Decay
-            const string headlineMORALE = "<b>MORALE</b>";
-            if (sectionsInReport.Contains(headlineMORALE))
+            // MORALE
             {
-                _sMorale = HHelper.CleanText(GetSectionText(mail.Body, sectionsInReport, headlineMORALE));
-                tempArray = _sMorale.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _sMoraleShort = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1).Substring(7);
-                int abandonedDays = 0;
-                int abandonedPenalty = 0;
-                _vMoraleModifiers.Clear();
-                foreach (string line in tempArray)
-                    if (!line.ToLower().Contains("morale"))
-                    {
-                        _vMoraleModifiers.Add(Convert.ToInt32(line.Remove(line.IndexOf(' '))));
-                        string[] tempLineArray = line.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                        if (line.Contains("Abandonment Penalty"))
-                        {
-                            abandonedPenalty = Convert.ToInt32(tempLineArray[0]);
-                            abandonedDays = Convert.ToInt32(tempLineArray[tempLineArray.Length - 2]);
-                        }
-                    }
-                dDay = ((_vMoraleModifiers.Sum() + 1) * abandonmentInterval) - (abandonedDays % abandonmentInterval);
-                dDayMax = ((_vMoraleModifiers.Sum() - abandonedPenalty + 1) * abandonmentInterval);
-                if (abandonedDays != 0)
-                    _sDecayDay = dDay.ToString("00") + " /" + dDayMax.ToString("00") + " days";
-                else if (!mail.Body.Contains("<span style=\"color: rgb(255, 255, 0);\">City is decaying.<br></span>"))
-                    _sDecayDay = dDay.ToString("00") + "~/" + dDayMax.ToString("00") + " days";
+                _vMorale = Convert.ToInt32(Cities.Average(city => city.VMorale));
+                _sMoraleShort = _vMorale + "/20";
+                _sMorale = "WIP";
+            }
+
+            // Decay
+            {
+                _vAbandonment = Cities.Min(city => city.VAbandonment);
+                _vAbandonmentMax = Cities.Min(city => city.VAbandonmentMax);
+                if (_vAbandonment == _vAbandonmentMax)
+                    _sAbandonment = _vAbandonment.ToString("00") + "~/" + _vAbandonmentMax.ToString("00") + " days";
+                else if (_vAbandonment > 0)
+                    _sAbandonment = _vAbandonment.ToString("00") + " /" + _vAbandonmentMax.ToString("00") + " days";
                 else
-                    _sDecayDay = " Decaying";
-                _vMorale = Convert.ToInt32(_sMoraleShort.Substring(_sMoraleShort.LastIndexOf(' ') + 1));
+                    _sAbandonment = " Decaying";
             }
 
-            // POPULATION
-            const string headlinePOPULATION = "<b>POPULATION</b>";
-            if (sectionsInReport.Contains(headlinePOPULATION))
+            // POPULATION & LIVING CONDITIONS
             {
-                _sPopulation = HHelper.CleanText(GetSectionText(mail.Body, sectionsInReport, headlinePOPULATION));
-                tempArray = _sPopulation.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (string line in tempArray)
-                {
-                    if (line.Contains("Citizens are"))
-                    {
-                        race = line.Remove(line.Length - 1).Substring(13);
-                    }
-                    else if (line.Contains("Population") && !line.Contains("troops"))
-                    {
-                        _sPopulationShort = line.Remove(line.Length - 1).Substring(11);
-                        _vPopulation = Convert.ToInt32(_sPopulationShort.Substring(_sPopulationShort.LastIndexOf(' ') + 1));
-                    }
-                    else if (line.Contains("Garrison"))
-                    {
-                        // Nothing yet
-                    }
-                    else if (line.Contains("loyal"))
-                    {
-                        _vLoyalty = Convert.ToInt32(line.Remove(line.IndexOf(' ')));
-                        if (line.Contains("disloyal"))
-                        {
-                            _vLoyalty = -_vLoyalty;
-                            _sLoyalty = "-" + line.Remove(line.Length - 33); // "9 citizens (1%) remain disloyal to the occupier."
-                        }
-                        else
-                            _sLoyalty = line.Remove(line.Length - 11);
-                    }
-                }
+                _vPopulation = Cities.Sum(city => city.VPopulation);
+                _vHomes = Cities.Sum(city => city.VHomes);
+                _vJobs = Cities.Sum(city => city.VJobs);
+                _vPopulationLimit = Cities.Sum(city => city.VPopulationLimit);
+                _sPopulationShort = _vPopulation + "/" + _vHomes + "/" + _vPopulationLimit;
+
+                _vLoyalty = Cities.Sum(city => city.VLoyalty);
+                _sLoyalty = _vLoyalty + " citizens (" + Math.Round(((float)_vLoyalty / _vPopulation) * 100, 2) + "%)";
             }
-
-            // LIVING CONDITIONS
-            const string headlineLIVING = "<b>LIVING CONDITIONS</b>";
-            if (sectionsInReport.Contains(headlineLIVING))
-            {
-                string tempSection = HHelper.CleanText(GetSectionText(mail.Body, sectionsInReport, headlineLIVING));
-                tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (string line in tempArray)
-                {
-                    if (line.Contains("Jobs"))
-                    {
-                        _vJobs = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
-                    }
-                    else if (line.Contains("Homes"))
-                    {
-                        _vHomes = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
-                    }
-                    else if (line.Contains("Food"))
-                    {
-                        _vFood = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
-                    }
-                }
-            }
-
-            // RESEARCH AND DEVELOPMENT
-            const string headlineRESEARCH = "<b>RESEARCH AND DEVELOPMENT</b>";
-            if (sectionsInReport.Contains(headlineRESEARCH))
-            {
-                string tempSection = HHelper.CleanText(GetSectionText(mail.Body, sectionsInReport, headlineRESEARCH));
-                tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 3; i < tempArray.Length; i += 2)
-                {
-                    if (tempArray[i] != "Technology")
-                        reseatchProjects.Add(tempArray[i].Remove(tempArray[i].Length - 11), Convert.ToInt32(tempArray[i + 1]));
-                }
-            }
-
-            //// SPACECRAFT
-            //const string headlineSPACECRAFT = "<b>SPACECRAFT</b>";
-            //if (sectionsInReport.Contains(headlineSPACECRAFT))
-            //{
-            //    string tempSection = HHelper.CleanText(GetSectionText(mail.Body, sectionsInReport, headlineSPACECRAFT));
-            //    tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            //}
-
-            // FACILITIES
-            const string headlineFACILITIES = "<b>FACILITIES</b>";
-            if (sectionsInReport.Contains(headlineFACILITIES))
-            {
-                _sFactilities = HHelper.CleanText(GetSectionText(mail.Body, sectionsInReport, headlineFACILITIES));
-                tempArray = _sFactilities.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 4; i < tempArray.Length; i += 3)
-                {
-                    if (tempArray[i] != "Name")
-                    {
-                        int tl;
-                        if (!Int32.TryParse(tempArray[i + 1], out tl))
-                            tl = Convert.ToInt32(tempArray[i + 1].Split(new char[] { '-' })[1]) * -1; // Make negitive because it is not all buildings.
-                        _vFactilitiesTL.Add(tempArray[i], tl);
-                    }
-                }
-            }
-
-            //// VEHICLES
-            //const string headlineVEHICLES = "<b>VEHICLES</b>";
-            //if (sectionsInReport.Contains(headlineVEHICLES))
-            //{
-            //    string tempSection = HHelper.CleanText(GetSectionText(mail.Body, sectionsInReport, headlineVEHICLES));
-            //    tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            //}
-
-            // INVENTORY
-            const string headlineINVENTORY = "<b>INVENTORY</b>";
-            if (sectionsInReport.Contains(headlineINVENTORY))
-            {
-                string tempSection = HHelper.CleanText(GetSectionText(mail.Body, sectionsInReport, headlineINVENTORY));
-                if (tempSection.Contains("Air"))
-                {
-                    tempSection = tempSection.Substring(tempSection.IndexOf("Air"), 255);
-                    tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                    for (int i = 1; i < tempArray.Length; i++)
-                    {
-                        if (tempArray[i].Contains(" Q"))
-                            _vAir += Convert.ToInt32(tempArray[i].Remove(tempArray[i].IndexOf(' ')));
-                        else
-                            break;
-                    }
-                }
-            }
-
-            // Planet Size
-            if (!mail.Body.Contains("Ringworld Arc"))
-            {
-                int sub = mail.Body.IndexOf("m dia, ");
-                tempArray = mail.Body.Remove(sub).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                _vPopulationLimit = Convert.ToInt32(tempArray[tempArray.Length - 1].Replace(",", ""));
-                _vPopulationLimit = Convert.ToInt32(100 * Math.Floor((float)_vPopulationLimit / 1800));
-            }
-            else
-                _vPopulationLimit = 1000;
 
             // Population overwiew
-            _sPopOverview = "City's population:";
-            _sPopOverview += Environment.NewLine + " " + _vLoyalty.ToString().PadLeft(4) + ", Loyal citizens";
-            if (_vLoyalty != _vPopulation)
             {
-                int minutesToLoyal;
-                bool disloyal = _vLoyalty < 0;
-                if (!disloyal)
-                    minutesToLoyal = ((_vPopulation - _vLoyalty) * 13);
-                else
-                    minutesToLoyal = (Math.Abs(_vLoyalty) * 13);
-                if (minutesToLoyal < 120) // Less than two hours.
-                    _sPopOverview += " [color=" + (disloyal ? "red" : "orange") + "](" + minutesToLoyal + " minutes to " + (disloyal ? "loyal" : "full") + ")[/color]";
-                else if (minutesToLoyal < 2980) // Less than two days.
-                    _sPopOverview += " [color=" + (disloyal ? "red" : "orange") + "](" + (minutesToLoyal / 60) + " hours to " + (disloyal ? "loyal" : "full") + ")[/color]";
-                else // More than two days.
-                    _sPopOverview += " [color=" + (disloyal ? "red" : "orange") + "](" + (minutesToLoyal / 1490) + " days to " + (disloyal ? "loyal" : "full") + ")[/color]";
-            }
-            _sPopOverview += Environment.NewLine + " " + _vPopulation.ToString().PadLeft(4) + ", Citizens";
-            _sPopOverview += Environment.NewLine + " " + _vHomes.ToString().PadLeft(4) + ", Homes";
-            _sPopOverview += Environment.NewLine + " " + _vJobs.ToString().PadLeft(4) + ", Jobs";
-            _sPopOverview += Environment.NewLine + " " + _vPopulationLimit.ToString().PadLeft(4) + ", Population limit";
-            _sPopOverview += Environment.NewLine + Environment.NewLine + "City's living conditions:";
-            _sPopOverview += Environment.NewLine + " Citizens are " + race;
-            _sPopOverview += Environment.NewLine + " " + powerConsumption + " power comsumption, ";
-            _sPopOverview += Environment.NewLine + " " + powerReserve.ToString().PadLeft(powerConsumption.ToString().Length) + "/" + powerReserveCapacity + " power capacity (" + Math.Floor(((float)powerReserve / powerReserveCapacity) * 100) + "%)";
-            {
-                _sPopOverview += Environment.NewLine + " ";
-                int minutesToStarvation = (_vFood);
-                if (minutesToStarvation < 120) // Less than two hours.
-                    _sPopOverview += minutesToStarvation + " minutes";
-                else if (minutesToStarvation < 2980) // Less than two days.
-                    _sPopOverview += (minutesToStarvation / 60) + " hours";
-                else // More than two days.
-                    _sPopOverview += (minutesToStarvation / 1490) + " days";
-                _sPopOverview += " worth of food";
-            }
-            {
-                _sPopOverview += Environment.NewLine + " ";
-                int minutesToSuffocation = (_vAir);
-                if (minutesToSuffocation < 120) // Less than two hours.
-                    _sPopOverview += minutesToSuffocation + " minutes";
-                else if (minutesToSuffocation < 2980) // Less than two days.
-                    _sPopOverview += (minutesToSuffocation / 60) + " hours";
-                else // More than two days.
-                    _sPopOverview += (minutesToSuffocation / 1490) + " days";
-                _sPopOverview += " worth of air";
+                _sPopOverview = "City's population:";
+                _sPopOverview += Environment.NewLine + " " + _vLoyalty.ToString().PadLeft(5) + ", Loyal citizens";
+                if (_vLoyalty != _vPopulation)
+                {
+                    int minutesToLoyal;
+                    bool disloyal = (_cities.Min(city => city.VLoyalty) < 0);
+                    if (!disloyal)
+                        minutesToLoyal = ((_cities.Max(city => (city.VPopulation - city.VLoyalty))) * 13);
+                    else
+                        minutesToLoyal = (Math.Abs(_vLoyalty) * 13);
+                    _sPopOverview += " [color=" + (disloyal ? "red" : "orange") + "](";
+                    if (minutesToLoyal < 120) // Less than two hours.
+                        _sPopOverview += minutesToLoyal + " minutes";
+                    else if (minutesToLoyal < 2980) // Less than two days.
+                        _sPopOverview += (minutesToLoyal / 60) + " hours";
+                    else // More than two days.
+                        _sPopOverview += (minutesToLoyal / 1490) + " days";
+                    _sPopOverview += " to " + (disloyal ? "loyal" : "full") + ")[/color]";
+                }
+                _sPopOverview += Environment.NewLine + " " + _vPopulation.ToString().PadLeft(5) + ", Citizens";
+                _sPopOverview += Environment.NewLine + " " + _vHomes.ToString().PadLeft(5) + ", Homes";
+                _sPopOverview += Environment.NewLine + " " + _vJobs.ToString().PadLeft(5) + ", Jobs";
+                _sPopOverview += Environment.NewLine + " " + _vPopulationLimit.ToString().PadLeft(5) + ", Population limit";
             }
 
             // Technology overview
-            if (sectionsInReport.Contains(headlineRESEARCH))
             {
-                _sTechnology = "City's technology projects:";
-                foreach (string building in reseatchProjects.Keys)
+                _sTechnology = "";
+                _lReseatchProjects = new Dictionary<string, int>();
+                _lFactilitiesTL = new Dictionary<string, int>();
+                // Get all the info from the cities
+                foreach (HCity city in Cities)
                 {
-                    if (_vFactilitiesTL.ContainsKey(building))
-                        _sTechnology += Environment.NewLine + " " + reseatchProjects[building].ToString().PadLeft(2) + " (TL" + Math.Abs(_vFactilitiesTL[building]).ToString().PadLeft(2) + ") running, " + building;
-                    else
-                        _sTechnology += Environment.NewLine + " [color=red]" + reseatchProjects[building].ToString().PadLeft(2) + " running, " + building + " (wasted, none in city)[/color]";
+                    foreach (KeyValuePair<string, int> project in city.LReseatchProjects)
+                    {
+                        if (!_lReseatchProjects.ContainsKey(project.Key))
+                            _lReseatchProjects.Add(project.Key, project.Value);
+                        else
+                            _lReseatchProjects[project.Key] += project.Value;
+                    }
+                    foreach (KeyValuePair<string, int> tech in city.LFactilitiesTL)
+                    {
+                        if (!_lFactilitiesTL.ContainsKey(tech.Key))
+                            _lFactilitiesTL.Add(tech.Key, tech.Value);
+                        else if (_lFactilitiesTL[tech.Key] != tech.Value)
+                        {
+                            _lFactilitiesTL[tech.Key] = -Math.Min(Math.Abs(_lFactilitiesTL[tech.Key]), Math.Abs(tech.Value));
+                        }
+                    }
                 }
-            }
-            if (_sTechnology != "")
-                _sTechnology += Environment.NewLine + Environment.NewLine;
-            _sTechnology += "City's technology levels:";
-            buildingList = _vFactilitiesTL.Keys.ToList();
-            buildingList.Sort();
-            foreach (string building in buildingList)
-            {
-                _sTechnology += Environment.NewLine + " TL" + Math.Abs(_vFactilitiesTL[building]).ToString().PadLeft(2) + ", " + building;
-                if (_vFactilitiesTL[building] < 0)
-                    _sTechnology += " [color=red](not all buildings)[/color]";
+
+                if (_lReseatchProjects.Count != 0)
+                {
+                    _sTechnology = "System's technology projects:";
+                    foreach (string building in _lReseatchProjects.Keys)
+                    {
+                        if (_lFactilitiesTL.ContainsKey(building))
+                            _sTechnology += Environment.NewLine + " " + _lReseatchProjects[building].ToString().PadLeft(2) + " (TL" + Math.Abs(_lFactilitiesTL[building]).ToString().PadLeft(2) + ") running, " + building;
+                        else
+                            _sTechnology += Environment.NewLine + " [color=red]" + _lReseatchProjects[building].ToString().PadLeft(2) + " running, " + building + " (wasted, none in city)[/color]";
+                    }
+                }
+                if (_sTechnology != "")
+                    _sTechnology += Environment.NewLine + Environment.NewLine;
+                _sTechnology += "System's technology levels:";
+                List<string> buildingList = _lFactilitiesTL.Keys.ToList();
+                buildingList.Sort();
+                foreach (string building in buildingList)
+                {
+                    _sTechnology += Environment.NewLine + " TL" + Math.Abs(_lFactilitiesTL[building]).ToString().PadLeft(2) + ", " + building;
+                    if (_lFactilitiesTL[building] < 0)
+                        _sTechnology += " [color=red](not all buildings)[/color]";
+                }
             }
 
             // Overview
             _sOverview = "WIP";
 
             // AttentionCodes
-            if ((_vJobs >= _vHomes) || (((float)(_vHomes - _vJobs) / _vHomes) > 0.2)) // More jobs than homes, or too many unemployed.
+            if (false) // Nothing yet!
                 _attentionCode = (byte)(_attentionCode | 0x01); // 0b00000001
             if (_vPopulation < _vHomes || _vPopulation > _vHomes) // Population not full, or more than full.
                 _attentionCode = (byte)(_attentionCode | 0x02); // 0b00000010
-            if (12 > dDay) // Less than 12 days to decay.
+            if (12 > _vAbandonment) // Less than 12 days to decay.
                 _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100
-            if (4 >= dDay) // Less than 4 days to decay.
+            if (4 >= _vAbandonment) // Less than 4 days to decay.
                 _attentionCode = (byte)(_attentionCode | 0x08); // 0b00001000
             if (_vPopulation == 0 || _vPopulation > _vPopulationLimit) // Population is 0, or zone over populated!
                 _attentionCode = (byte)(_attentionCode | 0x10); // 0b00010000
@@ -458,4 +328,3 @@ namespace HazeronAdviser
         }
     }
 }
-#endif
