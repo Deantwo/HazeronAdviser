@@ -51,6 +51,7 @@
     <Compile Include="HHelper.cs" />
     <Compile Include="HMail.cs" />
     <Compile Include="HObj.cs" />
+    <Compile Include="HSystem.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

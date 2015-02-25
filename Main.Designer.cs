@@ -82,6 +82,8 @@
             this.rtbCityPopulation = new System.Windows.Forms.RichTextBox();
             this.tabCityTechnology = new System.Windows.Forms.TabPage();
             this.rtbCityTechnology = new System.Windows.Forms.RichTextBox();
+            this.tabCityBuildings = new System.Windows.Forms.TabPage();
+            this.rtbCityBuildings = new System.Windows.Forms.RichTextBox();
             this.tabCityMail = new System.Windows.Forms.TabPage();
             this.tbxCity = new System.Windows.Forms.TextBox();
             this.tabSystem = new System.Windows.Forms.TabPage();
@@ -101,19 +103,19 @@
             this.tabSystemOverview = new System.Windows.Forms.TabPage();
             this.splitContainerSystemOverview = new System.Windows.Forms.SplitContainer();
             this.splitContainerSystemOverview2 = new System.Windows.Forms.SplitContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.pSystemOverviewMorale = new System.Windows.Forms.Panel();
+            this.pSystemOverviewPopulation = new System.Windows.Forms.Panel();
+            this.rtbSystemOverview = new System.Windows.Forms.RichTextBox();
             this.tabSystemMorale = new System.Windows.Forms.TabPage();
             this.splitContainerSystemMorale = new System.Windows.Forms.SplitContainer();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.pSystemMorale = new System.Windows.Forms.Panel();
+            this.rtbSystemMorale = new System.Windows.Forms.RichTextBox();
             this.tabSystemPopulation = new System.Windows.Forms.TabPage();
             this.splitContainerSystemPopulation = new System.Windows.Forms.SplitContainer();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
+            this.pSystemPopulation = new System.Windows.Forms.Panel();
+            this.rtbSystemPopulation = new System.Windows.Forms.RichTextBox();
             this.tabSystemTechnology = new System.Windows.Forms.TabPage();
-            this.richTextBox4 = new System.Windows.Forms.RichTextBox();
+            this.rtbSystemTechnology = new System.Windows.Forms.RichTextBox();
             this.tabShip = new System.Windows.Forms.TabPage();
             this.tabOfficer = new System.Windows.Forms.TabPage();
             this.splitContainerOfficer = new System.Windows.Forms.SplitContainer();
@@ -150,8 +152,6 @@
             this.tbxEvent = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmbCharFilter = new System.Windows.Forms.ComboBox();
-            this.tabCityBuildings = new System.Windows.Forms.TabPage();
-            this.rtbCityBuildings = new System.Windows.Forms.RichTextBox();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -193,6 +193,7 @@
             this.splitContainerCityPopulation.Panel2.SuspendLayout();
             this.splitContainerCityPopulation.SuspendLayout();
             this.tabCityTechnology.SuspendLayout();
+            this.tabCityBuildings.SuspendLayout();
             this.tabCityMail.SuspendLayout();
             this.tabSystem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerSystem)).BeginInit();
@@ -248,7 +249,6 @@
             this.splitContainerEventOverview.Panel2.SuspendLayout();
             this.splitContainerEventOverview.SuspendLayout();
             this.tabEventMail.SuspendLayout();
-            this.tabCityBuildings.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnScan
@@ -885,6 +885,27 @@
             this.rtbCityTechnology.TabIndex = 0;
             this.rtbCityTechnology.Text = "";
             // 
+            // tabCityBuildings
+            // 
+            this.tabCityBuildings.Controls.Add(this.rtbCityBuildings);
+            this.tabCityBuildings.Location = new System.Drawing.Point(4, 22);
+            this.tabCityBuildings.Name = "tabCityBuildings";
+            this.tabCityBuildings.Size = new System.Drawing.Size(409, 384);
+            this.tabCityBuildings.TabIndex = 6;
+            this.tabCityBuildings.Text = "Buildings";
+            this.tabCityBuildings.UseVisualStyleBackColor = true;
+            // 
+            // rtbCityBuildings
+            // 
+            this.rtbCityBuildings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbCityBuildings.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbCityBuildings.Location = new System.Drawing.Point(0, 0);
+            this.rtbCityBuildings.Name = "rtbCityBuildings";
+            this.rtbCityBuildings.ReadOnly = true;
+            this.rtbCityBuildings.Size = new System.Drawing.Size(409, 384);
+            this.rtbCityBuildings.TabIndex = 1;
+            this.rtbCityBuildings.Text = "";
+            // 
             // tabCityMail
             // 
             this.tabCityMail.Controls.Add(this.tbxCity);
@@ -963,6 +984,7 @@
             this.dgvSystem.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSystem.Size = new System.Drawing.Size(331, 410);
             this.dgvSystem.TabIndex = 2;
+            this.dgvSystem.SelectionChanged += new System.EventHandler(this.dgvSystem_SelectionChanged);
             // 
             // ColumnSystemIndex
             // 
@@ -1089,7 +1111,7 @@
             // 
             // splitContainerSystemOverview.Panel2
             // 
-            this.splitContainerSystemOverview.Panel2.Controls.Add(this.richTextBox1);
+            this.splitContainerSystemOverview.Panel2.Controls.Add(this.rtbSystemOverview);
             this.splitContainerSystemOverview.Size = new System.Drawing.Size(403, 378);
             this.splitContainerSystemOverview.SplitterDistance = 199;
             this.splitContainerSystemOverview.TabIndex = 1;
@@ -1102,49 +1124,49 @@
             // 
             // splitContainerSystemOverview2.Panel1
             // 
-            this.splitContainerSystemOverview2.Panel1.Controls.Add(this.panel1);
+            this.splitContainerSystemOverview2.Panel1.Controls.Add(this.pSystemOverviewMorale);
             // 
             // splitContainerSystemOverview2.Panel2
             // 
-            this.splitContainerSystemOverview2.Panel2.Controls.Add(this.panel2);
+            this.splitContainerSystemOverview2.Panel2.Controls.Add(this.pSystemOverviewPopulation);
             this.splitContainerSystemOverview2.Size = new System.Drawing.Size(403, 199);
             this.splitContainerSystemOverview2.SplitterDistance = 135;
             this.splitContainerSystemOverview2.TabIndex = 0;
             // 
-            // panel1
+            // pSystemOverviewMorale
             // 
-            this.panel1.BackColor = System.Drawing.Color.LightGray;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(135, 199);
-            this.panel1.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.panel1, "Blue - Morale\r\nYellow - Morale Modifier total\r\nGreen - sum of Positive Morale Mod" +
+            this.pSystemOverviewMorale.BackColor = System.Drawing.Color.LightGray;
+            this.pSystemOverviewMorale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pSystemOverviewMorale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pSystemOverviewMorale.Location = new System.Drawing.Point(0, 0);
+            this.pSystemOverviewMorale.Name = "pSystemOverviewMorale";
+            this.pSystemOverviewMorale.Size = new System.Drawing.Size(135, 199);
+            this.pSystemOverviewMorale.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.pSystemOverviewMorale, "Blue - Morale\r\nYellow - Morale Modifier total\r\nGreen - sum of Positive Morale Mod" +
         "ifiers\r\nRed - sum of Negative Morale Modifiers");
             // 
-            // panel2
+            // pSystemOverviewPopulation
             // 
-            this.panel2.BackColor = System.Drawing.Color.LightGray;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(264, 199);
-            this.panel2.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.panel2, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
+            this.pSystemOverviewPopulation.BackColor = System.Drawing.Color.LightGray;
+            this.pSystemOverviewPopulation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pSystemOverviewPopulation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pSystemOverviewPopulation.Location = new System.Drawing.Point(0, 0);
+            this.pSystemOverviewPopulation.Name = "pSystemOverviewPopulation";
+            this.pSystemOverviewPopulation.Size = new System.Drawing.Size(264, 199);
+            this.pSystemOverviewPopulation.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.pSystemOverviewPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
             // 
-            // richTextBox1
+            // rtbSystemOverview
             // 
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(0, 0);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(403, 175);
-            this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "";
+            this.rtbSystemOverview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rtbSystemOverview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbSystemOverview.Location = new System.Drawing.Point(0, 0);
+            this.rtbSystemOverview.Name = "rtbSystemOverview";
+            this.rtbSystemOverview.ReadOnly = true;
+            this.rtbSystemOverview.Size = new System.Drawing.Size(403, 175);
+            this.rtbSystemOverview.TabIndex = 1;
+            this.rtbSystemOverview.Text = "";
             // 
             // tabSystemMorale
             // 
@@ -1166,37 +1188,37 @@
             // 
             // splitContainerSystemMorale.Panel1
             // 
-            this.splitContainerSystemMorale.Panel1.Controls.Add(this.panel3);
+            this.splitContainerSystemMorale.Panel1.Controls.Add(this.pSystemMorale);
             // 
             // splitContainerSystemMorale.Panel2
             // 
-            this.splitContainerSystemMorale.Panel2.Controls.Add(this.richTextBox2);
+            this.splitContainerSystemMorale.Panel2.Controls.Add(this.rtbSystemMorale);
             this.splitContainerSystemMorale.Size = new System.Drawing.Size(403, 378);
             this.splitContainerSystemMorale.SplitterDistance = 167;
             this.splitContainerSystemMorale.TabIndex = 2;
             // 
-            // panel3
+            // pSystemMorale
             // 
-            this.panel3.BackColor = System.Drawing.Color.LightGray;
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(403, 167);
-            this.panel3.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.panel3, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
+            this.pSystemMorale.BackColor = System.Drawing.Color.LightGray;
+            this.pSystemMorale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pSystemMorale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pSystemMorale.Location = new System.Drawing.Point(0, 0);
+            this.pSystemMorale.Name = "pSystemMorale";
+            this.pSystemMorale.Size = new System.Drawing.Size(403, 167);
+            this.pSystemMorale.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.pSystemMorale, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
             // 
-            // richTextBox2
+            // rtbSystemMorale
             // 
-            this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox2.Location = new System.Drawing.Point(0, 0);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.ReadOnly = true;
-            this.richTextBox2.Size = new System.Drawing.Size(403, 207);
-            this.richTextBox2.TabIndex = 0;
-            this.richTextBox2.Text = "";
+            this.rtbSystemMorale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rtbSystemMorale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbSystemMorale.Location = new System.Drawing.Point(0, 0);
+            this.rtbSystemMorale.Name = "rtbSystemMorale";
+            this.rtbSystemMorale.ReadOnly = true;
+            this.rtbSystemMorale.Size = new System.Drawing.Size(403, 207);
+            this.rtbSystemMorale.TabIndex = 0;
+            this.rtbSystemMorale.Text = "";
             // 
             // tabSystemPopulation
             // 
@@ -1217,42 +1239,42 @@
             // 
             // splitContainerSystemPopulation.Panel1
             // 
-            this.splitContainerSystemPopulation.Panel1.Controls.Add(this.panel4);
+            this.splitContainerSystemPopulation.Panel1.Controls.Add(this.pSystemPopulation);
             // 
             // splitContainerSystemPopulation.Panel2
             // 
-            this.splitContainerSystemPopulation.Panel2.Controls.Add(this.richTextBox3);
+            this.splitContainerSystemPopulation.Panel2.Controls.Add(this.rtbSystemPopulation);
             this.splitContainerSystemPopulation.Size = new System.Drawing.Size(409, 384);
             this.splitContainerSystemPopulation.SplitterDistance = 169;
             this.splitContainerSystemPopulation.TabIndex = 3;
             // 
-            // panel4
+            // pSystemPopulation
             // 
-            this.panel4.BackColor = System.Drawing.Color.LightGray;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(0, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(409, 169);
-            this.panel4.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.panel4, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
+            this.pSystemPopulation.BackColor = System.Drawing.Color.LightGray;
+            this.pSystemPopulation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pSystemPopulation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pSystemPopulation.Location = new System.Drawing.Point(0, 0);
+            this.pSystemPopulation.Name = "pSystemPopulation";
+            this.pSystemPopulation.Size = new System.Drawing.Size(409, 169);
+            this.pSystemPopulation.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.pSystemPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
             // 
-            // richTextBox3
+            // rtbSystemPopulation
             // 
-            this.richTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox3.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox3.Location = new System.Drawing.Point(0, 0);
-            this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.ReadOnly = true;
-            this.richTextBox3.Size = new System.Drawing.Size(409, 211);
-            this.richTextBox3.TabIndex = 1;
-            this.richTextBox3.Text = "";
+            this.rtbSystemPopulation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rtbSystemPopulation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbSystemPopulation.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSystemPopulation.Location = new System.Drawing.Point(0, 0);
+            this.rtbSystemPopulation.Name = "rtbSystemPopulation";
+            this.rtbSystemPopulation.ReadOnly = true;
+            this.rtbSystemPopulation.Size = new System.Drawing.Size(409, 211);
+            this.rtbSystemPopulation.TabIndex = 1;
+            this.rtbSystemPopulation.Text = "";
             // 
             // tabSystemTechnology
             // 
-            this.tabSystemTechnology.Controls.Add(this.richTextBox4);
+            this.tabSystemTechnology.Controls.Add(this.rtbSystemTechnology);
             this.tabSystemTechnology.Location = new System.Drawing.Point(4, 22);
             this.tabSystemTechnology.Name = "tabSystemTechnology";
             this.tabSystemTechnology.Padding = new System.Windows.Forms.Padding(3);
@@ -1261,16 +1283,16 @@
             this.tabSystemTechnology.Text = "Technology";
             this.tabSystemTechnology.UseVisualStyleBackColor = true;
             // 
-            // richTextBox4
+            // rtbSystemTechnology
             // 
-            this.richTextBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox4.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox4.Location = new System.Drawing.Point(3, 3);
-            this.richTextBox4.Name = "richTextBox4";
-            this.richTextBox4.ReadOnly = true;
-            this.richTextBox4.Size = new System.Drawing.Size(403, 378);
-            this.richTextBox4.TabIndex = 0;
-            this.richTextBox4.Text = "";
+            this.rtbSystemTechnology.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbSystemTechnology.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSystemTechnology.Location = new System.Drawing.Point(3, 3);
+            this.rtbSystemTechnology.Name = "rtbSystemTechnology";
+            this.rtbSystemTechnology.ReadOnly = true;
+            this.rtbSystemTechnology.Size = new System.Drawing.Size(403, 378);
+            this.rtbSystemTechnology.TabIndex = 0;
+            this.rtbSystemTechnology.Text = "";
             // 
             // tabShip
             // 
@@ -1700,27 +1722,6 @@
             this.cmbCharFilter.TabIndex = 3;
             this.cmbCharFilter.SelectedIndexChanged += new System.EventHandler(this.cmbCharFilter_SelectedIndexChanged);
             // 
-            // tabCityBuildings
-            // 
-            this.tabCityBuildings.Controls.Add(this.rtbCityBuildings);
-            this.tabCityBuildings.Location = new System.Drawing.Point(4, 22);
-            this.tabCityBuildings.Name = "tabCityBuildings";
-            this.tabCityBuildings.Size = new System.Drawing.Size(409, 384);
-            this.tabCityBuildings.TabIndex = 6;
-            this.tabCityBuildings.Text = "Buildings";
-            this.tabCityBuildings.UseVisualStyleBackColor = true;
-            // 
-            // rtbCityBuildings
-            // 
-            this.rtbCityBuildings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbCityBuildings.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbCityBuildings.Location = new System.Drawing.Point(0, 0);
-            this.rtbCityBuildings.Name = "rtbCityBuildings";
-            this.rtbCityBuildings.ReadOnly = true;
-            this.rtbCityBuildings.Size = new System.Drawing.Size(409, 384);
-            this.rtbCityBuildings.TabIndex = 1;
-            this.rtbCityBuildings.Text = "";
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1775,6 +1776,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityPopulation)).EndInit();
             this.splitContainerCityPopulation.ResumeLayout(false);
             this.tabCityTechnology.ResumeLayout(false);
+            this.tabCityBuildings.ResumeLayout(false);
             this.tabCityMail.ResumeLayout(false);
             this.tabCityMail.PerformLayout();
             this.tabSystem.ResumeLayout(false);
@@ -1833,7 +1835,6 @@
             this.splitContainerEventOverview.ResumeLayout(false);
             this.tabEventMail.ResumeLayout(false);
             this.tabEventMail.PerformLayout();
-            this.tabCityBuildings.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1939,19 +1940,19 @@
         private System.Windows.Forms.TabPage tabSystemOverview;
         private System.Windows.Forms.SplitContainer splitContainerSystemOverview;
         private System.Windows.Forms.SplitContainer splitContainerSystemOverview2;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Panel pSystemOverviewMorale;
+        private System.Windows.Forms.Panel pSystemOverviewPopulation;
+        private System.Windows.Forms.RichTextBox rtbSystemOverview;
         private System.Windows.Forms.TabPage tabSystemMorale;
         private System.Windows.Forms.SplitContainer splitContainerSystemMorale;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.Panel pSystemMorale;
+        private System.Windows.Forms.RichTextBox rtbSystemMorale;
         private System.Windows.Forms.TabPage tabSystemPopulation;
         private System.Windows.Forms.SplitContainer splitContainerSystemPopulation;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.RichTextBox richTextBox3;
+        private System.Windows.Forms.Panel pSystemPopulation;
+        private System.Windows.Forms.RichTextBox rtbSystemPopulation;
         private System.Windows.Forms.TabPage tabSystemTechnology;
-        private System.Windows.Forms.RichTextBox richTextBox4;
+        private System.Windows.Forms.RichTextBox rtbSystemTechnology;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemIndex;
         private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnSystemSelection;
         private System.Windows.Forms.DataGridViewImageColumn ColumnSystemIcon;

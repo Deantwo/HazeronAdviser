@@ -38,9 +38,6 @@ namespace HazeronAdviser
             }
         }
 
-        protected bool _flagInfo = false;
-        protected bool _flagDistress = false;
-
         protected byte _attentionCode = 0x00; // 0b00000000
         public byte AttentionCode
         {

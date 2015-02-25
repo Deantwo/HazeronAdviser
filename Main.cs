@@ -14,6 +14,9 @@ namespace HazeronAdviser
     public partial class Main : Form
     {
         List<HCity> hCityList = new List<HCity>();
+#if DEBUG
+        List<HSystem> hSystemList = new List<HSystem>();
+#endif
         List<HShip> hShipList = new List<HShip>();
         List<HOfficer> hOfficerList = new List<HOfficer>();
         List<HEvent> hEventList = new List<HEvent>();
@@ -100,10 +103,16 @@ namespace HazeronAdviser
 
             // Clear the DataGridView tables.
             dgvCity.Rows.Clear();
+#if DEBUG
+            dgvSystem.Rows.Clear();
+#endif
             dgvShip.Rows.Clear();
             dgvOfficer.Rows.Clear();
             dgvEvent.Rows.Clear();
             dgvCity.Refresh();
+#if DEBUG
+            dgvSystem.Refresh();
+#endif
             dgvShip.Refresh();
             dgvOfficer.Refresh();
             dgvEvent.Refresh();
@@ -420,14 +429,33 @@ namespace HazeronAdviser
 
         private void ClearSelectedInfo()
         {
-            tbxCity.Clear();
-            tbxShip.Clear();
-            tbxOfficer.Clear();
-            tbxEvent.Clear();
+            // City
             tabControlCity.Refresh();
+            rtbCityOverview.Clear();
+            rtbCityMorale.Clear();
+            rtbCityPopulation.Clear();
+            rtbCityTechnology.Clear();
+            rtbCityBuildings.Clear();
+            tbxCity.Clear();
+#if DEBUG
+            // System
+            tabControlSystem.Refresh();
+            rtbSystemOverview.Clear();
+            rtbSystemMorale.Clear();
+            rtbSystemPopulation.Clear();
+            rtbSystemTechnology.Clear();
+#endif
+            // Ship
             tabControlShip.Refresh();
+            tbxShip.Clear();
+            rtbShipOverview.Clear();
+            // Officer
             tabControlOfficer.Refresh();
+            tbxOfficer.Clear();
+            rtbOfficerOverview.Clear();
+            // Event
             tabControlEvent.Refresh();
+            tbxEvent.Clear();
         }
 
         #region List Selection
@@ -446,9 +474,33 @@ namespace HazeronAdviser
                 RichBBCodeBox(rtbCityBuildings, city.SBuildings);
                 tbxCity.Text = city.BodyTest;
                 // Refresh graphs to make them update.
-                pCityOverviewPopulation.Refresh();
                 pCityOverviewMorale.Refresh();
+                pCityOverviewPopulation.Refresh();
+                pCityMorale.Refresh();
+                pCityPopulation.Refresh();
             }
+        }
+        
+        private void dgvSystem_SelectionChanged(object sender, EventArgs e)
+        {
+#if DEBUG
+            ClearSelectedInfo();
+            if (dgvSystem.SelectedRows.Count != 0 && dgvSystem.SelectedRows[0].Index != -1 && dgvSystem.Rows[(int)dgvSystem.SelectedRows[0].Index].Cells["ColumnSystemIndex"].Value != null)
+            {
+                int rowIndex = (int)dgvSystem.SelectedRows[0].Index;
+                int listIndex = (int)dgvSystem.Rows[rowIndex].Cells["ColumnSystemIndex"].Value;
+                HCity system = hSystemList[listIndex];
+                RichBBCodeBox(rtbSystemOverview, system.SOverview);
+                RichBBCodeBox(rtbSystemMorale, system.SMorale);
+                RichBBCodeBox(rtbSystemPopulation, system.SPopOverview);
+                RichBBCodeBox(rtbSystemTechnology, system.STechnology);
+                // Refresh graphs to make them update.
+                pSystemOverviewMorale.Refresh();
+                pSystemOverviewPopulation.Refresh();
+                pSystemMorale.Refresh();
+                pSystemPopulation.Refresh();
+            }
+#endif
         }
 
         private void dgvShip_SelectionChanged(object sender, EventArgs e)
@@ -638,6 +690,7 @@ namespace HazeronAdviser
                     break;
             }
             rtb.AppendText(text);
+            rtb.Select(0, 0);
         }
     }
 }
