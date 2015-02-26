@@ -182,6 +182,7 @@ namespace HazeronAdviser
                     input = input.Substring(tagStart + tagEnd + 1);
                     switch (tag.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0])
                     {
+                        case "p":
                         case "br":
                         case "div":
                         case "/div":
