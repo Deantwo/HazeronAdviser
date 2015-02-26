@@ -122,13 +122,6 @@
             this.tabOfficer = new System.Windows.Forms.TabPage();
             this.splitContainerOfficer = new System.Windows.Forms.SplitContainer();
             this.dgvOfficer = new System.Windows.Forms.DataGridView();
-            this.ColumnOfficerIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnOfficerSelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ColumnOfficerIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ColumnOfficerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnOfficerHome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnOfficerLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnOfficerDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlOfficer = new System.Windows.Forms.TabControl();
             this.tabOfficerOverview = new System.Windows.Forms.TabPage();
             this.splitContainerOfficerOverview = new System.Windows.Forms.SplitContainer();
@@ -155,6 +148,13 @@
             this.tbxEvent = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmbCharFilter = new System.Windows.Forms.ComboBox();
+            this.ColumnOfficerIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnOfficerSelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ColumnOfficerIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ColumnOfficerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnOfficerHome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnOfficerShip = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnOfficerDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -1374,7 +1374,7 @@
             this.ColumnOfficerIcon,
             this.ColumnOfficerName,
             this.ColumnOfficerHome,
-            this.ColumnOfficerLocation,
+            this.ColumnOfficerShip,
             this.ColumnOfficerDate});
             this.dgvOfficer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvOfficer.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
@@ -1388,68 +1388,6 @@
             this.dgvOfficer.Size = new System.Drawing.Size(332, 410);
             this.dgvOfficer.TabIndex = 2;
             this.dgvOfficer.SelectionChanged += new System.EventHandler(this.dgvOfficer_SelectionChanged);
-            // 
-            // ColumnOfficerIndex
-            // 
-            this.ColumnOfficerIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnOfficerIndex.FillWeight = 20F;
-            this.ColumnOfficerIndex.Frozen = true;
-            this.ColumnOfficerIndex.HeaderText = "# Index";
-            this.ColumnOfficerIndex.MinimumWidth = 20;
-            this.ColumnOfficerIndex.Name = "ColumnOfficerIndex";
-            this.ColumnOfficerIndex.ReadOnly = true;
-            this.ColumnOfficerIndex.Visible = false;
-            this.ColumnOfficerIndex.Width = 20;
-            // 
-            // ColumnOfficerSelection
-            // 
-            this.ColumnOfficerSelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnOfficerSelection.FillWeight = 20F;
-            this.ColumnOfficerSelection.Frozen = true;
-            this.ColumnOfficerSelection.HeaderText = "Selection";
-            this.ColumnOfficerSelection.MinimumWidth = 20;
-            this.ColumnOfficerSelection.Name = "ColumnOfficerSelection";
-            this.ColumnOfficerSelection.ReadOnly = true;
-            this.ColumnOfficerSelection.Visible = false;
-            this.ColumnOfficerSelection.Width = 20;
-            // 
-            // ColumnOfficerIcon
-            // 
-            this.ColumnOfficerIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnOfficerIcon.FillWeight = 20F;
-            this.ColumnOfficerIcon.Frozen = true;
-            this.ColumnOfficerIcon.HeaderText = "Icon";
-            this.ColumnOfficerIcon.MinimumWidth = 20;
-            this.ColumnOfficerIcon.Name = "ColumnOfficerIcon";
-            this.ColumnOfficerIcon.ReadOnly = true;
-            this.ColumnOfficerIcon.Width = 20;
-            // 
-            // ColumnOfficerName
-            // 
-            this.ColumnOfficerName.Frozen = true;
-            this.ColumnOfficerName.HeaderText = "Name";
-            this.ColumnOfficerName.Name = "ColumnOfficerName";
-            this.ColumnOfficerName.ReadOnly = true;
-            // 
-            // ColumnOfficerHome
-            // 
-            this.ColumnOfficerHome.HeaderText = "Home";
-            this.ColumnOfficerHome.Name = "ColumnOfficerHome";
-            this.ColumnOfficerHome.ReadOnly = true;
-            // 
-            // ColumnOfficerLocation
-            // 
-            this.ColumnOfficerLocation.HeaderText = "Location";
-            this.ColumnOfficerLocation.Name = "ColumnOfficerLocation";
-            this.ColumnOfficerLocation.ReadOnly = true;
-            // 
-            // ColumnOfficerDate
-            // 
-            this.ColumnOfficerDate.FillWeight = 107F;
-            this.ColumnOfficerDate.HeaderText = "Last Updated";
-            this.ColumnOfficerDate.Name = "ColumnOfficerDate";
-            this.ColumnOfficerDate.ReadOnly = true;
-            this.ColumnOfficerDate.Width = 107;
             // 
             // tabControlOfficer
             // 
@@ -1758,6 +1696,68 @@
             this.cmbCharFilter.TabIndex = 3;
             this.cmbCharFilter.SelectedIndexChanged += new System.EventHandler(this.cmbCharFilter_SelectedIndexChanged);
             // 
+            // ColumnOfficerIndex
+            // 
+            this.ColumnOfficerIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnOfficerIndex.FillWeight = 20F;
+            this.ColumnOfficerIndex.Frozen = true;
+            this.ColumnOfficerIndex.HeaderText = "# Index";
+            this.ColumnOfficerIndex.MinimumWidth = 20;
+            this.ColumnOfficerIndex.Name = "ColumnOfficerIndex";
+            this.ColumnOfficerIndex.ReadOnly = true;
+            this.ColumnOfficerIndex.Visible = false;
+            this.ColumnOfficerIndex.Width = 20;
+            // 
+            // ColumnOfficerSelection
+            // 
+            this.ColumnOfficerSelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnOfficerSelection.FillWeight = 20F;
+            this.ColumnOfficerSelection.Frozen = true;
+            this.ColumnOfficerSelection.HeaderText = "Selection";
+            this.ColumnOfficerSelection.MinimumWidth = 20;
+            this.ColumnOfficerSelection.Name = "ColumnOfficerSelection";
+            this.ColumnOfficerSelection.ReadOnly = true;
+            this.ColumnOfficerSelection.Visible = false;
+            this.ColumnOfficerSelection.Width = 20;
+            // 
+            // ColumnOfficerIcon
+            // 
+            this.ColumnOfficerIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnOfficerIcon.FillWeight = 20F;
+            this.ColumnOfficerIcon.Frozen = true;
+            this.ColumnOfficerIcon.HeaderText = "Icon";
+            this.ColumnOfficerIcon.MinimumWidth = 20;
+            this.ColumnOfficerIcon.Name = "ColumnOfficerIcon";
+            this.ColumnOfficerIcon.ReadOnly = true;
+            this.ColumnOfficerIcon.Width = 20;
+            // 
+            // ColumnOfficerName
+            // 
+            this.ColumnOfficerName.Frozen = true;
+            this.ColumnOfficerName.HeaderText = "Name";
+            this.ColumnOfficerName.Name = "ColumnOfficerName";
+            this.ColumnOfficerName.ReadOnly = true;
+            // 
+            // ColumnOfficerHome
+            // 
+            this.ColumnOfficerHome.HeaderText = "Home";
+            this.ColumnOfficerHome.Name = "ColumnOfficerHome";
+            this.ColumnOfficerHome.ReadOnly = true;
+            // 
+            // ColumnOfficerShip
+            // 
+            this.ColumnOfficerShip.HeaderText = "Ship";
+            this.ColumnOfficerShip.Name = "ColumnOfficerShip";
+            this.ColumnOfficerShip.ReadOnly = true;
+            // 
+            // ColumnOfficerDate
+            // 
+            this.ColumnOfficerDate.FillWeight = 107F;
+            this.ColumnOfficerDate.HeaderText = "Last Updated";
+            this.ColumnOfficerDate.Name = "ColumnOfficerDate";
+            this.ColumnOfficerDate.ReadOnly = true;
+            this.ColumnOfficerDate.Width = 107;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1960,13 +1960,6 @@
         private System.Windows.Forms.RichTextBox rtbSystemTechnology;
         private System.Windows.Forms.TabPage tabCityBuildings;
         private System.Windows.Forms.RichTextBox rtbCityBuildings;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerIndex;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnOfficerSelection;
-        private System.Windows.Forms.DataGridViewImageColumn ColumnOfficerIcon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerHome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerLocation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipIndex;
         private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnShipSelection;
         private System.Windows.Forms.DataGridViewImageColumn ColumnShipIcon;
@@ -2004,6 +1997,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemPopulation;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemLoyalty;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerIndex;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnOfficerSelection;
+        private System.Windows.Forms.DataGridViewImageColumn ColumnOfficerIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerHome;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerShip;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerDate;
     }
 }
 

@@ -220,7 +220,7 @@ namespace HazeronAdviser
                 dgvCity.Rows[row].Cells["ColumnCitySelection"].Value = false;
                 dgvCity.Rows[row].Cells["ColumnCityIcon"].Value = imageCity;
                 dgvCity.Rows[row].Cells["ColumnCityName"].Value = hCity.Name;
-                dgvCity.Rows[row].Cells["ColumnCityLocation"].Value = hCity.SystemName;
+                dgvCity.Rows[row].Cells["ColumnCityLocation"].Value = hCity.PlanetName + ", " + hCity.SystemName;
                 dgvCity.Rows[row].Cells["ColumnCityMorale"].Value = hCity.SMoraleShort;
                 dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Value = hCity.SAbandonment;
                 dgvCity.Rows[row].Cells["ColumnCityPopulation"].Value = hCity.SPopulationShort;
@@ -301,8 +301,8 @@ namespace HazeronAdviser
                 dgvShip.Rows[row].Cells["ColumnShipSelection"].Value = false;
                 dgvShip.Rows[row].Cells["ColumnShipIcon"].Value = imageShip;
                 dgvShip.Rows[row].Cells["ColumnShipName"].Value = hShip.Name;
-                dgvShip.Rows[row].Cells["ColumnShipLocation"].Value = hShip.SystemName;
-                dgvShip.Rows[row].Cells["ColumnShipAbandonment"].Value = hShip.DecayDay;
+                dgvShip.Rows[row].Cells["ColumnShipLocation"].Value = hShip.PlanetName + ", " + hShip.SystemName;
+                dgvShip.Rows[row].Cells["ColumnShipAbandonment"].Value = hShip.Abandonment;
                 dgvShip.Rows[row].Cells["ColumnShipFuel"].Value = hShip.FuelShort;
                 dgvShip.Rows[row].Cells["ColumnShipDamage"].Value = hShip.DamageShort;
                 dgvShip.Rows[row].Cells["ColumnShipDate"].Value = hShip.LastUpdaredString;
@@ -340,7 +340,7 @@ namespace HazeronAdviser
                 dgvOfficer.Rows[row].Cells["ColumnOfficerIcon"].Value = imageOfficer;
                 dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Value = hOfficer.Name;
                 dgvOfficer.Rows[row].Cells["ColumnOfficerHome"].Value = hOfficer.Home;
-                dgvOfficer.Rows[row].Cells["ColumnOfficerLocation"].Value = hOfficer.Location;
+                dgvOfficer.Rows[row].Cells["ColumnOfficerShip"].Value = hOfficer.Ship;
                 dgvOfficer.Rows[row].Cells["ColumnOfficerDate"].Value = hOfficer.LastUpdaredString;
                 // AttentionCodes
                 if (hOfficer.AttentionCode != 0x00)
@@ -374,7 +374,7 @@ namespace HazeronAdviser
                 dgvOfficer.Rows[row].Cells["ColumnOfficerIcon"].Value = imageShip;
                 dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Value = hShipOfficer.OfficerName;
                 dgvOfficer.Rows[row].Cells["ColumnOfficerHome"].Value = hShipOfficer.OfficerHome;
-                dgvOfficer.Rows[row].Cells["ColumnOfficerLocation"].Value = hShipOfficer.Name;
+                dgvOfficer.Rows[row].Cells["ColumnOfficerShip"].Value = hShipOfficer.Name;
                 dgvOfficer.Rows[row].Cells["ColumnOfficerDate"].Value = hShipOfficer.LastUpdaredString;
                 // AttentionCodes
                 //if (hShipOfficer.AttentionCode != 0x00)
@@ -429,7 +429,7 @@ namespace HazeronAdviser
                     dgvEvent.Rows[row].Cells["ColumnEventIcon"].Value = imageFlag;
                 dgvEvent.Rows[row].Cells["ColumnEventName"].Value = hEvent.Name;
                 dgvEvent.Rows[row].Cells["ColumnEventSubject"].Value = hEvent.Subject;
-                dgvEvent.Rows[row].Cells["ColumnEventLocation"].Value = hEvent.SystemName;
+                dgvEvent.Rows[row].Cells["ColumnEventLocation"].Value = hEvent.PlanetName + ", " + hEvent.SystemName;
                 dgvEvent.Rows[row].Cells["ColumnEventDate"].Value = hEvent.LastUpdaredString;
                 // AttentionCodes
                 if (hEvent.AttentionCode != 0x00)

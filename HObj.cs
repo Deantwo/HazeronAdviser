@@ -34,6 +34,17 @@ namespace HazeronAdviser
             get { return _systemId; }
         }
 
+        protected string _planetName = "-"; // Name of the sender's planet, may not be present.
+        public string PlanetName
+        {
+            get { return _planetName; }
+        }
+        protected int _planetId = 0; // ID of the sender's planet, may not be present.
+        public int PlanetID
+        {
+            get { return _planetId; }
+        }
+
         protected string _sOverview = "";
         public string SOverview
         {
@@ -89,6 +100,9 @@ namespace HazeronAdviser
 
                 _systemId = mail.SystemID; // Incase ships or officers change system.
                 _systemName = mail.SystemName; // Incase city's system's name is changed.
+
+                _planetId = mail.PlanetID; // Incase ships or officers change system.
+                _planetName = mail.PlanetName; // Incase city's system's name is changed.
 
                 _lastUpdated = mail.DateTime;
 
@@ -678,10 +692,10 @@ namespace HazeronAdviser
 
     class HShip : HObj
     {
-        protected string _decayDay = "-";
-        public string DecayDay
+        protected string _Abandonment = "-";
+        public string Abandonment
         {
-            get { return _decayDay; }
+            get { return _Abandonment; }
         }
 
         protected string _damage = "-", _damageShort = "-";
@@ -802,12 +816,12 @@ namespace HazeronAdviser
             }
 #if CrewMoraleTest
             if (dDay > 2)
-                _decayDay = dDay + " /4 weeks";
+                _Abandonment = dDay + " /4 weeks";
             else
             {
                 // Debug code. Need to learn the other messages to check for!
                 tempArray = _mail.FilePath.Split(new char[] { '\\' });
-                _decayDay = tempArray[tempArray.Length - 1];
+                _Abandonment = tempArray[tempArray.Length - 1];
             }
 #else
                 _decayDay = dDay + " /4 weeks";
@@ -875,7 +889,7 @@ namespace HazeronAdviser
             //// Home
             subStart = _mail.Body.IndexOf("I was deployed from ") + 20; // "I was deployed from ".Length == 20
             subEnd = _mail.Body.Substring(subStart).IndexOf(" in ");
-            _officerHome = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
+            _officerHome = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd)) + ", (system name unavailable)";
 
             // Overview
             _sOverview = "WIP";
@@ -908,10 +922,10 @@ namespace HazeronAdviser
             get { return _home; }
         }
 
-        protected string _location = "-";
-        public string Location
+        protected string _ship = "-";
+        public string Ship
         {
-            get { return _location; }
+            get { return _ship; }
         }
 
         public HOfficer(HMail mail)
@@ -929,17 +943,18 @@ namespace HazeronAdviser
 
             if (_mail.MessageType == 0x0C) // MSG_OfficerReady
             {
-                subStart = _mail.Body.IndexOf("Assignment Request on ") + 22; // "Assignment Request on ".Length == 22
-                subEnd = _mail.Body.IndexOf("<br><br>Commander,") - subStart;
-                _home = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
-                _location = _home;
+                //subStart = _mail.Body.IndexOf("Assignment Request on ") + 22; // "Assignment Request on ".Length == 22
+                //subEnd = _mail.Body.IndexOf("<br><br>Commander,") - subStart;
+                //_home = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
+                _home = _planetName + ", " + _systemName;
+                _ship = "";
             }
             else if (_mail.MessageType == 0x14) // MSG_OfficerContact
             {
                 subStart = _mail.Body.IndexOf("I was deployed from ") + 20; // "I was deployed from ".Length == 20
                 subEnd = _mail.Body.Substring(subStart).IndexOf(" in ");
-                _home = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
-                _location = "\"ship name\"";
+                _home = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd)) + ", (system name unavailable)";
+                _ship = "(ship name unavailable), " + _planetName + ", " + _systemName;
             }
 
             // Overview
