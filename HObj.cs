@@ -296,18 +296,19 @@ namespace HazeronAdviser
             string[] tempArray;
             List<string> sectionsInReport = new List<string>();
             // This is the order of the sections in the mail body, keep them in same order!
-            string[] sections = new string[] {"MORALE"
-                                                , "POPULATION"
-                                                , "LIVING CONDITIONS"
-                                                , "POWER RESERVE"
-                                                , "BANK ACTIVITY"
-                                                , "RESEARCH AND DEVELOPMENT"
-                                                , "SPACECRAFT MANUFACTURING POTENTIAL"
-                                                , "SPACECRAFT"
-                                                , "FACILITIES"
-                                                , "VEHICLES"
-                                                , "INVENTORY"
-                                                };
+            string[] sections = new string[] { "EVENT LOG"
+                                             , "MORALE"
+                                             , "POPULATION"
+                                             , "LIVING CONDITIONS"
+                                             , "POWER RESERVE"
+                                             , "BANK ACTIVITY"
+                                             , "RESEARCH AND DEVELOPMENT"
+                                             , "SPACECRAFT MANUFACTURING POTENTIAL"
+                                             , "SPACECRAFT"
+                                             , "FACILITIES"
+                                             , "VEHICLES"
+                                             , "INVENTORY"
+                                             };
             Dictionary<string, int> moraleBuildingsPop = new Dictionary<string, int>();
             moraleBuildingsPop.Add("Church", 45);
             moraleBuildingsPop.Add("Cantina", 50);
@@ -781,13 +782,14 @@ namespace HazeronAdviser
             string[] tempArray;
             List<string> sectionsInReport = new List<string>();
             // This is the order of the sections in the mail body, keep them in same order!
-            string[] sections = new string[] {"DAMAGE REPORT"
-                                                , "ACCOUNT"
-                                                , "FUEL"
-                                                , "CARGO"
-                                                , "MISSION"
-                                                , "ROSTER"
-                                                };
+            string[] sections = new string[] { "EVENT LOG"
+                                             , "DAMAGE REPORT"
+                                             , "ACCOUNT"
+                                             , "FUEL"
+                                             , "CARGO"
+                                             , "MISSION"
+                                             , "ROSTER"
+                                             };
 
             // Check for sections.
             foreach (string section in sections)
