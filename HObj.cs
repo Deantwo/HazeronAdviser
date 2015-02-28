@@ -323,7 +323,7 @@ namespace HazeronAdviser
             moraleBuildingsPop.Add("Casino", 200);
             // Time for City spicific things.
             string race = "";
-            const int abandonmentInterval = 4;
+            const int abandonmentInterval = 7;
             int powerConsumption = 0, powerReserve = 0, powerReserveCapacity = 0;
             _sTechnology = "";
             _lFactilitiesTL = new Dictionary<string, int>(); // Really need to just have everything be reset when a new mail is read.
