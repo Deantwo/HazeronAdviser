@@ -125,6 +125,12 @@ namespace HazeronAdviser
 
     class HCity : HObj
     {
+        protected int _vZone = 0;
+        public int VZone
+        {
+            get { return _vZone; }
+        }
+
         protected string _sMorale = "-", _sMoraleShort = "-";
         public string SMorale
         {
@@ -354,6 +360,17 @@ namespace HazeronAdviser
             foreach (string section in sections)
                 if (_mail.Body.Contains("<b>" + section + "</b>"))
                     sectionsInReport.Add("<b>" + section + "</b>");
+
+            // City Resource Zone
+            {
+                string tempSection = _mail.Body.Remove(_mail.Body.IndexOf(sectionsInReport[0]));
+                tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string line in tempArray)
+                {
+                    if (line.Contains("Resource Zone"))
+                        _vZone = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
+                }
+            }
 
             // MORALE & Abandonment
             const string headlineMORALE = "<b>MORALE</b>";
