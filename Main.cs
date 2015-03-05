@@ -46,11 +46,18 @@ namespace HazeronAdviser
         public Main()
         {
             InitializeComponent();
+
             #if DEBUG
             this.Text += " (DEBUG MODE)";
             #endif
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            //notifyIcon1.BalloonTipTitle = this.Text;
+            //notifyIcon1.Text = this.Text;
+            //notifyIcon1.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
             toolStripProgressBar1.Visible = false;
             toolStripProgressBar2.Visible = false;
+
             imageCity = HazeronAdviser.Properties.Resources.MsgCity;
             imageSystem = HazeronAdviser.Properties.Resources.RangeSystem;
             imageShip = HazeronAdviser.Properties.Resources.c_Spacecraft;
@@ -66,18 +73,21 @@ namespace HazeronAdviser
             imageVoice = HazeronAdviser.Properties.Resources.CommVoice;
             imageFlag = HazeronAdviser.Properties.Resources.c_Flag;
             imageTarget = HazeronAdviser.Properties.Resources.MsgSpot;
+
             dgvCity.Columns["ColumnCityAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvCity.Columns["ColumnCityAbandonment"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
             dgvSystem.Columns["ColumnSystemAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvSystem.Columns["ColumnSystemAbandonment"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
             dgvShip.Columns["ColumnShipAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvShip.Columns["ColumnShipAbandonment"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
+
             cmbCharFilter.SelectedIndex = 0;
-#if BACKUP_FOLDER
+
+            #if BACKUP_FOLDER
             hMailFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail (Backup)"); // %USERPROFILE%\Shores of Hazeron\Mail (Backup)
-#else
+            #else
             hMailFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail"); // %USERPROFILE%\Shores of Hazeron\Mail
-#endif
+            #endif
         }
 
         private void btnScan_Click(object sender, EventArgs e)
