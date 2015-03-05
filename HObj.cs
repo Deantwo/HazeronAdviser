@@ -956,7 +956,7 @@ namespace HazeronAdviser
                 subStart = _mail.Body.IndexOf("I was deployed from ") + 20; // "I was deployed from ".Length == 20
                 subEnd = _mail.Body.Substring(subStart).IndexOf(" in ");
                 _home = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd)) + ", (system name unavailable)";
-                _ship = "(ship name unavailable), " + _planetName + ", " + _systemName;
+                _ship = "(ship name unavailable)";
             }
 
             // Overview

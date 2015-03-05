@@ -319,6 +319,7 @@ namespace HazeronAdviser
                 // AttentionCodes
                 if (hShip.AttentionCode != 0x00)
                 {
+                    dgvShip.Rows[row].Cells["ColumnShipName"].Style.BackColor = attantionMinor;
                     if (HHelper.FlagCheck(hShip.AttentionCode, 0x01)) // 0b00000001 // 2 weeks until decay.
                         dgvShip.Rows[row].Cells["ColumnShipAbandonment"].Style.BackColor = attantionMinor;
                     if (HHelper.FlagCheck(hShip.AttentionCode, 0x02)) // 0b00000010 // 1 weeks until decay.
@@ -357,7 +358,7 @@ namespace HazeronAdviser
                 {
                     dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Style.BackColor = attantionMinor;
                     if (HHelper.FlagCheck(hOfficer.AttentionCode, 0x01)) // 0b00000001 // MSG_OfficerContact
-                        dgvOfficer.Rows[row].Cells["ColumnOfficerLocation"].Style.BackColor = attantionMinor;
+                        dgvOfficer.Rows[row].Cells["ColumnOfficerShip"].Style.BackColor = attantionMinor;
                     //if (HHelper.FlagCheck(hOfficer.AttentionCode, 0x02)) // 0b00000010 // Nothing yet!
                     //    dgvOfficer.Rows[row].Cells["ColumnOfficerIndex"].Style.BackColor = attantionMajor;
                     //if (HHelper.FlagCheck(hOfficer.AttentionCode, 0x04)) // 0b00000100 // Nothing yet!
