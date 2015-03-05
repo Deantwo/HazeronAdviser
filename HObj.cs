@@ -363,7 +363,7 @@ namespace HazeronAdviser
 
             // City Resource Zone
             {
-                string tempSection = _mail.Body.Remove(_mail.Body.IndexOf(sectionsInReport[0]));
+                string tempSection = HHelper.CleanText(_mail.Body.Remove(_mail.Body.IndexOf(sectionsInReport[0])));
                 tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string line in tempArray)
                 {
