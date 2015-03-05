@@ -372,6 +372,14 @@ namespace HazeronAdviser
                 }
             }
 
+            //// EVENT LOG
+            //const string headlineEVENT = "<b>EVENT LOG</b>";
+            //if (sectionsInReport.Contains(headlineEVENT))
+            //{
+            //    string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineEVENT));
+            //    tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            //}
+
             // MORALE & Abandonment
             const string headlineMORALE = "<b>MORALE</b>";
             if (sectionsInReport.Contains(headlineMORALE))
@@ -496,7 +504,7 @@ namespace HazeronAdviser
             }
 
             //// BANK ACTIVITY
-            //const string headlineBANK = "<b>BANK</b>";
+            //const string headlineBANK = "<b>BANK ACTIVITY</b>";
             //if (sectionsInReport.Contains(headlineBANK))
             //{
             //    string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineBANK));
@@ -515,6 +523,14 @@ namespace HazeronAdviser
                         _lReseatchProjects.Add(tempArray[i].Remove(tempArray[i].Length - 11), Convert.ToInt32(tempArray[i + 1]));
                 }
             }
+
+            //// SPACECRAFT MANUFACTURING POTENTIAL
+            //const string headlinePOTENTIAL = "<b>SPACECRAFT MANUFACTURING POTENTIAL</b>";
+            //if (sectionsInReport.Contains(headlinePOTENTIAL))
+            //{
+            //    string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlinePOTENTIAL));
+            //    tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            //}
 
             //// SPACECRAFT
             //const string headlineSPACECRAFT = "<b>SPACECRAFT</b>";
