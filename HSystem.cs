@@ -276,7 +276,7 @@ namespace HazeronAdviser
                             _lFactilitiesTL.Add(tech.Key, tech.Value);
                         else if (_lFactilitiesTL[tech.Key] != tech.Value)
                         {
-                            _lFactilitiesTL[tech.Key] = -Math.Min(Math.Abs(_lFactilitiesTL[tech.Key]), Math.Abs(tech.Value));
+                            _lFactilitiesTL[tech.Key] = -Math.Max(Math.Abs(_lFactilitiesTL[tech.Key]), Math.Abs(tech.Value));
                         }
                     }
                 }
