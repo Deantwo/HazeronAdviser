@@ -131,6 +131,12 @@ namespace HazeronAdviser
             get { return _vZone; }
         }
 
+        protected bool _empireCapital = false;
+        public bool EmpreCapital
+        {
+            get { return _empireCapital; }
+        }
+
         protected string _sMorale = "-", _sMoraleShort = "-";
         public string SMorale
         {
@@ -285,10 +291,10 @@ namespace HazeronAdviser
             get { return _vAir; }
         }
 
-        protected bool _vHashEnv = false;
-        public bool VHashEnv
+        protected bool _HashEnv = false;
+        public bool HashEnv
         {
-            get { return _vHashEnv; }
+            get { return _HashEnv; }
         }
 
         public HCity(HMail mail)
@@ -331,10 +337,6 @@ namespace HazeronAdviser
             string race = "";
             const int abandonmentInterval = 7;
             int powerConsumption = 0, powerReserve = 0, powerReserveCapacity = 0;
-            _sTechnology = "";
-            _lFactilitiesTL = new Dictionary<string, int>(); // Really need to just have everything be reset when a new mail is read.
-            _lFactilitiesLV = new Dictionary<string, int>();
-            _lReseatchProjects = new Dictionary<string, int>();
             List<string> buildingList;
 
             //INFO
@@ -361,7 +363,7 @@ namespace HazeronAdviser
                 if (_mail.Body.Contains("<b>" + section + "</b>"))
                     sectionsInReport.Add("<b>" + section + "</b>");
 
-            // City Resource Zone
+            // City Resource Zone & Capital check
             {
                 string tempSection = HHelper.CleanText(_mail.Body.Remove(_mail.Body.IndexOf(sectionsInReport[0])));
                 tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
@@ -369,6 +371,8 @@ namespace HazeronAdviser
                 {
                     if (line.Contains("Resource Zone"))
                         _vZone = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
+                    else if (line == "Empire Capital City")
+                        _empireCapital = true;
                 }
             }
 
@@ -402,7 +406,7 @@ namespace HazeronAdviser
                         }
                         if (line.Contains("Harsh Environment Penalty"))
                         {
-                            _vHashEnv = true;
+                            _HashEnv = true;
                         }
                     }
                 _vAbandonment = ((_vMoraleModifiers.Sum() + 1) * abandonmentInterval) - (abandonedDays % abandonmentInterval);
@@ -439,7 +443,7 @@ namespace HazeronAdviser
                     }
                     else if (line.Contains("arsh environment"))
                     {
-                        _vHashEnv = true;
+                        _HashEnv = true;
                     }
                     else if (line.Contains("loyal"))
                     {
@@ -572,7 +576,7 @@ namespace HazeronAdviser
             if (sectionsInReport.Contains(headlineINVENTORY))
             {
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineINVENTORY));
-                if (_vHashEnv && tempSection.Contains("Air"))
+                if (_HashEnv && tempSection.Contains("Air"))
                 {
                     tempSection = tempSection.Substring(tempSection.IndexOf("Air"), 255);
                     tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
@@ -636,7 +640,7 @@ namespace HazeronAdviser
                     _sPopOverview += (minutesToStarvation / 1490) + " days";
                 _sPopOverview += " worth of food";
             }
-            if (_vHashEnv)
+            if (_HashEnv)
             {
                 _sPopOverview += Environment.NewLine + " ";
                 int minutesToSuffocation = (_vAir);
