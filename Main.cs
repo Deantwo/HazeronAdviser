@@ -241,7 +241,7 @@ namespace HazeronAdviser
                 if (hCity.AttentionCode != 0x00)
                 {
                     dgvCity.Rows[row].Cells["ColumnCityName"].Style.BackColor = attantionMinor;
-                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x01)) // 0b00000001 // More jobs than homes, or too many unemployed.
+                    if (HHelper.FlagCheck(hCity.AttentionCode, 0x01)) // 0b00000001 Overworked, or too much unemployment.
                         dgvCity.Rows[row].Cells["ColumnCityLivingConditions"].Style.BackColor = attantionMinor;
                     if (HHelper.FlagCheck(hCity.AttentionCode, 0x02)) // 0b00000010 // Population not full, or more than full.
                         dgvCity.Rows[row].Cells["ColumnCityPopulation"].Style.BackColor = attantionMinor;

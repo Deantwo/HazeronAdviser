@@ -501,15 +501,30 @@ namespace HazeronAdviser
                     _sPopOverview += (minutesToLoyal / 60) + " hours";
                 else // More than two days.
                     _sPopOverview += (minutesToLoyal / 1490) + " days";
-                _sPopOverview += " to " + (disloyal ? "loyal" : "full") + ")[/color]";
+                _sPopOverview += " to " + (disloyal ? "loyal" : "fully") + ")[/color]";
             }
             _sPopOverview += Environment.NewLine + " " + _vPopulation.ToString().PadLeft(4) + ", Citizens";
             _sPopOverview += Environment.NewLine + " " + _vHomes.ToString().PadLeft(4) + ", Homes";
+            if (_vJobs >= _vHomes)
+            {
+                int needed = (_vJobs - _vHomes + 1); // Need at least one more home than jobs.
+                _sPopOverview += " [color=red](Overworked, " + needed + " more homes needed)[/color]";
+            }
             _sPopOverview += Environment.NewLine + " " + _vJobs.ToString().PadLeft(4) + ", Jobs";
+            if (((float)(_vHomes - _vJobs) / _vHomes) > 0.2)
+            {
+                int needed = (int)((_vHomes * 0.8) - _vJobs + 1); // Need at least one more job than 80% homes.
+                _sPopOverview += " [color=red](Unemployment, " + needed + " more jobs needed)[/color]";
+            }
             _sPopOverview += Environment.NewLine + " " + _vPopulationLimit.ToString().PadLeft(4) + ", Population limit";
+            if (_vHomes > _vPopulationLimit)
+            {
+                int needed = (_vHomes - _vPopulationLimit);
+                _sPopOverview += " [color=red](Overpopulated, " + needed + " homes too many)[/color]";
+            }
             _sPopOverview += Environment.NewLine + Environment.NewLine + "City's living conditions:";
             _sPopOverview += Environment.NewLine + " Citizens are " + race;
-            _sPopOverview += Environment.NewLine + " " + powerConsumption + " power comsumption, ";
+            _sPopOverview += Environment.NewLine + " " + powerConsumption + " power comsumption";
             _sPopOverview += Environment.NewLine + " " + powerReserve.ToString().PadLeft(powerConsumption.ToString().Length) + "/" + powerReserveCapacity + " power capacity (" + Math.Floor(((float)powerReserve / powerReserveCapacity) * 100) + "%)";
             {
                 _sPopOverview += Environment.NewLine + " ";
@@ -536,11 +551,11 @@ namespace HazeronAdviser
             }
             {
                 _sPopOverview += Environment.NewLine + " " + Math.Floor(((float)_vApartments / _vHomes) * 100) + "% apartments";
-                int levelAjustment = ((_vHomes / 2) - _vApartments);
+                int levelAjustment = ((_vHomes - _vApartments) - _vApartments);
                 if ((levelAjustment / 4) > 0)
                     _sPopOverview += " [color=green](" + (levelAjustment / 4) + " more levels possible)[/color]";
                 else if (levelAjustment < 0)
-                    _sPopOverview += " [color=red](" + Math.Abs(levelAjustment) + " more homes needed)[/color]";
+                    _sPopOverview += " [color=red](Cramped, " + Math.Abs(levelAjustment) + " more non-apartment homes needed)[/color]";
             }
 
             // Technology overview
@@ -598,7 +613,7 @@ namespace HazeronAdviser
             _sOverview = "WIP";
 
             // AttentionCodes
-            if ((_vJobs >= _vHomes) || (((float)(_vHomes - _vJobs) / _vHomes) > 0.2)) // More jobs than homes, or too many unemployed.
+            if ((_vJobs >= _vHomes) || (((float)(_vHomes - _vJobs) / _vHomes) > 0.2)) // Overworked, or too much unemployment.
                 _attentionCode = (byte)(_attentionCode | 0x01); // 0b00000001
             if (_vPopulation < _vHomes || _vPopulation > _vHomes) // Population not full, or more than full.
                 _attentionCode = (byte)(_attentionCode | 0x02); // 0b00000010
