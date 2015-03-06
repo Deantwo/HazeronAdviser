@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HCharacter.cs" />
+    <Compile Include="HCity.cs" />
     <Compile Include="HGraphics.cs" />
     <Compile Include="HHelper.cs" />
     <Compile Include="HMail.cs" />
