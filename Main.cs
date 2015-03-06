@@ -795,7 +795,6 @@ namespace HazeronAdviser
                         text = text.Substring(tag + 8);
                         int lengthBeforeAppend = rtb.Text.Length;
                         rtb.AppendText(affectedText);
-                        rtb.Focus();
                         rtb.SelectionStart = lengthBeforeAppend;
                         rtb.SelectionLength = affectedText.Length;
                         rtb.SelectionColor = Color.FromName(command.Substring(6));
