@@ -1163,8 +1163,7 @@
             this.pSystemOverviewMorale.Name = "pSystemOverviewMorale";
             this.pSystemOverviewMorale.Size = new System.Drawing.Size(136, 168);
             this.pSystemOverviewMorale.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.pSystemOverviewMorale, "Blue - Morale\r\nYellow - Morale Modifier total\r\nGreen - sum of Positive Morale Mod" +
-        "ifiers\r\nRed - sum of Negative Morale Modifiers");
+            this.toolTip1.SetToolTip(this.pSystemOverviewMorale, "Blue - Average Morale\r\nWIP");
             this.pSystemOverviewMorale.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
             this.pSystemOverviewMorale.Paint += new System.Windows.Forms.PaintEventHandler(this.pSystemMorale_Paint);
             // 
@@ -1231,8 +1230,7 @@
             this.pSystemMorale.Name = "pSystemMorale";
             this.pSystemMorale.Size = new System.Drawing.Size(403, 168);
             this.pSystemMorale.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.pSystemMorale, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
-        "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
+            this.toolTip1.SetToolTip(this.pSystemMorale, "Blue - Average Morale\r\nWIP");
             this.pSystemMorale.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
             this.pSystemMorale.Paint += new System.Windows.Forms.PaintEventHandler(this.pSystemMorale_Paint);
             // 
