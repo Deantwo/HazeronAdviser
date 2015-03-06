@@ -648,7 +648,14 @@ namespace HazeronAdviser
                     _sPopOverview += (minutesToSuffocation / 1490) + " days";
                 _sPopOverview += " worth of air";
             }
-            _sPopOverview += Environment.NewLine + " " + Math.Floor(((float)_vApartments / _vHomes) * 100) + "% apartments, " + (((_vHomes / 2) - _vApartments) / 4) + " more levels possible";
+            {
+                _sPopOverview += Environment.NewLine + " " + Math.Floor(((float)_vApartments / _vHomes) * 100) + "% apartments";
+                int levelAjustment = ((_vHomes / 2) - _vApartments);
+                if ((levelAjustment / 4) > 0)
+                    _sPopOverview += " [color=green](" + (levelAjustment / 4) + " more levels possible)[/color]";
+                else if (levelAjustment < 0)
+                    _sPopOverview += " [color=red](" + Math.Abs(levelAjustment) + " more homes needed)[/color]";
+            }
 
             // Technology overview
             if (sectionsInReport.Contains(headlineRESEARCH))
