@@ -37,7 +37,7 @@ namespace HazeronAdviser
         {
             get
             {
-                return LastUpdared.ToString("yyyy-MM-dd HH:mm"); // TimeDate format information: http://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
+                return LastUpdared.ToString("F", Hazeron.DateTimeFormat);
             }
         }
 

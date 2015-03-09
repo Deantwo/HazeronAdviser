@@ -234,8 +234,9 @@ namespace HazeronAdviser
                 dgvCity.Rows[row].Cells["ColumnCityMorale"].Value = hCity.SMoraleShort;
                 dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Value = hCity.SAbandonment;
                 dgvCity.Rows[row].Cells["ColumnCityPopulation"].Value = hCity.SPopulationShort;
-                dgvCity.Rows[row].Cells["ColumnCityLoyalty"].Value = hCity.SLoyalty;
                 dgvCity.Rows[row].Cells["ColumnCityLivingConditions"].Value = hCity.SLivingShort;
+                dgvCity.Rows[row].Cells["ColumnCityLoyalty"].Value = hCity.SLoyalty;
+                dgvCity.Rows[row].Cells["ColumnCityBank"].Value = hCity.SBankShort;
                 dgvCity.Rows[row].Cells["ColumnCityDate"].Value = hCity.LastUpdaredString;
                 // AttentionCodes
                 if (hCity.AttentionCode != 0x00)
@@ -503,6 +504,7 @@ namespace HazeronAdviser
             rtbCityPopulation.Clear();
             rtbCityTechnology.Clear();
             rtbCityBuildings.Clear();
+            rtbCityBank.Clear();
             tbxCity.Clear();
             // System
             tabControlSystem.Refresh();
@@ -537,6 +539,7 @@ namespace HazeronAdviser
                 RichBBCodeBox(rtbCityPopulation, city.SPopOverview);
                 RichBBCodeBox(rtbCityTechnology, city.STechnology);
                 RichBBCodeBox(rtbCityBuildings, city.SBuildings);
+                RichBBCodeBox(rtbCityBank, city.SBank);
                 tbxCity.Text = city.MailBody;
                 // Refresh graphs to make them update.
                 pCityOverviewMorale.Refresh();
@@ -718,6 +721,25 @@ namespace HazeronAdviser
                 if (yValue != 0)
                     graphMorale.DrawBar(Color.Red, 2, yValue);
             }
+        }
+
+        private void pCityBank_Paint(object sender, PaintEventArgs e)
+        {
+            //if (dgvCity.SelectedRows.Count != 0 && dgvCity.SelectedRows[0].Index != -1 && dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value != null)
+            //{
+            //    HCity city = hCityList[(int)dgvCity.Rows[(int)dgvCity.SelectedRows[0].Index].Cells["ColumnCityIndex"].Value];
+            //    int yValue;
+            //    BarGraph graphMorale = new BarGraph(sender, e);
+            //    graphMorale.DrawXAxle("?", 2);
+            //    graphMorale.DrawYAxle("¢", Math.Max(city.VBankExpenseResearchEst / 1000, city.VBankGovBalanceOld / 1000));
+            //    yValue = city.VBankExpenseResearchEst / 1000;
+            //    graphMorale.DrawBar(Color.Purple, 0, yValue);
+            //    yValue = city.VBankGovBalanceOld / 1000;
+            //    if (yValue > 0)
+            //        graphMorale.DrawBar(Color.Green, 1, yValue);
+            //    else if  (yValue < 0)
+            //        graphMorale.DrawBar(Color.Red, 1, Math.Abs(yValue));
+            //}
         }
 
         private void pSystemPopulation_Paint(object sender, PaintEventArgs e)

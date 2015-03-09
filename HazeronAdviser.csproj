@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Hazeron.cs" />
     <Compile Include="HCharacter.cs" />
     <Compile Include="HCity.cs" />
     <Compile Include="HGraphics.cs" />

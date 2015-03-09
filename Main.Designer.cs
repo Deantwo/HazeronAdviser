@@ -66,6 +66,7 @@
             this.ColumnCityLivingConditions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCityPopulation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCityLoyalty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCityDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlCity = new System.Windows.Forms.TabControl();
             this.tabCityOverview = new System.Windows.Forms.TabPage();
@@ -86,6 +87,10 @@
             this.rtbCityTechnology = new System.Windows.Forms.RichTextBox();
             this.tabCityBuildings = new System.Windows.Forms.TabPage();
             this.rtbCityBuildings = new System.Windows.Forms.RichTextBox();
+            this.tabCityBank = new System.Windows.Forms.TabPage();
+            this.splitContainerCityBank = new System.Windows.Forms.SplitContainer();
+            this.pCityBank = new System.Windows.Forms.Panel();
+            this.rtbCityBank = new System.Windows.Forms.RichTextBox();
             this.tabCityMail = new System.Windows.Forms.TabPage();
             this.tbxCity = new System.Windows.Forms.TextBox();
             this.tabSystem = new System.Windows.Forms.TabPage();
@@ -197,6 +202,11 @@
             this.splitContainerCityPopulation.SuspendLayout();
             this.tabCityTechnology.SuspendLayout();
             this.tabCityBuildings.SuspendLayout();
+            this.tabCityBank.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityBank)).BeginInit();
+            this.splitContainerCityBank.Panel1.SuspendLayout();
+            this.splitContainerCityBank.Panel2.SuspendLayout();
+            this.splitContainerCityBank.SuspendLayout();
             this.tabCityMail.SuspendLayout();
             this.tabSystem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerSystem)).BeginInit();
@@ -300,7 +310,7 @@
             this.tbxShip.Name = "tbxShip";
             this.tbxShip.ReadOnly = true;
             this.tbxShip.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxShip.Size = new System.Drawing.Size(402, 378);
+            this.tbxShip.Size = new System.Drawing.Size(403, 378);
             this.tbxShip.TabIndex = 0;
             this.tbxShip.WordWrap = false;
             // 
@@ -476,8 +486,7 @@
             this.pShipOverview.Name = "pShipOverview";
             this.pShipOverview.Size = new System.Drawing.Size(403, 168);
             this.pShipOverview.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.pShipOverview, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
-        "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
+            this.toolTip1.SetToolTip(this.pShipOverview, "WIP");
             this.pShipOverview.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
             // 
             // rtbShipOverview
@@ -497,7 +506,7 @@
             this.tabShipMail.Location = new System.Drawing.Point(4, 22);
             this.tabShipMail.Name = "tabShipMail";
             this.tabShipMail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabShipMail.Size = new System.Drawing.Size(408, 384);
+            this.tabShipMail.Size = new System.Drawing.Size(409, 384);
             this.tabShipMail.TabIndex = 1;
             this.tabShipMail.Text = "Raw Mail";
             this.tabShipMail.UseVisualStyleBackColor = true;
@@ -564,6 +573,7 @@
             this.ColumnCityLivingConditions,
             this.ColumnCityPopulation,
             this.ColumnCityLoyalty,
+            this.ColumnCityBank,
             this.ColumnCityDate});
             this.dgvCity.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCity.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
@@ -664,6 +674,12 @@
             this.ColumnCityLoyalty.Name = "ColumnCityLoyalty";
             this.ColumnCityLoyalty.ReadOnly = true;
             // 
+            // ColumnCityBank
+            // 
+            this.ColumnCityBank.HeaderText = "Bank";
+            this.ColumnCityBank.Name = "ColumnCityBank";
+            this.ColumnCityBank.ReadOnly = true;
+            // 
             // ColumnCityDate
             // 
             this.ColumnCityDate.FillWeight = 107F;
@@ -679,6 +695,7 @@
             this.tabControlCity.Controls.Add(this.tabCityPopulation);
             this.tabControlCity.Controls.Add(this.tabCityTechnology);
             this.tabControlCity.Controls.Add(this.tabCityBuildings);
+            this.tabControlCity.Controls.Add(this.tabCityBank);
             this.tabControlCity.Controls.Add(this.tabCityMail);
             this.tabControlCity.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlCity.Location = new System.Drawing.Point(0, 0);
@@ -924,6 +941,60 @@
             this.rtbCityBuildings.Size = new System.Drawing.Size(403, 378);
             this.rtbCityBuildings.TabIndex = 1;
             this.rtbCityBuildings.Text = "";
+            // 
+            // tabCityBank
+            // 
+            this.tabCityBank.Controls.Add(this.splitContainerCityBank);
+            this.tabCityBank.Location = new System.Drawing.Point(4, 22);
+            this.tabCityBank.Name = "tabCityBank";
+            this.tabCityBank.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCityBank.Size = new System.Drawing.Size(409, 384);
+            this.tabCityBank.TabIndex = 7;
+            this.tabCityBank.Text = "Bank";
+            this.tabCityBank.UseVisualStyleBackColor = true;
+            // 
+            // splitContainerCityBank
+            // 
+            this.splitContainerCityBank.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerCityBank.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerCityBank.Name = "splitContainerCityBank";
+            this.splitContainerCityBank.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerCityBank.Panel1
+            // 
+            this.splitContainerCityBank.Panel1.Controls.Add(this.pCityBank);
+            // 
+            // splitContainerCityBank.Panel2
+            // 
+            this.splitContainerCityBank.Panel2.Controls.Add(this.rtbCityBank);
+            this.splitContainerCityBank.Size = new System.Drawing.Size(403, 378);
+            this.splitContainerCityBank.SplitterDistance = 168;
+            this.splitContainerCityBank.TabIndex = 4;
+            // 
+            // pCityBank
+            // 
+            this.pCityBank.BackColor = System.Drawing.Color.LightGray;
+            this.pCityBank.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pCityBank.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pCityBank.Location = new System.Drawing.Point(0, 0);
+            this.pCityBank.Name = "pCityBank";
+            this.pCityBank.Size = new System.Drawing.Size(403, 168);
+            this.pCityBank.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.pCityBank, "WIP");
+            this.pCityBank.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
+            this.pCityBank.Paint += new System.Windows.Forms.PaintEventHandler(this.pCityBank_Paint);
+            // 
+            // rtbCityBank
+            // 
+            this.rtbCityBank.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rtbCityBank.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbCityBank.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbCityBank.Location = new System.Drawing.Point(0, 0);
+            this.rtbCityBank.Name = "rtbCityBank";
+            this.rtbCityBank.ReadOnly = true;
+            this.rtbCityBank.Size = new System.Drawing.Size(403, 206);
+            this.rtbCityBank.TabIndex = 1;
+            this.rtbCityBank.Text = "";
             // 
             // tabCityMail
             // 
@@ -1500,8 +1571,7 @@
             this.pOfficerOverview.Name = "pOfficerOverview";
             this.pOfficerOverview.Size = new System.Drawing.Size(403, 168);
             this.pOfficerOverview.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.pOfficerOverview, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
-        "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
+            this.toolTip1.SetToolTip(this.pOfficerOverview, "WIP");
             this.pOfficerOverview.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
             // 
             // rtbOfficerOverview
@@ -1521,7 +1591,7 @@
             this.tabOfficerMail.Location = new System.Drawing.Point(4, 22);
             this.tabOfficerMail.Name = "tabOfficerMail";
             this.tabOfficerMail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOfficerMail.Size = new System.Drawing.Size(408, 384);
+            this.tabOfficerMail.Size = new System.Drawing.Size(409, 384);
             this.tabOfficerMail.TabIndex = 1;
             this.tabOfficerMail.Text = "Raw Mail";
             this.tabOfficerMail.UseVisualStyleBackColor = true;
@@ -1534,7 +1604,7 @@
             this.tbxOfficer.Name = "tbxOfficer";
             this.tbxOfficer.ReadOnly = true;
             this.tbxOfficer.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxOfficer.Size = new System.Drawing.Size(402, 378);
+            this.tbxOfficer.Size = new System.Drawing.Size(403, 378);
             this.tbxOfficer.TabIndex = 1;
             this.tbxOfficer.WordWrap = false;
             // 
@@ -1707,8 +1777,7 @@
             this.pEventOverview.Name = "pEventOverview";
             this.pEventOverview.Size = new System.Drawing.Size(403, 168);
             this.pEventOverview.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.pEventOverview, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
-        "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
+            this.toolTip1.SetToolTip(this.pEventOverview, "WIP");
             this.pEventOverview.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
             // 
             // rtbEventOverview
@@ -1728,7 +1797,7 @@
             this.tabEventMail.Location = new System.Drawing.Point(4, 22);
             this.tabEventMail.Name = "tabEventMail";
             this.tabEventMail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEventMail.Size = new System.Drawing.Size(408, 384);
+            this.tabEventMail.Size = new System.Drawing.Size(409, 384);
             this.tabEventMail.TabIndex = 1;
             this.tabEventMail.Text = "Raw Mail";
             this.tabEventMail.UseVisualStyleBackColor = true;
@@ -1741,7 +1810,7 @@
             this.tbxEvent.Name = "tbxEvent";
             this.tbxEvent.ReadOnly = true;
             this.tbxEvent.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxEvent.Size = new System.Drawing.Size(402, 378);
+            this.tbxEvent.Size = new System.Drawing.Size(403, 378);
             this.tbxEvent.TabIndex = 1;
             this.tbxEvent.WordWrap = false;
             // 
@@ -1813,6 +1882,11 @@
             this.splitContainerCityPopulation.ResumeLayout(false);
             this.tabCityTechnology.ResumeLayout(false);
             this.tabCityBuildings.ResumeLayout(false);
+            this.tabCityBank.ResumeLayout(false);
+            this.splitContainerCityBank.Panel1.ResumeLayout(false);
+            this.splitContainerCityBank.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityBank)).EndInit();
+            this.splitContainerCityBank.ResumeLayout(false);
             this.tabCityMail.ResumeLayout(false);
             this.tabCityMail.PerformLayout();
             this.tabSystem.ResumeLayout(false);
@@ -1968,17 +2042,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipFuel;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDamage;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityIndex;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnCitySelection;
-        private System.Windows.Forms.DataGridViewImageColumn ColumnCityIcon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLocation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityMorale;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityAbandonment;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLivingConditions;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityPopulation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLoyalty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventIndex;
         private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnEventSelection;
         private System.Windows.Forms.DataGridViewImageColumn ColumnEventIcon;
@@ -2004,6 +2067,22 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerShip;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerDate;
         private System.Windows.Forms.RichTextBox rtbCityBuildings;
+        private System.Windows.Forms.TabPage tabCityBank;
+        private System.Windows.Forms.SplitContainer splitContainerCityBank;
+        private System.Windows.Forms.Panel pCityBank;
+        private System.Windows.Forms.RichTextBox rtbCityBank;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityIndex;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnCitySelection;
+        private System.Windows.Forms.DataGridViewImageColumn ColumnCityIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLocation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityMorale;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityAbandonment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLivingConditions;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityPopulation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLoyalty;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityBank;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityDate;
     }
 }
 

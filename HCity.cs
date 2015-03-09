@@ -179,6 +179,76 @@ namespace HazeronAdviser
             get { return _HashEnv; }
         }
 
+        protected int _vBankCitBalance = 0;
+        public int VBankCitBalance
+        {
+            get { return _vBankCitBalance; }
+        }
+
+        protected int _vBankCitBalanceOld = 0;
+        public int VBankCitOldBalanceOld
+        {
+            get { return _vBankCitBalanceOld; }
+        }
+
+        protected int _vBankProduction = 0;
+        public int VBankProduction
+        {
+            get { return _vBankProduction; }
+        }
+
+        protected int _vBankGovBalance = 0;
+        public int VBankGovBalance
+        {
+            get { return _vBankGovBalance; }
+        }
+
+        protected int _vBankGovBalanceOld = 0;
+        public int VBankGovBalanceOld
+        {
+            get { return _vBankGovBalanceOld; }
+        }
+
+        protected int _vBankTaxIncome = 0;
+        public int VBankTaxIncome
+        {
+            get { return _vBankTaxIncome; }
+        }
+
+        protected int _vBankTaxSale = 0;
+        public int VBankTaxSale
+        {
+            get { return _vBankTaxSale; }
+        }
+
+        protected int _vBankExpenseResearch = 0;
+        public int VBankExpenseResearch
+        {
+            get { return _vBankExpenseResearch; }
+        }
+
+        protected int _vBankExpenseResearchEst = 0;
+        public int VBankExpenseResearchEst
+        {
+            get { return _vBankExpenseResearchEst; }
+        }
+
+        protected int _vBankTribute = 0;
+        public int VBankTribute
+        {
+            get { return _vBankTribute; }
+        }
+
+        protected string _sBank = "-", _sBankShort = "-";
+        public string SBank
+        {
+            get { return _sBank; }
+        }
+        public string SBankShort
+        {
+            get { return _sBankShort; }
+        }
+
         public HCity(HMail mail)
             : base(mail)
         {
@@ -186,6 +256,15 @@ namespace HazeronAdviser
 
         public void Initialize()
         {
+            if (_mail.Body.Remove(4) == "UTC:")
+            {
+                string utcHexTimestamp = _mail.Body.Substring(4, 8);
+                int secondsAfterEpoch = Int32.Parse(utcHexTimestamp, System.Globalization.NumberStyles.HexNumber);
+                DateTime epoch = new DateTime(1970, 1, 1);
+                epoch = TimeZoneInfo.ConvertTimeFromUtc(epoch, TimeZoneInfo.Local);
+                _lastUpdated = epoch.AddSeconds(secondsAfterEpoch);
+            }
+
             // String working vars.
             string[] tempArray;
             List<string> sectionsInReport = new List<string>();
@@ -389,13 +468,70 @@ namespace HazeronAdviser
                 }
             }
 
-            //// BANK ACTIVITY
-            //const string headlineBANK = "<b>BANK ACTIVITY</b>";
-            //if (sectionsInReport.Contains(headlineBANK))
-            //{
-            //    string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineBANK));
-            //    tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            //}
+            // BANK ACTIVITY
+            const string headlineBANK = "<b>BANK ACTIVITY</b>";
+            if (sectionsInReport.Contains(headlineBANK))
+            {
+                string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineBANK));
+                tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                bool GovAcc = true;
+                for (int i = 1; i < tempArray.Length; i++)
+                {
+                    string line = tempArray[i];
+                    if (line == "Citizen Accounts")
+                    {
+                        GovAcc = false;
+                    }
+                    else if (!_empireCapital && line == "Previous Tribute")
+                    {
+                        i++;
+                        line = tempArray[i].Replace(",", "");
+                        _vBankTribute = Convert.ToInt32(line.Remove(line.Length - 1));
+                    }
+                    else if (line == "Starting Balance")
+                    {
+                        i++;
+                        line = tempArray[i].Replace(",", "");
+                        if (GovAcc)
+                            _vBankGovBalanceOld = Convert.ToInt32(line.Remove(line.Length - 1));
+                        else
+                            _vBankCitBalanceOld = Convert.ToInt32(line.Remove(line.Length - 1));
+                    }
+                    else if (line == "Current Balance")
+                    {
+                        i++;
+                        line = tempArray[i].Replace(",", "");
+                        if (GovAcc)
+                            _vBankGovBalance = Convert.ToInt32(line.Remove(line.Length - 1));
+                        else
+                            _vBankCitBalance = Convert.ToInt32(line.Remove(line.Length - 1));
+                    }
+                    else if (line == "Income Tax")
+                    {
+                        i++;
+                        line = tempArray[i].Replace(",", "");
+                        _vBankTaxIncome = Convert.ToInt32(line.Remove(line.Length - 1));
+                    }
+                    else if (line == "Sales Tax")
+                    {
+                        i++;
+                        line = tempArray[i].Replace(",", "");
+                        _vBankTaxSale = Convert.ToInt32(line.Remove(line.Length - 1));
+                    }
+                    else if (line == "Bullion Production")
+                    {
+                        i++;
+                        line = tempArray[i].Replace(",", "");
+                        _vBankProduction = Convert.ToInt32(line.Remove(line.Length - 1));
+                    }
+                    else if (line == "Research and Development")
+                    {
+                        i++;
+                        line = tempArray[i].Replace(",", "");
+                        _vBankExpenseResearch = Convert.ToInt32(line.Remove(line.Length - 1));
+                    }
+                }
+            }
 
             // RESEARCH AND DEVELOPMENT
             const string headlineRESEARCH = "<b>RESEARCH AND DEVELOPMENT</b>";
@@ -408,6 +544,11 @@ namespace HazeronAdviser
                     if (tempArray[i] != "Technology")
                         _lReseatchProjects.Add(tempArray[i].Remove(tempArray[i].Length - 11), Convert.ToInt32(tempArray[i + 1]));
                 }
+                foreach (int projectProcess in _lReseatchProjects.Values)
+                {
+                    _vBankExpenseResearchEst += projectProcess;
+                }
+                _vBankExpenseResearchEst *= 1802;
             }
 
             //// SPACECRAFT MANUFACTURING POTENTIAL
@@ -484,8 +625,9 @@ namespace HazeronAdviser
                 _vPopulationLimit = 1000;
 
             // Population overwiew
+            const int populationPadding = 4;
             _sPopOverview = "City's population:";
-            _sPopOverview += Environment.NewLine + " " + _vLoyalty.ToString().PadLeft(4) + ", Loyal citizens";
+            _sPopOverview += Environment.NewLine + " " + _vLoyalty.ToString().PadLeft(populationPadding) + ", Loyal citizens";
             if (_vLoyalty != _vPopulation)
             {
                 int minutesToLoyal;
@@ -503,29 +645,35 @@ namespace HazeronAdviser
                     _sPopOverview += (minutesToLoyal / 1490) + " days";
                 _sPopOverview += " to " + (disloyal ? "loyal" : "fully") + ")[/color]";
             }
-            _sPopOverview += Environment.NewLine + " " + _vPopulation.ToString().PadLeft(4) + ", Citizens";
-            _sPopOverview += Environment.NewLine + " " + _vHomes.ToString().PadLeft(4) + ", Homes";
+            _sPopOverview += Environment.NewLine + " " + _vPopulation.ToString().PadLeft(populationPadding) + ", Citizens";
+            _sPopOverview += Environment.NewLine + " " + _vHomes.ToString().PadLeft(populationPadding) + ", Homes";
             if (_vJobs >= _vHomes)
             {
                 int needed = (_vJobs - _vHomes + 1); // Need at least one more home than jobs.
                 _sPopOverview += " [color=red](Overworked, " + needed + " more homes needed)[/color]";
             }
-            _sPopOverview += Environment.NewLine + " " + _vJobs.ToString().PadLeft(4) + ", Jobs";
+            _sPopOverview += Environment.NewLine + " " + _vJobs.ToString().PadLeft(populationPadding) + ", Jobs";
             if (((float)(_vHomes - _vJobs) / _vHomes) > 0.2)
             {
                 int needed = (int)((_vHomes * 0.8) - _vJobs + 1); // Need at least one more job than 80% homes.
                 _sPopOverview += " [color=red](Unemployment, " + needed + " more jobs needed)[/color]";
             }
-            _sPopOverview += Environment.NewLine + " " + _vPopulationLimit.ToString().PadLeft(4) + ", Population limit";
+            _sPopOverview += Environment.NewLine + " " + _vPopulationLimit.ToString().PadLeft(populationPadding) + ", Population limit";
             if (_vHomes > _vPopulationLimit)
             {
                 int needed = (_vHomes - _vPopulationLimit);
                 _sPopOverview += " [color=red](Overpopulated, " + needed + " homes too many)[/color]";
             }
-            _sPopOverview += Environment.NewLine + Environment.NewLine + "City's living conditions:";
+            _sPopOverview += Environment.NewLine;
+            _sPopOverview += Environment.NewLine + "City's living conditions:";
             _sPopOverview += Environment.NewLine + " Citizens are " + race;
-            _sPopOverview += Environment.NewLine + " " + powerConsumption + " power comsumption";
-            _sPopOverview += Environment.NewLine + " " + powerReserve.ToString().PadLeft(powerConsumption.ToString().Length) + "/" + powerReserveCapacity + " power capacity (" + Math.Floor(((float)powerReserve / powerReserveCapacity) * 100) + "%)";
+            {
+                string powerUse = powerConsumption.ToString("N", Hazeron.NumberFormat);
+                string powerSto = powerReserve.ToString("N", Hazeron.NumberFormat);
+                int powerPadding = Math.Max(powerUse.Length, powerSto.Length);
+                _sPopOverview += Environment.NewLine + " " + powerUse.PadLeft(powerPadding) + " power comsumption";
+                _sPopOverview += Environment.NewLine + " " + powerSto.PadLeft(powerPadding) + "/" + powerReserveCapacity.ToString("N", Hazeron.NumberFormat) + " power capacity (" + Math.Floor(((float)powerReserve / powerReserveCapacity) * 100) + "%)";
+            }
             {
                 _sPopOverview += Environment.NewLine + " ";
                 int minutesToStarvation = (_vFood);
@@ -608,6 +756,40 @@ namespace HazeronAdviser
                         _sBuildings += " [color=orange](" + (levels - levelsNeeded) + " levels too many)[/color]";
                 }
             }
+
+            // Bank overview
+            _sBank = "City's finances:";
+            if (_empireCapital)
+            {
+                _sBank += Environment.NewLine + " Empire capital";
+                _sBankShort = _vBankGovBalance.ToString("C", Hazeron.NumberFormat) + " balance";
+            }
+            else
+            {
+                _sBank += Environment.NewLine + " " + _vBankTribute.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " tributed to capital";
+                _sBank += Environment.NewLine + "".PadLeft(Hazeron.CurrencyPadding) + "  [color=green](";
+                int minutesToMidnight = (int)(DateTime.UtcNow.Subtract(DateTime.Now.TimeOfDay).AddDays(1) - _lastUpdated).TotalMinutes;
+                if (minutesToMidnight < 120) // Less than two hours.
+                    _sBank += minutesToMidnight + " minutes";
+                else // More than two hours.
+                    _sBank += (minutesToMidnight / 60) + " hours";
+                _sBank += " to next tribute)[/color]";
+                _sBankShort = _vBankTribute.ToString("C", Hazeron.NumberFormat) + " tributed";
+            }
+            _sBank += Environment.NewLine;
+            _sBank += Environment.NewLine + " " + _vBankProduction.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " bullion production";
+            _sBank += Environment.NewLine;
+            _sBank += Environment.NewLine + " " + (_vBankCitBalance - _vBankCitBalanceOld).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " citizen account net-change";
+            _sBank += Environment.NewLine + " " + _vBankCitBalance.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " citizen account balance";
+            _sBank += Environment.NewLine;
+            _sBank += Environment.NewLine + " " + _vBankTaxIncome.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " income tax";
+            _sBank += Environment.NewLine + " " + _vBankTaxSale.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " Sales tax";
+            _sBank += Environment.NewLine;
+            _sBank += Environment.NewLine + " " + (-_vBankExpenseResearch).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (unreliable)";
+            _sBank += Environment.NewLine + " " + (-_vBankExpenseResearchEst).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (estimate per report)";
+            _sBank += Environment.NewLine;
+            _sBank += Environment.NewLine + " " + (_vBankGovBalance - _vBankGovBalanceOld).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account net-change";
+            _sBank += Environment.NewLine + " " + _vBankGovBalance.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account balance";
 
             // Overview
             _sOverview = "WIP";
