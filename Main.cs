@@ -830,5 +830,84 @@ namespace HazeronAdviser
             rtb.AppendText(text);
             rtb.Select(0, 0);
         }
+
+        #region DataGridView ContextMenu RightClick
+        private void dgv_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        { // Based on: http://stackoverflow.com/questions/1718389/right-click-context-menu-for-datagrid.
+            if (e.ColumnIndex != -1 && e.RowIndex != -1 && e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                DataGridView dgv = (sender as DataGridView);
+                dgv.ContextMenuStrip = cmsRightClick;
+                DataGridViewCell currentCell = dgv[e.ColumnIndex, e.RowIndex];
+                currentCell.DataGridView.ClearSelection();
+                currentCell.DataGridView.CurrentCell = currentCell;
+                currentCell.Selected = true;
+                //Rectangle r = currentCell.DataGridView.GetCellDisplayRectangle(currentCell.ColumnIndex, currentCell.RowIndex, false);
+                //Point p = new Point(r.X + r.Width, r.Y + r.Height);
+                Point p = dgv.PointToClient(Control.MousePosition);
+                dgv.ContextMenuStrip.Show(currentCell.DataGridView, p);
+                dgv.ContextMenuStrip = null;
+            }
+        }
+
+        private void dgv_KeyDown(object sender, KeyEventArgs e)
+        { // Based on: http://stackoverflow.com/questions/1718389/right-click-context-menu-for-datagrid.
+            DataGridView dgv = (sender as DataGridView);
+            DataGridViewCell currentCell = dgv.CurrentCell;
+            if (currentCell != null)
+            {
+                cmsRightClick_Opening(sender, null);
+                if ((e.KeyCode == Keys.F10 && !e.Control && e.Shift) || e.KeyCode == Keys.Apps)
+                {
+                    dgv.ContextMenuStrip = cmsRightClick;
+                    Rectangle r = currentCell.DataGridView.GetCellDisplayRectangle(currentCell.ColumnIndex, currentCell.RowIndex, false);
+                    Point p = new Point(r.X + r.Width, r.Y + r.Height);
+                    dgv.ContextMenuStrip.Show(currentCell.DataGridView, p);
+                    dgv.ContextMenuStrip = null;
+                }
+                else if (e.KeyCode == Keys.C && e.Control && !e.Shift)
+                    cmsRightClickCopy_Click(sender, null);
+            }
+        }
+
+        private void cmsRightClick_Opening(object sender, CancelEventArgs e)
+        {
+            // Get table in question and currentCell.
+            DataGridView dgv = (sender as DataGridView);
+            if (dgv == null)
+                dgv = ((sender as ContextMenuStrip).SourceControl as DataGridView);
+            DataGridViewCell currentCell = dgv.CurrentCell;
+
+            // Nothing here yet.
+        }
+
+        private void cmsRightClickCopy_Click(object sender, EventArgs e)
+        { // http://stackoverflow.com/questions/4886327/determine-what-control-the-contextmenustrip-was-used-on
+            DataGridView dgv = (sender as DataGridView);
+            if (dgv == null)
+                dgv = (((sender as ToolStripItem).Owner as ContextMenuStrip).SourceControl as DataGridView);
+            DataGridViewCell currentCell = dgv.CurrentCell;
+            if (currentCell != null)
+            {
+                // Check if the cell is empty.
+                if (!String.IsNullOrEmpty((string)currentCell.Value))
+                { // If not empty, add to clipboard and inform the user.
+                    Clipboard.SetText(currentCell.Value.ToString());
+                    toolStripStatusLabel1.Text = "Cell content copied to clipboard (\"" + currentCell.Value.ToString() + "\")";
+                }
+                else
+                { // Inform the user the cell was empty and therefor no reason to erase the clipboard.
+                    toolStripStatusLabel1.Text = "Cell is empty";
+                    #if DEBUG
+                    // Debug code to see if the cell is null or "".
+                    if (dgvList.CurrentCell.Value == null)
+                        toolStripStatusLabel1.Text += " (null)";
+                    else
+                        toolStripStatusLabel1.Text += " (\"\")";
+                    #endif
+                }
+            }
+        }
+        #endregion
     }
 }

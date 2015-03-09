@@ -160,6 +160,8 @@
             this.tbxEvent = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmbCharFilter = new System.Windows.Forms.ComboBox();
+            this.cmsRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmsRightClickCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -262,6 +264,7 @@
             this.splitContainerEventOverview.Panel2.SuspendLayout();
             this.splitContainerEventOverview.SuspendLayout();
             this.tabEventMail.SuspendLayout();
+            this.cmsRightClick.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnScan
@@ -359,7 +362,9 @@
             this.dgvShip.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvShip.Size = new System.Drawing.Size(331, 410);
             this.dgvShip.TabIndex = 2;
+            this.dgvShip.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvShip.SelectionChanged += new System.EventHandler(this.dgvShip_SelectionChanged);
+            this.dgvShip.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
             // 
             // ColumnShipIndex
             // 
@@ -586,7 +591,9 @@
             this.dgvCity.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCity.Size = new System.Drawing.Size(331, 410);
             this.dgvCity.TabIndex = 2;
+            this.dgvCity.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvCity.SelectionChanged += new System.EventHandler(this.dgvCity_SelectionChanged);
+            this.dgvCity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
             // 
             // ColumnCityIndex
             // 
@@ -1076,7 +1083,9 @@
             this.dgvSystem.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSystem.Size = new System.Drawing.Size(331, 410);
             this.dgvSystem.TabIndex = 2;
+            this.dgvSystem.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvSystem.SelectionChanged += new System.EventHandler(this.dgvSystem_SelectionChanged);
+            this.dgvSystem.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
             // 
             // ColumnSystemIndex
             // 
@@ -1458,7 +1467,9 @@
             this.dgvOfficer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvOfficer.Size = new System.Drawing.Size(331, 410);
             this.dgvOfficer.TabIndex = 2;
+            this.dgvOfficer.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvOfficer.SelectionChanged += new System.EventHandler(this.dgvOfficer_SelectionChanged);
+            this.dgvOfficer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
             // 
             // ColumnOfficerIndex
             // 
@@ -1662,7 +1673,9 @@
             this.dgvEvent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvEvent.Size = new System.Drawing.Size(331, 410);
             this.dgvEvent.TabIndex = 3;
+            this.dgvEvent.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvEvent.SelectionChanged += new System.EventHandler(this.dgvEvent_SelectionChanged);
+            this.dgvEvent.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
             // 
             // ColumnEventIndex
             // 
@@ -1827,6 +1840,21 @@
             this.cmbCharFilter.TabIndex = 3;
             this.cmbCharFilter.SelectedIndexChanged += new System.EventHandler(this.cmbCharFilter_SelectedIndexChanged);
             // 
+            // cmsRightClick
+            // 
+            this.cmsRightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmsRightClickCopy});
+            this.cmsRightClick.Name = "cmsRightClick";
+            this.cmsRightClick.Size = new System.Drawing.Size(103, 26);
+            this.cmsRightClick.Opening += new System.ComponentModel.CancelEventHandler(this.cmsRightClick_Opening);
+            // 
+            // cmsRightClickCopy
+            // 
+            this.cmsRightClickCopy.Name = "cmsRightClickCopy";
+            this.cmsRightClickCopy.Size = new System.Drawing.Size(152, 22);
+            this.cmsRightClickCopy.Text = "Copy";
+            this.cmsRightClickCopy.Click += new System.EventHandler(this.cmsRightClickCopy_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1945,6 +1973,7 @@
             this.splitContainerEventOverview.ResumeLayout(false);
             this.tabEventMail.ResumeLayout(false);
             this.tabEventMail.PerformLayout();
+            this.cmsRightClick.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2083,6 +2112,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityLoyalty;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityBank;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityDate;
+        private System.Windows.Forms.ContextMenuStrip cmsRightClick;
+        private System.Windows.Forms.ToolStripMenuItem cmsRightClickCopy;
     }
 }
 
