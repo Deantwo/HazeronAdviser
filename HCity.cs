@@ -548,7 +548,7 @@ namespace HazeronAdviser
                 {
                     _vBankExpenseResearchEst += projectProcess;
                 }
-                _vBankExpenseResearchEst *= 1802;
+                _vBankExpenseResearchEst *= 780;
             }
 
             //// SPACECRAFT MANUFACTURING POTENTIAL
@@ -599,6 +599,8 @@ namespace HazeronAdviser
             if (sectionsInReport.Contains(headlineINVENTORY))
             {
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineINVENTORY));
+                if (tempSection.Contains("Computer"))
+                    _vBankExpenseResearchEst = (int)(_vBankExpenseResearchEst * 2.25);
                 if (_HashEnv && tempSection.Contains("Air"))
                 {
                     tempSection = tempSection.Substring(tempSection.IndexOf("Air"), 255);
