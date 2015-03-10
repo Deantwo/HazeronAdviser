@@ -179,62 +179,62 @@ namespace HazeronAdviser
             get { return _HashEnv; }
         }
 
-        protected int _vBankCitBalance = 0;
-        public int VBankCitBalance
+        protected long _vBankCitBalance = 0;
+        public long VBankCitBalance
         {
             get { return _vBankCitBalance; }
         }
 
-        protected int _vBankCitBalanceOld = 0;
-        public int VBankCitOldBalanceOld
+        protected long _vBankCitBalanceOld = 0;
+        public long VBankCitOldBalanceOld
         {
             get { return _vBankCitBalanceOld; }
         }
 
-        protected int _vBankProduction = 0;
-        public int VBankProduction
+        protected long _vBankProduction = 0;
+        public long VBankProduction
         {
             get { return _vBankProduction; }
         }
 
-        protected int _vBankGovBalance = 0;
-        public int VBankGovBalance
+        protected long _vBankGovBalance = 0;
+        public long VBankGovBalance
         {
             get { return _vBankGovBalance; }
         }
 
-        protected int _vBankGovBalanceOld = 0;
-        public int VBankGovBalanceOld
+        protected long _vBankGovBalanceOld = 0;
+        public long VBankGovBalanceOld
         {
             get { return _vBankGovBalanceOld; }
         }
 
-        protected int _vBankTaxIncome = 0;
-        public int VBankTaxIncome
+        protected long _vBankTaxIncome = 0;
+        public long VBankTaxIncome
         {
             get { return _vBankTaxIncome; }
         }
 
-        protected int _vBankTaxSale = 0;
-        public int VBankTaxSale
+        protected long _vBankTaxSale = 0;
+        public long VBankTaxSale
         {
             get { return _vBankTaxSale; }
         }
 
-        protected int _vBankExpenseResearch = 0;
-        public int VBankExpenseResearch
+        protected long _vBankExpenseResearch = 0;
+        public long VBankExpenseResearch
         {
             get { return _vBankExpenseResearch; }
         }
 
-        protected int _vBankExpenseResearchEst = 0;
-        public int VBankExpenseResearchEst
+        protected long _vBankExpenseResearchEst = 0;
+        public long VBankExpenseResearchEst
         {
             get { return _vBankExpenseResearchEst; }
         }
 
-        protected int _vBankTribute = 0;
-        public int VBankTribute
+        protected long _vBankTribute = 0;
+        public long VBankTribute
         {
             get { return _vBankTribute; }
         }
@@ -486,49 +486,49 @@ namespace HazeronAdviser
                     {
                         i++;
                         line = tempArray[i].Replace(",", "");
-                        _vBankTribute = Convert.ToInt32(line.Remove(line.Length - 1));
+                        _vBankTribute = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Starting Balance")
                     {
                         i++;
                         line = tempArray[i].Replace(",", "");
                         if (GovAcc)
-                            _vBankGovBalanceOld = Convert.ToInt32(line.Remove(line.Length - 1));
+                            _vBankGovBalanceOld = Convert.ToInt64(line.Remove(line.Length - 1));
                         else
-                            _vBankCitBalanceOld = Convert.ToInt32(line.Remove(line.Length - 1));
+                            _vBankCitBalanceOld = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Current Balance")
                     {
                         i++;
                         line = tempArray[i].Replace(",", "");
                         if (GovAcc)
-                            _vBankGovBalance = Convert.ToInt32(line.Remove(line.Length - 1));
+                            _vBankGovBalance = Convert.ToInt64(line.Remove(line.Length - 1));
                         else
-                            _vBankCitBalance = Convert.ToInt32(line.Remove(line.Length - 1));
+                            _vBankCitBalance = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Income Tax")
                     {
                         i++;
                         line = tempArray[i].Replace(",", "");
-                        _vBankTaxIncome = Convert.ToInt32(line.Remove(line.Length - 1));
+                        _vBankTaxIncome = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Sales Tax")
                     {
                         i++;
                         line = tempArray[i].Replace(",", "");
-                        _vBankTaxSale = Convert.ToInt32(line.Remove(line.Length - 1));
+                        _vBankTaxSale = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Bullion Production")
                     {
                         i++;
                         line = tempArray[i].Replace(",", "");
-                        _vBankProduction = Convert.ToInt32(line.Remove(line.Length - 1));
+                        _vBankProduction = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Research and Development")
                     {
                         i++;
                         line = tempArray[i].Replace(",", "");
-                        _vBankExpenseResearch = Convert.ToInt32(line.Remove(line.Length - 1));
+                        _vBankExpenseResearch = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                 }
             }
