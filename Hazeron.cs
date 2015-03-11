@@ -8,6 +8,8 @@ namespace HazeronAdviser
 {
     class Hazeron
     {
+        public const int AbandonmentInterval = 7;
+
         public const int CurrencyPadding = 16;
 
         static protected NumberFormatInfo _numberFormat;

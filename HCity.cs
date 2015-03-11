@@ -29,14 +29,14 @@ namespace HazeronAdviser
             get { return _sMoraleShort; }
         }
 
-        protected int _vAbandonment = 0, vAbandonmentMax = 0;
+        protected int _vAbandonment = 0, _vAbandonmentMax = 0;
         public int VAbandonment
         {
             get { return _vAbandonment; }
         }
         public int VAbandonmentMax
         {
-            get { return vAbandonmentMax; }
+            get { return _vAbandonmentMax; }
         }
 
         protected string _sAbandonment = "-";
@@ -296,7 +296,6 @@ namespace HazeronAdviser
             moraleBuildingsPop.Add("Casino", 200);
             // Time for City spicific things.
             string race = "";
-            const int abandonmentInterval = 7;
             int powerConsumption = 0, powerReserve = 0, powerReserveCapacity = 0;
             List<string> buildingList;
 
@@ -370,12 +369,14 @@ namespace HazeronAdviser
                             _HashEnv = true;
                         }
                     }
-                _vAbandonment = ((_vMoraleModifiers.Sum() + 1) * abandonmentInterval) - (abandonedDays % abandonmentInterval);
-                vAbandonmentMax = ((_vMoraleModifiers.Sum() - abandonedPenalty + 1) * abandonmentInterval);
-                if (_vAbandonment == vAbandonmentMax)
-                    _sAbandonment = _vAbandonment.ToString("00") + "~/" + vAbandonmentMax.ToString("00") + " days";
+                _vAbandonment = ((_vMoraleModifiers.Sum() + 1) * Hazeron.AbandonmentInterval) - (abandonedDays % Hazeron.AbandonmentInterval);
+                _vAbandonmentMax = ((_vMoraleModifiers.Sum() - abandonedPenalty + 1) * Hazeron.AbandonmentInterval);
+                if (_vAbandonmentMax < Hazeron.AbandonmentInterval)
+                    _sAbandonment = " Unstable";
+                else if (_vAbandonment == _vAbandonmentMax)
+                    _sAbandonment = _vAbandonment.ToString("00") + "~/" + _vAbandonmentMax.ToString("00") + " days";
                 else if (_vAbandonment > 0)
-                    _sAbandonment = _vAbandonment.ToString("00") + " /" + vAbandonmentMax.ToString("00") + " days";
+                    _sAbandonment = _vAbandonment.ToString("00") + " /" + _vAbandonmentMax.ToString("00") + " days";
                 else
                     _sAbandonment = " Decaying";
                 _vMorale = Convert.ToInt32(_sMoraleShort.Substring(_sMoraleShort.LastIndexOf(' ') + 1));
@@ -801,9 +802,9 @@ namespace HazeronAdviser
                 _attentionCode = (byte)(_attentionCode | 0x01); // 0b00000001
             if (_vPopulation < _vHomes || _vPopulation > _vHomes) // Population not full, or more than full.
                 _attentionCode = (byte)(_attentionCode | 0x02); // 0b00000010
-            if (14 >= _vAbandonment) // Less than or equal to 14 days to decay.
+            if (Hazeron.AbandonmentInterval * 2 >= _vAbandonment) // Less than or equal to (Hazeron.AbandonmentInterval * 2) days to decay.
                 _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100
-            if (7 >= _vAbandonment) // Less than or equal to 7 days to decay.
+            if (Hazeron.AbandonmentInterval >= _vAbandonment) // Less than or equal to (Hazeron.AbandonmentInterval) days to decay.
                 _attentionCode = (byte)(_attentionCode | 0x08); // 0b00001000
             if (_vPopulation == 0 || _vPopulation > _vPopulationLimit) // Population is 0, or zone over populated!
                 _attentionCode = (byte)(_attentionCode | 0x10); // 0b00010000
