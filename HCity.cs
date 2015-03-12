@@ -269,18 +269,19 @@ namespace HazeronAdviser
             string[] tempArray;
             List<string> sectionsInReport = new List<string>();
             // This is the order of the sections in the mail body, keep them in same order!
-            string[] sections = new string[] { "EVENT LOG"
-                                             , "MORALE"
-                                             , "POPULATION"
-                                             , "LIVING CONDITIONS"
-                                             , "POWER RESERVE"
-                                             , "BANK ACTIVITY"
-                                             , "RESEARCH AND DEVELOPMENT"
-                                             , "SPACECRAFT MANUFACTURING POTENTIAL"
-                                             , "SPACECRAFT"
-                                             , "FACILITIES"
-                                             , "VEHICLES"
-                                             , "INVENTORY"
+            string[] sections = new string[] { "<b style=\"color: rgb(255, 255, 0);\">DISTRESS</b>"
+                                             , "<b>EVENT LOG</b>"
+                                             , "<b>MORALE</b>"
+                                             , "<b>POPULATION</b>"
+                                             , "<b>LIVING CONDITIONS</b>"
+                                             , "<b>POWER RESERVE</b>"
+                                             , "<b>BANK ACTIVITY</b>"
+                                             , "<b>RESEARCH AND DEVELOPMENT</b>"
+                                             , "<b>SPACECRAFT MANUFACTURING POTENTIAL</b>"
+                                             , "<b>SPACECRAFT</b>"
+                                             , "<b>FACILITIES</b>"
+                                             , "<b>VEHICLES</b>"
+                                             , "<b>INVENTORY</b>"
                                              };
             Dictionary<string, int> moraleBuildingsPop = new Dictionary<string, int>();
             moraleBuildingsPop.Add("Church", 45);
@@ -299,29 +300,10 @@ namespace HazeronAdviser
             int powerConsumption = 0, powerReserve = 0, powerReserveCapacity = 0;
             List<string> buildingList;
 
-            //INFO
-            //if (_mail.MessageType == 0x06 && _mail.Body.Contains("<b>EVENT LOG</b>")) // MSG_CityStatusReportInfo
-            //{
-            //    subStart = _mail.Body.IndexOf("<b>EVENT LOG</b>");
-            //    subEnd = _mail.Body.IndexOf("<b>MORALE</b>") - subStart;
-            //    _info = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
-            //}
-
-            //DISTRESS
-            //if (_mail.MessageType == 0x04 && _mail.Body.Contains("<b style=\"color: rgb(255, 255, 0);\">DISTRESS</b>") // MSG_CityDistressReport
-            //{
-            //    subStart = _mail.Body.IndexOf("<b style=\"color: rgb(255, 255, 0);\">DISTRESS</b>");
-            //    if (_mail.Body.Contains("<b>DECAY</b>"))
-            //        subEnd = _mail.Body.IndexOf("<b>DECAY</b>") - subStart;
-            //    else
-            //        subEnd = _mail.Body.IndexOf("<b>MORALE</b>") - subStart;
-            //    _distress = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
-            //}
-
             // Check for sections.
             foreach (string section in sections)
-                if (_mail.Body.Contains("<b>" + section + "</b>"))
-                    sectionsInReport.Add("<b>" + section + "</b>");
+                if (_mail.Body.Contains(section))
+                    sectionsInReport.Add(section);
 
             // City Resource Zone & Capital check
             {
@@ -336,13 +318,23 @@ namespace HazeronAdviser
                 }
             }
 
-            //// EVENT LOG
-            //const string headlineEVENT = "<b>EVENT LOG</b>";
-            //if (sectionsInReport.Contains(headlineEVENT))
-            //{
-            //    string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineEVENT));
-            //    tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            //}
+            //DISTRESS
+            const string headlineDISTRESS = "<b style=\"color: rgb(255, 255, 0);\">DISTRESS</b>";
+            if (sectionsInReport.Contains(headlineDISTRESS))
+            {
+                string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineDISTRESS));
+                //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                _sOverview = "[color=red]" + tempSection + "[/color]";
+            }
+
+            // EVENT LOG
+            const string headlineEVENT = "<b>EVENT LOG</b>";
+            if (sectionsInReport.Contains(headlineEVENT))
+            {
+                string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineEVENT));
+                //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                _sOverview = tempSection;
+            }
 
             // MORALE & Abandonment
             const string headlineMORALE = "<b>MORALE</b>";
@@ -794,8 +786,8 @@ namespace HazeronAdviser
             _sBank += Environment.NewLine + " " + (_vBankGovBalance - _vBankGovBalanceOld).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account net-change";
             _sBank += Environment.NewLine + " " + _vBankGovBalance.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account balance";
 
-            // Overview
-            _sOverview = "WIP";
+            //// Overview
+            //_sOverview = "WIP";
 
             // AttentionCodes
             if ((_vJobs >= _vHomes) || (((float)(_vHomes - _vJobs) / _vHomes) > 0.2)) // Overworked, or too much unemployment.

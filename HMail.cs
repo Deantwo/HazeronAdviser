@@ -26,7 +26,7 @@ namespace HazeronAdviser
         static public bool IsCityReport(int messageType) // Give true if MessageType is a CityReport (or related) mail.
         {
             if (   messageType == 0x01 // MSG_CityStatusReport
-            //    || messageType == 0x04 // MSG_CityDistressReport
+                || messageType == 0x04 // MSG_CityDistressReport
                 || messageType == 0x06 // MSG_CityStatusReportInfo
                 )
                 return true;
@@ -34,6 +34,10 @@ namespace HazeronAdviser
         }
         static public bool IsCityReport(HMail mail) // Same as above but mail input.
         {
+            // This is a small fix to not count MSG_CityDistressReport messages with no report info.
+            if (!(mail.Body.Contains("<b>MORALE</b>") || mail.Body.Contains("<b>POPULATION</b>")))
+                return false;
+
             return IsCityReport(mail.MessageType);
         }
         static public bool IsCityReport(byte[] mailBytes) // Same as above but mailBytes input.

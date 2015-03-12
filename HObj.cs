@@ -214,19 +214,28 @@ namespace HazeronAdviser
             string[] tempArray;
             List<string> sectionsInReport = new List<string>();
             // This is the order of the sections in the mail body, keep them in same order!
-            string[] sections = new string[] { "EVENT LOG"
-                                             , "DAMAGE REPORT"
-                                             , "ACCOUNT"
-                                             , "FUEL"
-                                             , "CARGO"
-                                             , "MISSION"
-                                             , "ROSTER"
+            string[] sections = new string[] { "<b>EVENT LOG</b>"
+                                             , "<b>DAMAGE REPORT</b>"
+                                             , "<b>ACCOUNT</b>"
+                                             , "<b>FUEL</b>"
+                                             , "<b>CARGO</b>"
+                                             , "<b>MISSION</b>"
+                                             , "<b>ROSTER</b>"
                                              };
 
             // Check for sections.
             foreach (string section in sections)
-                if (_mail.Body.Contains("<b>" + section + "</b>"))
-                    sectionsInReport.Add("<b>" + section + "</b>");
+                if (_mail.Body.Contains(section))
+                    sectionsInReport.Add(section);
+
+            // EVENT LOG
+            const string headlineEVENT = "<b>EVENT LOG</b>";
+            if (sectionsInReport.Contains(headlineEVENT))
+            {
+                string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineEVENT));
+                //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                _sOverview = tempSection;
+            }
 
             // Decay
             subStart = _mail.Body.IndexOf("Commander,") + 10; // "I was deployed from ".Length == 20
@@ -325,8 +334,8 @@ namespace HazeronAdviser
             subEnd = _mail.Body.Substring(subStart).IndexOf(" in ");
             _officerHome = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd)) + ", (system name unavailable)";
 
-            // Overview
-            _sOverview = "WIP";
+            //// Overview
+            //_sOverview = "WIP";
 
             // AttentionCodes
             if (dDay == 2) // 2 weeks until decay.
