@@ -74,6 +74,16 @@ namespace HazeronAdviser
             imageFlag = HazeronAdviser.Properties.Resources.c_Flag;
             imageTarget = HazeronAdviser.Properties.Resources.MsgSpot;
 
+            dgvCity.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+            dgvCity.DefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvSystem.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+            dgvSystem.DefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvShip.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+            dgvShip.DefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvOfficer.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+            dgvOfficer.DefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvEvent.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+            dgvEvent.DefaultCellStyle.SelectionForeColor = Color.Black;
             dgvCity.Columns["ColumnCityAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvCity.Columns["ColumnCityAbandonment"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
             dgvSystem.Columns["ColumnSystemAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
