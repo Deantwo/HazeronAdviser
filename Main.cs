@@ -1054,5 +1054,52 @@ namespace HazeronAdviser
             return String.Compare(value1, value2);
         }
         #endregion
+
+        #region menuStrip1
+        private void menuStrip1FileExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void menuStrip1HelpGithub_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"https://github.com/Deantwo/HazeronAdviser");
+        }
+
+        private void menuStrip1HelpThread_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"http://hazeron.com/phpBB3/viewtopic.php?f=124&t=6867#p77419");
+        }
+
+        private void menuStrip1HelpAbout_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                "Program:" + Environment.NewLine +
+                "   HazeronAdviser" + Environment.NewLine +
+                "" + Environment.NewLine +
+                "Version:" + Environment.NewLine +
+                "   v0.34" + Environment.NewLine +
+                "" + Environment.NewLine +
+                "Creator:" + Environment.NewLine +
+                "   Deantwo" + Environment.NewLine +
+                "" + Environment.NewLine +
+                "Feedback, suggestions, and bug reports should be posted in the forum thread or PMed to Deantwo please."
+                , "About HazeronAdviser", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+        }
+
+        private void menuStrip1HelpHowToUse_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                "1. Log into Hazeron with your character" + Environment.NewLine +
+                "2. Open the Governance window (F12)" + Environment.NewLine +
+                "3. Go to the Places tab" + Environment.NewLine +
+                "4. Select all your cities on the list and right-click them, then click \"Recent Report by Mail...\"" + Environment.NewLine +
+                "5. Open the Mail window (F2)" + Environment.NewLine +
+                "6. Click the \"Request New Messages\" button" + Environment.NewLine +
+                "7. Start HazeronAdviser (which you already have done!)" + Environment.NewLine +
+                "8. Click \"Scan HMails\""
+                , "How to use HazeronAdviser", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
+        }
+        #endregion
     }
 }

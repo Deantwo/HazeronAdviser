@@ -162,6 +162,19 @@
             this.cmbCharFilter = new System.Windows.Forms.ComboBox();
             this.cmsRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmsRightClickCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip1File = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1Edit = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1View = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1Help = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1HelpAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1HelpGithub = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1HelpThread = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1HelpHowToUse = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1FileExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1EditWip = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1ViewWip = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -265,11 +278,12 @@
             this.splitContainerEventOverview.SuspendLayout();
             this.tabEventMail.SuspendLayout();
             this.cmsRightClick.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnScan
             // 
-            this.btnScan.Location = new System.Drawing.Point(12, 12);
+            this.btnScan.Location = new System.Drawing.Point(12, 27);
             this.btnScan.Name = "btnScan";
             this.btnScan.Size = new System.Drawing.Size(75, 23);
             this.btnScan.TabIndex = 1;
@@ -527,10 +541,10 @@
             this.tabControlMain.Controls.Add(this.tabShip);
             this.tabControlMain.Controls.Add(this.tabOfficer);
             this.tabControlMain.Controls.Add(this.tabEvent);
-            this.tabControlMain.Location = new System.Drawing.Point(12, 41);
+            this.tabControlMain.Location = new System.Drawing.Point(12, 56);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(766, 442);
+            this.tabControlMain.Size = new System.Drawing.Size(766, 427);
             this.tabControlMain.TabIndex = 1;
             // 
             // tabCity
@@ -539,7 +553,7 @@
             this.tabCity.Location = new System.Drawing.Point(4, 22);
             this.tabCity.Name = "tabCity";
             this.tabCity.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCity.Size = new System.Drawing.Size(758, 416);
+            this.tabCity.Size = new System.Drawing.Size(758, 401);
             this.tabCity.TabIndex = 0;
             this.tabCity.Text = "Cities";
             this.tabCity.UseVisualStyleBackColor = true;
@@ -557,7 +571,7 @@
             // splitContainerCity.Panel2
             // 
             this.splitContainerCity.Panel2.Controls.Add(this.tabControlCity);
-            this.splitContainerCity.Size = new System.Drawing.Size(752, 410);
+            this.splitContainerCity.Size = new System.Drawing.Size(752, 395);
             this.splitContainerCity.SplitterDistance = 331;
             this.splitContainerCity.TabIndex = 6;
             // 
@@ -590,7 +604,7 @@
             this.dgvCity.ReadOnly = true;
             this.dgvCity.RowHeadersVisible = false;
             this.dgvCity.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCity.Size = new System.Drawing.Size(331, 410);
+            this.dgvCity.Size = new System.Drawing.Size(331, 395);
             this.dgvCity.TabIndex = 2;
             this.dgvCity.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvCity.SelectionChanged += new System.EventHandler(this.dgvCity_SelectionChanged);
@@ -710,7 +724,7 @@
             this.tabControlCity.Location = new System.Drawing.Point(0, 0);
             this.tabControlCity.Name = "tabControlCity";
             this.tabControlCity.SelectedIndex = 0;
-            this.tabControlCity.Size = new System.Drawing.Size(417, 410);
+            this.tabControlCity.Size = new System.Drawing.Size(417, 395);
             this.tabControlCity.TabIndex = 1;
             // 
             // tabCityOverview
@@ -719,7 +733,7 @@
             this.tabCityOverview.Location = new System.Drawing.Point(4, 22);
             this.tabCityOverview.Name = "tabCityOverview";
             this.tabCityOverview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityOverview.Size = new System.Drawing.Size(409, 384);
+            this.tabCityOverview.Size = new System.Drawing.Size(409, 369);
             this.tabCityOverview.TabIndex = 0;
             this.tabCityOverview.Text = "Overview";
             this.tabCityOverview.UseVisualStyleBackColor = true;
@@ -738,8 +752,8 @@
             // splitContainerCityOverview.Panel2
             // 
             this.splitContainerCityOverview.Panel2.Controls.Add(this.rtbCityOverview);
-            this.splitContainerCityOverview.Size = new System.Drawing.Size(403, 378);
-            this.splitContainerCityOverview.SplitterDistance = 168;
+            this.splitContainerCityOverview.Size = new System.Drawing.Size(403, 363);
+            this.splitContainerCityOverview.SplitterDistance = 161;
             this.splitContainerCityOverview.TabIndex = 1;
             // 
             // splitContainerCityOverview2
@@ -755,7 +769,7 @@
             // splitContainerCityOverview2.Panel2
             // 
             this.splitContainerCityOverview2.Panel2.Controls.Add(this.pCityOverviewPopulation);
-            this.splitContainerCityOverview2.Size = new System.Drawing.Size(403, 168);
+            this.splitContainerCityOverview2.Size = new System.Drawing.Size(403, 161);
             this.splitContainerCityOverview2.SplitterDistance = 136;
             this.splitContainerCityOverview2.TabIndex = 0;
             // 
@@ -766,7 +780,7 @@
             this.pCityOverviewMorale.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pCityOverviewMorale.Location = new System.Drawing.Point(0, 0);
             this.pCityOverviewMorale.Name = "pCityOverviewMorale";
-            this.pCityOverviewMorale.Size = new System.Drawing.Size(136, 168);
+            this.pCityOverviewMorale.Size = new System.Drawing.Size(136, 161);
             this.pCityOverviewMorale.TabIndex = 1;
             this.toolTip1.SetToolTip(this.pCityOverviewMorale, "Blue - Morale\r\nYellow - Morale Modifier total\r\nGreen - sum of Positive Morale Mod" +
         "ifiers\r\nRed - sum of Negative Morale Modifiers");
@@ -780,7 +794,7 @@
             this.pCityOverviewPopulation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pCityOverviewPopulation.Location = new System.Drawing.Point(0, 0);
             this.pCityOverviewPopulation.Name = "pCityOverviewPopulation";
-            this.pCityOverviewPopulation.Size = new System.Drawing.Size(263, 168);
+            this.pCityOverviewPopulation.Size = new System.Drawing.Size(263, 161);
             this.pCityOverviewPopulation.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pCityOverviewPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
@@ -794,7 +808,7 @@
             this.rtbCityOverview.Location = new System.Drawing.Point(0, 0);
             this.rtbCityOverview.Name = "rtbCityOverview";
             this.rtbCityOverview.ReadOnly = true;
-            this.rtbCityOverview.Size = new System.Drawing.Size(403, 206);
+            this.rtbCityOverview.Size = new System.Drawing.Size(403, 198);
             this.rtbCityOverview.TabIndex = 1;
             this.rtbCityOverview.Text = "";
             // 
@@ -1839,7 +1853,7 @@
             this.cmbCharFilter.FormattingEnabled = true;
             this.cmbCharFilter.Items.AddRange(new object[] {
             "Show all"});
-            this.cmbCharFilter.Location = new System.Drawing.Point(93, 14);
+            this.cmbCharFilter.Location = new System.Drawing.Point(93, 29);
             this.cmbCharFilter.Name = "cmbCharFilter";
             this.cmbCharFilter.Size = new System.Drawing.Size(121, 21);
             this.cmbCharFilter.TabIndex = 3;
@@ -1856,9 +1870,113 @@
             // cmsRightClickCopy
             // 
             this.cmsRightClickCopy.Name = "cmsRightClickCopy";
-            this.cmsRightClickCopy.Size = new System.Drawing.Size(152, 22);
+            this.cmsRightClickCopy.Size = new System.Drawing.Size(102, 22);
             this.cmsRightClickCopy.Text = "Copy";
             this.cmsRightClickCopy.Click += new System.EventHandler(this.cmsRightClickCopy_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip1File,
+            this.menuStrip1Edit,
+            this.menuStrip1View,
+            this.menuStrip1Help});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(790, 24);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // menuStrip1File
+            // 
+            this.menuStrip1File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip1FileExit});
+            this.menuStrip1File.Name = "menuStrip1File";
+            this.menuStrip1File.Size = new System.Drawing.Size(37, 20);
+            this.menuStrip1File.Text = "File";
+            // 
+            // menuStrip1Edit
+            // 
+            this.menuStrip1Edit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip1EditWip});
+            this.menuStrip1Edit.Name = "menuStrip1Edit";
+            this.menuStrip1Edit.Size = new System.Drawing.Size(39, 20);
+            this.menuStrip1Edit.Text = "Edit";
+            // 
+            // menuStrip1View
+            // 
+            this.menuStrip1View.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip1ViewWip});
+            this.menuStrip1View.Name = "menuStrip1View";
+            this.menuStrip1View.Size = new System.Drawing.Size(44, 20);
+            this.menuStrip1View.Text = "View";
+            // 
+            // menuStrip1Help
+            // 
+            this.menuStrip1Help.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip1HelpGithub,
+            this.menuStrip1HelpThread,
+            this.toolStripSeparator1,
+            this.menuStrip1HelpAbout,
+            this.menuStrip1HelpHowToUse});
+            this.menuStrip1Help.Name = "menuStrip1Help";
+            this.menuStrip1Help.Size = new System.Drawing.Size(44, 20);
+            this.menuStrip1Help.Text = "Help";
+            // 
+            // menuStrip1HelpAbout
+            // 
+            this.menuStrip1HelpAbout.Name = "menuStrip1HelpAbout";
+            this.menuStrip1HelpAbout.Size = new System.Drawing.Size(152, 22);
+            this.menuStrip1HelpAbout.Text = "About";
+            this.menuStrip1HelpAbout.Click += new System.EventHandler(this.menuStrip1HelpAbout_Click);
+            // 
+            // menuStrip1HelpGithub
+            // 
+            this.menuStrip1HelpGithub.Name = "menuStrip1HelpGithub";
+            this.menuStrip1HelpGithub.Size = new System.Drawing.Size(152, 22);
+            this.menuStrip1HelpGithub.Text = "GitHub Repo";
+            this.menuStrip1HelpGithub.Click += new System.EventHandler(this.menuStrip1HelpGithub_Click);
+            // 
+            // menuStrip1HelpThread
+            // 
+            this.menuStrip1HelpThread.Name = "menuStrip1HelpThread";
+            this.menuStrip1HelpThread.Size = new System.Drawing.Size(152, 22);
+            this.menuStrip1HelpThread.Text = "Forum Thread";
+            this.menuStrip1HelpThread.Click += new System.EventHandler(this.menuStrip1HelpThread_Click);
+            // 
+            // menuStrip1HelpHowToUse
+            // 
+            this.menuStrip1HelpHowToUse.Name = "menuStrip1HelpHowToUse";
+            this.menuStrip1HelpHowToUse.Size = new System.Drawing.Size(152, 22);
+            this.menuStrip1HelpHowToUse.Text = "How To Use";
+            this.menuStrip1HelpHowToUse.Click += new System.EventHandler(this.menuStrip1HelpHowToUse_Click);
+            // 
+            // menuStrip1FileExit
+            // 
+            this.menuStrip1FileExit.Name = "menuStrip1FileExit";
+            this.menuStrip1FileExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.menuStrip1FileExit.Size = new System.Drawing.Size(152, 22);
+            this.menuStrip1FileExit.Text = "Exit";
+            this.menuStrip1FileExit.Click += new System.EventHandler(this.menuStrip1FileExit_Click);
+            // 
+            // menuStrip1EditWip
+            // 
+            this.menuStrip1EditWip.Enabled = false;
+            this.menuStrip1EditWip.Name = "menuStrip1EditWip";
+            this.menuStrip1EditWip.Size = new System.Drawing.Size(152, 22);
+            this.menuStrip1EditWip.Text = "WIP";
+            // 
+            // menuStrip1ViewWip
+            // 
+            this.menuStrip1ViewWip.Enabled = false;
+            this.menuStrip1ViewWip.Name = "menuStrip1ViewWip";
+            this.menuStrip1ViewWip.Size = new System.Drawing.Size(152, 22);
+            this.menuStrip1ViewWip.Text = "WIP";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // Main
             // 
@@ -1867,10 +1985,12 @@
             this.ClientSize = new System.Drawing.Size(790, 508);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.btnScan);
             this.Controls.Add(this.cmbCharFilter);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Main";
-            this.Text = "Hazeron Adviser";
+            this.Text = "HazeronAdviser";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.splitContainerShip.Panel1.ResumeLayout(false);
@@ -1979,6 +2099,8 @@
             this.tabEventMail.ResumeLayout(false);
             this.tabEventMail.PerformLayout();
             this.cmsRightClick.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2119,6 +2241,19 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityDate;
         private System.Windows.Forms.ContextMenuStrip cmsRightClick;
         private System.Windows.Forms.ToolStripMenuItem cmsRightClickCopy;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem menuStrip1File;
+        private System.Windows.Forms.ToolStripMenuItem menuStrip1FileExit;
+        private System.Windows.Forms.ToolStripMenuItem menuStrip1Edit;
+        private System.Windows.Forms.ToolStripMenuItem menuStrip1View;
+        private System.Windows.Forms.ToolStripMenuItem menuStrip1Help;
+        private System.Windows.Forms.ToolStripMenuItem menuStrip1HelpAbout;
+        private System.Windows.Forms.ToolStripMenuItem menuStrip1HelpGithub;
+        private System.Windows.Forms.ToolStripMenuItem menuStrip1HelpThread;
+        private System.Windows.Forms.ToolStripMenuItem menuStrip1HelpHowToUse;
+        private System.Windows.Forms.ToolStripMenuItem menuStrip1EditWip;
+        private System.Windows.Forms.ToolStripMenuItem menuStrip1ViewWip;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 
