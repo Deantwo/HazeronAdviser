@@ -230,7 +230,7 @@ namespace HazeronAdviser
                 dgvCity.Rows[row].Cells["ColumnCitySelection"].Value = false;
                 dgvCity.Rows[row].Cells["ColumnCityIcon"].Value = imageCity;
                 dgvCity.Rows[row].Cells["ColumnCityName"].Value = hCity.Name;
-                dgvCity.Rows[row].Cells["ColumnCityLocation"].Value = hCity.PlanetName + ", " + hCity.SystemName;
+                dgvCity.Rows[row].Cells["ColumnCityLocation"].Value = hCity.SystemName + ", " + hCity.PlanetName + " z" + hCity.VZone;
                 dgvCity.Rows[row].Cells["ColumnCityMorale"].Value = hCity.SMoraleShort;
                 dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Value = hCity.SAbandonment;
                 dgvCity.Rows[row].Cells["ColumnCityPopulation"].Value = hCity.SPopulationShort;
@@ -312,7 +312,7 @@ namespace HazeronAdviser
                 dgvShip.Rows[row].Cells["ColumnShipSelection"].Value = false;
                 dgvShip.Rows[row].Cells["ColumnShipIcon"].Value = imageShip;
                 dgvShip.Rows[row].Cells["ColumnShipName"].Value = hShip.Name;
-                dgvShip.Rows[row].Cells["ColumnShipLocation"].Value = hShip.PlanetName + ", " + hShip.SystemName;
+                dgvShip.Rows[row].Cells["ColumnShipLocation"].Value = hShip.SystemName + ", " + hShip.PlanetName;
                 dgvShip.Rows[row].Cells["ColumnShipAbandonment"].Value = hShip.Abandonment;
                 dgvShip.Rows[row].Cells["ColumnShipFuel"].Value = hShip.FuelShort;
                 dgvShip.Rows[row].Cells["ColumnShipDamage"].Value = hShip.DamageShort;
@@ -441,7 +441,7 @@ namespace HazeronAdviser
                     dgvEvent.Rows[row].Cells["ColumnEventIcon"].Value = imageFlag;
                 dgvEvent.Rows[row].Cells["ColumnEventName"].Value = hEvent.Name;
                 dgvEvent.Rows[row].Cells["ColumnEventSubject"].Value = hEvent.Subject;
-                dgvEvent.Rows[row].Cells["ColumnEventLocation"].Value = hEvent.PlanetName + ", " + hEvent.SystemName;
+                dgvEvent.Rows[row].Cells["ColumnEventLocation"].Value = hEvent.SystemName + ", " + hEvent.PlanetName;
                 dgvEvent.Rows[row].Cells["ColumnEventDate"].Value = hEvent.LastUpdaredString;
                 // AttentionCodes
                 if (hEvent.AttentionCode != 0x00)

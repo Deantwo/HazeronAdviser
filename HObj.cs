@@ -332,7 +332,7 @@ namespace HazeronAdviser
             //// Home
             subStart = _mail.Body.IndexOf("I was deployed from ") + 20; // "I was deployed from ".Length == 20
             subEnd = _mail.Body.Substring(subStart).IndexOf(" in ");
-            _officerHome = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd)) + ", (system name unavailable)";
+            _officerHome = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd)) + ", (system name unavailable)"; // Need to swap system name and planet name once I actually get the system name.
 
             //// Overview
             //_sOverview = "WIP";
