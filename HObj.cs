@@ -77,9 +77,19 @@ namespace HazeronAdviser
         }
 
         protected HMail _mail;
+        public HMail Mail
+        {
+            get { return _mail; }
+        }
         public string MailBody
         {
             get { return HHelper.CleanText(_mail.Body); }
+        }
+
+        protected bool _initialized = false;
+        public bool Initialized
+        {
+            get { return _initialized; }
         }
 
         public HObj(HMail mail)
@@ -120,6 +130,11 @@ namespace HazeronAdviser
             else
                 subEnd = mailBody.Length - 1 - subStart;
             return mailBody.Substring(subStart, subEnd);
+        }
+
+        public virtual void Initialize()
+        {
+            _initialized = true;
         }
     }
 
@@ -207,7 +222,7 @@ namespace HazeronAdviser
         {
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             // String working vars.
             int subStart, subEnd;
@@ -354,6 +369,8 @@ namespace HazeronAdviser
                 _attentionCode = (byte)(_attentionCode | 0x40); // 0b01000000
             if (false) // Nothing yet!
                 _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
+
+            base.Initialize();
         }
     }
 
@@ -378,7 +395,7 @@ namespace HazeronAdviser
             CompareMail(mail);
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             // String working vars.
             int subStart, subEnd;
@@ -420,6 +437,8 @@ namespace HazeronAdviser
                 _attentionCode = (byte)(_attentionCode | 0x40); // 0b01000000
             if (false) // Nothing yet!
                 _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
+
+            base.Initialize();
         }
     }
 
@@ -448,7 +467,7 @@ namespace HazeronAdviser
         {
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             // String working vars.
             int subStart, subEnd;
@@ -503,6 +522,8 @@ namespace HazeronAdviser
                 _attentionCode = (byte)(_attentionCode | 0x40); // 0b01000000
             if (_messageType == 0x03 || _messageType == 0x12 || _messageType == 0x16 || _messageType == 0x17) // MSG_CityOccupationReport, MSG_ShipLogFinal, MSG_OfficerDeath or MSG_CityFinalDecayReport
                 _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
+
+            base.Initialize();
         }
     }
 }

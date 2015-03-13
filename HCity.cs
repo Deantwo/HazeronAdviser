@@ -254,7 +254,7 @@ namespace HazeronAdviser
         {
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             if (_mail.Body.Remove(4) == "UTC:")
             {
@@ -806,6 +806,8 @@ namespace HazeronAdviser
                 _attentionCode = (byte)(_attentionCode | 0x40); // 0b01000000
             if (false) // Nothing yet!
                 _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
+
+            base.Initialize();
         }
     }
 }

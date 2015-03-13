@@ -173,6 +173,12 @@ namespace HazeronAdviser
             get { return _vLoyalty; }
         }
 
+        protected bool _initialized = false;
+        public bool Initialized
+        {
+            get { return _initialized; }
+        }
+
         public HSystem(HCity city)
         {
             _name = city.SystemName; // Incase sender changed name.
@@ -193,7 +199,7 @@ namespace HazeronAdviser
                     _owners.Add(owner);
         }
 
-        public void UpdateSystem()
+        public void Initialize()
         {
             _attentionCode = 0x00; // 0b00000000
 
@@ -327,6 +333,8 @@ namespace HazeronAdviser
                 _attentionCode = (byte)(_attentionCode | 0x40); // 0b01000000
             if (false) // Nothing yet!
                 _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
+
+            _initialized = true;
         }
     }
 }
