@@ -364,6 +364,7 @@
             this.dgvShip.TabIndex = 2;
             this.dgvShip.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvShip.SelectionChanged += new System.EventHandler(this.dgvShip_SelectionChanged);
+            this.dgvShip.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgv_SortCompare);
             this.dgvShip.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
             // 
             // ColumnShipIndex
@@ -593,6 +594,7 @@
             this.dgvCity.TabIndex = 2;
             this.dgvCity.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvCity.SelectionChanged += new System.EventHandler(this.dgvCity_SelectionChanged);
+            this.dgvCity.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgv_SortCompare);
             this.dgvCity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
             // 
             // ColumnCityIndex
@@ -1085,6 +1087,7 @@
             this.dgvSystem.TabIndex = 2;
             this.dgvSystem.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvSystem.SelectionChanged += new System.EventHandler(this.dgvSystem_SelectionChanged);
+            this.dgvSystem.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgv_SortCompare);
             this.dgvSystem.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
             // 
             // ColumnSystemIndex
@@ -1469,6 +1472,7 @@
             this.dgvOfficer.TabIndex = 2;
             this.dgvOfficer.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvOfficer.SelectionChanged += new System.EventHandler(this.dgvOfficer_SelectionChanged);
+            this.dgvOfficer.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgv_SortCompare);
             this.dgvOfficer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
             // 
             // ColumnOfficerIndex
@@ -1675,6 +1679,7 @@
             this.dgvEvent.TabIndex = 3;
             this.dgvEvent.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvEvent.SelectionChanged += new System.EventHandler(this.dgvEvent_SelectionChanged);
+            this.dgvEvent.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgv_SortCompare);
             this.dgvEvent.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
             // 
             // ColumnEventIndex

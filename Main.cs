@@ -909,5 +909,96 @@ namespace HazeronAdviser
             }
         }
         #endregion
+
+        #region DataGridView
+        private void dgv_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        { // Override of the DataGridView's normal SortCompare. This version converts some of the fields to numbers before sorting them.
+            DataGridView dgv = (sender as DataGridView);
+
+            string columnName = e.Column.Name;
+            if (columnName == ""
+             || columnName == ""
+             || columnName == ""
+                )
+            { // If is it a numeric column.
+                string value1 = (e.CellValue1 ?? String.Empty).ToString();
+                if (value1.Contains(' '))
+                    value1 = value1.Split(' ')[0];
+
+                string value2 = (e.CellValue2 ?? String.Empty).ToString();
+                if (value2.Contains(' '))
+                    value2 = value2.Split(' ')[0];
+
+                e.SortResult = CompareNumbers(value1, value2, true);
+            }
+            else if (columnName == "ColumnCityBank"
+                  || columnName == ""
+                  || columnName == ""
+                     )
+            { // If is it a money column.
+                string value1 = (e.CellValue1 ?? String.Empty).ToString();
+                if (value1.Contains('¢'))
+                    value1 = value1.Remove(value1.IndexOf('¢'));
+
+                string value2 = (e.CellValue2 ?? String.Empty).ToString();
+                if (value2.Contains('¢'))
+                    value2 = value2.Remove(value2.IndexOf('¢'));
+
+                e.SortResult = CompareNumbers(value1, value2, false);
+            }
+            else
+            {
+                // Try to sort based on the cells in the current column as srtings.
+                e.SortResult = String.Compare((e.CellValue1 ?? "").ToString(), (e.CellValue2 ?? "").ToString());
+            }
+
+            // If the cells are equal, sort based on the ID column.
+            const int nameColumn = 3;
+            if (e.SortResult == 0 && (e.Column.Index != nameColumn)) 
+                                   /* e.Column.Name != "ColumnCityName"
+                                    * e.Column.Name != "ColumnSystemName"
+                                    * e.Column.Name != "ColumnShipName"
+                                    * e.Column.Name != "ColumnOfficerName"
+                                    * e.Column.Name != "ColumnEventName"
+                                    */
+            {
+                e.SortResult = String.Compare(
+                    dgv.Rows[e.RowIndex1].Cells[nameColumn].Value.ToString(),
+                    dgv.Rows[e.RowIndex2].Cells[nameColumn].Value.ToString());
+            }
+            e.Handled = true;
+        }
+
+        /// <summary>
+        /// Makes sure the string has one decimal separated with ".", and then pads the start of the string with spaces (" "s).
+        /// </summary>
+        private string Normalize(string s, int len)
+        {
+            s = s.Replace(',', '.');
+            if (!s.Contains('.'))
+                s += ".0";
+            return s.PadLeft(len);
+        }
+
+        private int CompareNumbers(string value1, string value2, bool nullLowest = true)
+        {
+            if (nullLowest)
+            {
+                if (String.IsNullOrEmpty(value1))
+                {
+                    if (String.IsNullOrEmpty(value2))
+                        return 0;
+                    else
+                        return -1;
+                }
+                if (String.IsNullOrEmpty(value2))
+                    return 1;
+            }
+            int maxLen = Math.Max(value1.Length, value2.Length) + 2;
+            value1 = Normalize(value1, maxLen);
+            value2 = Normalize(value2, maxLen);
+            return String.Compare(value1, value2);
+        }
+        #endregion
     }
 }
