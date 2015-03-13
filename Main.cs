@@ -13,6 +13,8 @@ namespace HazeronAdviser
 {
     public partial class Main : Form
     {
+        const string VERSION = "v0.35";
+
         List<HCity> hCityList = new List<HCity>();
         List<HSystem> hSystemList = new List<HSystem>();
         List<HShip> hShipList = new List<HShip>();
@@ -47,6 +49,7 @@ namespace HazeronAdviser
         {
             InitializeComponent();
 
+            this.Text += " " + VERSION;
 #if DEBUG
             this.Text += " (DEBUG MODE)";
 #endif
@@ -1088,7 +1091,7 @@ namespace HazeronAdviser
                 "   HazeronAdviser" + Environment.NewLine +
                 "" + Environment.NewLine +
                 "Version:" + Environment.NewLine +
-                "   v0.34" + Environment.NewLine +
+                "   " + VERSION + Environment.NewLine +
                 "" + Environment.NewLine +
                 "Creator:" + Environment.NewLine +
                 "   Deantwo" + Environment.NewLine +
@@ -1100,14 +1103,15 @@ namespace HazeronAdviser
         private void menuStrip1HelpHowToUse_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-                "1. Log into Hazeron with your character" + Environment.NewLine +
-                "2. Open the Governance window (F12)" + Environment.NewLine +
-                "3. Go to the Places tab" + Environment.NewLine +
-                "4. Select all your cities on the list and right-click them, then click \"Recent Report by Mail...\"" + Environment.NewLine +
-                "5. Open the Mail window (F2)" + Environment.NewLine +
-                "6. Click the \"Request New Messages\" button" + Environment.NewLine +
-                "7. Start HazeronAdviser (which you already have done!)" + Environment.NewLine +
-                "8. Click \"Scan HMails\""
+                "1.  Log into Hazeron with your character" + Environment.NewLine +
+                "2.  Open the Governance window (F12)" + Environment.NewLine +
+                "3.  Go to the Places tab" + Environment.NewLine +
+                "4.  Select all your cities you govern (hold CTRL)" + Environment.NewLine +
+                "5.  Right-click one of them, then click \"Recent Report by Mail...\"" + Environment.NewLine +
+                "6.  Open the Mail window (F2)" + Environment.NewLine +
+                "7.  Click the \"Request New Messages\" button" + Environment.NewLine +
+                "8.  Start HazeronAdviser (which you already have done!)" + Environment.NewLine +
+                "9.  Click the \"Scan HMails\" button in HazeronAdviser"
                 , "How to use HazeronAdviser", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
         }
         #endregion
