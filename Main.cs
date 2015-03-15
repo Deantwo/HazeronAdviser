@@ -967,7 +967,7 @@ namespace HazeronAdviser
                     toolStripStatusLabel1.Text = "Cell is empty";
                     #if DEBUG
                     // Debug code to see if the cell is null or "".
-                    if (dgvList.CurrentCell.Value == null)
+                    if (dgv.CurrentCell.Value == null)
                         toolStripStatusLabel1.Text += " (null)";
                     else
                         toolStripStatusLabel1.Text += " (\"\")";
