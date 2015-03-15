@@ -596,7 +596,7 @@ namespace HazeronAdviser
                     _vBankExpenseResearchEst = (int)(_vBankExpenseResearchEst * 2.25);
                 if (_HashEnv && tempSection.Contains("Air"))
                 {
-                    tempSection = tempSection.Substring(tempSection.IndexOf("Air"), 255);
+                    tempSection = tempSection.Substring(tempSection.IndexOf("Air"));
                     tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                     for (int i = 1; i < tempArray.Length; i++)
                     {
