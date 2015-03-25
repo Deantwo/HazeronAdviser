@@ -164,17 +164,19 @@
             this.cmsRightClickCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuStrip1File = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1FileScan = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuStrip1FileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1Edit = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1EditWip = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1View = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1ViewWip = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1Help = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1HelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1HelpGithub = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1HelpThread = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1HelpHowToUse = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1FileExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1EditWip = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1ViewWip = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuStrip1HelpAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1HelpHowToUse = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -327,7 +329,7 @@
             this.tbxShip.Name = "tbxShip";
             this.tbxShip.ReadOnly = true;
             this.tbxShip.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxShip.Size = new System.Drawing.Size(403, 378);
+            this.tbxShip.Size = new System.Drawing.Size(403, 363);
             this.tbxShip.TabIndex = 0;
             this.tbxShip.WordWrap = false;
             // 
@@ -344,7 +346,7 @@
             // splitContainerShip.Panel2
             // 
             this.splitContainerShip.Panel2.Controls.Add(this.tabControlShip);
-            this.splitContainerShip.Size = new System.Drawing.Size(752, 410);
+            this.splitContainerShip.Size = new System.Drawing.Size(752, 395);
             this.splitContainerShip.SplitterDistance = 331;
             this.splitContainerShip.TabIndex = 5;
             // 
@@ -374,7 +376,7 @@
             this.dgvShip.ReadOnly = true;
             this.dgvShip.RowHeadersVisible = false;
             this.dgvShip.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvShip.Size = new System.Drawing.Size(331, 410);
+            this.dgvShip.Size = new System.Drawing.Size(331, 395);
             this.dgvShip.TabIndex = 2;
             this.dgvShip.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvShip.SelectionChanged += new System.EventHandler(this.dgvShip_SelectionChanged);
@@ -465,7 +467,7 @@
             this.tabControlShip.Location = new System.Drawing.Point(0, 0);
             this.tabControlShip.Name = "tabControlShip";
             this.tabControlShip.SelectedIndex = 0;
-            this.tabControlShip.Size = new System.Drawing.Size(417, 410);
+            this.tabControlShip.Size = new System.Drawing.Size(417, 395);
             this.tabControlShip.TabIndex = 2;
             // 
             // tabShipOverview
@@ -474,7 +476,7 @@
             this.tabShipOverview.Location = new System.Drawing.Point(4, 22);
             this.tabShipOverview.Name = "tabShipOverview";
             this.tabShipOverview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabShipOverview.Size = new System.Drawing.Size(409, 384);
+            this.tabShipOverview.Size = new System.Drawing.Size(409, 369);
             this.tabShipOverview.TabIndex = 0;
             this.tabShipOverview.Text = "Overview";
             this.tabShipOverview.UseVisualStyleBackColor = true;
@@ -493,8 +495,8 @@
             // splitContainerShipOverview.Panel2
             // 
             this.splitContainerShipOverview.Panel2.Controls.Add(this.rtbShipOverview);
-            this.splitContainerShipOverview.Size = new System.Drawing.Size(403, 378);
-            this.splitContainerShipOverview.SplitterDistance = 168;
+            this.splitContainerShipOverview.Size = new System.Drawing.Size(403, 363);
+            this.splitContainerShipOverview.SplitterDistance = 161;
             this.splitContainerShipOverview.TabIndex = 1;
             // 
             // pShipOverview
@@ -504,7 +506,7 @@
             this.pShipOverview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pShipOverview.Location = new System.Drawing.Point(0, 0);
             this.pShipOverview.Name = "pShipOverview";
-            this.pShipOverview.Size = new System.Drawing.Size(403, 168);
+            this.pShipOverview.Size = new System.Drawing.Size(403, 161);
             this.pShipOverview.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pShipOverview, "WIP");
             this.pShipOverview.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
@@ -516,7 +518,7 @@
             this.rtbShipOverview.Location = new System.Drawing.Point(0, 0);
             this.rtbShipOverview.Name = "rtbShipOverview";
             this.rtbShipOverview.ReadOnly = true;
-            this.rtbShipOverview.Size = new System.Drawing.Size(403, 206);
+            this.rtbShipOverview.Size = new System.Drawing.Size(403, 198);
             this.rtbShipOverview.TabIndex = 1;
             this.rtbShipOverview.Text = "";
             // 
@@ -526,7 +528,7 @@
             this.tabShipMail.Location = new System.Drawing.Point(4, 22);
             this.tabShipMail.Name = "tabShipMail";
             this.tabShipMail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabShipMail.Size = new System.Drawing.Size(409, 384);
+            this.tabShipMail.Size = new System.Drawing.Size(409, 369);
             this.tabShipMail.TabIndex = 1;
             this.tabShipMail.Text = "Raw Mail";
             this.tabShipMail.UseVisualStyleBackColor = true;
@@ -818,7 +820,7 @@
             this.tabCityMorale.Location = new System.Drawing.Point(4, 22);
             this.tabCityMorale.Name = "tabCityMorale";
             this.tabCityMorale.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityMorale.Size = new System.Drawing.Size(409, 384);
+            this.tabCityMorale.Size = new System.Drawing.Size(409, 369);
             this.tabCityMorale.TabIndex = 2;
             this.tabCityMorale.Text = "Morale";
             this.tabCityMorale.UseVisualStyleBackColor = true;
@@ -837,8 +839,8 @@
             // splitContainerCityMorale.Panel2
             // 
             this.splitContainerCityMorale.Panel2.Controls.Add(this.rtbCityMorale);
-            this.splitContainerCityMorale.Size = new System.Drawing.Size(403, 378);
-            this.splitContainerCityMorale.SplitterDistance = 168;
+            this.splitContainerCityMorale.Size = new System.Drawing.Size(403, 363);
+            this.splitContainerCityMorale.SplitterDistance = 161;
             this.splitContainerCityMorale.TabIndex = 2;
             // 
             // pCityMorale
@@ -848,7 +850,7 @@
             this.pCityMorale.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pCityMorale.Location = new System.Drawing.Point(0, 0);
             this.pCityMorale.Name = "pCityMorale";
-            this.pCityMorale.Size = new System.Drawing.Size(403, 168);
+            this.pCityMorale.Size = new System.Drawing.Size(403, 161);
             this.pCityMorale.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pCityMorale, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
@@ -862,7 +864,7 @@
             this.rtbCityMorale.Location = new System.Drawing.Point(0, 0);
             this.rtbCityMorale.Name = "rtbCityMorale";
             this.rtbCityMorale.ReadOnly = true;
-            this.rtbCityMorale.Size = new System.Drawing.Size(403, 206);
+            this.rtbCityMorale.Size = new System.Drawing.Size(403, 198);
             this.rtbCityMorale.TabIndex = 0;
             this.rtbCityMorale.Text = "";
             // 
@@ -872,7 +874,7 @@
             this.tabCityPopulation.Location = new System.Drawing.Point(4, 22);
             this.tabCityPopulation.Name = "tabCityPopulation";
             this.tabCityPopulation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityPopulation.Size = new System.Drawing.Size(409, 384);
+            this.tabCityPopulation.Size = new System.Drawing.Size(409, 369);
             this.tabCityPopulation.TabIndex = 3;
             this.tabCityPopulation.Text = "Population";
             this.tabCityPopulation.UseVisualStyleBackColor = true;
@@ -891,8 +893,8 @@
             // splitContainerCityPopulation.Panel2
             // 
             this.splitContainerCityPopulation.Panel2.Controls.Add(this.rtbCityPopulation);
-            this.splitContainerCityPopulation.Size = new System.Drawing.Size(403, 378);
-            this.splitContainerCityPopulation.SplitterDistance = 168;
+            this.splitContainerCityPopulation.Size = new System.Drawing.Size(403, 363);
+            this.splitContainerCityPopulation.SplitterDistance = 161;
             this.splitContainerCityPopulation.TabIndex = 3;
             // 
             // pCityPopulation
@@ -902,7 +904,7 @@
             this.pCityPopulation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pCityPopulation.Location = new System.Drawing.Point(0, 0);
             this.pCityPopulation.Name = "pCityPopulation";
-            this.pCityPopulation.Size = new System.Drawing.Size(403, 168);
+            this.pCityPopulation.Size = new System.Drawing.Size(403, 161);
             this.pCityPopulation.TabIndex = 1;
             this.toolTip1.SetToolTip(this.pCityPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
@@ -917,7 +919,7 @@
             this.rtbCityPopulation.Location = new System.Drawing.Point(0, 0);
             this.rtbCityPopulation.Name = "rtbCityPopulation";
             this.rtbCityPopulation.ReadOnly = true;
-            this.rtbCityPopulation.Size = new System.Drawing.Size(403, 206);
+            this.rtbCityPopulation.Size = new System.Drawing.Size(403, 198);
             this.rtbCityPopulation.TabIndex = 1;
             this.rtbCityPopulation.Text = "";
             // 
@@ -927,7 +929,7 @@
             this.tabCityTechnology.Location = new System.Drawing.Point(4, 22);
             this.tabCityTechnology.Name = "tabCityTechnology";
             this.tabCityTechnology.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityTechnology.Size = new System.Drawing.Size(409, 384);
+            this.tabCityTechnology.Size = new System.Drawing.Size(409, 369);
             this.tabCityTechnology.TabIndex = 5;
             this.tabCityTechnology.Text = "Technology";
             this.tabCityTechnology.UseVisualStyleBackColor = true;
@@ -939,7 +941,7 @@
             this.rtbCityTechnology.Location = new System.Drawing.Point(3, 3);
             this.rtbCityTechnology.Name = "rtbCityTechnology";
             this.rtbCityTechnology.ReadOnly = true;
-            this.rtbCityTechnology.Size = new System.Drawing.Size(403, 378);
+            this.rtbCityTechnology.Size = new System.Drawing.Size(403, 363);
             this.rtbCityTechnology.TabIndex = 0;
             this.rtbCityTechnology.Text = "";
             // 
@@ -949,7 +951,7 @@
             this.tabCityBuildings.Location = new System.Drawing.Point(4, 22);
             this.tabCityBuildings.Name = "tabCityBuildings";
             this.tabCityBuildings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityBuildings.Size = new System.Drawing.Size(409, 384);
+            this.tabCityBuildings.Size = new System.Drawing.Size(409, 369);
             this.tabCityBuildings.TabIndex = 6;
             this.tabCityBuildings.Text = "Buildings";
             this.tabCityBuildings.UseVisualStyleBackColor = true;
@@ -961,7 +963,7 @@
             this.rtbCityBuildings.Location = new System.Drawing.Point(3, 3);
             this.rtbCityBuildings.Name = "rtbCityBuildings";
             this.rtbCityBuildings.ReadOnly = true;
-            this.rtbCityBuildings.Size = new System.Drawing.Size(403, 378);
+            this.rtbCityBuildings.Size = new System.Drawing.Size(403, 363);
             this.rtbCityBuildings.TabIndex = 1;
             this.rtbCityBuildings.Text = "";
             // 
@@ -971,7 +973,7 @@
             this.tabCityBank.Location = new System.Drawing.Point(4, 22);
             this.tabCityBank.Name = "tabCityBank";
             this.tabCityBank.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityBank.Size = new System.Drawing.Size(409, 384);
+            this.tabCityBank.Size = new System.Drawing.Size(409, 369);
             this.tabCityBank.TabIndex = 7;
             this.tabCityBank.Text = "Bank";
             this.tabCityBank.UseVisualStyleBackColor = true;
@@ -990,8 +992,8 @@
             // splitContainerCityBank.Panel2
             // 
             this.splitContainerCityBank.Panel2.Controls.Add(this.rtbCityBank);
-            this.splitContainerCityBank.Size = new System.Drawing.Size(403, 378);
-            this.splitContainerCityBank.SplitterDistance = 168;
+            this.splitContainerCityBank.Size = new System.Drawing.Size(403, 363);
+            this.splitContainerCityBank.SplitterDistance = 161;
             this.splitContainerCityBank.TabIndex = 4;
             // 
             // pCityBank
@@ -1001,7 +1003,7 @@
             this.pCityBank.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pCityBank.Location = new System.Drawing.Point(0, 0);
             this.pCityBank.Name = "pCityBank";
-            this.pCityBank.Size = new System.Drawing.Size(403, 168);
+            this.pCityBank.Size = new System.Drawing.Size(403, 161);
             this.pCityBank.TabIndex = 1;
             this.toolTip1.SetToolTip(this.pCityBank, "WIP");
             this.pCityBank.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
@@ -1015,7 +1017,7 @@
             this.rtbCityBank.Location = new System.Drawing.Point(0, 0);
             this.rtbCityBank.Name = "rtbCityBank";
             this.rtbCityBank.ReadOnly = true;
-            this.rtbCityBank.Size = new System.Drawing.Size(403, 206);
+            this.rtbCityBank.Size = new System.Drawing.Size(403, 198);
             this.rtbCityBank.TabIndex = 1;
             this.rtbCityBank.Text = "";
             // 
@@ -1025,7 +1027,7 @@
             this.tabCityMail.Location = new System.Drawing.Point(4, 22);
             this.tabCityMail.Name = "tabCityMail";
             this.tabCityMail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityMail.Size = new System.Drawing.Size(409, 384);
+            this.tabCityMail.Size = new System.Drawing.Size(409, 369);
             this.tabCityMail.TabIndex = 1;
             this.tabCityMail.Text = "Raw Mail";
             this.tabCityMail.UseVisualStyleBackColor = true;
@@ -1038,7 +1040,7 @@
             this.tbxCity.Name = "tbxCity";
             this.tbxCity.ReadOnly = true;
             this.tbxCity.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxCity.Size = new System.Drawing.Size(403, 378);
+            this.tbxCity.Size = new System.Drawing.Size(403, 363);
             this.tbxCity.TabIndex = 0;
             this.tbxCity.WordWrap = false;
             // 
@@ -1048,7 +1050,7 @@
             this.tabSystem.Location = new System.Drawing.Point(4, 22);
             this.tabSystem.Name = "tabSystem";
             this.tabSystem.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSystem.Size = new System.Drawing.Size(758, 416);
+            this.tabSystem.Size = new System.Drawing.Size(758, 401);
             this.tabSystem.TabIndex = 4;
             this.tabSystem.Text = "Systems";
             this.tabSystem.UseVisualStyleBackColor = true;
@@ -1066,7 +1068,7 @@
             // splitContainerSystem.Panel2
             // 
             this.splitContainerSystem.Panel2.Controls.Add(this.tabControlSystem);
-            this.splitContainerSystem.Size = new System.Drawing.Size(752, 410);
+            this.splitContainerSystem.Size = new System.Drawing.Size(752, 395);
             this.splitContainerSystem.SplitterDistance = 331;
             this.splitContainerSystem.TabIndex = 7;
             // 
@@ -1097,7 +1099,7 @@
             this.dgvSystem.ReadOnly = true;
             this.dgvSystem.RowHeadersVisible = false;
             this.dgvSystem.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSystem.Size = new System.Drawing.Size(331, 410);
+            this.dgvSystem.Size = new System.Drawing.Size(331, 395);
             this.dgvSystem.TabIndex = 2;
             this.dgvSystem.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvSystem.SelectionChanged += new System.EventHandler(this.dgvSystem_SelectionChanged);
@@ -1202,7 +1204,7 @@
             this.tabControlSystem.Location = new System.Drawing.Point(0, 0);
             this.tabControlSystem.Name = "tabControlSystem";
             this.tabControlSystem.SelectedIndex = 0;
-            this.tabControlSystem.Size = new System.Drawing.Size(417, 410);
+            this.tabControlSystem.Size = new System.Drawing.Size(417, 395);
             this.tabControlSystem.TabIndex = 1;
             // 
             // tabSystemOverview
@@ -1211,7 +1213,7 @@
             this.tabSystemOverview.Location = new System.Drawing.Point(4, 22);
             this.tabSystemOverview.Name = "tabSystemOverview";
             this.tabSystemOverview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSystemOverview.Size = new System.Drawing.Size(409, 384);
+            this.tabSystemOverview.Size = new System.Drawing.Size(409, 369);
             this.tabSystemOverview.TabIndex = 0;
             this.tabSystemOverview.Text = "Overview";
             this.tabSystemOverview.UseVisualStyleBackColor = true;
@@ -1230,8 +1232,8 @@
             // splitContainerSystemOverview.Panel2
             // 
             this.splitContainerSystemOverview.Panel2.Controls.Add(this.rtbSystemOverview);
-            this.splitContainerSystemOverview.Size = new System.Drawing.Size(403, 378);
-            this.splitContainerSystemOverview.SplitterDistance = 168;
+            this.splitContainerSystemOverview.Size = new System.Drawing.Size(403, 363);
+            this.splitContainerSystemOverview.SplitterDistance = 161;
             this.splitContainerSystemOverview.TabIndex = 1;
             // 
             // splitContainerSystemOverview2
@@ -1247,7 +1249,7 @@
             // splitContainerSystemOverview2.Panel2
             // 
             this.splitContainerSystemOverview2.Panel2.Controls.Add(this.pSystemOverviewPopulation);
-            this.splitContainerSystemOverview2.Size = new System.Drawing.Size(403, 168);
+            this.splitContainerSystemOverview2.Size = new System.Drawing.Size(403, 161);
             this.splitContainerSystemOverview2.SplitterDistance = 136;
             this.splitContainerSystemOverview2.TabIndex = 0;
             // 
@@ -1258,7 +1260,7 @@
             this.pSystemOverviewMorale.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pSystemOverviewMorale.Location = new System.Drawing.Point(0, 0);
             this.pSystemOverviewMorale.Name = "pSystemOverviewMorale";
-            this.pSystemOverviewMorale.Size = new System.Drawing.Size(136, 168);
+            this.pSystemOverviewMorale.Size = new System.Drawing.Size(136, 161);
             this.pSystemOverviewMorale.TabIndex = 1;
             this.toolTip1.SetToolTip(this.pSystemOverviewMorale, "Blue - Average Morale\r\nWIP");
             this.pSystemOverviewMorale.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
@@ -1271,7 +1273,7 @@
             this.pSystemOverviewPopulation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pSystemOverviewPopulation.Location = new System.Drawing.Point(0, 0);
             this.pSystemOverviewPopulation.Name = "pSystemOverviewPopulation";
-            this.pSystemOverviewPopulation.Size = new System.Drawing.Size(263, 168);
+            this.pSystemOverviewPopulation.Size = new System.Drawing.Size(263, 161);
             this.pSystemOverviewPopulation.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pSystemOverviewPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
@@ -1285,7 +1287,7 @@
             this.rtbSystemOverview.Location = new System.Drawing.Point(0, 0);
             this.rtbSystemOverview.Name = "rtbSystemOverview";
             this.rtbSystemOverview.ReadOnly = true;
-            this.rtbSystemOverview.Size = new System.Drawing.Size(403, 206);
+            this.rtbSystemOverview.Size = new System.Drawing.Size(403, 198);
             this.rtbSystemOverview.TabIndex = 1;
             this.rtbSystemOverview.Text = "";
             // 
@@ -1295,7 +1297,7 @@
             this.tabSystemMorale.Location = new System.Drawing.Point(4, 22);
             this.tabSystemMorale.Name = "tabSystemMorale";
             this.tabSystemMorale.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSystemMorale.Size = new System.Drawing.Size(409, 384);
+            this.tabSystemMorale.Size = new System.Drawing.Size(409, 369);
             this.tabSystemMorale.TabIndex = 2;
             this.tabSystemMorale.Text = "Morale";
             this.tabSystemMorale.UseVisualStyleBackColor = true;
@@ -1314,8 +1316,8 @@
             // splitContainerSystemMorale.Panel2
             // 
             this.splitContainerSystemMorale.Panel2.Controls.Add(this.rtbSystemMorale);
-            this.splitContainerSystemMorale.Size = new System.Drawing.Size(403, 378);
-            this.splitContainerSystemMorale.SplitterDistance = 168;
+            this.splitContainerSystemMorale.Size = new System.Drawing.Size(403, 363);
+            this.splitContainerSystemMorale.SplitterDistance = 161;
             this.splitContainerSystemMorale.TabIndex = 2;
             // 
             // pSystemMorale
@@ -1325,7 +1327,7 @@
             this.pSystemMorale.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pSystemMorale.Location = new System.Drawing.Point(0, 0);
             this.pSystemMorale.Name = "pSystemMorale";
-            this.pSystemMorale.Size = new System.Drawing.Size(403, 168);
+            this.pSystemMorale.Size = new System.Drawing.Size(403, 161);
             this.pSystemMorale.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pSystemMorale, "Blue - Average Morale\r\nWIP");
             this.pSystemMorale.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
@@ -1338,7 +1340,7 @@
             this.rtbSystemMorale.Location = new System.Drawing.Point(0, 0);
             this.rtbSystemMorale.Name = "rtbSystemMorale";
             this.rtbSystemMorale.ReadOnly = true;
-            this.rtbSystemMorale.Size = new System.Drawing.Size(403, 206);
+            this.rtbSystemMorale.Size = new System.Drawing.Size(403, 198);
             this.rtbSystemMorale.TabIndex = 0;
             this.rtbSystemMorale.Text = "";
             // 
@@ -1348,7 +1350,7 @@
             this.tabSystemPopulation.Location = new System.Drawing.Point(4, 22);
             this.tabSystemPopulation.Name = "tabSystemPopulation";
             this.tabSystemPopulation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSystemPopulation.Size = new System.Drawing.Size(409, 384);
+            this.tabSystemPopulation.Size = new System.Drawing.Size(409, 369);
             this.tabSystemPopulation.TabIndex = 3;
             this.tabSystemPopulation.Text = "Population";
             this.tabSystemPopulation.UseVisualStyleBackColor = true;
@@ -1367,8 +1369,8 @@
             // splitContainerSystemPopulation.Panel2
             // 
             this.splitContainerSystemPopulation.Panel2.Controls.Add(this.rtbSystemPopulation);
-            this.splitContainerSystemPopulation.Size = new System.Drawing.Size(403, 378);
-            this.splitContainerSystemPopulation.SplitterDistance = 168;
+            this.splitContainerSystemPopulation.Size = new System.Drawing.Size(403, 363);
+            this.splitContainerSystemPopulation.SplitterDistance = 161;
             this.splitContainerSystemPopulation.TabIndex = 3;
             // 
             // pSystemPopulation
@@ -1378,7 +1380,7 @@
             this.pSystemPopulation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pSystemPopulation.Location = new System.Drawing.Point(0, 0);
             this.pSystemPopulation.Name = "pSystemPopulation";
-            this.pSystemPopulation.Size = new System.Drawing.Size(403, 168);
+            this.pSystemPopulation.Size = new System.Drawing.Size(403, 161);
             this.pSystemPopulation.TabIndex = 1;
             this.toolTip1.SetToolTip(this.pSystemPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
@@ -1393,7 +1395,7 @@
             this.rtbSystemPopulation.Location = new System.Drawing.Point(0, 0);
             this.rtbSystemPopulation.Name = "rtbSystemPopulation";
             this.rtbSystemPopulation.ReadOnly = true;
-            this.rtbSystemPopulation.Size = new System.Drawing.Size(403, 206);
+            this.rtbSystemPopulation.Size = new System.Drawing.Size(403, 198);
             this.rtbSystemPopulation.TabIndex = 1;
             this.rtbSystemPopulation.Text = "";
             // 
@@ -1403,7 +1405,7 @@
             this.tabSystemTechnology.Location = new System.Drawing.Point(4, 22);
             this.tabSystemTechnology.Name = "tabSystemTechnology";
             this.tabSystemTechnology.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSystemTechnology.Size = new System.Drawing.Size(409, 384);
+            this.tabSystemTechnology.Size = new System.Drawing.Size(409, 369);
             this.tabSystemTechnology.TabIndex = 5;
             this.tabSystemTechnology.Text = "Technology";
             this.tabSystemTechnology.UseVisualStyleBackColor = true;
@@ -1415,7 +1417,7 @@
             this.rtbSystemTechnology.Location = new System.Drawing.Point(3, 3);
             this.rtbSystemTechnology.Name = "rtbSystemTechnology";
             this.rtbSystemTechnology.ReadOnly = true;
-            this.rtbSystemTechnology.Size = new System.Drawing.Size(403, 378);
+            this.rtbSystemTechnology.Size = new System.Drawing.Size(403, 363);
             this.rtbSystemTechnology.TabIndex = 0;
             this.rtbSystemTechnology.Text = "";
             // 
@@ -1425,7 +1427,7 @@
             this.tabShip.Location = new System.Drawing.Point(4, 22);
             this.tabShip.Name = "tabShip";
             this.tabShip.Padding = new System.Windows.Forms.Padding(3);
-            this.tabShip.Size = new System.Drawing.Size(758, 416);
+            this.tabShip.Size = new System.Drawing.Size(758, 401);
             this.tabShip.TabIndex = 1;
             this.tabShip.Text = "Ships";
             this.tabShip.UseVisualStyleBackColor = true;
@@ -1436,7 +1438,7 @@
             this.tabOfficer.Location = new System.Drawing.Point(4, 22);
             this.tabOfficer.Name = "tabOfficer";
             this.tabOfficer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOfficer.Size = new System.Drawing.Size(758, 416);
+            this.tabOfficer.Size = new System.Drawing.Size(758, 401);
             this.tabOfficer.TabIndex = 2;
             this.tabOfficer.Text = "Officers";
             this.tabOfficer.UseVisualStyleBackColor = true;
@@ -1454,7 +1456,7 @@
             // splitContainerOfficer.Panel2
             // 
             this.splitContainerOfficer.Panel2.Controls.Add(this.tabControlOfficer);
-            this.splitContainerOfficer.Size = new System.Drawing.Size(752, 410);
+            this.splitContainerOfficer.Size = new System.Drawing.Size(752, 395);
             this.splitContainerOfficer.SplitterDistance = 331;
             this.splitContainerOfficer.TabIndex = 6;
             // 
@@ -1482,7 +1484,7 @@
             this.dgvOfficer.ReadOnly = true;
             this.dgvOfficer.RowHeadersVisible = false;
             this.dgvOfficer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOfficer.Size = new System.Drawing.Size(331, 410);
+            this.dgvOfficer.Size = new System.Drawing.Size(331, 395);
             this.dgvOfficer.TabIndex = 2;
             this.dgvOfficer.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvOfficer.SelectionChanged += new System.EventHandler(this.dgvOfficer_SelectionChanged);
@@ -1559,7 +1561,7 @@
             this.tabControlOfficer.Location = new System.Drawing.Point(0, 0);
             this.tabControlOfficer.Name = "tabControlOfficer";
             this.tabControlOfficer.SelectedIndex = 0;
-            this.tabControlOfficer.Size = new System.Drawing.Size(417, 410);
+            this.tabControlOfficer.Size = new System.Drawing.Size(417, 395);
             this.tabControlOfficer.TabIndex = 5;
             // 
             // tabOfficerOverview
@@ -1568,7 +1570,7 @@
             this.tabOfficerOverview.Location = new System.Drawing.Point(4, 22);
             this.tabOfficerOverview.Name = "tabOfficerOverview";
             this.tabOfficerOverview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOfficerOverview.Size = new System.Drawing.Size(409, 384);
+            this.tabOfficerOverview.Size = new System.Drawing.Size(409, 369);
             this.tabOfficerOverview.TabIndex = 0;
             this.tabOfficerOverview.Text = "Overview";
             this.tabOfficerOverview.UseVisualStyleBackColor = true;
@@ -1587,8 +1589,8 @@
             // splitContainerOfficerOverview.Panel2
             // 
             this.splitContainerOfficerOverview.Panel2.Controls.Add(this.rtbOfficerOverview);
-            this.splitContainerOfficerOverview.Size = new System.Drawing.Size(403, 378);
-            this.splitContainerOfficerOverview.SplitterDistance = 168;
+            this.splitContainerOfficerOverview.Size = new System.Drawing.Size(403, 363);
+            this.splitContainerOfficerOverview.SplitterDistance = 161;
             this.splitContainerOfficerOverview.TabIndex = 1;
             // 
             // pOfficerOverview
@@ -1598,7 +1600,7 @@
             this.pOfficerOverview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pOfficerOverview.Location = new System.Drawing.Point(0, 0);
             this.pOfficerOverview.Name = "pOfficerOverview";
-            this.pOfficerOverview.Size = new System.Drawing.Size(403, 168);
+            this.pOfficerOverview.Size = new System.Drawing.Size(403, 161);
             this.pOfficerOverview.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pOfficerOverview, "WIP");
             this.pOfficerOverview.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
@@ -1610,7 +1612,7 @@
             this.rtbOfficerOverview.Location = new System.Drawing.Point(0, 0);
             this.rtbOfficerOverview.Name = "rtbOfficerOverview";
             this.rtbOfficerOverview.ReadOnly = true;
-            this.rtbOfficerOverview.Size = new System.Drawing.Size(403, 206);
+            this.rtbOfficerOverview.Size = new System.Drawing.Size(403, 198);
             this.rtbOfficerOverview.TabIndex = 0;
             this.rtbOfficerOverview.Text = "";
             // 
@@ -1620,7 +1622,7 @@
             this.tabOfficerMail.Location = new System.Drawing.Point(4, 22);
             this.tabOfficerMail.Name = "tabOfficerMail";
             this.tabOfficerMail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOfficerMail.Size = new System.Drawing.Size(409, 384);
+            this.tabOfficerMail.Size = new System.Drawing.Size(409, 369);
             this.tabOfficerMail.TabIndex = 1;
             this.tabOfficerMail.Text = "Raw Mail";
             this.tabOfficerMail.UseVisualStyleBackColor = true;
@@ -1633,7 +1635,7 @@
             this.tbxOfficer.Name = "tbxOfficer";
             this.tbxOfficer.ReadOnly = true;
             this.tbxOfficer.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxOfficer.Size = new System.Drawing.Size(403, 378);
+            this.tbxOfficer.Size = new System.Drawing.Size(403, 363);
             this.tbxOfficer.TabIndex = 1;
             this.tbxOfficer.WordWrap = false;
             // 
@@ -1643,7 +1645,7 @@
             this.tabEvent.Location = new System.Drawing.Point(4, 22);
             this.tabEvent.Name = "tabEvent";
             this.tabEvent.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEvent.Size = new System.Drawing.Size(758, 416);
+            this.tabEvent.Size = new System.Drawing.Size(758, 401);
             this.tabEvent.TabIndex = 3;
             this.tabEvent.Text = "Event";
             this.tabEvent.UseVisualStyleBackColor = true;
@@ -1661,7 +1663,7 @@
             // splitContainerEvent.Panel2
             // 
             this.splitContainerEvent.Panel2.Controls.Add(this.tabControlEvent);
-            this.splitContainerEvent.Size = new System.Drawing.Size(752, 410);
+            this.splitContainerEvent.Size = new System.Drawing.Size(752, 395);
             this.splitContainerEvent.SplitterDistance = 331;
             this.splitContainerEvent.TabIndex = 0;
             // 
@@ -1689,7 +1691,7 @@
             this.dgvEvent.ReadOnly = true;
             this.dgvEvent.RowHeadersVisible = false;
             this.dgvEvent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEvent.Size = new System.Drawing.Size(331, 410);
+            this.dgvEvent.Size = new System.Drawing.Size(331, 395);
             this.dgvEvent.TabIndex = 3;
             this.dgvEvent.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvEvent.SelectionChanged += new System.EventHandler(this.dgvEvent_SelectionChanged);
@@ -1768,7 +1770,7 @@
             this.tabControlEvent.Location = new System.Drawing.Point(0, 0);
             this.tabControlEvent.Name = "tabControlEvent";
             this.tabControlEvent.SelectedIndex = 0;
-            this.tabControlEvent.Size = new System.Drawing.Size(417, 410);
+            this.tabControlEvent.Size = new System.Drawing.Size(417, 395);
             this.tabControlEvent.TabIndex = 4;
             // 
             // tabEventOverview
@@ -1777,7 +1779,7 @@
             this.tabEventOverview.Location = new System.Drawing.Point(4, 22);
             this.tabEventOverview.Name = "tabEventOverview";
             this.tabEventOverview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEventOverview.Size = new System.Drawing.Size(409, 384);
+            this.tabEventOverview.Size = new System.Drawing.Size(409, 369);
             this.tabEventOverview.TabIndex = 0;
             this.tabEventOverview.Text = "Overview";
             this.tabEventOverview.UseVisualStyleBackColor = true;
@@ -1796,8 +1798,8 @@
             // splitContainerEventOverview.Panel2
             // 
             this.splitContainerEventOverview.Panel2.Controls.Add(this.rtbEventOverview);
-            this.splitContainerEventOverview.Size = new System.Drawing.Size(403, 378);
-            this.splitContainerEventOverview.SplitterDistance = 168;
+            this.splitContainerEventOverview.Size = new System.Drawing.Size(403, 363);
+            this.splitContainerEventOverview.SplitterDistance = 161;
             this.splitContainerEventOverview.TabIndex = 1;
             // 
             // pEventOverview
@@ -1807,7 +1809,7 @@
             this.pEventOverview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pEventOverview.Location = new System.Drawing.Point(0, 0);
             this.pEventOverview.Name = "pEventOverview";
-            this.pEventOverview.Size = new System.Drawing.Size(403, 168);
+            this.pEventOverview.Size = new System.Drawing.Size(403, 161);
             this.pEventOverview.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pEventOverview, "WIP");
             this.pEventOverview.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
@@ -1819,7 +1821,7 @@
             this.rtbEventOverview.Location = new System.Drawing.Point(0, 0);
             this.rtbEventOverview.Name = "rtbEventOverview";
             this.rtbEventOverview.ReadOnly = true;
-            this.rtbEventOverview.Size = new System.Drawing.Size(403, 206);
+            this.rtbEventOverview.Size = new System.Drawing.Size(403, 198);
             this.rtbEventOverview.TabIndex = 0;
             this.rtbEventOverview.Text = "";
             // 
@@ -1829,7 +1831,7 @@
             this.tabEventMail.Location = new System.Drawing.Point(4, 22);
             this.tabEventMail.Name = "tabEventMail";
             this.tabEventMail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEventMail.Size = new System.Drawing.Size(409, 384);
+            this.tabEventMail.Size = new System.Drawing.Size(409, 369);
             this.tabEventMail.TabIndex = 1;
             this.tabEventMail.Text = "Raw Mail";
             this.tabEventMail.UseVisualStyleBackColor = true;
@@ -1842,7 +1844,7 @@
             this.tbxEvent.Name = "tbxEvent";
             this.tbxEvent.ReadOnly = true;
             this.tbxEvent.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxEvent.Size = new System.Drawing.Size(403, 378);
+            this.tbxEvent.Size = new System.Drawing.Size(403, 363);
             this.tbxEvent.TabIndex = 1;
             this.tbxEvent.WordWrap = false;
             // 
@@ -1890,10 +1892,33 @@
             // menuStrip1File
             // 
             this.menuStrip1File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip1FileScan,
+            this.toolStripSeparator2,
             this.menuStrip1FileExit});
             this.menuStrip1File.Name = "menuStrip1File";
             this.menuStrip1File.Size = new System.Drawing.Size(37, 20);
             this.menuStrip1File.Text = "File";
+            // 
+            // menuStrip1FileScan
+            // 
+            this.menuStrip1FileScan.Name = "menuStrip1FileScan";
+            this.menuStrip1FileScan.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.menuStrip1FileScan.Size = new System.Drawing.Size(158, 22);
+            this.menuStrip1FileScan.Text = "Scan HMails";
+            this.menuStrip1FileScan.Click += new System.EventHandler(this.menuStrip1FileScan_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(155, 6);
+            // 
+            // menuStrip1FileExit
+            // 
+            this.menuStrip1FileExit.Name = "menuStrip1FileExit";
+            this.menuStrip1FileExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.menuStrip1FileExit.Size = new System.Drawing.Size(158, 22);
+            this.menuStrip1FileExit.Text = "Exit";
+            this.menuStrip1FileExit.Click += new System.EventHandler(this.menuStrip1FileExit_Click);
             // 
             // menuStrip1Edit
             // 
@@ -1903,6 +1928,13 @@
             this.menuStrip1Edit.Size = new System.Drawing.Size(39, 20);
             this.menuStrip1Edit.Text = "Edit";
             // 
+            // menuStrip1EditWip
+            // 
+            this.menuStrip1EditWip.Enabled = false;
+            this.menuStrip1EditWip.Name = "menuStrip1EditWip";
+            this.menuStrip1EditWip.Size = new System.Drawing.Size(95, 22);
+            this.menuStrip1EditWip.Text = "WIP";
+            // 
             // menuStrip1View
             // 
             this.menuStrip1View.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1910,6 +1942,13 @@
             this.menuStrip1View.Name = "menuStrip1View";
             this.menuStrip1View.Size = new System.Drawing.Size(44, 20);
             this.menuStrip1View.Text = "View";
+            // 
+            // menuStrip1ViewWip
+            // 
+            this.menuStrip1ViewWip.Enabled = false;
+            this.menuStrip1ViewWip.Name = "menuStrip1ViewWip";
+            this.menuStrip1ViewWip.Size = new System.Drawing.Size(95, 22);
+            this.menuStrip1ViewWip.Text = "WIP";
             // 
             // menuStrip1Help
             // 
@@ -1923,60 +1962,38 @@
             this.menuStrip1Help.Size = new System.Drawing.Size(44, 20);
             this.menuStrip1Help.Text = "Help";
             // 
-            // menuStrip1HelpAbout
-            // 
-            this.menuStrip1HelpAbout.Name = "menuStrip1HelpAbout";
-            this.menuStrip1HelpAbout.Size = new System.Drawing.Size(152, 22);
-            this.menuStrip1HelpAbout.Text = "About";
-            this.menuStrip1HelpAbout.Click += new System.EventHandler(this.menuStrip1HelpAbout_Click);
-            // 
             // menuStrip1HelpGithub
             // 
             this.menuStrip1HelpGithub.Name = "menuStrip1HelpGithub";
-            this.menuStrip1HelpGithub.Size = new System.Drawing.Size(152, 22);
+            this.menuStrip1HelpGithub.Size = new System.Drawing.Size(149, 22);
             this.menuStrip1HelpGithub.Text = "GitHub Repo";
             this.menuStrip1HelpGithub.Click += new System.EventHandler(this.menuStrip1HelpGithub_Click);
             // 
             // menuStrip1HelpThread
             // 
             this.menuStrip1HelpThread.Name = "menuStrip1HelpThread";
-            this.menuStrip1HelpThread.Size = new System.Drawing.Size(152, 22);
+            this.menuStrip1HelpThread.Size = new System.Drawing.Size(149, 22);
             this.menuStrip1HelpThread.Text = "Forum Thread";
             this.menuStrip1HelpThread.Click += new System.EventHandler(this.menuStrip1HelpThread_Click);
-            // 
-            // menuStrip1HelpHowToUse
-            // 
-            this.menuStrip1HelpHowToUse.Name = "menuStrip1HelpHowToUse";
-            this.menuStrip1HelpHowToUse.Size = new System.Drawing.Size(152, 22);
-            this.menuStrip1HelpHowToUse.Text = "How To Use";
-            this.menuStrip1HelpHowToUse.Click += new System.EventHandler(this.menuStrip1HelpHowToUse_Click);
-            // 
-            // menuStrip1FileExit
-            // 
-            this.menuStrip1FileExit.Name = "menuStrip1FileExit";
-            this.menuStrip1FileExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.menuStrip1FileExit.Size = new System.Drawing.Size(152, 22);
-            this.menuStrip1FileExit.Text = "Exit";
-            this.menuStrip1FileExit.Click += new System.EventHandler(this.menuStrip1FileExit_Click);
-            // 
-            // menuStrip1EditWip
-            // 
-            this.menuStrip1EditWip.Enabled = false;
-            this.menuStrip1EditWip.Name = "menuStrip1EditWip";
-            this.menuStrip1EditWip.Size = new System.Drawing.Size(152, 22);
-            this.menuStrip1EditWip.Text = "WIP";
-            // 
-            // menuStrip1ViewWip
-            // 
-            this.menuStrip1ViewWip.Enabled = false;
-            this.menuStrip1ViewWip.Name = "menuStrip1ViewWip";
-            this.menuStrip1ViewWip.Size = new System.Drawing.Size(152, 22);
-            this.menuStrip1ViewWip.Text = "WIP";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(146, 6);
+            // 
+            // menuStrip1HelpAbout
+            // 
+            this.menuStrip1HelpAbout.Name = "menuStrip1HelpAbout";
+            this.menuStrip1HelpAbout.Size = new System.Drawing.Size(149, 22);
+            this.menuStrip1HelpAbout.Text = "About";
+            this.menuStrip1HelpAbout.Click += new System.EventHandler(this.menuStrip1HelpAbout_Click);
+            // 
+            // menuStrip1HelpHowToUse
+            // 
+            this.menuStrip1HelpHowToUse.Name = "menuStrip1HelpHowToUse";
+            this.menuStrip1HelpHowToUse.Size = new System.Drawing.Size(149, 22);
+            this.menuStrip1HelpHowToUse.Text = "How To Use";
+            this.menuStrip1HelpHowToUse.Click += new System.EventHandler(this.menuStrip1HelpHowToUse_Click);
             // 
             // Main
             // 
@@ -2254,6 +2271,8 @@
         private System.Windows.Forms.ToolStripMenuItem menuStrip1EditWip;
         private System.Windows.Forms.ToolStripMenuItem menuStrip1ViewWip;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem menuStrip1FileScan;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

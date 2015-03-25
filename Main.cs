@@ -13,7 +13,7 @@ namespace HazeronAdviser
 {
     public partial class Main : Form
     {
-        const string VERSION = "v0.35";
+        const string VERSION = "v0.36";
 
         List<HCity> hCityList = new List<HCity>();
         List<HSystem> hSystemList = new List<HSystem>();
@@ -104,6 +104,11 @@ namespace HazeronAdviser
         }
 
         private void btnScan_Click(object sender, EventArgs e)
+        {
+            ScanHMails();
+        }
+
+        private void ScanHMails()
         {
             toolStripProgressBar1.Visible = false;
             toolStripProgressBar2.Visible = false;
@@ -515,6 +520,7 @@ namespace HazeronAdviser
             try
             {
 #endif
+                    return false;
                 hObj.Initialize();
 #if !DEBUG
             }
@@ -1069,6 +1075,11 @@ namespace HazeronAdviser
         #endregion
 
         #region menuStrip1
+        private void menuStrip1FileScan_Click(object sender, EventArgs e)
+        {
+            ScanHMails();
+        }
+
         private void menuStrip1FileExit_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -1106,7 +1117,7 @@ namespace HazeronAdviser
                 "1.  Log into Hazeron with your character" + Environment.NewLine +
                 "2.  Open the Governance window (F12)" + Environment.NewLine +
                 "3.  Go to the Places tab" + Environment.NewLine +
-                "4.  Select all your cities you govern (hold CTRL)" + Environment.NewLine +
+                "4.  Select all (using CTRL or SHIFT) the cities you govern" + Environment.NewLine +
                 "5.  Right-click one of them, then click \"Recent Report by Mail...\"" + Environment.NewLine +
                 "6.  Open the Mail window (F2)" + Environment.NewLine +
                 "7.  Click the \"Request New Messages\" button" + Environment.NewLine +
