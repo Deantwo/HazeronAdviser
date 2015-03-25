@@ -34,10 +34,6 @@ namespace HazeronAdviser
         }
         static public bool IsCityReport(HMail mail) // Same as above but mail input.
         {
-            // This is a small fix to not count MSG_CityDistressReport messages with no report info.
-            if (!(mail.Body.Contains("<b>MORALE</b>") || mail.Body.Contains("<b>POPULATION</b>")))
-                return false;
-
             return IsCityReport(mail.MessageType);
         }
         static public bool IsCityReport(byte[] mailBytes) // Same as above but mailBytes input.
