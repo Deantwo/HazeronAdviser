@@ -520,6 +520,7 @@ namespace HazeronAdviser
             try
             {
 #endif
+                if (hObj.Mail == null) // Temporary fix.
                     return false;
                 hObj.Initialize();
 #if !DEBUG
