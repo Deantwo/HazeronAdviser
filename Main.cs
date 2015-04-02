@@ -335,6 +335,7 @@ namespace HazeronAdviser
                     dgvShip.Rows[row].Cells["ColumnShipLocation"].Value = hShip.SystemName + ", " + hShip.PlanetName;
                     dgvShip.Rows[row].Cells["ColumnShipAbandonment"].Value = hShip.Abandonment;
                     dgvShip.Rows[row].Cells["ColumnShipFuel"].Value = hShip.FuelShort;
+                    dgvShip.Rows[row].Cells["ColumnShipAccount"].Value = hShip.AccountShort;
                     dgvShip.Rows[row].Cells["ColumnShipDamage"].Value = hShip.DamageShort;
                     dgvShip.Rows[row].Cells["ColumnShipDate"].Value = hShip.LastUpdaredString;
                     // AttentionCodes
@@ -1008,7 +1009,7 @@ namespace HazeronAdviser
             }
             else if (columnName == "ColumnCityBank"
                   || columnName == "ColumnCityTribute"
-                  || columnName == ""
+                  || columnName == "ColumnShipAccount"
                      )
             { // If is it a money column.
                 string value1 = (e.CellValue1 ?? String.Empty).ToString();

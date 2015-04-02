@@ -256,25 +256,25 @@ namespace HazeronAdviser
             subStart = _mail.Body.IndexOf("Commander,") + 10; // "I was deployed from ".Length == 20
             subEnd = _mail.Body.Substring(subStart).IndexOf("I was deployed from ");
             string crewMorale = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
-            int dDay = 0;
+            int dWeek = 0;
             switch (crewMorale)
             {
                 case "The crew has high spirits. Every day seems filled with anticipation.":
-                    dDay = 4;
+                    dWeek = 4;
                     break;
                 case "More than a week has passed since we were last hailed by command. The crew is quiet, intent on their work as they attend to their duties.":
-                    dDay = 3;
+                    dWeek = 3;
                     break;
                 case "?":
-                    dDay = 2;
+                    dWeek = 2;
                     break;
                 case "??":
-                    dDay = 1;
+                    dWeek = 1;
                     break;
             }
 #if CrewMoraleTest
-            if (dDay > 2)
-                _Abandonment = dDay + " /4 weeks";
+            if (dWeek > 2)
+                _Abandonment = dWeek + " /4 weeks";
             else
             {
                 // Debug code. Need to learn the other messages to check for!
@@ -282,7 +282,7 @@ namespace HazeronAdviser
                 _Abandonment = tempArray[tempArray.Length - 1];
             }
 #else
-                _decayDay = dDay + " /4 weeks";
+            _Abandonment = dDay + " /4 weeks";
 #endif
 
             // DAMAGE REPORT
@@ -290,8 +290,8 @@ namespace HazeronAdviser
             if (sectionsInReport.Contains(headlineDAMAGE))
             {
                 _damage = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineDAMAGE));
-                //temp = _damage.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                //_damageShort = temp[temp.Length - 1];
+                //tempArray = _damage.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //_damageShort = tempArray[temp.Length - 1];
             }
 
             // ACCOUNT
@@ -299,8 +299,8 @@ namespace HazeronAdviser
             if (sectionsInReport.Contains(headlineACCOUNT))
             {
                 _account = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineACCOUNT));
-                //temp = _account.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                //_accountShort = temp[temp.Length - 1];
+                tempArray = _account.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                _accountShort = tempArray[1].Remove(tempArray[1].IndexOf('¢') + 1).Replace(',', '\'').Replace('.', '\'');
             }
 
             // FUEL
@@ -317,8 +317,8 @@ namespace HazeronAdviser
             if (sectionsInReport.Contains(headlineCARGO))
             {
                 _cargo = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineCARGO));
-                //temp = _cargo.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                //_cargoShort = temp[temp.Length - 1];
+                //tempArray = _cargo.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //_cargoShort = tempArray[tempArray.Length - 1];
             }
 
             // MISSION
@@ -326,8 +326,8 @@ namespace HazeronAdviser
             if (sectionsInReport.Contains(headlineMISSION))
             {
                 _mission = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineMISSION));
-                //temp = _mission.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                //_missionShort = temp[temp.Length - 1];
+                //tempArray = _mission.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //_missionShort = tempArray[tempArray.Length - 1];
             }
 
             // ROSTER
@@ -335,8 +335,8 @@ namespace HazeronAdviser
             if (sectionsInReport.Contains(headlineROSTER))
             {
                 _roster = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineROSTER));
-                //temp = _roster.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                //_rosterShort = temp[temp.Length - 1];
+                //tempArray = _roster.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //_rosterShort = tempArray[tempArray.Length - 1];
             }
 
             // Officer Info
@@ -353,9 +353,9 @@ namespace HazeronAdviser
             //_sOverview = "WIP";
 
             // AttentionCodes
-            if (dDay == 2) // 2 weeks until decay.
+            if (dWeek == 2) // 2 weeks until decay.
                 _attentionCode = (byte)(_attentionCode | 0x08); // 0b00000001
-            if (dDay == 1) // 1 weeks until decay.
+            if (dWeek == 1) // 1 weeks until decay.
                 _attentionCode = (byte)(_attentionCode | 0x03); // 0b00000010
             if (false) // Nothing yet!
                 _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100

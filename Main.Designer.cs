@@ -37,15 +37,6 @@
             this.tbxShip = new System.Windows.Forms.TextBox();
             this.splitContainerShip = new System.Windows.Forms.SplitContainer();
             this.dgvShip = new System.Windows.Forms.DataGridView();
-            this.ColumnShipIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnShipSelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ColumnShipIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ColumnShipName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnShipLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnShipAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnShipFuel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnShipDamage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnShipDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlShip = new System.Windows.Forms.TabControl();
             this.tabShipOverview = new System.Windows.Forms.TabPage();
             this.splitContainerShipOverview = new System.Windows.Forms.SplitContainer();
@@ -178,6 +169,16 @@
             this.ColumnCityBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCityTribute = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCityDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnShipIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnShipSelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ColumnShipIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ColumnShipName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnShipLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnShipAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnShipFuel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnShipAccount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnShipDamage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnShipDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -366,6 +367,7 @@
             this.ColumnShipLocation,
             this.ColumnShipAbandonment,
             this.ColumnShipFuel,
+            this.ColumnShipAccount,
             this.ColumnShipDamage,
             this.ColumnShipDate});
             this.dgvShip.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -383,82 +385,6 @@
             this.dgvShip.SelectionChanged += new System.EventHandler(this.dgvShip_SelectionChanged);
             this.dgvShip.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgv_SortCompare);
             this.dgvShip.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
-            // 
-            // ColumnShipIndex
-            // 
-            this.ColumnShipIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnShipIndex.FillWeight = 20F;
-            this.ColumnShipIndex.Frozen = true;
-            this.ColumnShipIndex.HeaderText = "# Index";
-            this.ColumnShipIndex.MinimumWidth = 20;
-            this.ColumnShipIndex.Name = "ColumnShipIndex";
-            this.ColumnShipIndex.ReadOnly = true;
-            this.ColumnShipIndex.Visible = false;
-            this.ColumnShipIndex.Width = 20;
-            // 
-            // ColumnShipSelection
-            // 
-            this.ColumnShipSelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnShipSelection.FillWeight = 20F;
-            this.ColumnShipSelection.Frozen = true;
-            this.ColumnShipSelection.HeaderText = "Selection";
-            this.ColumnShipSelection.MinimumWidth = 20;
-            this.ColumnShipSelection.Name = "ColumnShipSelection";
-            this.ColumnShipSelection.ReadOnly = true;
-            this.ColumnShipSelection.Visible = false;
-            this.ColumnShipSelection.Width = 20;
-            // 
-            // ColumnShipIcon
-            // 
-            this.ColumnShipIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnShipIcon.FillWeight = 20F;
-            this.ColumnShipIcon.Frozen = true;
-            this.ColumnShipIcon.HeaderText = "Icon";
-            this.ColumnShipIcon.MinimumWidth = 20;
-            this.ColumnShipIcon.Name = "ColumnShipIcon";
-            this.ColumnShipIcon.ReadOnly = true;
-            this.ColumnShipIcon.Width = 20;
-            // 
-            // ColumnShipName
-            // 
-            this.ColumnShipName.Frozen = true;
-            this.ColumnShipName.HeaderText = "Name";
-            this.ColumnShipName.Name = "ColumnShipName";
-            this.ColumnShipName.ReadOnly = true;
-            // 
-            // ColumnShipLocation
-            // 
-            this.ColumnShipLocation.HeaderText = "Location";
-            this.ColumnShipLocation.Name = "ColumnShipLocation";
-            this.ColumnShipLocation.ReadOnly = true;
-            // 
-            // ColumnShipAbandonment
-            // 
-            this.ColumnShipAbandonment.FillWeight = 90F;
-            this.ColumnShipAbandonment.HeaderText = "Abandonment";
-            this.ColumnShipAbandonment.Name = "ColumnShipAbandonment";
-            this.ColumnShipAbandonment.ReadOnly = true;
-            this.ColumnShipAbandonment.Width = 90;
-            // 
-            // ColumnShipFuel
-            // 
-            this.ColumnShipFuel.HeaderText = "Fuel";
-            this.ColumnShipFuel.Name = "ColumnShipFuel";
-            this.ColumnShipFuel.ReadOnly = true;
-            // 
-            // ColumnShipDamage
-            // 
-            this.ColumnShipDamage.HeaderText = "Damage";
-            this.ColumnShipDamage.Name = "ColumnShipDamage";
-            this.ColumnShipDamage.ReadOnly = true;
-            // 
-            // ColumnShipDate
-            // 
-            this.ColumnShipDate.FillWeight = 107F;
-            this.ColumnShipDate.HeaderText = "Last Updated";
-            this.ColumnShipDate.Name = "ColumnShipDate";
-            this.ColumnShipDate.ReadOnly = true;
-            this.ColumnShipDate.Width = 107;
             // 
             // tabControlShip
             // 
@@ -2003,6 +1929,88 @@
             this.ColumnCityDate.ReadOnly = true;
             this.ColumnCityDate.Width = 107;
             // 
+            // ColumnShipIndex
+            // 
+            this.ColumnShipIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnShipIndex.FillWeight = 20F;
+            this.ColumnShipIndex.Frozen = true;
+            this.ColumnShipIndex.HeaderText = "# Index";
+            this.ColumnShipIndex.MinimumWidth = 20;
+            this.ColumnShipIndex.Name = "ColumnShipIndex";
+            this.ColumnShipIndex.ReadOnly = true;
+            this.ColumnShipIndex.Visible = false;
+            this.ColumnShipIndex.Width = 20;
+            // 
+            // ColumnShipSelection
+            // 
+            this.ColumnShipSelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnShipSelection.FillWeight = 20F;
+            this.ColumnShipSelection.Frozen = true;
+            this.ColumnShipSelection.HeaderText = "Selection";
+            this.ColumnShipSelection.MinimumWidth = 20;
+            this.ColumnShipSelection.Name = "ColumnShipSelection";
+            this.ColumnShipSelection.ReadOnly = true;
+            this.ColumnShipSelection.Visible = false;
+            this.ColumnShipSelection.Width = 20;
+            // 
+            // ColumnShipIcon
+            // 
+            this.ColumnShipIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnShipIcon.FillWeight = 20F;
+            this.ColumnShipIcon.Frozen = true;
+            this.ColumnShipIcon.HeaderText = "Icon";
+            this.ColumnShipIcon.MinimumWidth = 20;
+            this.ColumnShipIcon.Name = "ColumnShipIcon";
+            this.ColumnShipIcon.ReadOnly = true;
+            this.ColumnShipIcon.Width = 20;
+            // 
+            // ColumnShipName
+            // 
+            this.ColumnShipName.Frozen = true;
+            this.ColumnShipName.HeaderText = "Name";
+            this.ColumnShipName.Name = "ColumnShipName";
+            this.ColumnShipName.ReadOnly = true;
+            // 
+            // ColumnShipLocation
+            // 
+            this.ColumnShipLocation.HeaderText = "Location";
+            this.ColumnShipLocation.Name = "ColumnShipLocation";
+            this.ColumnShipLocation.ReadOnly = true;
+            // 
+            // ColumnShipAbandonment
+            // 
+            this.ColumnShipAbandonment.FillWeight = 90F;
+            this.ColumnShipAbandonment.HeaderText = "Abandonment";
+            this.ColumnShipAbandonment.Name = "ColumnShipAbandonment";
+            this.ColumnShipAbandonment.ReadOnly = true;
+            this.ColumnShipAbandonment.Width = 90;
+            // 
+            // ColumnShipFuel
+            // 
+            this.ColumnShipFuel.HeaderText = "Fuel";
+            this.ColumnShipFuel.Name = "ColumnShipFuel";
+            this.ColumnShipFuel.ReadOnly = true;
+            // 
+            // ColumnShipAccount
+            // 
+            this.ColumnShipAccount.HeaderText = "Account";
+            this.ColumnShipAccount.Name = "ColumnShipAccount";
+            this.ColumnShipAccount.ReadOnly = true;
+            // 
+            // ColumnShipDamage
+            // 
+            this.ColumnShipDamage.HeaderText = "Damage";
+            this.ColumnShipDamage.Name = "ColumnShipDamage";
+            this.ColumnShipDamage.ReadOnly = true;
+            // 
+            // ColumnShipDate
+            // 
+            this.ColumnShipDate.FillWeight = 107F;
+            this.ColumnShipDate.HeaderText = "Last Updated";
+            this.ColumnShipDate.Name = "ColumnShipDate";
+            this.ColumnShipDate.ReadOnly = true;
+            this.ColumnShipDate.Width = 107;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2214,15 +2222,6 @@
         private System.Windows.Forms.TabPage tabSystemTechnology;
         private System.Windows.Forms.RichTextBox rtbSystemTechnology;
         private System.Windows.Forms.TabPage tabCityBuildings;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipIndex;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnShipSelection;
-        private System.Windows.Forms.DataGridViewImageColumn ColumnShipIcon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipLocation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipAbandonment;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipFuel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDamage;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventIndex;
         private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnEventSelection;
         private System.Windows.Forms.DataGridViewImageColumn ColumnEventIcon;
@@ -2282,6 +2281,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityBank;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityTribute;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCityDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipIndex;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnShipSelection;
+        private System.Windows.Forms.DataGridViewImageColumn ColumnShipIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipLocation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipAbandonment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipFuel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipAccount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDamage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnShipDate;
     }
 }
 
