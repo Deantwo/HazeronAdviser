@@ -239,7 +239,7 @@ namespace HazeronAdviser
             get { return _vBankTribute; }
         }
 
-        protected string _sBank = "-", _sBankShort = "-";
+        protected string _sBank = "-", _sBankShort = "-", _sBankTributeShort = "-";
         public string SBank
         {
             get { return _sBank; }
@@ -247,6 +247,10 @@ namespace HazeronAdviser
         public string SBankShort
         {
             get { return _sBankShort; }
+        }
+        public string SBankTributeShort
+        {
+            get { return _sBankTributeShort; }
         }
 
         public HCity(HMail mail)
@@ -483,7 +487,7 @@ namespace HazeronAdviser
                     {
                         GovAcc = false;
                     }
-                    else if (!_empireCapital && line == "Previous Tribute")
+                    else if (line == "Previous Tribute")
                     {
                         i++;
                         line = tempArray[i].Replace(",", "");
@@ -741,6 +745,8 @@ namespace HazeronAdviser
                 if (!_lFactilitiesLV.ContainsKey(moraleBuilding) && _vHomes > moraleBuildingsPop[moraleBuilding])
                     buildingList.Add(moraleBuilding);
             }
+            if (!buildingList.Contains("Military Flag"))
+                buildingList.Add("Military Flag");
             buildingList.Sort();
             foreach (string building in buildingList)
             {
@@ -751,25 +757,43 @@ namespace HazeronAdviser
                 if (moraleBuildingsPop.ContainsKey(building))
                 {
                     int levelsNeeded = _vHomes / moraleBuildingsPop[building];
-                    if (building == "Cantina" || building == "Church")
+                    if (building == "Cantina")
                         levelsNeeded += 1;
+                    else if (building == "Church")
+                        levelsNeeded += 2;
                     if (levels < levelsNeeded)
                         _sBuildings += " [color=red](" + (levelsNeeded - levels) + " levels more needed)[/color]";
-                    if (levels > levelsNeeded && !(building == "Church" || building == "University"))
+                    else if (levels > levelsNeeded && !(building == "Church" || building == "University"))
                         _sBuildings += " [color=orange](" + (levels - levelsNeeded) + " levels too many)[/color]";
+                }
+                else if (building == "Military Flag")
+                {
+                    int levelsPossible = (_vHomes / 150) + 1;
+                    if (levels > levelsPossible)
+                        _sBuildings += " [color=red](" + (levels - levelsPossible) + " flags too many)[/color]";
+                    else if (levels < levelsPossible)
+                        _sBuildings += " [color=green](" + (levelsPossible - levels) + " flags more possible)[/color]";
                 }
             }
 
             // Bank overview
+            _sBankShort = _vBankGovBalance.ToString("C", Hazeron.NumberFormat) + " balance";
             _sBank = "City's finances:";
-            if (_empireCapital)
+            if (_empireCapital && _vBankTribute == 0)
             {
-                _sBank += Environment.NewLine + " Empire capital";
-                _sBankShort = _vBankGovBalance.ToString("C", Hazeron.NumberFormat) + " balance";
+                _sBankTributeShort = "No tributing";
+                _sBank += Environment.NewLine + "".PadLeft(Hazeron.CurrencyPadding) + "  Empire capital does not tribute";
             }
             else
             {
-                _sBank += Environment.NewLine + " " + _vBankTribute.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " tributed to capital";
+                _sBankTributeShort = _vBankTribute.ToString("C", Hazeron.NumberFormat) + " tributed";
+                _sBank += Environment.NewLine + " " + _vBankTribute.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " tributed to ";
+                if (_empireCapital)
+                    _sBank += "(overlord/ally)";
+                else
+                    _sBank += "(empire/sector) capital";
+            }
+            {
                 _sBank += Environment.NewLine + "".PadLeft(Hazeron.CurrencyPadding) + "  [color=green](";
                 int minutesToMidnight = (int)(DateTime.UtcNow.Subtract(DateTime.Now.TimeOfDay).AddDays(1) - _lastUpdated).TotalMinutes;
                 if (minutesToMidnight < 120) // Less than two hours.
@@ -777,7 +801,6 @@ namespace HazeronAdviser
                 else // More than two hours.
                     _sBank += (minutesToMidnight / 60) + " hours";
                 _sBank += " to next tribute)[/color]";
-                _sBankShort = _vBankTribute.ToString("C", Hazeron.NumberFormat) + " tributed";
             }
             _sBank += Environment.NewLine;
             _sBank += Environment.NewLine + " " + _vBankProduction.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " bullion production";
