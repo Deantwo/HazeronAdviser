@@ -247,6 +247,7 @@ namespace HazeronAdviser
                     dgvCity.Rows[row].Cells["ColumnCityLivingConditions"].Value = hCity.SLivingShort;
                     dgvCity.Rows[row].Cells["ColumnCityLoyalty"].Value = hCity.SLoyalty;
                     dgvCity.Rows[row].Cells["ColumnCityBank"].Value = hCity.SBankShort;
+                    dgvCity.Rows[row].Cells["ColumnCityTribute"].Value = hCity.SBankTributeShort;
                     dgvCity.Rows[row].Cells["ColumnCityDate"].Value = hCity.LastUpdaredString;
                     // AttentionCodes
                     if (hCity.AttentionCode != 0x00)
@@ -1006,7 +1007,7 @@ namespace HazeronAdviser
                 e.SortResult = CompareNumbers(value1, value2, true);
             }
             else if (columnName == "ColumnCityBank"
-                  || columnName == ""
+                  || columnName == "ColumnCityTribute"
                   || columnName == ""
                      )
             { // If is it a money column.
@@ -1020,6 +1021,27 @@ namespace HazeronAdviser
 
                 e.SortResult = CompareNumbers(value1, value2, false);
             }
+            else if (columnName == "ColumnCityLoyalty"
+                  || columnName == ""
+                  || columnName == ""
+                     )
+            { // If is it a % column.
+                string value1 = (e.CellValue1 ?? String.Empty).ToString();
+                if (value1.Contains('%'))
+                {
+                    value1 = value1.Substring(value1.IndexOf('(') + 1);
+                    value1 = value1.Remove(value1.IndexOf('%'));
+                }
+
+                string value2 = (e.CellValue2 ?? String.Empty).ToString();
+                if (value2.Contains('%'))
+                {
+                    value2 = value2.Substring(value2.IndexOf('(') + 1);
+                    value2 = value2.Remove(value2.IndexOf('%'));
+                }
+
+                e.SortResult = CompareNumbers(value1, value2, false);
+            }
             else
             {
                 // Try to sort based on the cells in the current column as srtings.
@@ -1027,8 +1049,8 @@ namespace HazeronAdviser
             }
 
             // If the cells are equal, sort based on the ID column.
-            const int nameColumn = 3;
-            if (e.SortResult == 0 && (e.Column.Index != nameColumn)) 
+            const int NAME_COLUMN = 3;
+            if (e.SortResult == 0 && (e.Column.Index != NAME_COLUMN))
                                    /* e.Column.Name != "ColumnCityName"
                                     * e.Column.Name != "ColumnSystemName"
                                     * e.Column.Name != "ColumnShipName"
@@ -1037,8 +1059,8 @@ namespace HazeronAdviser
                                     */
             {
                 e.SortResult = String.Compare(
-                    dgv.Rows[e.RowIndex1].Cells[nameColumn].Value.ToString(),
-                    dgv.Rows[e.RowIndex2].Cells[nameColumn].Value.ToString());
+                    dgv.Rows[e.RowIndex1].Cells[NAME_COLUMN].Value.ToString(),
+                    dgv.Rows[e.RowIndex2].Cells[NAME_COLUMN].Value.ToString());
             }
             e.Handled = true;
         }
@@ -1050,8 +1072,8 @@ namespace HazeronAdviser
         {
             s = s.Replace(',', '.');
             if (!s.Contains('.'))
-                s += ".0";
-            return s.PadLeft(len);
+                s += ".00";
+            return s.PadLeft(len + 3);
         }
 
         private int CompareNumbers(string value1, string value2, bool nullLowest = true)
@@ -1068,7 +1090,7 @@ namespace HazeronAdviser
                 if (String.IsNullOrEmpty(value2))
                     return 1;
             }
-            int maxLen = Math.Max(value1.Length, value2.Length) + 2;
+            int maxLen = Math.Max(value1.Length, value2.Length);
             value1 = Normalize(value1, maxLen);
             value2 = Normalize(value2, maxLen);
             return String.Compare(value1, value2);
