@@ -490,13 +490,13 @@ namespace HazeronAdviser
                     else if (line == "Previous Tribute")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(",", "").Replace(".", "");
                         _vBankTribute = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Starting Balance")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(",", "").Replace(".", "");
                         if (GovAcc)
                             _vBankGovBalanceOld = Convert.ToInt64(line.Remove(line.Length - 1));
                         else
@@ -505,7 +505,7 @@ namespace HazeronAdviser
                     else if (line == "Current Balance")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(",", "").Replace(".", "");
                         if (GovAcc)
                             _vBankGovBalance = Convert.ToInt64(line.Remove(line.Length - 1));
                         else
@@ -514,25 +514,25 @@ namespace HazeronAdviser
                     else if (line == "Income Tax")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(",", "").Replace(".", "");
                         _vBankTaxIncome = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Sales Tax")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(",", "").Replace(".", "");
                         _vBankTaxSale = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Bullion Production")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(",", "").Replace(".", "");
                         _vBankProduction = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Research and Development")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(",", "").Replace(".", "");
                         _vBankExpenseResearch = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                 }
