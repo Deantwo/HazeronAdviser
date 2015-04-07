@@ -273,8 +273,9 @@ namespace HazeronAdviser
                 string utcHexTimestamp = _mail.Body.Substring(4, 8);
                 int secondsAfterEpoch = Int32.Parse(utcHexTimestamp, System.Globalization.NumberStyles.HexNumber);
                 DateTime epoch = new DateTime(1970, 1, 1);
+                epoch = epoch.AddSeconds(secondsAfterEpoch);
                 epoch = TimeZoneInfo.ConvertTimeFromUtc(epoch, TimeZoneInfo.Local);
-                _lastUpdated = epoch.AddSeconds(secondsAfterEpoch);
+                _lastUpdated = epoch;
             }
 
             // String working vars.

@@ -179,7 +179,9 @@ namespace HazeronAdviser
                 L = (long)(J / 11);
                 int Month = (int)(J + 2 - 12 * L);
                 int Year = (int)(100 * (N - 49) + I + L);
-                return new DateTime(Year, Month, Day).Add(TimeSpan.FromMilliseconds(Time));
+                DateTime t = new DateTime(Year, Month, Day).Add(TimeSpan.FromMilliseconds(Time));
+                t = TimeZoneInfo.ConvertTimeFromUtc(t, TimeZoneInfo.Local);
+                return t;
             }
         }
         public string DateTimeString
