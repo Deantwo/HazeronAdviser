@@ -29,6 +29,28 @@ namespace HazeronAdviser
             get { return _sMoraleShort; }
         }
 
+        protected string _sMoraleModifiers = "-", _sMoraleModifiersShort = "-";
+        public string SMoraleModifiers
+        {
+            get { return _sMoraleModifiers; }
+        }
+        public string SMoraleModifiersShort
+        {
+            get { return _sMoraleModifiersShort; }
+        }
+
+        protected int _vMorale = 0;
+        public int VMorale
+        {
+            get { return _vMorale; }
+        }
+
+        protected Dictionary<string, int> _lMoraleModifiers = new Dictionary<string, int>();
+        public Dictionary<string, int> LMoraleModifiers
+        {
+            get { return _lMoraleModifiers; }
+        }
+
         protected int _vAbandonment = 0, _vAbandonmentMax = 0;
         public int VAbandonment
         {
@@ -111,18 +133,6 @@ namespace HazeronAdviser
         public Dictionary<string, int> LFactilitiesTL
         {
             get { return _lFactilitiesTL; }
-        }
-
-        protected int _vMorale = 0;
-        public int VMorale
-        {
-            get { return _vMorale; }
-        }
-
-        protected List<int> _vMoraleModifiers = new List<int>();
-        public int[] VMoraleModifiers
-        {
-            get { return _vMoraleModifiers.ToArray(); }
         }
 
         protected int _vPopulation = 0;
@@ -312,6 +322,7 @@ namespace HazeronAdviser
             string race = "";
             int powerConsumption = 0, powerReserve = 0, powerReserveCapacity = 0;
             List<string> buildingList;
+            int moraleChange = 0;
 
             // Check for sections.
             foreach (string section in sections)
@@ -355,27 +366,44 @@ namespace HazeronAdviser
             {
                 _sMorale = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineMORALE));
                 tempArray = _sMorale.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _sMoraleShort = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1).Substring(7);
+                _sMoraleShort = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1);
+                _vMorale = Convert.ToInt32(_sMoraleShort.Substring(_sMoraleShort.LastIndexOf(' ') + 1));
+                if (!_sMoraleShort.Contains("remained steady"))
+                {
+                    int posA, posB;
+                    posA = _sMoraleShort.LastIndexOf(" by ") + 4;
+                    posB = _sMoraleShort.LastIndexOf(" to ");
+                    moraleChange = Convert.ToInt32(_sMoraleShort.Substring(posA, posB - posA));
+                    if (_sMoraleShort.Contains("decreased"))
+                    {
+                        moraleChange *= -1;
+                        _sMoraleShort = _vMorale.ToString().PadLeft(3) + " (decreased " + Math.Abs(moraleChange) + ")";
+                    }
+                    else
+                        _sMoraleShort = _vMorale.ToString().PadLeft(3) + " (increased " + moraleChange + ")";
+                }
+                else
+                    _sMoraleShort = _vMorale.ToString().PadLeft(3) + " (steady)";
                 int abandonedDays = 0;
                 int abandonedPenalty = 0;
-                _vMoraleModifiers.Clear();
-                foreach (string line in tempArray)
-                    if (!line.ToLower().Contains("morale"))
+                for (int i = 1; i < tempArray.Length - 1; i++)
+                {
+                    _lMoraleModifiers.Add(tempArray[i].Substring(tempArray[i].IndexOf(' ') + 1), Convert.ToInt32(tempArray[i].Remove(tempArray[i].IndexOf(' '))));
+                    if (tempArray[i].Contains("Abandonment Penalty"))
                     {
-                        _vMoraleModifiers.Add(Convert.ToInt32(line.Remove(line.IndexOf(' '))));
-                        string[] tempLineArray = line.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                        if (line.Contains("Abandonment Penalty"))
-                        {
-                            abandonedPenalty = Convert.ToInt32(tempLineArray[0]);
-                            abandonedDays = Convert.ToInt32(tempLineArray[tempLineArray.Length - 2]);
-                        }
-                        if (line.Contains("Harsh Environment Penalty"))
-                        {
-                            _HashEnv = true;
-                        }
+                        abandonedPenalty = Convert.ToInt32(tempArray[i].Remove(tempArray[i].IndexOf(' ')));
+                        int posA, posB;
+                        posA = tempArray[i].LastIndexOf(" in ") + 4;
+                        posB = tempArray[i].LastIndexOf(" days.");
+                        abandonedDays = Convert.ToInt32(tempArray[i].Substring(posA, posB - posA));
                     }
-                _vAbandonment = ((_vMoraleModifiers.Sum() + 1) * Hazeron.AbandonmentInterval) - (abandonedDays % Hazeron.AbandonmentInterval);
-                _vAbandonmentMax = ((_vMoraleModifiers.Sum() - abandonedPenalty + 1) * Hazeron.AbandonmentInterval);
+                    if (tempArray[i].Contains("Harsh Environment Penalty"))
+                    {
+                        _HashEnv = true;
+                    }
+                }
+                _vAbandonment = ((_lMoraleModifiers.Values.Sum() + 1) * Hazeron.AbandonmentInterval) - (abandonedDays % Hazeron.AbandonmentInterval);
+                _vAbandonmentMax = ((_lMoraleModifiers.Values.Sum() - abandonedPenalty + 1) * Hazeron.AbandonmentInterval);
                 if (_vAbandonmentMax < Hazeron.AbandonmentInterval)
                     _sAbandonment = " Unstable";
                 else if (_vAbandonment == _vAbandonmentMax)
@@ -384,7 +412,6 @@ namespace HazeronAdviser
                     _sAbandonment = _vAbandonment.ToString("00") + " /" + _vAbandonmentMax.ToString("00") + " days";
                 else
                     _sAbandonment = " Decaying";
-                _vMorale = Convert.ToInt32(_sMoraleShort.Substring(_sMoraleShort.LastIndexOf(' ') + 1));
             }
 
             // POPULATION
@@ -631,6 +658,50 @@ namespace HazeronAdviser
             }
             else
                 _vPopulationLimit = 1000;
+
+            // Morale overview
+            _sMorale = "City's morale:" + Environment.NewLine + "  ";
+            if (_vMorale >= 0)
+                _sMorale += "[color=green]";
+            else
+                _sMorale += "[color=red]";
+            _sMorale += "Morale " + _vMorale.ToString().PadLeft(3) + "[/color]" + Environment.NewLine + "  ";
+            if (moraleChange >= 0)
+                _sMorale += "[color=green]";
+            else
+                _sMorale += "[color=red]";
+            _sMorale += "Change  ";
+            if (moraleChange > 0)
+                _sMorale += "+";
+            else if (moraleChange == 0)
+                _sMorale += "±";
+            _sMorale += moraleChange + "[/color]" + Environment.NewLine;
+            _sMorale += Environment.NewLine;
+            _sMorale += "City's morale modifiers:" + Environment.NewLine;
+            foreach (KeyValuePair<string, int> moraleModifier in _lMoraleModifiers)
+            {
+                if (moraleModifier.Value > 0)
+                    _sMorale += "  [color=green]+";
+                else
+                    _sMorale += "  [color=red]";
+                _sMorale += moraleModifier.Value + "  " + moraleModifier.Key + "[/color]" + Environment.NewLine;
+            }
+            if (_lMoraleModifiers.Values.Sum() > 0)
+                _sMorale += "[color=green]Total +" + _lMoraleModifiers.Values.Sum();
+            else if (_vMorale < 0)
+                _sMorale += "[color=red]Total " + _lMoraleModifiers.Values.Sum();
+            else
+                _sMorale += "Total ±0";
+            _sMorale += "[/color]";
+            _sMoraleModifiersShort = "";
+            string negMorale = _lMoraleModifiers.Values.Where(y => y < 0).Sum().ToString();
+            if (negMorale == "0")
+                negMorale = "-" + negMorale;
+            if (_lMoraleModifiers.Values.Sum() > 0)
+                _sMoraleModifiersShort = "+";
+            else if (_lMoraleModifiers.Values.Sum() == 0)
+                _sMoraleModifiersShort = "±";
+            _sMoraleModifiersShort += _lMoraleModifiers.Values.Sum() + " (" + negMorale + ", +" + _lMoraleModifiers.Values.Where(y => y > 0).Sum() + ")";
 
             // Population overwiew
             const int populationPadding = 4;

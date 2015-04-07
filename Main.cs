@@ -89,6 +89,8 @@ namespace HazeronAdviser
             dgvEvent.DefaultCellStyle.SelectionForeColor = Color.Black;
             dgvCity.Columns["ColumnCityAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvCity.Columns["ColumnCityAbandonment"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
+            dgvCity.Columns["ColumnCityMoraleModifiers"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
+            dgvCity.Columns["ColumnCityMorale"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
             dgvSystem.Columns["ColumnSystemAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvSystem.Columns["ColumnSystemAbandonment"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
             dgvShip.Columns["ColumnShipAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -241,8 +243,9 @@ namespace HazeronAdviser
                     dgvCity.Rows[row].Cells["ColumnCityIcon"].Value = imageCity;
                     dgvCity.Rows[row].Cells["ColumnCityName"].Value = hCity.Name;
                     dgvCity.Rows[row].Cells["ColumnCityLocation"].Value = hCity.SystemName + ", " + hCity.PlanetName + " z" + hCity.VZone;
-                    dgvCity.Rows[row].Cells["ColumnCityMorale"].Value = hCity.SMoraleShort;
                     dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Value = hCity.SAbandonment;
+                    dgvCity.Rows[row].Cells["ColumnCityMoraleModifiers"].Value = hCity.SMoraleModifiersShort;
+                    dgvCity.Rows[row].Cells["ColumnCityMorale"].Value = hCity.SMoraleShort;
                     dgvCity.Rows[row].Cells["ColumnCityPopulation"].Value = hCity.SPopulationShort;
                     dgvCity.Rows[row].Cells["ColumnCityLivingConditions"].Value = hCity.SLivingShort;
                     dgvCity.Rows[row].Cells["ColumnCityLoyalty"].Value = hCity.SLoyalty;
@@ -788,12 +791,12 @@ namespace HazeronAdviser
                 graphMorale.DrawYAxle("Morale", 20, -20);
                 yValue = city.VMorale;
                 graphMorale.DrawBar(Color.Blue, 0, yValue);
-                yValue = city.VMoraleModifiers.Sum();
+                yValue = city.LMoraleModifiers.Values.Sum();
                 graphMorale.DrawBar(Color.Yellow, 1, yValue);
-                yValue = city.VMoraleModifiers.Where(y => y > 0).Sum();
+                yValue = city.LMoraleModifiers.Values.Where(y => y > 0).Sum();
                 if (yValue != 0)
                     graphMorale.DrawBar(Color.Green, 2, yValue);
-                yValue = city.VMoraleModifiers.Where(y => y < 0).Sum();
+                yValue = city.LMoraleModifiers.Values.Where(y => y < 0).Sum();
                 if (yValue != 0)
                     graphMorale.DrawBar(Color.Red, 2, yValue);
             }
@@ -886,7 +889,7 @@ namespace HazeronAdviser
                     tag = text.IndexOf(']');
                     command = text.Remove(tag);
                     text = text.Substring(tag + 1);
-                    if (command.Remove(6) == "color=" && text.Contains("[/color]"))
+                    if (command.Length > 6 && command.Remove(6) == "color=" && text.Contains("[/color]"))
                     {
                         tag = text.IndexOf("[/color]");
                         affectedText = text.Remove(tag);
