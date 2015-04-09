@@ -995,20 +995,30 @@ namespace HazeronAdviser
             DataGridView dgv = (sender as DataGridView);
 
             string columnName = e.Column.Name;
-            if (columnName == ""
-             || columnName == ""
+            if (columnName == "ColumnCityMorale"
+             || columnName == "ColumnCityMoraleModifiers"
              || columnName == ""
                 )
             { // If is it a numeric column.
                 string value1 = (e.CellValue1 ?? String.Empty).ToString();
-                if (value1.Contains(' '))
-                    value1 = value1.Split(' ')[0];
+                if (value1.Contains('('))
+                {
+                    value1 = value1.Remove(value1.IndexOf(" ("));
+                    value1 = value1.Replace('+', ' ');
+                    value1 = value1.Replace('±', ' ');
+                    value1 = value1.Replace(" ", "");
+                }
 
                 string value2 = (e.CellValue2 ?? String.Empty).ToString();
-                if (value2.Contains(' '))
-                    value2 = value2.Split(' ')[0];
+                if (value2.Contains('('))
+                {
+                    value2 = value2.Remove(value2.IndexOf(" ("));
+                    value2 = value2.Replace('+', ' ');
+                    value2 = value2.Replace('±', ' ');
+                    value2 = value2.Replace(" ", "");
+                }
 
-                e.SortResult = CompareNumbers(value1, value2, true);
+                e.SortResult = CompareDoubles(value1, value2);
             }
             else if (columnName == "ColumnCityBank"
                   || columnName == "ColumnCityTribute"
@@ -1023,7 +1033,7 @@ namespace HazeronAdviser
                 if (value2.Contains('¢'))
                     value2 = value2.Remove(value2.IndexOf('¢'));
 
-                e.SortResult = CompareNumbers(value1, value2, false);
+                e.SortResult = CompareNumbers(value1, value2);
             }
             else if (columnName == "ColumnCityLoyalty"
                   || columnName == ""
@@ -1044,7 +1054,7 @@ namespace HazeronAdviser
                     value2 = value2.Remove(value2.IndexOf('%'));
                 }
 
-                e.SortResult = CompareNumbers(value1, value2, false);
+                e.SortResult = CompareDoubles(value1, value2);
             }
             else
             {
@@ -1080,24 +1090,24 @@ namespace HazeronAdviser
             return s.PadLeft(len + 3);
         }
 
-        private int CompareNumbers(string value1, string value2, bool nullLowest = true)
+        private int CompareNumbers(string value1, string value2)
         {
-            if (nullLowest)
-            {
-                if (String.IsNullOrEmpty(value1))
-                {
-                    if (String.IsNullOrEmpty(value2))
-                        return 0;
-                    else
-                        return -1;
-                }
-                if (String.IsNullOrEmpty(value2))
-                    return 1;
-            }
             int maxLen = Math.Max(value1.Length, value2.Length);
             value1 = Normalize(value1, maxLen);
             value2 = Normalize(value2, maxLen);
             return String.Compare(value1, value2);
+        }
+
+        private int CompareDoubles(string value1, string value2)
+        {
+            double value1double = Double.Parse(value1, Hazeron.NumberFormat);
+            double value2double = Double.Parse(value2, Hazeron.NumberFormat);
+            if (value1double < value2double)
+                return -1;
+            else if (value1double > value2double)
+                return 1;
+            else
+                return 0;
         }
         #endregion
 
