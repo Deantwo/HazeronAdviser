@@ -444,7 +444,7 @@ namespace HazeronAdviser
                         _vLoyalty = Convert.ToInt32(line.Remove(line.IndexOf(' ')));
                         if (line.Contains("disloyal"))
                             _vLoyalty = -_vLoyalty;
-                        _sLoyalty = _vLoyalty + " citizens (" + Math.Round(((float)_vLoyalty / _vPopulation) * 100, 2) + "%)";
+                        _sLoyalty = _vLoyalty + " citizens (" + Math.Round(((float)_vLoyalty / _vPopulation) * 100, 2).ToString(Hazeron.NumberFormat) + "%)";
                     }
                 }
             }
@@ -671,37 +671,26 @@ namespace HazeronAdviser
             else
                 _sMorale += "[color=red]";
             _sMorale += "Change  ";
-            if (moraleChange > 0)
-                _sMorale += "+";
-            else if (moraleChange == 0)
-                _sMorale += "±";
-            _sMorale += moraleChange + "[/color]" + Environment.NewLine;
+            _sMorale += moraleChange.ToString("+#0;-#0;±#0") + "[/color]" + Environment.NewLine;
             _sMorale += Environment.NewLine;
             _sMorale += "City's morale modifiers:" + Environment.NewLine;
             foreach (KeyValuePair<string, int> moraleModifier in _lMoraleModifiers)
             {
                 if (moraleModifier.Value > 0)
-                    _sMorale += "  [color=green]+";
+                    _sMorale += "  [color=green]";
                 else
                     _sMorale += "  [color=red]";
-                _sMorale += moraleModifier.Value + "  " + moraleModifier.Key + "[/color]" + Environment.NewLine;
+                _sMorale += moraleModifier.Value.ToString("+#0;-#0") + "  " + moraleModifier.Key + "[/color]" + Environment.NewLine;
             }
             if (_lMoraleModifiers.Values.Sum() > 0)
-                _sMorale += "[color=green]Total +" + _lMoraleModifiers.Values.Sum();
-            else if (_vMorale < 0)
-                _sMorale += "[color=red]Total " + _lMoraleModifiers.Values.Sum();
-            else
-                _sMorale += "Total ±0";
-            _sMorale += "[/color]";
-            _sMoraleModifiersShort = "";
-            string negMorale = _lMoraleModifiers.Values.Where(y => y < 0).Sum().ToString();
-            if (negMorale == "0")
-                negMorale = "-" + negMorale;
-            if (_lMoraleModifiers.Values.Sum() > 0)
-                _sMoraleModifiersShort = "+";
-            else if (_lMoraleModifiers.Values.Sum() == 0)
-                _sMoraleModifiersShort = "±";
-            _sMoraleModifiersShort += _lMoraleModifiers.Values.Sum() + " (" + negMorale + ", +" + _lMoraleModifiers.Values.Where(y => y > 0).Sum() + ")";
+                _sMorale += "[color=green]";
+            else if (_lMoraleModifiers.Values.Sum() < 0)
+                _sMorale += "[color=red]";
+            _sMorale += "Total " + _lMoraleModifiers.Values.Sum().ToString("+#0;-#0;±#0");
+            if (_lMoraleModifiers.Values.Sum() > 0 || _lMoraleModifiers.Values.Sum() < 0)
+                _sMorale += "[/color]";
+            _sMoraleModifiersShort = _lMoraleModifiers.Values.Sum().ToString("+#0;-#0;±#0");
+            _sMoraleModifiersShort += " (" + Math.Abs(_lMoraleModifiers.Values.Where(y => y < 0).Sum()).ToString("-#0") + ", " + _lMoraleModifiers.Values.Where(y => y > 0).Sum().ToString("+#0") + ")";
 
             // Population overwiew
             const int populationPadding = 4;
