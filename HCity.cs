@@ -323,6 +323,7 @@ namespace HazeronAdviser
             int powerConsumption = 0, powerReserve = 0, powerReserveCapacity = 0;
             List<string> buildingList;
             int moraleChange = 0;
+            int populationChange = 0;
 
             // Check for sections.
             foreach (string section in sections)
@@ -428,8 +429,23 @@ namespace HazeronAdviser
                     }
                     else if (line.Contains("Population") && !line.Contains("troops"))
                     {
-                        _sPopulationShort = line.Remove(line.Length - 1).Substring(11);
-                        _vPopulation = Convert.ToInt32(_sPopulationShort.Substring(_sPopulationShort.LastIndexOf(' ') + 1));
+                        _vPopulation = Convert.ToInt32(line.Remove(line.Length - 1).Substring(line.LastIndexOf(' ') + 1));
+                        if (!line.Contains("remained steady"))
+                        {
+                            int posA, posB;
+                            posA = line.LastIndexOf(" by ") + 4;
+                            posB = line.LastIndexOf(" to ");
+                            populationChange = Convert.ToInt32(line.Substring(posA, posB - posA));
+                            if (line.Contains("decreased"))
+                            {
+                                populationChange *= -1;
+                                _sPopulationShort = _vPopulation.ToString().PadLeft(4) + " (decreased " + Math.Abs(moraleChange) + ")";
+                            }
+                            else
+                                _sPopulationShort = _vPopulation.ToString().PadLeft(4) + " (increased " + moraleChange + ")";
+                        }
+                        else
+                            _sPopulationShort = _vPopulation.ToString().PadLeft(4) + " (steady)";
                     }
                     else if (line.Contains("Garrison"))
                     {
