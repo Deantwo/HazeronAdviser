@@ -302,9 +302,9 @@
             this.toolStripProgressBar1,
             this.toolStripProgressBar2,
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 486);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 484);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(790, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(790, 24);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -320,9 +320,15 @@
             // 
             // toolStripStatusLabel1
             // 
+            this.toolStripStatusLabel1.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.toolStripStatusLabel1.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(39, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(418, 19);
+            this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.Text = "Ready";
+            this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tbxShip
             // 
@@ -556,7 +562,7 @@
             this.tabControlMain.Location = new System.Drawing.Point(12, 56);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(766, 427);
+            this.tabControlMain.Size = new System.Drawing.Size(766, 425);
             this.tabControlMain.TabIndex = 1;
             // 
             // tabCity
@@ -565,7 +571,7 @@
             this.tabCity.Location = new System.Drawing.Point(4, 22);
             this.tabCity.Name = "tabCity";
             this.tabCity.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCity.Size = new System.Drawing.Size(758, 401);
+            this.tabCity.Size = new System.Drawing.Size(758, 399);
             this.tabCity.TabIndex = 0;
             this.tabCity.Text = "Cities";
             this.tabCity.UseVisualStyleBackColor = true;
@@ -583,7 +589,7 @@
             // splitContainerCity.Panel2
             // 
             this.splitContainerCity.Panel2.Controls.Add(this.tabControlCity);
-            this.splitContainerCity.Size = new System.Drawing.Size(752, 395);
+            this.splitContainerCity.Size = new System.Drawing.Size(752, 393);
             this.splitContainerCity.SplitterDistance = 331;
             this.splitContainerCity.TabIndex = 6;
             // 
@@ -618,7 +624,7 @@
             this.dgvCity.ReadOnly = true;
             this.dgvCity.RowHeadersVisible = false;
             this.dgvCity.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCity.Size = new System.Drawing.Size(331, 395);
+            this.dgvCity.Size = new System.Drawing.Size(331, 393);
             this.dgvCity.TabIndex = 2;
             this.dgvCity.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvCity.SelectionChanged += new System.EventHandler(this.dgvCity_SelectionChanged);
@@ -638,7 +644,7 @@
             this.tabControlCity.Location = new System.Drawing.Point(0, 0);
             this.tabControlCity.Name = "tabControlCity";
             this.tabControlCity.SelectedIndex = 0;
-            this.tabControlCity.Size = new System.Drawing.Size(417, 395);
+            this.tabControlCity.Size = new System.Drawing.Size(417, 393);
             this.tabControlCity.TabIndex = 1;
             // 
             // tabCityOverview
@@ -732,7 +738,7 @@
             this.tabCityMorale.Location = new System.Drawing.Point(4, 22);
             this.tabCityMorale.Name = "tabCityMorale";
             this.tabCityMorale.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityMorale.Size = new System.Drawing.Size(409, 369);
+            this.tabCityMorale.Size = new System.Drawing.Size(409, 367);
             this.tabCityMorale.TabIndex = 2;
             this.tabCityMorale.Text = "Morale";
             this.tabCityMorale.UseVisualStyleBackColor = true;
@@ -751,8 +757,8 @@
             // splitContainerCityMorale.Panel2
             // 
             this.splitContainerCityMorale.Panel2.Controls.Add(this.rtbCityMorale);
-            this.splitContainerCityMorale.Size = new System.Drawing.Size(403, 363);
-            this.splitContainerCityMorale.SplitterDistance = 161;
+            this.splitContainerCityMorale.Size = new System.Drawing.Size(403, 361);
+            this.splitContainerCityMorale.SplitterDistance = 160;
             this.splitContainerCityMorale.TabIndex = 2;
             // 
             // pCityMorale
@@ -762,7 +768,7 @@
             this.pCityMorale.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pCityMorale.Location = new System.Drawing.Point(0, 0);
             this.pCityMorale.Name = "pCityMorale";
-            this.pCityMorale.Size = new System.Drawing.Size(403, 161);
+            this.pCityMorale.Size = new System.Drawing.Size(403, 160);
             this.pCityMorale.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pCityMorale, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
@@ -777,7 +783,7 @@
             this.rtbCityMorale.Location = new System.Drawing.Point(0, 0);
             this.rtbCityMorale.Name = "rtbCityMorale";
             this.rtbCityMorale.ReadOnly = true;
-            this.rtbCityMorale.Size = new System.Drawing.Size(403, 198);
+            this.rtbCityMorale.Size = new System.Drawing.Size(403, 197);
             this.rtbCityMorale.TabIndex = 0;
             this.rtbCityMorale.Text = "";
             this.rtbCityMorale.WordWrap = false;
