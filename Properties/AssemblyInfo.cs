@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("HazeronAdviser")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("3rd-party Shores of Hazeron helper application")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("HazeronAdviser")]
