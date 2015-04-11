@@ -1006,19 +1006,19 @@ namespace HazeronAdviser
                 int value2 = hCityList[listIndex2].VMorale;
                 e.SortResult = CompareNumbers(value1, value2);
             }
-            if (columnName == "ColumnCityMoraleModifiers")
+            else if (columnName == "ColumnCityMoraleModifiers")
             {
                 int value1 = hCityList[listIndex1].LMoraleModifiers.Values.Sum();
                 int value2 = hCityList[listIndex2].LMoraleModifiers.Values.Sum();
                 e.SortResult = CompareNumbers(value1, value2);
             }
-            if (columnName == "ColumnCityLivingConditions")
+            else if (columnName == "ColumnCityLivingConditions")
             {
                 double value1 = ((double)hCityList[listIndex1].VJobs / hCityList[listIndex1].VHomes);
                 double value2 = ((double)hCityList[listIndex2].VJobs / hCityList[listIndex2].VHomes);
                 e.SortResult = CompareNumbers(value1, value2);
             }
-            if (columnName == "ColumnCityPopulation")
+            else if (columnName == "ColumnCityPopulation")
             {
                 int value1 = hCityList[listIndex1].VPopulation;
                 int value2 = hCityList[listIndex2].VPopulation;
@@ -1036,17 +1036,17 @@ namespace HazeronAdviser
                 long value2 = hCityList[listIndex2].VBankTribute;
                 e.SortResult = CompareNumbers(value1, value2);
             }
-            else if (columnName == "ColumnShipAccount")
-            {
-                string value1 = hShipList[listIndex1].AccountShort;
-                string value2 = hShipList[listIndex2].AccountShort;
-                e.SortResult = CompareNumberStrings(value1, value2);
-            }
             else if (columnName == "ColumnCityLoyalty")
             {
                 double value1 = Math.Round(((double)hCityList[listIndex1].VLoyalty / hCityList[listIndex1].VPopulation) * 100, 2);
                 double value2 = Math.Round(((double)hCityList[listIndex2].VLoyalty / hCityList[listIndex2].VPopulation) * 100, 2);
                 e.SortResult = CompareNumbers(value1, value2);
+            }
+            else if (columnName == "ColumnShipAccount")
+            {
+                string value1 = hShipList[listIndex1].AccountShort;
+                string value2 = hShipList[listIndex2].AccountShort;
+                e.SortResult = CompareNumberStrings(value1, value2);
             }
             else
             {
