@@ -994,67 +994,47 @@ namespace HazeronAdviser
         { // Override of the DataGridView's normal SortCompare. This version converts some of the fields to numbers before sorting them.
             DataGridView dgv = (sender as DataGridView);
 
+            const int INDEX_COLUMN = 0;
+            const int NAME_COLUMN = 3;
+
             string columnName = e.Column.Name;
-            if (columnName == "ColumnCityMorale"
-             || columnName == "ColumnCityMoraleModifiers"
-             || columnName == ""
-                )
-            { // If is it a numeric column.
-                string value1 = (e.CellValue1 ?? String.Empty).ToString();
-                if (value1.Contains('('))
-                {
-                    value1 = value1.Remove(value1.IndexOf(" ("));
-                    value1 = value1.Replace('+', ' ');
-                    value1 = value1.Replace('±', ' ');
-                    value1 = value1.Replace(" ", "");
-                }
-
-                string value2 = (e.CellValue2 ?? String.Empty).ToString();
-                if (value2.Contains('('))
-                {
-                    value2 = value2.Remove(value2.IndexOf(" ("));
-                    value2 = value2.Replace('+', ' ');
-                    value2 = value2.Replace('±', ' ');
-                    value2 = value2.Replace(" ", "");
-                }
-
-                e.SortResult = CompareDoubles(value1, value2);
-            }
-            else if (columnName == "ColumnCityBank"
-                  || columnName == "ColumnCityTribute"
-                  || columnName == "ColumnShipAccount"
-                     )
-            { // If is it a money column.
-                string value1 = (e.CellValue1 ?? String.Empty).ToString();
-                if (value1.Contains('¢'))
-                    value1 = value1.Remove(value1.IndexOf('¢'));
-
-                string value2 = (e.CellValue2 ?? String.Empty).ToString();
-                if (value2.Contains('¢'))
-                    value2 = value2.Remove(value2.IndexOf('¢'));
-
+            int listIndex1 = (int)dgv.Rows[e.RowIndex1].Cells[INDEX_COLUMN].Value;
+            int listIndex2 = (int)dgv.Rows[e.RowIndex2].Cells[INDEX_COLUMN].Value;
+            if (columnName == "ColumnCityMorale")
+            {
+                int value1 = hCityList[listIndex1].VMorale;
+                int value2 = hCityList[listIndex2].VMorale;
                 e.SortResult = CompareNumbers(value1, value2);
             }
-            else if (columnName == "ColumnCityLoyalty"
-                  || columnName == ""
-                  || columnName == ""
-                     )
-            { // If is it a % column.
-                string value1 = (e.CellValue1 ?? String.Empty).ToString();
-                if (value1.Contains('%'))
-                {
-                    value1 = value1.Substring(value1.IndexOf('(') + 1);
-                    value1 = value1.Remove(value1.IndexOf('%'));
-                }
-
-                string value2 = (e.CellValue2 ?? String.Empty).ToString();
-                if (value2.Contains('%'))
-                {
-                    value2 = value2.Substring(value2.IndexOf('(') + 1);
-                    value2 = value2.Remove(value2.IndexOf('%'));
-                }
-
-                e.SortResult = CompareDoubles(value1, value2);
+            if (columnName == "ColumnCityMoraleModifiers")
+            {
+                int value1 = hCityList[listIndex1].LMoraleModifiers.Values.Sum();
+                int value2 = hCityList[listIndex2].LMoraleModifiers.Values.Sum();
+                e.SortResult = CompareNumbers(value1, value2);
+            }
+            else if (columnName == "ColumnCityBank")
+            {
+                long value1 = hCityList[listIndex1].VBankGovBalance;
+                long value2 = hCityList[listIndex2].VBankGovBalance;
+                e.SortResult = CompareNumbers(value1, value2);
+            }
+            else if (columnName == "ColumnCityTribute")
+            {
+                long value1 = hCityList[listIndex1].VBankTribute;
+                long value2 = hCityList[listIndex2].VBankTribute;
+                e.SortResult = CompareNumbers(value1, value2);
+            }
+            else if (columnName == "ColumnShipAccount")
+            {
+                string value1 = hShipList[listIndex1].AccountShort;
+                string value2 = hShipList[listIndex2].AccountShort;
+                e.SortResult = CompareNumberStrings(value1, value2);
+            }
+            else if (columnName == "ColumnCityLoyalty")
+            {
+                double value1 = Math.Round(((double)hCityList[listIndex1].VLoyalty / hCityList[listIndex1].VPopulation) * 100, 2);
+                double value2 = Math.Round(((double)hCityList[listIndex2].VLoyalty / hCityList[listIndex2].VPopulation) * 100, 2);
+                e.SortResult = CompareNumbers(value1, value2);
             }
             else
             {
@@ -1063,7 +1043,6 @@ namespace HazeronAdviser
             }
 
             // If the cells are equal, sort based on the ID column.
-            const int NAME_COLUMN = 3;
             if (e.SortResult == 0 && (e.Column.Index != NAME_COLUMN))
                                    /* e.Column.Name != "ColumnCityName"
                                     * e.Column.Name != "ColumnSystemName"
@@ -1090,7 +1069,7 @@ namespace HazeronAdviser
             return s.PadLeft(len + 3);
         }
 
-        private int CompareNumbers(string value1, string value2)
+        private int CompareNumberStrings(string value1, string value2)
         {
             int maxLen = Math.Max(value1.Length, value2.Length);
             value1 = Normalize(value1, maxLen);
@@ -1098,16 +1077,21 @@ namespace HazeronAdviser
             return String.Compare(value1, value2);
         }
 
-        private int CompareDoubles(string value1, string value2)
+        private int CompareNumbers(string value1, string value2)
         {
             double value1double = Double.Parse(value1, Hazeron.NumberFormat);
             double value2double = Double.Parse(value2, Hazeron.NumberFormat);
-            if (value1double < value2double)
-                return -1;
-            else if (value1double > value2double)
-                return 1;
-            else
-                return 0;
+            return Math.Sign(value1double.CompareTo(value2double));
+        }
+
+        private int CompareNumbers(double value1, double value2)
+        {
+            return Math.Sign(value1.CompareTo(value2));
+        }
+
+        private int CompareNumbers(int value1, int value2)
+        {
+            return Math.Sign(value1.CompareTo(value2));
         }
         #endregion
 

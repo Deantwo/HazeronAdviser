@@ -460,7 +460,7 @@ namespace HazeronAdviser
                         _vLoyalty = Convert.ToInt32(line.Remove(line.IndexOf(' ')));
                         if (line.Contains("disloyal"))
                             _vLoyalty = -_vLoyalty;
-                        _sLoyalty = _vLoyalty + " citizens (" + Math.Round(((float)_vLoyalty / _vPopulation) * 100, 2).ToString(Hazeron.NumberFormat) + "%)";
+                        _sLoyalty = _vLoyalty + " (" + Math.Round(((double)_vLoyalty / _vPopulation) * 100, 2).ToString(Hazeron.NumberFormat) + "%)";
                     }
                 }
             }

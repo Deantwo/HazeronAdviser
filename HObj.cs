@@ -166,6 +166,12 @@ namespace HazeronAdviser
             get { return _accountShort; }
         }
 
+        protected long _accountBalance = 0;
+        public long AccountBalance
+        {
+            get { return _accountBalance; }
+        }
+
         protected string _fuel = "-", _fuelShort = "-";
         public string Fuel
         {
@@ -301,6 +307,8 @@ namespace HazeronAdviser
                 _account = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineACCOUNT));
                 tempArray = _account.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 _accountShort = tempArray[1].Remove(tempArray[1].IndexOf('¢') + 1).Replace(',', '\'').Replace('.', '\'');
+                _accountBalance = Convert.ToInt64(_accountShort.Remove(_accountShort.IndexOf('¢')).Replace("'", ""));
+                _accountShort = _accountBalance.ToString("C", Hazeron.NumberFormat);
             }
 
             // FUEL
