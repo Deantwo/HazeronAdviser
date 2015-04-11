@@ -322,6 +322,7 @@ namespace HazeronAdviser
             string race = "";
             int powerConsumption = 0, powerReserve = 0, powerReserveCapacity = 0;
             List<string> buildingList;
+            bool decaying = false;
             int moraleChange = 0;
             int populationChange = 0;
 
@@ -350,6 +351,7 @@ namespace HazeronAdviser
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineDISTRESS));
                 //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 _sOverview = "[color=red]" + tempSection + "[/color]";
+                decaying = tempSection.Contains("<span style=\"color: rgb(255, 255, 0);\">City is decaying.<br></span>");
             }
 
             // EVENT LOG
@@ -405,14 +407,16 @@ namespace HazeronAdviser
                 }
                 _vAbandonment = ((_lMoraleModifiers.Values.Sum() + 1) * Hazeron.AbandonmentInterval) - (abandonedDays % Hazeron.AbandonmentInterval);
                 _vAbandonmentMax = ((_lMoraleModifiers.Values.Sum() - abandonedPenalty + 1) * Hazeron.AbandonmentInterval);
-                if (_vAbandonmentMax < Hazeron.AbandonmentInterval)
+                if (decaying)
+                    _sAbandonment = " Decaying";
+                else if (_vAbandonmentMax < Hazeron.AbandonmentInterval)
                     _sAbandonment = " Unstable";
                 else if (_vAbandonment == _vAbandonmentMax)
                     _sAbandonment = _vAbandonment.ToString("00") + "~/" + _vAbandonmentMax.ToString("00") + " days";
                 else if (_vAbandonment > 0)
                     _sAbandonment = _vAbandonment.ToString("00") + " /" + _vAbandonmentMax.ToString("00") + " days";
                 else
-                    _sAbandonment = " Decaying";
+                    _sAbandonment = " ERROR!?";
             }
 
             // POPULATION
