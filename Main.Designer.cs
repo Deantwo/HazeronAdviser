@@ -537,6 +537,7 @@
             this.rtbShipOverview.Size = new System.Drawing.Size(403, 198);
             this.rtbShipOverview.TabIndex = 1;
             this.rtbShipOverview.Text = "";
+            this.rtbShipOverview.WordWrap = false;
             // 
             // tabShipMail
             // 
@@ -731,6 +732,7 @@
             this.rtbCityOverview.Size = new System.Drawing.Size(403, 198);
             this.rtbCityOverview.TabIndex = 1;
             this.rtbCityOverview.Text = "";
+            this.rtbCityOverview.WordWrap = false;
             // 
             // tabCityMorale
             // 
@@ -842,6 +844,7 @@
             this.rtbCityPopulation.Size = new System.Drawing.Size(403, 198);
             this.rtbCityPopulation.TabIndex = 1;
             this.rtbCityPopulation.Text = "";
+            this.rtbCityPopulation.WordWrap = false;
             // 
             // tabCityTechnology
             // 
@@ -864,6 +867,7 @@
             this.rtbCityTechnology.Size = new System.Drawing.Size(403, 363);
             this.rtbCityTechnology.TabIndex = 0;
             this.rtbCityTechnology.Text = "";
+            this.rtbCityTechnology.WordWrap = false;
             // 
             // tabCityBuildings
             // 
@@ -886,6 +890,7 @@
             this.rtbCityBuildings.Size = new System.Drawing.Size(403, 363);
             this.rtbCityBuildings.TabIndex = 1;
             this.rtbCityBuildings.Text = "";
+            this.rtbCityBuildings.WordWrap = false;
             // 
             // tabCityBank
             // 
@@ -940,6 +945,7 @@
             this.rtbCityBank.Size = new System.Drawing.Size(403, 198);
             this.rtbCityBank.TabIndex = 1;
             this.rtbCityBank.Text = "";
+            this.rtbCityBank.WordWrap = false;
             // 
             // tabCityMail
             // 
@@ -1210,6 +1216,7 @@
             this.rtbSystemOverview.Size = new System.Drawing.Size(403, 198);
             this.rtbSystemOverview.TabIndex = 1;
             this.rtbSystemOverview.Text = "";
+            this.rtbSystemOverview.WordWrap = false;
             // 
             // tabSystemMorale
             // 
@@ -1263,6 +1270,7 @@
             this.rtbSystemMorale.Size = new System.Drawing.Size(403, 198);
             this.rtbSystemMorale.TabIndex = 0;
             this.rtbSystemMorale.Text = "";
+            this.rtbSystemMorale.WordWrap = false;
             // 
             // tabSystemPopulation
             // 
@@ -1318,6 +1326,7 @@
             this.rtbSystemPopulation.Size = new System.Drawing.Size(403, 198);
             this.rtbSystemPopulation.TabIndex = 1;
             this.rtbSystemPopulation.Text = "";
+            this.rtbSystemPopulation.WordWrap = false;
             // 
             // tabSystemTechnology
             // 
@@ -1340,6 +1349,7 @@
             this.rtbSystemTechnology.Size = new System.Drawing.Size(403, 363);
             this.rtbSystemTechnology.TabIndex = 0;
             this.rtbSystemTechnology.Text = "";
+            this.rtbSystemTechnology.WordWrap = false;
             // 
             // tabShip
             // 
@@ -1535,6 +1545,7 @@
             this.rtbOfficerOverview.Size = new System.Drawing.Size(403, 198);
             this.rtbOfficerOverview.TabIndex = 0;
             this.rtbOfficerOverview.Text = "";
+            this.rtbOfficerOverview.WordWrap = false;
             // 
             // tabOfficerMail
             // 
@@ -1744,6 +1755,7 @@
             this.rtbEventOverview.Size = new System.Drawing.Size(403, 198);
             this.rtbEventOverview.TabIndex = 0;
             this.rtbEventOverview.Text = "";
+            this.rtbEventOverview.WordWrap = false;
             // 
             // tabEventMail
             // 
