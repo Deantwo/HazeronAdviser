@@ -439,7 +439,7 @@ namespace HazeronAdviser
                             if (line.Contains("decreased"))
                             {
                                 populationChange *= -1;
-                                _sPopulationShort = _vPopulation.ToString().PadLeft(4) + " (decreased " + Math.Abs(moraleChange) + ")";
+                                _sPopulationShort = _vPopulation.ToString().PadLeft(4) + " (decreased " + Math.Abs(populationChange) + ")";
                             }
                             else
                                 _sPopulationShort = _vPopulation.ToString().PadLeft(4) + " (increased " + moraleChange + ")";
