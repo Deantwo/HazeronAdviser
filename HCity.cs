@@ -844,7 +844,7 @@ namespace HazeronAdviser
                         levelsNeeded += 2;
                     if (levels < levelsNeeded)
                         _sBuildings += " [color=red](" + (levelsNeeded - levels) + " levels more needed)[/color]";
-                    else if (levels > levelsNeeded && !(building == "Church" || building == "University"))
+                    else if (levels > levelsNeeded && !(building == "Church" || building == "University" || building == "Park"))
                         _sBuildings += " [color=orange](" + (levels - levelsNeeded) + " levels too many)[/color]";
                 }
                 else if (building == "Military Flag")
