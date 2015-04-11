@@ -1012,6 +1012,18 @@ namespace HazeronAdviser
                 int value2 = hCityList[listIndex2].LMoraleModifiers.Values.Sum();
                 e.SortResult = CompareNumbers(value1, value2);
             }
+            if (columnName == "ColumnCityLivingConditions")
+            {
+                double value1 = ((double)hCityList[listIndex1].VJobs / hCityList[listIndex1].VHomes);
+                double value2 = ((double)hCityList[listIndex2].VJobs / hCityList[listIndex2].VHomes);
+                e.SortResult = CompareNumbers(value1, value2);
+            }
+            if (columnName == "ColumnCityPopulation")
+            {
+                int value1 = hCityList[listIndex1].VPopulation;
+                int value2 = hCityList[listIndex2].VPopulation;
+                e.SortResult = CompareNumbers(value1, value2);
+            }
             else if (columnName == "ColumnCityBank")
             {
                 long value1 = hCityList[listIndex1].VBankGovBalance;

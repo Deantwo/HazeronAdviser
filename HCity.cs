@@ -443,13 +443,13 @@ namespace HazeronAdviser
                             if (line.Contains("decreased"))
                             {
                                 populationChange *= -1;
-                                _sPopulationShort = _vPopulation.ToString().PadLeft(4) + " (decreased " + Math.Abs(populationChange) + ")";
+                                _sPopulationShort = _vPopulation.ToString() + " (decreased " + Math.Abs(populationChange) + ")";
                             }
                             else
-                                _sPopulationShort = _vPopulation.ToString().PadLeft(4) + " (increased " + moraleChange + ")";
+                                _sPopulationShort = _vPopulation.ToString() + " (increased " + moraleChange + ")";
                         }
                         else
-                            _sPopulationShort = _vPopulation.ToString().PadLeft(4) + " (steady)";
+                            _sPopulationShort = _vPopulation.ToString() + " (steady)";
                     }
                     else if (line.Contains("Garrison"))
                     {
