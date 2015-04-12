@@ -601,6 +601,7 @@ namespace HazeronAdviser
             tbxOfficer.Clear();
             // Event
             tabControlEvent.Refresh();
+            rtbEventOverview.Clear();
             tbxEvent.Clear();
         }
 
