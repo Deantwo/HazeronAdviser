@@ -255,6 +255,8 @@ namespace HazeronAdviser
                                              , "<b>MISSION</b>"
                                              , "<b>ROSTER</b>"
                                              };
+            // Time for Ship spicific things.
+            int abandonment = 0;
 
             // Check for sections.
             foreach (string section in sections)
@@ -271,37 +273,47 @@ namespace HazeronAdviser
             }
 
             // Decay
-            subStart = _mail.Body.IndexOf("Commander,") + 10; // "I was deployed from ".Length == 20
-            subEnd = _mail.Body.Substring(subStart).IndexOf("I was deployed from ");
-            string crewMorale = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
-            int dWeek = 0;
-            switch (crewMorale)
+            if (!_mail.Body.Contains("I miss my home; "))
             {
-                case "The crew has high spirits. Every day seems filled with anticipation.":
-                    dWeek = 4;
-                    break;
-                case "More than a week has passed since we were last hailed by command. The crew is quiet, intent on their work as they attend to their duties.":
-                    dWeek = 3;
-                    break;
-                case "?":
-                    dWeek = 2;
-                    break;
-                case "??":
-                    dWeek = 1;
-                    break;
-            }
+                subStart = _mail.Body.IndexOf("Commander,") + 10; // "Commander,".Length == 10
+                subEnd = _mail.Body.Substring(subStart).IndexOf("I was deployed from ");
+                string crewMorale = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
+                abandonment = 7;
+                switch (crewMorale)
+                {
+                    case "The crew has high spirits. Every day seems filled with anticipation.":
+                        abandonment *= 4;
+                        break;
+                    case "More than a week has passed since we were last hailed by command. The crew is quiet, intent on their work as they attend to their duties.":
+                        abandonment *= 3;
+                        break;
+                    case "?":
+                        abandonment *= 2;
+                        break;
+                    case "??":
+                        abandonment *= 1;
+                        break;
+                }
 #if CrewMoraleTest
-            if (dWeek > 2)
-                _abandonmentColumn = dWeek + " /4 weeks";
+                if (abandonment > 14)
+                    _abandonmentColumn = (abandonment / 7) + " /4 weeks";
+                else
+                {
+                    // Debug code. Need to learn the other messages to check for!
+                    tempArray = _mail.FilePath.Split(new char[] { '\\' });
+                    _abandonmentColumn = tempArray[tempArray.Length - 1];
+                }
+#else
+                _abandonmentColumn = abandonment + " /4 weeks";
+#endif
+            }
             else
             {
-                // Debug code. Need to learn the other messages to check for!
-                tempArray = _mail.FilePath.Split(new char[] { '\\' });
-                _abandonmentColumn = tempArray[tempArray.Length - 1];
+                subStart = _mail.Body.IndexOf("I miss my home; it's been ") + 26; // "I miss my home; it's been ".Length == 26
+                subEnd = _mail.Body.Substring(subStart).IndexOf(" days since I last heard from my family.");
+                abandonment = 7 - Convert.ToInt32(_mail.Body.Substring(subStart, subEnd));
+                _abandonmentColumn = " " + abandonment + " /7 days";
             }
-#else
-            _abandonmentColumn = dDay + " /4 weeks";
-#endif
 
             // DAMAGE REPORT
             const string headlineDAMAGE = "<b>DAMAGE REPORT</b>";
@@ -376,9 +388,9 @@ namespace HazeronAdviser
             _overview += _cargoOverview;
 
             // AttentionCodes
-            if (dWeek == 2) // 2 weeks until decay.
+            if (abandonment <= 14) // 2 weeks until decay.
                 _attentionCode = (byte)(_attentionCode | 0x08); // 0b00000001
-            if (dWeek == 1) // 1 weeks until decay.
+            if (abandonment <= 7) // 1 weeks until decay.
                 _attentionCode = (byte)(_attentionCode | 0x03); // 0b00000010
             if (false) // Nothing yet!
                 _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100
