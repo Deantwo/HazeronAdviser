@@ -308,8 +308,8 @@ namespace HazeronAdviser
             if (sectionsInReport.Contains(headlineDAMAGE))
             {
                 _damageOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineDAMAGE));
-                //tempArray = _damage.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                //_damageShort = tempArray[temp.Length - 1];
+                //tempArray = _damageOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //_damageColumn = tempArray[temp.Length - 1];
             }
 
             // ACCOUNT
@@ -337,8 +337,8 @@ namespace HazeronAdviser
             if (sectionsInReport.Contains(headlineCARGO))
             {
                 _cargoOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineCARGO));
-                //tempArray = _cargo.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                //_cargoShort = tempArray[tempArray.Length - 1];
+                //tempArray = _cargoOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //_cargoColumn = tempArray[tempArray.Length - 1];
             }
 
             // MISSION
@@ -346,8 +346,8 @@ namespace HazeronAdviser
             if (sectionsInReport.Contains(headlineMISSION))
             {
                 _missionOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineMISSION));
-                //tempArray = _mission.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                //_missionShort = tempArray[tempArray.Length - 1];
+                //tempArray = _missionOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //_missionColumn = tempArray[tempArray.Length - 1];
             }
 
             // ROSTER
@@ -355,8 +355,8 @@ namespace HazeronAdviser
             if (sectionsInReport.Contains(headlineROSTER))
             {
                 _rosterOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineROSTER));
-                //tempArray = _roster.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                //_rosterShort = tempArray[tempArray.Length - 1];
+                //tempArray = _rosterOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                //_rosterColumn = tempArray[tempArray.Length - 1];
             }
 
             // Officer Info
@@ -370,7 +370,7 @@ namespace HazeronAdviser
             _officerHome = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd)) + ", (system name unavailable)"; // Need to swap system name and planet name once I actually get the system name.
 
             //// Overview
-            //_sOverview = "WIP";
+            //_overview = "WIP";
 
             // AttentionCodes
             if (dWeek == 2) // 2 weeks until decay.

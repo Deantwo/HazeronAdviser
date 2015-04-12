@@ -7,10 +7,10 @@ namespace HazeronAdviser
 {
     class HCity : HObj
     {
-        protected int _vZone = 0;
-        public int VZone
+        protected int _zone = 0;
+        public int Zone
         {
-            get { return _vZone; }
+            get { return _zone; }
         }
 
         protected bool _empireCapital = false;
@@ -215,11 +215,11 @@ namespace HazeronAdviser
             get { return _bankTaxSale; }
         }
 
-        protected long _bankExpenseResearch = 0;
-        public long BankExpenseResearch
-        {
-            get { return _bankExpenseResearch; }
-        }
+        //protected long _bankExpenseResearch = 0;
+        //public long BankExpenseResearch
+        //{
+        //    get { return _bankExpenseResearch; }
+        //}
 
         protected long _bankExpenseResearchEstReport = 0, _bankExpenseResearchEstDay = 0;
         public long BankExpenseResearchEstReport
@@ -326,7 +326,7 @@ namespace HazeronAdviser
                 foreach (string line in tempArray)
                 {
                     if (line.Contains("Resource Zone"))
-                        _vZone = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
+                        _zone = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
                     else if (line == "Empire Capital City")
                         _empireCapital = true;
                 }
@@ -569,7 +569,7 @@ namespace HazeronAdviser
                     //{
                     //    i++;
                     //    line = tempArray[i].Replace(",", "").Replace(".", "");
-                    //    _vBankExpenseResearch = Convert.ToInt64(line.Remove(line.Length - 1));
+                    //    _bankExpenseResearch = Convert.ToInt64(line.Remove(line.Length - 1));
                     //}
                 }
             }
@@ -727,14 +727,14 @@ namespace HazeronAdviser
                 _populationOverview += " to " + (disloyal ? "loyal" : "fully") + ")[/color]";
             }
             //else
-            //    _sPopOverview += " [color=green](fully)[/color]";
+            //    _populationOverview += " [color=green](fully)[/color]";
             _populationOverview += Environment.NewLine + " " + _population.ToString().PadLeft(populationPadding) + ", Citizens";
             if (populationChange < 0)
                 _populationOverview += " [color=red](decreased " + Math.Abs(populationChange) + ")[/color]";
             else if (populationChange > 0)
                 _populationOverview += " [color=green](increased " + populationChange + ")[/color]";
             //else
-            //    _sPopOverview += " (steady)";
+            //    _populationOverview += " (steady)";
             _populationOverview += Environment.NewLine + " " + _homes.ToString().PadLeft(populationPadding) + ", Homes";
             if (_jobs >= _homes)
             {
@@ -893,7 +893,7 @@ namespace HazeronAdviser
             _bankOverview += Environment.NewLine + " " + _bankTaxIncome.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " income tax";
             _bankOverview += Environment.NewLine + " " + _bankTaxSale.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " Sales tax";
             _bankOverview += Environment.NewLine;
-            //_sBank += Environment.NewLine + " " + (-_vBankExpenseResearch).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (unreliable)";
+            //_bankOverview += Environment.NewLine + " " + (-_vBankExpenseResearch).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (unreliable)";
             _bankOverview += Environment.NewLine + " " + (-_bankExpenseResearchEstReport).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (estimate per report)";
             _bankOverview += Environment.NewLine + " " + (-_bankExpenseResearchEstDay).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (estimate per day)";
             _bankOverview += Environment.NewLine;
@@ -901,7 +901,7 @@ namespace HazeronAdviser
             _bankOverview += Environment.NewLine + " " + _bankGovBalance.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account balance";
 
             //// Overview
-            //_sOverview = "WIP";
+            //_overview = "WIP";
 
             // AttentionCodes
             if ((_jobs >= _homes) || (((float)(_homes - _jobs) / _homes) > 0.2)) // Overworked, or too much unemployment.

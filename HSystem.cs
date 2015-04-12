@@ -105,12 +105,6 @@ namespace HazeronAdviser
             get { return _populationOverview; }
         }
 
-        protected string _sFactilities = "-";
-        public string SFactilities
-        {
-            get { return _sFactilities; }
-        }
-
         protected string _buildingsOverview = "";
         public string BuildingsOverview
         {

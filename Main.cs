@@ -242,7 +242,7 @@ namespace HazeronAdviser
                     dgvCity.Rows[row].Cells["ColumnCitySelection"].Value = false;
                     dgvCity.Rows[row].Cells["ColumnCityIcon"].Value = imageCity;
                     dgvCity.Rows[row].Cells["ColumnCityName"].Value = hCity.Name;
-                    dgvCity.Rows[row].Cells["ColumnCityLocation"].Value = hCity.SystemName + ", " + hCity.PlanetName + " z" + hCity.VZone;
+                    dgvCity.Rows[row].Cells["ColumnCityLocation"].Value = hCity.SystemName + ", " + hCity.PlanetName + " z" + hCity.Zone;
                     dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Value = hCity.AbandonmentColumn;
                     dgvCity.Rows[row].Cells["ColumnCityMoraleModifiers"].Value = hCity.MoraleModifiersColumn;
                     dgvCity.Rows[row].Cells["ColumnCityMorale"].Value = hCity.MoraleColumn;
