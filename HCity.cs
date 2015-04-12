@@ -733,13 +733,15 @@ namespace HazeronAdviser
                     _sPopOverview += (minutesToLoyal / 1490) + " days";
                 _sPopOverview += " to " + (disloyal ? "loyal" : "fully") + ")[/color]";
             }
+            //else
+            //    _sPopOverview += " [color=green](fully)[/color]";
             _sPopOverview += Environment.NewLine + " " + _vPopulation.ToString().PadLeft(populationPadding) + ", Citizens";
             if (populationChange < 0)
                 _sPopOverview += " [color=red](decreased " + Math.Abs(populationChange) + ")[/color]";
             else if (populationChange > 0)
                 _sPopOverview += " [color=green](increased " + populationChange + ")[/color]";
-            else
-                _sPopOverview += " (steady)";
+            //else
+            //    _sPopOverview += " (steady)";
             _sPopOverview += Environment.NewLine + " " + _vHomes.ToString().PadLeft(populationPadding) + ", Homes";
             if (_vJobs >= _vHomes)
             {
