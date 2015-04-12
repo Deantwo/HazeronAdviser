@@ -369,8 +369,11 @@ namespace HazeronAdviser
             subEnd = _mail.Body.Substring(subStart).IndexOf(" in ");
             _officerHome = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd)) + ", (system name unavailable)"; // Need to swap system name and planet name once I actually get the system name.
 
-            //// Overview
-            //_overview = "WIP";
+            // Overview
+            _overview = _accountOverview;
+            _overview += Environment.NewLine;
+            _overview += Environment.NewLine;
+            _overview += _cargoOverview;
 
             // AttentionCodes
             if (dWeek == 2) // 2 weeks until decay.
@@ -496,34 +499,43 @@ namespace HazeronAdviser
             _messageId = _mail.MessageID;
             _subject = _mail.Subject;
             _messageType = _mail.MessageType;
-            //if (_messageType == 0x03) // MSG_CityOccupationReport
-            //{
-            //    ?
-            //}
-            //if (_messageType == 0x05) // MSG_CityIntelligenceReport
-            //{
-            //    ?
-            //}
-            //else if (_messageType == 0x12) // MSG_ShipLogFinal
-            //{
-            //    ?
-            //}
-            //else if (_messageType == 0x13) // MSG_Government
-            //{
-            //    ?
-            //}
-            //else if (_messageType == 0x16) // MSG_OfficerDeath
-            //{
-            //    ?
-            //}
-            //else if (_messageType == 0x17) // MSG_CityFinalDecayReport
-            //{
-            //    ?
-            //}
-            //else if (_messageType == 0x18) // MSG_DiplomaticMessage
-            //{
-            //    ?
-            //}
+
+            if (_messageType == 0x03) // MSG_CityOccupationReport
+            {
+                // ?
+            }
+            if (_messageType == 0x05) // MSG_CityIntelligenceReport
+            {
+                // ?
+            }
+            else if (_messageType == 0x12) // MSG_ShipLogFinal
+            {
+                // ?
+            }
+            else if (_messageType == 0x13) // MSG_Government
+            {
+                // ?
+            }
+            else if (_messageType == 0x16) // MSG_OfficerDeath
+            {
+                string tempSection = HHelper.CleanText(_mail.Body);
+                tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+                _overview = "Location:" + Environment.NewLine;
+                _overview += "  " + _systemName + Environment.NewLine;
+                _overview += "  " + _planetName + Environment.NewLine;
+                _overview += Environment.NewLine;
+                _overview += "[color=red]Cause of death:" + Environment.NewLine;
+                _overview += "  " + tempArray[tempArray.Length - 3].Replace(". ", "." + Environment.NewLine + "  ") + "[/color]";
+            }
+            else if (_messageType == 0x17) // MSG_CityFinalDecayReport
+            {
+                // ?
+            }
+            else if (_messageType == 0x18) // MSG_DiplomaticMessage
+            {
+                // ?
+            }
 
             // AttentionCodes
             if (false) // Nothing yet!

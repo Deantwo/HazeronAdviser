@@ -656,8 +656,7 @@ namespace HazeronAdviser
                 int rowIndex = (int)dgvShip.SelectedRows[0].Index;
                 int listIndex = (int)dgvShip.Rows[rowIndex].Cells["ColumnShipIndex"].Value;
                 HShip ship = hShipList[listIndex];
-                rtbShipOverview.Text = ship.Overview;
-                rtbShipOverview.Text = ship.AccountOverview + Environment.NewLine + Environment.NewLine + ship.CargoOverview;
+                RichBBCodeBox(rtbShipOverview, ship.Overview);
                 tbxShip.Text = ship.MailBody;
             }
         }
@@ -672,13 +671,13 @@ namespace HazeronAdviser
                 if (listIndex >= 0)
                 {
                     HOfficer officer = hOfficerList[listIndex];
-                    rtbOfficerOverview.Text = officer.Overview;
+                    RichBBCodeBox(rtbOfficerOverview,officer.Overview);
                     tbxOfficer.Text = officer.MailBody;
                 }
                 else
                 {
                     HShip ship = hShipList[Math.Abs(listIndex) - 1];
-                    rtbOfficerOverview.Text = ship.Overview;
+                    RichBBCodeBox(rtbOfficerOverview, ship.Overview);
                     tbxOfficer.Text = ship.MailBody;
                 }
             }
@@ -692,7 +691,7 @@ namespace HazeronAdviser
                 int rowIndex = (int)dgvEvent.SelectedRows[0].Index;
                 int listIndex = (int)dgvEvent.Rows[rowIndex].Cells["ColumnEventIndex"].Value;
                 HEvent hEvent = hEventList[listIndex]; // "event" is a reserved word.
-                rtbEventOverview.Text = hEvent.Overview;
+                RichBBCodeBox(rtbEventOverview, hEvent.Overview);
                 tbxEvent.Text = hEvent.MailBody;
             }
         }
