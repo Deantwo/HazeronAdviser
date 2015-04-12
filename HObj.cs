@@ -45,10 +45,10 @@ namespace HazeronAdviser
             get { return _planetId; }
         }
 
-        protected string _sOverview = "";
-        public string SOverview
+        protected string _overview = "";
+        public string Overview
         {
-            get { return _sOverview; }
+            get { return _overview; }
         }
 
         protected DateTime _lastUpdated = new DateTime(2000, 1, 1);
@@ -140,30 +140,34 @@ namespace HazeronAdviser
 
     class HShip : HObj
     {
-        protected string _Abandonment = "-";
-        public string Abandonment
+        protected string _abandonmentColumn = "-";
+        public string AbandonmentColumn
         {
-            get { return _Abandonment; }
+            get { return _abandonmentColumn; }
         }
 
-        protected string _damage = "-", _damageShort = "-";
-        public string Damage
+        protected string _damageOverview = "-";
+        public string DamageOverview
         {
-            get { return _damage; }
-        }
-        public string DamageShort
-        {
-            get { return _damageShort; }
+            get { return _damageOverview; }
         }
 
-        protected string _account = "-", _accountShort = "-";
-        public string Account
+        protected string _damageColumn = "-";
+        public string DamageColumn
         {
-            get { return _account; }
+            get { return _damageColumn; }
         }
-        public string AccountShort
+
+        protected string _accountOverview = "-";
+        public string AccountOverview
         {
-            get { return _accountShort; }
+            get { return _accountOverview; }
+        }
+
+        protected string _accountColumn = "-";
+        public string AccountColumn
+        {
+            get { return _accountColumn; }
         }
 
         protected long _accountBalance = 0;
@@ -172,44 +176,52 @@ namespace HazeronAdviser
             get { return _accountBalance; }
         }
 
-        protected string _fuel = "-", _fuelShort = "-";
-        public string Fuel
+        protected string _fuelOverview = "-";
+        public string FuelOverview
         {
-            get { return _fuel; }
-        }
-        public string FuelShort
-        {
-            get { return _fuelShort; }
+            get { return _fuelOverview; }
         }
 
-        protected string _cargo = "-", _cargoShort = "-";
-        public string Cargo
+        protected string _fuelColumn = "-";
+        public string FuelColumn
         {
-            get { return _cargo; }
-        }
-        public string CargoShort
-        {
-            get { return _cargoShort; }
+            get { return _fuelColumn; }
         }
 
-        protected string _mission = "-", _missionShort = "-";
-        public string Mission
+        protected string _cargoOverview = "-";
+        public string CargoOverview
         {
-            get { return _mission; }
-        }
-        public string MissionShort
-        {
-            get { return _missionShort; }
+            get { return _cargoOverview; }
         }
 
-        protected string _roster = "-", _rosterShort = "-";
-        public string Roster
+        protected string _cargoColumn = "-";
+        public string CargoColumn
         {
-            get { return _roster; }
+            get { return _cargoColumn; }
         }
-        public string RosterShort
+
+        protected string _missionOverview = "-";
+        public string MissionOverview
         {
-            get { return _rosterShort; }
+            get { return _missionOverview; }
+        }
+
+        protected string _missionColumn = "-";
+        public string MissionColumn
+        {
+            get { return _missionColumn; }
+        }
+
+        protected string _rosterOverview = "-";
+        public string RosterOverview
+        {
+            get { return _rosterOverview; }
+        }
+
+        protected string _rosterColumn = "-";
+        public string RosterColumn
+        {
+            get { return _rosterColumn; }
         }
 
         protected string _officerName = "-";
@@ -255,7 +267,7 @@ namespace HazeronAdviser
             {
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineEVENT));
                 //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _sOverview = tempSection;
+                _overview = tempSection;
             }
 
             // Decay
@@ -280,12 +292,12 @@ namespace HazeronAdviser
             }
 #if CrewMoraleTest
             if (dWeek > 2)
-                _Abandonment = dWeek + " /4 weeks";
+                _abandonmentColumn = dWeek + " /4 weeks";
             else
             {
                 // Debug code. Need to learn the other messages to check for!
                 tempArray = _mail.FilePath.Split(new char[] { '\\' });
-                _Abandonment = tempArray[tempArray.Length - 1];
+                _abandonmentColumn = tempArray[tempArray.Length - 1];
             }
 #else
             _Abandonment = dDay + " /4 weeks";
@@ -295,7 +307,7 @@ namespace HazeronAdviser
             const string headlineDAMAGE = "<b>DAMAGE REPORT</b>";
             if (sectionsInReport.Contains(headlineDAMAGE))
             {
-                _damage = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineDAMAGE));
+                _damageOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineDAMAGE));
                 //tempArray = _damage.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 //_damageShort = tempArray[temp.Length - 1];
             }
@@ -304,27 +316,27 @@ namespace HazeronAdviser
             const string headlineACCOUNT = "<b>ACCOUNT</b>";
             if (sectionsInReport.Contains(headlineACCOUNT))
             {
-                _account = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineACCOUNT));
-                tempArray = _account.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _accountShort = tempArray[1].Remove(tempArray[1].IndexOf('¢') + 1).Replace(',', '\'').Replace('.', '\'');
-                _accountBalance = Convert.ToInt64(_accountShort.Remove(_accountShort.IndexOf('¢')).Replace("'", ""));
-                _accountShort = _accountBalance.ToString("C", Hazeron.NumberFormat);
+                _accountOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineACCOUNT));
+                tempArray = _accountOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                _accountColumn = tempArray[1].Remove(tempArray[1].IndexOf('¢') + 1).Replace(',', '\'').Replace('.', '\'');
+                _accountBalance = Convert.ToInt64(_accountColumn.Remove(_accountColumn.IndexOf('¢')).Replace("'", ""));
+                _accountColumn = _accountBalance.ToString("C", Hazeron.NumberFormat);
             }
 
             // FUEL
             const string headlineFUEL = "<b>FUEL</b>";
             if (sectionsInReport.Contains(headlineFUEL))
             {
-                _fuel = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineFUEL));
-                tempArray = _fuel.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _fuelShort = tempArray[1];
+                _fuelOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineFUEL));
+                tempArray = _fuelOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                _fuelColumn = tempArray[1];
             }
 
             // CARGO
             const string headlineCARGO = "<b>CARGO</b>";
             if (sectionsInReport.Contains(headlineCARGO))
             {
-                _cargo = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineCARGO));
+                _cargoOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineCARGO));
                 //tempArray = _cargo.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 //_cargoShort = tempArray[tempArray.Length - 1];
             }
@@ -333,7 +345,7 @@ namespace HazeronAdviser
             const string headlineMISSION = "<b>MISSION</b>";
             if (sectionsInReport.Contains(headlineMISSION))
             {
-                _mission = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineMISSION));
+                _missionOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineMISSION));
                 //tempArray = _mission.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 //_missionShort = tempArray[tempArray.Length - 1];
             }
@@ -342,7 +354,7 @@ namespace HazeronAdviser
             const string headlineROSTER = "<b>ROSTER</b>";
             if (sectionsInReport.Contains(headlineROSTER))
             {
-                _roster = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineROSTER));
+                _rosterOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineROSTER));
                 //tempArray = _roster.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 //_rosterShort = tempArray[tempArray.Length - 1];
             }
@@ -426,7 +438,7 @@ namespace HazeronAdviser
             }
 
             // Overview
-            _sOverview = "WIP";
+            _overview = "WIP";
 
             // AttentionCodes
             if (_mail.MessageType == 0x14) // MSG_OfficerContact

@@ -243,14 +243,14 @@ namespace HazeronAdviser
                     dgvCity.Rows[row].Cells["ColumnCityIcon"].Value = imageCity;
                     dgvCity.Rows[row].Cells["ColumnCityName"].Value = hCity.Name;
                     dgvCity.Rows[row].Cells["ColumnCityLocation"].Value = hCity.SystemName + ", " + hCity.PlanetName + " z" + hCity.VZone;
-                    dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Value = hCity.SAbandonment;
-                    dgvCity.Rows[row].Cells["ColumnCityMoraleModifiers"].Value = hCity.SMoraleModifiersShort;
-                    dgvCity.Rows[row].Cells["ColumnCityMorale"].Value = hCity.SMoraleShort;
-                    dgvCity.Rows[row].Cells["ColumnCityPopulation"].Value = hCity.SPopulationShort;
-                    dgvCity.Rows[row].Cells["ColumnCityLivingConditions"].Value = hCity.SLivingShort;
-                    dgvCity.Rows[row].Cells["ColumnCityLoyalty"].Value = hCity.SLoyalty;
-                    dgvCity.Rows[row].Cells["ColumnCityBank"].Value = hCity.SBankShort;
-                    dgvCity.Rows[row].Cells["ColumnCityTribute"].Value = hCity.SBankTributeShort;
+                    dgvCity.Rows[row].Cells["ColumnCityAbandonment"].Value = hCity.AbandonmentColumn;
+                    dgvCity.Rows[row].Cells["ColumnCityMoraleModifiers"].Value = hCity.MoraleModifiersColumn;
+                    dgvCity.Rows[row].Cells["ColumnCityMorale"].Value = hCity.MoraleColumn;
+                    dgvCity.Rows[row].Cells["ColumnCityPopulation"].Value = hCity.PopulationColumn;
+                    dgvCity.Rows[row].Cells["ColumnCityLivingConditions"].Value = hCity.LivingConditionsColumn;
+                    dgvCity.Rows[row].Cells["ColumnCityLoyalty"].Value = hCity.LoyaltyColumn;
+                    dgvCity.Rows[row].Cells["ColumnCityBank"].Value = hCity.BankGovBalanceColumn;
+                    dgvCity.Rows[row].Cells["ColumnCityTribute"].Value = hCity.BankTributeColumn;
                     dgvCity.Rows[row].Cells["ColumnCityDate"].Value = hCity.LastUpdaredString;
                     // AttentionCodes
                     if (hCity.AttentionCode != 0x00)
@@ -294,10 +294,10 @@ namespace HazeronAdviser
                     dgvSystem.Rows[row].Cells["ColumnSystemIcon"].Value = imageSystem;
                     dgvSystem.Rows[row].Cells["ColumnSystemName"].Value = hSystem.Name;
                     dgvSystem.Rows[row].Cells["ColumnSystemCities"].Value = hSystem.Cities.Count;
-                    dgvSystem.Rows[row].Cells["ColumnSystemMorale"].Value = hSystem.SMoraleShort;
-                    dgvSystem.Rows[row].Cells["ColumnSystemAbandonment"].Value = hSystem.SAbandonment;
-                    dgvSystem.Rows[row].Cells["ColumnSystemPopulation"].Value = hSystem.SPopulationShort;
-                    dgvSystem.Rows[row].Cells["ColumnSystemLoyalty"].Value = hSystem.SLoyalty;
+                    dgvSystem.Rows[row].Cells["ColumnSystemMorale"].Value = hSystem.MoraleColumn;
+                    dgvSystem.Rows[row].Cells["ColumnSystemAbandonment"].Value = hSystem.AbandonmentColumn;
+                    dgvSystem.Rows[row].Cells["ColumnSystemPopulation"].Value = hSystem.PopulationColumn;
+                    dgvSystem.Rows[row].Cells["ColumnSystemLoyalty"].Value = hSystem.LoyaltyColumn;
                     dgvSystem.Rows[row].Cells["ColumnSystemDate"].Value = hSystem.LastUpdaredString;
                     // AttentionCodes
                     if (hSystem.AttentionCode != 0x00)
@@ -336,10 +336,10 @@ namespace HazeronAdviser
                     dgvShip.Rows[row].Cells["ColumnShipIcon"].Value = imageShip;
                     dgvShip.Rows[row].Cells["ColumnShipName"].Value = hShip.Name;
                     dgvShip.Rows[row].Cells["ColumnShipLocation"].Value = hShip.SystemName + ", " + hShip.PlanetName;
-                    dgvShip.Rows[row].Cells["ColumnShipAbandonment"].Value = hShip.Abandonment;
-                    dgvShip.Rows[row].Cells["ColumnShipFuel"].Value = hShip.FuelShort;
-                    dgvShip.Rows[row].Cells["ColumnShipAccount"].Value = hShip.AccountShort;
-                    dgvShip.Rows[row].Cells["ColumnShipDamage"].Value = hShip.DamageShort;
+                    dgvShip.Rows[row].Cells["ColumnShipAbandonment"].Value = hShip.AbandonmentColumn;
+                    dgvShip.Rows[row].Cells["ColumnShipFuel"].Value = hShip.FuelColumn;
+                    dgvShip.Rows[row].Cells["ColumnShipAccount"].Value = hShip.AccountColumn;
+                    dgvShip.Rows[row].Cells["ColumnShipDamage"].Value = hShip.DamageColumn;
                     dgvShip.Rows[row].Cells["ColumnShipDate"].Value = hShip.LastUpdaredString;
                     // AttentionCodes
                     if (hShip.AttentionCode != 0x00)
@@ -613,12 +613,12 @@ namespace HazeronAdviser
                 int rowIndex = (int)dgvCity.SelectedRows[0].Index;
                 int listIndex = (int)dgvCity.Rows[rowIndex].Cells["ColumnCityIndex"].Value;
                 HCity city = hCityList[listIndex];
-                RichBBCodeBox(rtbCityOverview, city.SOverview);
-                RichBBCodeBox(rtbCityMorale, city.SMorale);
-                RichBBCodeBox(rtbCityPopulation, city.SPopOverview);
-                RichBBCodeBox(rtbCityTechnology, city.STechnology);
-                RichBBCodeBox(rtbCityBuildings, city.SBuildings);
-                RichBBCodeBox(rtbCityBank, city.SBank);
+                RichBBCodeBox(rtbCityOverview, city.Overview);
+                RichBBCodeBox(rtbCityMorale, city.MoraleOverview);
+                RichBBCodeBox(rtbCityPopulation, city.PopulationOverview);
+                RichBBCodeBox(rtbCityTechnology, city.TechnologyOverview);
+                RichBBCodeBox(rtbCityBuildings, city.BuildingsOverview);
+                RichBBCodeBox(rtbCityBank, city.BankOverview);
                 tbxCity.Text = city.MailBody;
                 // Refresh graphs to make them update.
                 pCityOverviewMorale.Refresh();
@@ -636,10 +636,10 @@ namespace HazeronAdviser
                 int rowIndex = (int)dgvSystem.SelectedRows[0].Index;
                 int listIndex = (int)dgvSystem.Rows[rowIndex].Cells["ColumnSystemIndex"].Value;
                 HSystem system = hSystemList[listIndex];
-                RichBBCodeBox(rtbSystemOverview, system.SOverview);
-                RichBBCodeBox(rtbSystemMorale, system.SMorale);
-                RichBBCodeBox(rtbSystemPopulation, system.SPopOverview);
-                RichBBCodeBox(rtbSystemTechnology, system.STechnology);
+                RichBBCodeBox(rtbSystemOverview, system.Overview);
+                RichBBCodeBox(rtbSystemMorale, system.MoraleOverview);
+                RichBBCodeBox(rtbSystemPopulation, system.PopulationOverview);
+                RichBBCodeBox(rtbSystemTechnology, system.TechnologyOverview);
                 // Refresh graphs to make them update.
                 pSystemOverviewMorale.Refresh();
                 pSystemOverviewPopulation.Refresh();
@@ -656,8 +656,8 @@ namespace HazeronAdviser
                 int rowIndex = (int)dgvShip.SelectedRows[0].Index;
                 int listIndex = (int)dgvShip.Rows[rowIndex].Cells["ColumnShipIndex"].Value;
                 HShip ship = hShipList[listIndex];
-                rtbShipOverview.Text = ship.SOverview;
-                rtbShipOverview.Text = ship.Account + Environment.NewLine + Environment.NewLine + ship.Cargo;
+                rtbShipOverview.Text = ship.Overview;
+                rtbShipOverview.Text = ship.AccountOverview + Environment.NewLine + Environment.NewLine + ship.CargoOverview;
                 tbxShip.Text = ship.MailBody;
             }
         }
@@ -672,13 +672,13 @@ namespace HazeronAdviser
                 if (listIndex >= 0)
                 {
                     HOfficer officer = hOfficerList[listIndex];
-                    rtbOfficerOverview.Text = officer.SOverview;
+                    rtbOfficerOverview.Text = officer.Overview;
                     tbxOfficer.Text = officer.MailBody;
                 }
                 else
                 {
                     HShip ship = hShipList[Math.Abs(listIndex) - 1];
-                    rtbOfficerOverview.Text = ship.SOverview;
+                    rtbOfficerOverview.Text = ship.Overview;
                     tbxOfficer.Text = ship.MailBody;
                 }
             }
@@ -692,7 +692,7 @@ namespace HazeronAdviser
                 int rowIndex = (int)dgvEvent.SelectedRows[0].Index;
                 int listIndex = (int)dgvEvent.Rows[rowIndex].Cells["ColumnEventIndex"].Value;
                 HEvent hEvent = hEventList[listIndex]; // "event" is a reserved word.
-                rtbEventOverview.Text = hEvent.SOverview;
+                rtbEventOverview.Text = hEvent.Overview;
                 tbxEvent.Text = hEvent.MailBody;
             }
         }
@@ -763,19 +763,19 @@ namespace HazeronAdviser
                 int yValue;
                 BarGraph graphPop = new BarGraph(sender, e);
                 graphPop.DrawXAxle("?", 5);
-                graphPop.DrawYAxle("Population", (int)(city.VPopulationLimit * 1.05));
-                yValue = city.VLoyalty;
+                graphPop.DrawYAxle("Population", (int)(city.PopulationLimit * 1.05));
+                yValue = city.Loyalty;
                 if (yValue > 0)
                     graphPop.DrawBar(Color.Yellow, 0, Math.Abs(yValue));
                 else if (yValue < 0)
                     graphPop.DrawBar(Color.Orange, 0, Math.Abs(yValue));
-                yValue = city.VPopulation;
+                yValue = city.Population;
                 graphPop.DrawBar(Color.LightGreen, 1, yValue);
-                yValue = city.VHomes;
+                yValue = city.Homes;
                 graphPop.DrawBar(Color.Green, 2, yValue);
-                yValue = city.VJobs;
+                yValue = city.Jobs;
                 graphPop.DrawBar(Color.Blue, 3, yValue);
-                yValue = city.VPopulationLimit;
+                yValue = city.PopulationLimit;
                 graphPop.DrawBar(Color.Red, 4, yValue);
             }
         }
@@ -789,14 +789,14 @@ namespace HazeronAdviser
                 BarGraph graphMorale = new BarGraph(sender, e);
                 graphMorale.DrawXAxle("?", 3);
                 graphMorale.DrawYAxle("Morale", 20, -20);
-                yValue = city.VMorale;
+                yValue = city.Morale;
                 graphMorale.DrawBar(Color.Blue, 0, yValue);
-                yValue = city.LMoraleModifiers.Values.Sum();
+                yValue = city.MoraleModifiers.Values.Sum();
                 graphMorale.DrawBar(Color.Yellow, 1, yValue);
-                yValue = city.LMoraleModifiers.Values.Where(y => y > 0).Sum();
+                yValue = city.MoraleModifiers.Values.Where(y => y > 0).Sum();
                 if (yValue != 0)
                     graphMorale.DrawBar(Color.Green, 2, yValue);
-                yValue = city.LMoraleModifiers.Values.Where(y => y < 0).Sum();
+                yValue = city.MoraleModifiers.Values.Where(y => y < 0).Sum();
                 if (yValue != 0)
                     graphMorale.DrawBar(Color.Red, 2, yValue);
             }
@@ -829,19 +829,19 @@ namespace HazeronAdviser
                 int yValue;
                 BarGraph graphPop = new BarGraph(sender, e);
                 graphPop.DrawXAxle("?", 5);
-                graphPop.DrawYAxle("Population", (int)(system.VPopulationLimit * 1.05));
-                yValue = system.VLoyalty;
+                graphPop.DrawYAxle("Population", (int)(system.PopulationLimit * 1.05));
+                yValue = system.Loyalty;
                 if (yValue > 0)
                     graphPop.DrawBar(Color.Yellow, 0, Math.Abs(yValue));
                 else if (yValue < 0)
                     graphPop.DrawBar(Color.Orange, 0, Math.Abs(yValue));
-                yValue = system.VPopulation;
+                yValue = system.Population;
                 graphPop.DrawBar(Color.LightGreen, 1, yValue);
-                yValue = system.VHomes;
+                yValue = system.Homes;
                 graphPop.DrawBar(Color.Green, 2, yValue);
-                yValue = system.VJobs;
+                yValue = system.Jobs;
                 graphPop.DrawBar(Color.Blue, 3, yValue);
-                yValue = system.VPopulationLimit;
+                yValue = system.PopulationLimit;
                 graphPop.DrawBar(Color.Red, 4, yValue);
             }
         }
@@ -855,7 +855,7 @@ namespace HazeronAdviser
                 BarGraph graphMorale = new BarGraph(sender, e);
                 graphMorale.DrawXAxle("?", 3);
                 graphMorale.DrawYAxle("Morale", 20, -20);
-                yValue = system.VMorale;
+                yValue = system.Morale;
                 graphMorale.DrawBar(Color.Blue, 0, yValue);
                 //yValue = system.VMoraleModifiers.Sum();
                 //graphMorale.DrawBar(Color.Yellow, 1, yValue);
@@ -1002,50 +1002,50 @@ namespace HazeronAdviser
             int listIndex2 = (int)dgv.Rows[e.RowIndex2].Cells[INDEX_COLUMN].Value;
             if (columnName == "ColumnCityMorale")
             {
-                int value1 = hCityList[listIndex1].VMorale;
-                int value2 = hCityList[listIndex2].VMorale;
+                int value1 = hCityList[listIndex1].Morale;
+                int value2 = hCityList[listIndex2].Morale;
                 e.SortResult = CompareNumbers(value1, value2);
             }
             else if (columnName == "ColumnCityMoraleModifiers")
             {
-                int value1 = hCityList[listIndex1].LMoraleModifiers.Values.Sum();
-                int value2 = hCityList[listIndex2].LMoraleModifiers.Values.Sum();
+                int value1 = hCityList[listIndex1].MoraleModifiers.Values.Sum();
+                int value2 = hCityList[listIndex2].MoraleModifiers.Values.Sum();
                 e.SortResult = CompareNumbers(value1, value2);
             }
             else if (columnName == "ColumnCityLivingConditions")
             {
-                double value1 = ((double)hCityList[listIndex1].VJobs / hCityList[listIndex1].VHomes);
-                double value2 = ((double)hCityList[listIndex2].VJobs / hCityList[listIndex2].VHomes);
+                double value1 = ((double)hCityList[listIndex1].Jobs / hCityList[listIndex1].Homes);
+                double value2 = ((double)hCityList[listIndex2].Jobs / hCityList[listIndex2].Homes);
                 e.SortResult = CompareNumbers(value1, value2);
             }
             else if (columnName == "ColumnCityPopulation")
             {
-                int value1 = hCityList[listIndex1].VPopulation;
-                int value2 = hCityList[listIndex2].VPopulation;
+                int value1 = hCityList[listIndex1].Population;
+                int value2 = hCityList[listIndex2].Population;
                 e.SortResult = CompareNumbers(value1, value2);
             }
             else if (columnName == "ColumnCityBank")
             {
-                long value1 = hCityList[listIndex1].VBankGovBalance;
-                long value2 = hCityList[listIndex2].VBankGovBalance;
+                long value1 = hCityList[listIndex1].BankGovBalance;
+                long value2 = hCityList[listIndex2].BankGovBalance;
                 e.SortResult = CompareNumbers(value1, value2);
             }
             else if (columnName == "ColumnCityTribute")
             {
-                long value1 = hCityList[listIndex1].VBankTribute;
-                long value2 = hCityList[listIndex2].VBankTribute;
+                long value1 = hCityList[listIndex1].BankTribute;
+                long value2 = hCityList[listIndex2].BankTribute;
                 e.SortResult = CompareNumbers(value1, value2);
             }
             else if (columnName == "ColumnCityLoyalty")
             {
-                double value1 = Math.Round(((double)hCityList[listIndex1].VLoyalty / hCityList[listIndex1].VPopulation) * 100, 2);
-                double value2 = Math.Round(((double)hCityList[listIndex2].VLoyalty / hCityList[listIndex2].VPopulation) * 100, 2);
+                double value1 = Math.Round(((double)hCityList[listIndex1].Loyalty / hCityList[listIndex1].Population) * 100, 2);
+                double value2 = Math.Round(((double)hCityList[listIndex2].Loyalty / hCityList[listIndex2].Population) * 100, 2);
                 e.SortResult = CompareNumbers(value1, value2);
             }
             else if (columnName == "ColumnShipAccount")
             {
-                string value1 = hShipList[listIndex1].AccountShort;
-                string value2 = hShipList[listIndex2].AccountShort;
+                string value1 = hShipList[listIndex1].AccountColumn;
+                string value2 = hShipList[listIndex2].AccountColumn;
                 e.SortResult = CompareNumberStrings(value1, value2);
             }
             else

@@ -19,168 +19,152 @@ namespace HazeronAdviser
             get { return _empireCapital; }
         }
 
-        protected string _sMorale = "-", _sMoraleShort = "-";
-        public string SMorale
+        protected string _moraleOverview = "-";
+        public string MoraleOverview
         {
-            get { return _sMorale; }
-        }
-        public string SMoraleShort
-        {
-            get { return _sMoraleShort; }
+            get { return _moraleOverview; }
         }
 
-        protected string _sMoraleModifiers = "-", _sMoraleModifiersShort = "-";
-        public string SMoraleModifiers
+        protected string _moraleColumn = "-";
+        public string MoraleColumn
         {
-            get { return _sMoraleModifiers; }
-        }
-        public string SMoraleModifiersShort
-        {
-            get { return _sMoraleModifiersShort; }
+            get { return _moraleColumn; }
         }
 
-        protected int _vMorale = 0;
-        public int VMorale
+        protected string _moraleModifiersColumn = "-";
+        public string MoraleModifiersColumn
         {
-            get { return _vMorale; }
+            get { return _moraleModifiersColumn; }
         }
 
-        protected Dictionary<string, int> _lMoraleModifiers = new Dictionary<string, int>();
-        public Dictionary<string, int> LMoraleModifiers
+        protected int _morale = 0;
+        public int Morale
         {
-            get { return _lMoraleModifiers; }
+            get { return _morale; }
         }
 
-        protected int _vAbandonment = 0, _vAbandonmentMax = 0;
-        public int VAbandonment
+        protected Dictionary<string, int> _moraleModifiers = new Dictionary<string, int>();
+        public Dictionary<string, int> MoraleModifiers
         {
-            get { return _vAbandonment; }
-        }
-        public int VAbandonmentMax
-        {
-            get { return _vAbandonmentMax; }
+            get { return _moraleModifiers; }
         }
 
-        protected string _sAbandonment = "-";
-        public string SAbandonment
+        protected int _abandonment = 0, _abandonmentMax = 0;
+        public int Abandonment
         {
-            get { return _sAbandonment; }
+            get { return _abandonment; }
+        }
+        public int AbandonmentMax
+        {
+            get { return _abandonmentMax; }
         }
 
-        protected string _sPopulation = "-", _sPopulationShort = "-";
-        public string SPopulation
+        protected string _abandonmentColumn = "-";
+        public string AbandonmentColumn
         {
-            get { return _sPopulation; }
-        }
-        public string SPopulationShort
-        {
-            get { return _sPopulationShort; }
+            get { return _abandonmentColumn; }
         }
 
-        protected string _sLoyalty = "-";
-        public string SLoyalty
+        protected string _populationColumn = "-";
+        public string PopulationColumn
         {
-            get { return _sLoyalty; }
+            get { return _populationColumn; }
         }
 
-        protected string _sLivingConditions = "-", _sLivingConditionsShort = "-";
-        public string SLiving
+        protected string _loyaltyColumn = "-";
+        public string LoyaltyColumn
         {
-            get { return _sLivingConditions; }
-        }
-        public string SLivingShort
-        {
-            get { return _sLivingConditionsShort; }
+            get { return _loyaltyColumn; }
         }
 
-        protected string _sPopOverview = "-";
-        public string SPopOverview
+        protected string _livingConditionsColumn = "-";
+        public string LivingConditionsColumn
         {
-            get { return _sPopOverview; }
+            get { return _livingConditionsColumn; }
         }
 
-        protected string _sFactilities = "-";
-        public string SFactilities
+        protected string _populationOverview = "-";
+        public string PopulationOverview
         {
-            get { return _sFactilities; }
+            get { return _populationOverview; }
         }
 
-        protected string _sBuildings = "";
-        public string SBuildings
+        protected string _buildingsOverview = "";
+        public string BuildingsOverview
         {
-            get { return _sBuildings; }
+            get { return _buildingsOverview; }
         }
 
-        protected Dictionary<string, int> _lFactilitiesLV = new Dictionary<string, int>();
-        public Dictionary<string, int> LFactilitiesLV
+        protected Dictionary<string, int> _factilitiesLV = new Dictionary<string, int>();
+        public Dictionary<string, int> FactilitiesLV
         {
-            get { return _lFactilitiesLV; }
+            get { return _factilitiesLV; }
         }
 
-        protected string _sTechnology = "";
-        public string STechnology
+        protected string _technologyOverview = "";
+        public string TechnologyOverview
         {
-            get { return _sTechnology; }
+            get { return _technologyOverview; }
         }
 
-        protected Dictionary<string, int> _lReseatchProjects = new Dictionary<string, int>();
-        public Dictionary<string, int> LReseatchProjects
+        protected Dictionary<string, int> _reseatchProjects = new Dictionary<string, int>();
+        public Dictionary<string, int> ReseatchProjects
         {
-            get { return _lReseatchProjects; }
+            get { return _reseatchProjects; }
         }
 
-        protected Dictionary<string, int> _lFactilitiesTL = new Dictionary<string, int>();
-        public Dictionary<string, int> LFactilitiesTL
+        protected Dictionary<string, int> _factilitiesTL = new Dictionary<string, int>();
+        public Dictionary<string, int> FactilitiesTL
         {
-            get { return _lFactilitiesTL; }
+            get { return _factilitiesTL; }
         }
 
-        protected int _vPopulation = 0;
-        public int VPopulation
+        protected int _population = 0;
+        public int Population
         {
-            get { return _vPopulation; }
+            get { return _population; }
         }
 
-        protected int _vLoyalty = 0;
-        public int VLoyalty
+        protected int _loyalty = 0;
+        public int Loyalty
         {
-            get { return _vLoyalty; }
+            get { return _loyalty; }
         }
 
-        protected int _vHomes = 0;
-        public int VHomes
+        protected int _homes = 0;
+        public int Homes
         {
-            get { return _vHomes; }
+            get { return _homes; }
         }
 
-        protected int _vApartments = 0;
-        public int VApartments
+        protected int _apartments = 0;
+        public int Apartments
         {
-            get { return _vApartments; }
+            get { return _apartments; }
         }
 
-        protected int _vJobs = 0;
-        public int VJobs
+        protected int _jobs = 0;
+        public int Jobs
         {
-            get { return _vJobs; }
+            get { return _jobs; }
         }
 
-        protected int _vPopulationLimit = 0;
-        public int VPopulationLimit
+        protected int _populationLimit = 0;
+        public int PopulationLimit
         {
-            get { return _vPopulationLimit; }
+            get { return _populationLimit; }
         }
 
-        protected int _vFood = 0;
-        public int VFood
+        protected int _food = 0;
+        public int Food
         {
-            get { return _vFood; }
+            get { return _food; }
         }
 
-        protected int _vAir = 0;
-        public int VAir
+        protected int _air = 0;
+        public int Air
         {
-            get { return _vAir; }
+            get { return _air; }
         }
 
         protected bool _HashEnv = false;
@@ -189,82 +173,82 @@ namespace HazeronAdviser
             get { return _HashEnv; }
         }
 
-        protected long _vBankCitBalance = 0;
-        public long VBankCitBalance
+        protected long _bankCitBalance = 0;
+        public long BankCitBalance
         {
-            get { return _vBankCitBalance; }
+            get { return _bankCitBalance; }
         }
 
-        protected long _vBankCitBalanceOld = 0;
-        public long VBankCitOldBalanceOld
+        protected long _bankCitBalanceOld = 0;
+        public long BankCitOldBalanceOld
         {
-            get { return _vBankCitBalanceOld; }
+            get { return _bankCitBalanceOld; }
         }
 
-        protected long _vBankProduction = 0;
-        public long VBankProduction
+        protected long _bankMinting = 0;
+        public long BankMinting
         {
-            get { return _vBankProduction; }
+            get { return _bankMinting; }
         }
 
-        protected long _vBankGovBalance = 0;
-        public long VBankGovBalance
+        protected long _bankGovBalance = 0;
+        public long BankGovBalance
         {
-            get { return _vBankGovBalance; }
+            get { return _bankGovBalance; }
         }
 
-        protected long _vBankGovBalanceOld = 0;
-        public long VBankGovBalanceOld
+        protected long _bankGovBalanceOld = 0;
+        public long BankGovBalanceOld
         {
-            get { return _vBankGovBalanceOld; }
+            get { return _bankGovBalanceOld; }
         }
 
-        protected long _vBankTaxIncome = 0;
-        public long VBankTaxIncome
+        protected long _bankTaxIncome = 0;
+        public long BankTaxIncome
         {
-            get { return _vBankTaxIncome; }
+            get { return _bankTaxIncome; }
         }
 
-        protected long _vBankTaxSale = 0;
-        public long VBankTaxSale
+        protected long _bankTaxSale = 0;
+        public long BankTaxSale
         {
-            get { return _vBankTaxSale; }
+            get { return _bankTaxSale; }
         }
 
-        protected long _vBankExpenseResearch = 0;
-        public long VBankExpenseResearch
+        protected long _bankExpenseResearch = 0;
+        public long BankExpenseResearch
         {
-            get { return _vBankExpenseResearch; }
+            get { return _bankExpenseResearch; }
         }
 
-        protected long _vBankExpenseResearchEstReport = 0, _vBankExpenseResearchEstDay = 0;
-        public long VBankExpenseResearchEstReport
+        protected long _bankExpenseResearchEstReport = 0, _bankExpenseResearchEstDay = 0;
+        public long BankExpenseResearchEstReport
         {
-            get { return _vBankExpenseResearchEstReport; }
+            get { return _bankExpenseResearchEstReport; }
         }
-        public long VBankExpenseResearchEstDay
+        public long BankExpenseResearchEstDay
         {
-            get { return _vBankExpenseResearchEstDay; }
-        }
-
-        protected long _vBankTribute = 0;
-        public long VBankTribute
-        {
-            get { return _vBankTribute; }
+            get { return _bankExpenseResearchEstDay; }
         }
 
-        protected string _sBank = "-", _sBankShort = "-", _sBankTributeShort = "-";
-        public string SBank
+        protected long _bankTribute = 0;
+        public long BankTribute
         {
-            get { return _sBank; }
+            get { return _bankTribute; }
         }
-        public string SBankShort
+
+        protected string _bankOverview = "-", _bankGovBalanceColumn = "-", _bankTributeColumn = "-";
+        public string BankOverview
         {
-            get { return _sBankShort; }
+            get { return _bankOverview; }
         }
-        public string SBankTributeShort
+        public string BankGovBalanceColumn
         {
-            get { return _sBankTributeShort; }
+            get { return _bankGovBalanceColumn; }
+        }
+        public string BankTributeColumn
+        {
+            get { return _bankTributeColumn; }
         }
 
         public HCity(HMail mail)
@@ -354,7 +338,7 @@ namespace HazeronAdviser
             {
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineDISTRESS));
                 //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _sOverview = "[color=red]" + tempSection + "[/color]";
+                _overview = "[color=red]" + tempSection + "[/color]";
                 decaying = tempSection.Contains("<span style=\"color: rgb(255, 255, 0);\">City is decaying.<br></span>");
             }
 
@@ -364,38 +348,38 @@ namespace HazeronAdviser
             {
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineEVENT));
                 //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _sOverview = tempSection;
+                _overview = tempSection;
             }
 
             // MORALE & Abandonment
             const string headlineMORALE = "<b>MORALE</b>";
             if (sectionsInReport.Contains(headlineMORALE))
             {
-                _sMorale = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineMORALE));
-                tempArray = _sMorale.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _sMoraleShort = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1);
-                _vMorale = Convert.ToInt32(_sMoraleShort.Substring(_sMoraleShort.LastIndexOf(' ') + 1));
-                if (!_sMoraleShort.Contains("remained steady"))
+                _moraleOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineMORALE));
+                tempArray = _moraleOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                _moraleColumn = tempArray[tempArray.Length - 1].Remove(tempArray[tempArray.Length - 1].Length - 1);
+                _morale = Convert.ToInt32(_moraleColumn.Substring(_moraleColumn.LastIndexOf(' ') + 1));
+                if (!_moraleColumn.Contains("remained steady"))
                 {
                     int posA, posB;
-                    posA = _sMoraleShort.LastIndexOf(" by ") + 4;
-                    posB = _sMoraleShort.LastIndexOf(" to ");
-                    moraleChange = Convert.ToInt32(_sMoraleShort.Substring(posA, posB - posA));
-                    if (_sMoraleShort.Contains("decreased"))
+                    posA = _moraleColumn.LastIndexOf(" by ") + 4;
+                    posB = _moraleColumn.LastIndexOf(" to ");
+                    moraleChange = Convert.ToInt32(_moraleColumn.Substring(posA, posB - posA));
+                    if (_moraleColumn.Contains("decreased"))
                     {
                         moraleChange *= -1;
-                        _sMoraleShort = _vMorale.ToString().PadLeft(3) + " (decreased " + Math.Abs(moraleChange) + ")";
+                        _moraleColumn = _morale.ToString().PadLeft(3) + " (decreased " + Math.Abs(moraleChange) + ")";
                     }
                     else
-                        _sMoraleShort = _vMorale.ToString().PadLeft(3) + " (increased " + moraleChange + ")";
+                        _moraleColumn = _morale.ToString().PadLeft(3) + " (increased " + moraleChange + ")";
                 }
                 else
-                    _sMoraleShort = _vMorale.ToString().PadLeft(3) + " (steady)";
+                    _moraleColumn = _morale.ToString().PadLeft(3) + " (steady)";
                 int abandonedDays = 0;
                 int abandonedPenalty = 0;
                 for (int i = 1; i < tempArray.Length - 1; i++)
                 {
-                    _lMoraleModifiers.Add(tempArray[i].Substring(tempArray[i].IndexOf(' ') + 1), Convert.ToInt32(tempArray[i].Remove(tempArray[i].IndexOf(' '))));
+                    _moraleModifiers.Add(tempArray[i].Substring(tempArray[i].IndexOf(' ') + 1), Convert.ToInt32(tempArray[i].Remove(tempArray[i].IndexOf(' '))));
                     if (tempArray[i].Contains("Abandonment Penalty"))
                     {
                         abandonedPenalty = Convert.ToInt32(tempArray[i].Remove(tempArray[i].IndexOf(' ')));
@@ -409,26 +393,26 @@ namespace HazeronAdviser
                         _HashEnv = true;
                     }
                 }
-                _vAbandonment = ((_lMoraleModifiers.Values.Sum() + 1) * Hazeron.AbandonmentInterval) - (abandonedDays % Hazeron.AbandonmentInterval);
-                _vAbandonmentMax = ((_lMoraleModifiers.Values.Sum() - abandonedPenalty + 1) * Hazeron.AbandonmentInterval);
+                _abandonment = ((_moraleModifiers.Values.Sum() + 1) * Hazeron.AbandonmentInterval) - (abandonedDays % Hazeron.AbandonmentInterval);
+                _abandonmentMax = ((_moraleModifiers.Values.Sum() - abandonedPenalty + 1) * Hazeron.AbandonmentInterval);
                 if (decaying)
-                    _sAbandonment = " Decaying";
-                else if (_vAbandonmentMax < Hazeron.AbandonmentInterval)
-                    _sAbandonment = " Unstable";
-                else if (_vAbandonment == _vAbandonmentMax)
-                    _sAbandonment = _vAbandonment.ToString("00") + "~/" + _vAbandonmentMax.ToString("00") + " days";
-                else if (_vAbandonment > 0)
-                    _sAbandonment = _vAbandonment.ToString("00") + " /" + _vAbandonmentMax.ToString("00") + " days";
+                    _abandonmentColumn = " Decaying";
+                else if (_abandonmentMax < Hazeron.AbandonmentInterval)
+                    _abandonmentColumn = " Unstable";
+                else if (_abandonment == _abandonmentMax)
+                    _abandonmentColumn = _abandonment.ToString("00") + "~/" + _abandonmentMax.ToString("00") + " days";
+                else if (_abandonment > 0)
+                    _abandonmentColumn = _abandonment.ToString("00") + " /" + _abandonmentMax.ToString("00") + " days";
                 else
-                    _sAbandonment = " ERROR!?";
+                    _abandonmentColumn = " ERROR!?";
             }
 
             // POPULATION
             const string headlinePOPULATION = "<b>POPULATION</b>";
             if (sectionsInReport.Contains(headlinePOPULATION))
             {
-                _sPopulation = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlinePOPULATION));
-                tempArray = _sPopulation.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlinePOPULATION));
+                tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string line in tempArray)
                 {
                     if (line.Contains("Citizens are"))
@@ -437,7 +421,7 @@ namespace HazeronAdviser
                     }
                     else if (line.Contains("Population") && !line.Contains("troops"))
                     {
-                        _vPopulation = Convert.ToInt32(line.Remove(line.Length - 1).Substring(line.LastIndexOf(' ') + 1));
+                        _population = Convert.ToInt32(line.Remove(line.Length - 1).Substring(line.LastIndexOf(' ') + 1));
                         if (!line.Contains("remained steady"))
                         {
                             int posA, posB;
@@ -447,13 +431,13 @@ namespace HazeronAdviser
                             if (line.Contains("decreased"))
                             {
                                 populationChange *= -1;
-                                _sPopulationShort = _vPopulation.ToString() + " (decreased " + Math.Abs(populationChange) + ")";
+                                _populationColumn = _population.ToString() + " (decreased " + Math.Abs(populationChange) + ")";
                             }
                             else
-                                _sPopulationShort = _vPopulation.ToString() + " (increased " + populationChange + ")";
+                                _populationColumn = _population.ToString() + " (increased " + populationChange + ")";
                         }
                         else
-                            _sPopulationShort = _vPopulation.ToString() + " (steady)";
+                            _populationColumn = _population.ToString() + " (steady)";
                     }
                     else if (line.Contains("Garrison"))
                     {
@@ -465,10 +449,10 @@ namespace HazeronAdviser
                     }
                     else if (line.Contains("loyal"))
                     {
-                        _vLoyalty = Convert.ToInt32(line.Remove(line.IndexOf(' ')));
+                        _loyalty = Convert.ToInt32(line.Remove(line.IndexOf(' ')));
                         if (line.Contains("disloyal"))
-                            _vLoyalty = -_vLoyalty;
-                        _sLoyalty = _vLoyalty + " (" + Math.Round(((double)_vLoyalty / _vPopulation) * 100, 2).ToString(Hazeron.NumberFormat) + "%)";
+                            _loyalty = -_loyalty;
+                        _loyaltyColumn = _loyalty + " (" + Math.Round(((double)_loyalty / _population) * 100, 2).ToString(Hazeron.NumberFormat) + "%)";
                     }
                 }
             }
@@ -477,27 +461,27 @@ namespace HazeronAdviser
             const string headlineLIVING = "<b>LIVING CONDITIONS</b>";
             if (sectionsInReport.Contains(headlineLIVING))
             {
-                _sLivingConditions = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineLIVING));
-                tempArray = _sLivingConditions.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineLIVING));
+                tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string line in tempArray)
                 {
                     if (line.Contains("Jobs"))
                     {
-                        _sLivingConditionsShort = line;
-                        _vJobs = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
+                        _livingConditionsColumn = line;
+                        _jobs = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
                     }
                     else if (line.Contains("Homes"))
                     {
-                        _sLivingConditionsShort += ", " + line;
-                        _vHomes = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
+                        _livingConditionsColumn += ", " + line;
+                        _homes = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
                     }
                     else if (line.Contains("Apartments"))
                     {
-                        _vApartments = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
+                        _apartments = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
                     }
                     else if (line.Contains("Food"))
                     {
-                        _vFood = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
+                        _food = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
                     }
                 }
             }
@@ -543,43 +527,43 @@ namespace HazeronAdviser
                     {
                         i++;
                         line = tempArray[i].Replace(",", "").Replace(".", "");
-                        _vBankTribute = Convert.ToInt64(line.Remove(line.Length - 1));
+                        _bankTribute = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Starting Balance")
                     {
                         i++;
                         line = tempArray[i].Replace(",", "").Replace(".", "");
                         if (GovAcc)
-                            _vBankGovBalanceOld = Convert.ToInt64(line.Remove(line.Length - 1));
+                            _bankGovBalanceOld = Convert.ToInt64(line.Remove(line.Length - 1));
                         else
-                            _vBankCitBalanceOld = Convert.ToInt64(line.Remove(line.Length - 1));
+                            _bankCitBalanceOld = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Current Balance")
                     {
                         i++;
                         line = tempArray[i].Replace(",", "").Replace(".", "");
                         if (GovAcc)
-                            _vBankGovBalance = Convert.ToInt64(line.Remove(line.Length - 1));
+                            _bankGovBalance = Convert.ToInt64(line.Remove(line.Length - 1));
                         else
-                            _vBankCitBalance = Convert.ToInt64(line.Remove(line.Length - 1));
+                            _bankCitBalance = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Income Tax")
                     {
                         i++;
                         line = tempArray[i].Replace(",", "").Replace(".", "");
-                        _vBankTaxIncome = Convert.ToInt64(line.Remove(line.Length - 1));
+                        _bankTaxIncome = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Sales Tax")
                     {
                         i++;
                         line = tempArray[i].Replace(",", "").Replace(".", "");
-                        _vBankTaxSale = Convert.ToInt64(line.Remove(line.Length - 1));
+                        _bankTaxSale = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Bullion Production")
                     {
                         i++;
                         line = tempArray[i].Replace(",", "").Replace(".", "");
-                        _vBankProduction = Convert.ToInt64(line.Remove(line.Length - 1));
+                        _bankMinting = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     //else if (line == "Research and Development")
                     //{
@@ -599,15 +583,15 @@ namespace HazeronAdviser
                 for (int i = 3; i < tempArray.Length; i += 2)
                 {
                     if (tempArray[i] != "Technology")
-                        _lReseatchProjects.Add(tempArray[i].Remove(tempArray[i].Length - 11), Convert.ToInt32(tempArray[i + 1]));
+                        _reseatchProjects.Add(tempArray[i].Remove(tempArray[i].Length - 11), Convert.ToInt32(tempArray[i + 1]));
                 }
-                foreach (int projectProcess in _lReseatchProjects.Values)
+                foreach (int projectProcess in _reseatchProjects.Values)
                 {
-                    _vBankExpenseResearchEstReport += projectProcess;
-                    _vBankExpenseResearchEstDay += projectProcess;
+                    _bankExpenseResearchEstReport += projectProcess;
+                    _bankExpenseResearchEstDay += projectProcess;
                 }
-                _vBankExpenseResearchEstReport *= 780;
-                _vBankExpenseResearchEstDay *= 24 * 60 * 60;
+                _bankExpenseResearchEstReport *= 780;
+                _bankExpenseResearchEstDay *= 24 * 60 * 60;
             }
 
             //// SPACECRAFT MANUFACTURING POTENTIAL
@@ -630,8 +614,8 @@ namespace HazeronAdviser
             const string headlineFACILITIES = "<b>FACILITIES</b>";
             if (sectionsInReport.Contains(headlineFACILITIES))
             {
-                _sFactilities = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineFACILITIES));
-                tempArray = _sFactilities.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineFACILITIES));
+                tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 4; i < tempArray.Length; i += 3)
                 {
                     if (tempArray[i] != "Name")
@@ -639,8 +623,8 @@ namespace HazeronAdviser
                         int tl;
                         if (!Int32.TryParse(tempArray[i + 1], out tl))
                             tl = Convert.ToInt32(tempArray[i + 1].Split(new char[] { '-' })[1]) * -1; // Make negitive because it is not all buildings.
-                        _lFactilitiesTL.Add(tempArray[i], tl);
-                        _lFactilitiesLV.Add(tempArray[i], Convert.ToInt32(tempArray[i + 2]));
+                        _factilitiesTL.Add(tempArray[i], tl);
+                        _factilitiesLV.Add(tempArray[i], Convert.ToInt32(tempArray[i + 2]));
                     }
                 }
             }
@@ -660,8 +644,8 @@ namespace HazeronAdviser
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineINVENTORY));
                 if (tempSection.Contains("Computer"))
                 {
-                    _vBankExpenseResearchEstReport = (int)(_vBankExpenseResearchEstReport * 2.25);
-                    _vBankExpenseResearchEstDay = (int)(_vBankExpenseResearchEstDay * 2.25);
+                    _bankExpenseResearchEstReport = (int)(_bankExpenseResearchEstReport * 2.25);
+                    _bankExpenseResearchEstDay = (int)(_bankExpenseResearchEstDay * 2.25);
                 }
                 if (_HashEnv && tempSection.Contains("Air"))
                 {
@@ -670,7 +654,7 @@ namespace HazeronAdviser
                     for (int i = 1; i < tempArray.Length; i++)
                     {
                         if (tempArray[i].Contains(" Q"))
-                            _vAir += Convert.ToInt32(tempArray[i].Remove(tempArray[i].IndexOf(' ')));
+                            _air += Convert.ToInt32(tempArray[i].Remove(tempArray[i].IndexOf(' ')));
                         else
                             break;
                     }
@@ -682,165 +666,165 @@ namespace HazeronAdviser
             {
                 int sub = _mail.Body.IndexOf("m dia, ");
                 tempArray = _mail.Body.Remove(sub).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                _vPopulationLimit = Convert.ToInt32(tempArray[tempArray.Length - 1].Replace(",", ""));
-                _vPopulationLimit = Convert.ToInt32(100 * Math.Floor((float)_vPopulationLimit / 1800));
+                _populationLimit = Convert.ToInt32(tempArray[tempArray.Length - 1].Replace(",", ""));
+                _populationLimit = Convert.ToInt32(100 * Math.Floor((float)_populationLimit / 1800));
             }
             else
-                _vPopulationLimit = 1000;
+                _populationLimit = 1000;
 
             // Morale overview
-            _sMorale = "City's morale:" + Environment.NewLine + "  ";
-            if (_vMorale >= 0)
-                _sMorale += "[color=green]";
+            _moraleOverview = "City's morale:" + Environment.NewLine + "  ";
+            if (_morale >= 0)
+                _moraleOverview += "[color=green]";
             else
-                _sMorale += "[color=red]";
-            _sMorale += "Morale " + _vMorale.ToString().PadLeft(3) + "[/color]" + Environment.NewLine + "  ";
+                _moraleOverview += "[color=red]";
+            _moraleOverview += "Morale " + _morale.ToString().PadLeft(3) + "[/color]" + Environment.NewLine + "  ";
             if (moraleChange >= 0)
-                _sMorale += "[color=green]";
+                _moraleOverview += "[color=green]";
             else
-                _sMorale += "[color=red]";
-            _sMorale += "Change  ";
-            _sMorale += moraleChange.ToString("+#0;-#0;±#0") + "[/color]" + Environment.NewLine;
-            _sMorale += Environment.NewLine;
-            _sMorale += "City's morale modifiers:" + Environment.NewLine;
-            foreach (KeyValuePair<string, int> moraleModifier in _lMoraleModifiers)
+                _moraleOverview += "[color=red]";
+            _moraleOverview += "Change  ";
+            _moraleOverview += moraleChange.ToString("+#0;-#0;±#0") + "[/color]" + Environment.NewLine;
+            _moraleOverview += Environment.NewLine;
+            _moraleOverview += "City's morale modifiers:" + Environment.NewLine;
+            foreach (KeyValuePair<string, int> moraleModifier in _moraleModifiers)
             {
                 if (moraleModifier.Value > 0)
-                    _sMorale += "  [color=green]";
+                    _moraleOverview += "  [color=green]";
                 else
-                    _sMorale += "  [color=red]";
-                _sMorale += moraleModifier.Value.ToString("+#0;-#0") + "  " + moraleModifier.Key + "[/color]" + Environment.NewLine;
+                    _moraleOverview += "  [color=red]";
+                _moraleOverview += moraleModifier.Value.ToString("+#0;-#0") + "  " + moraleModifier.Key + "[/color]" + Environment.NewLine;
             }
-            if (_lMoraleModifiers.Values.Sum() > 0)
-                _sMorale += "[color=green]";
-            else if (_lMoraleModifiers.Values.Sum() < 0)
-                _sMorale += "[color=red]";
-            _sMorale += "Total " + _lMoraleModifiers.Values.Sum().ToString("+#0;-#0;±#0");
-            if (_lMoraleModifiers.Values.Sum() > 0 || _lMoraleModifiers.Values.Sum() < 0)
-                _sMorale += "[/color]";
-            _sMoraleModifiersShort = _lMoraleModifiers.Values.Sum().ToString("+#0;-#0;±#0");
-            _sMoraleModifiersShort += " (" + Math.Abs(_lMoraleModifiers.Values.Where(y => y < 0).Sum()).ToString("-#0") + ", " + _lMoraleModifiers.Values.Where(y => y > 0).Sum().ToString("+#0") + ")";
+            if (_moraleModifiers.Values.Sum() > 0)
+                _moraleOverview += "[color=green]";
+            else if (_moraleModifiers.Values.Sum() < 0)
+                _moraleOverview += "[color=red]";
+            _moraleOverview += "Total " + _moraleModifiers.Values.Sum().ToString("+#0;-#0;±#0");
+            if (_moraleModifiers.Values.Sum() > 0 || _moraleModifiers.Values.Sum() < 0)
+                _moraleOverview += "[/color]";
+            _moraleModifiersColumn = _moraleModifiers.Values.Sum().ToString("+#0;-#0;±#0");
+            _moraleModifiersColumn += " (" + Math.Abs(_moraleModifiers.Values.Where(y => y < 0).Sum()).ToString("-#0") + ", " + _moraleModifiers.Values.Where(y => y > 0).Sum().ToString("+#0") + ")";
 
             // Population overwiew
             const int populationPadding = 4;
-            _sPopOverview = "City's population:";
-            _sPopOverview += Environment.NewLine + " " + _vLoyalty.ToString().PadLeft(populationPadding) + ", Loyal citizens";
-            if (_vLoyalty != _vPopulation)
+            _populationOverview = "City's population:";
+            _populationOverview += Environment.NewLine + " " + _loyalty.ToString().PadLeft(populationPadding) + ", Loyal citizens";
+            if (_loyalty != _population)
             {
                 int minutesToLoyal;
-                bool disloyal = _vLoyalty < 0;
+                bool disloyal = _loyalty < 0;
                 if (!disloyal)
-                    minutesToLoyal = ((_vPopulation - _vLoyalty) * 13);
+                    minutesToLoyal = ((_population - _loyalty) * 13);
                 else
-                    minutesToLoyal = (Math.Abs(_vLoyalty) * 13);
-                _sPopOverview += " [color=" + (disloyal ? "red" : "orange") + "](";
+                    minutesToLoyal = (Math.Abs(_loyalty) * 13);
+                _populationOverview += " [color=" + (disloyal ? "red" : "orange") + "](";
                 if (minutesToLoyal < 120) // Less than two hours.
-                    _sPopOverview += minutesToLoyal + " minutes";
+                    _populationOverview += minutesToLoyal + " minutes";
                 else if (minutesToLoyal < 2980) // Less than two days.
-                    _sPopOverview += (minutesToLoyal / 60) + " hours";
+                    _populationOverview += (minutesToLoyal / 60) + " hours";
                 else // More than two days.
-                    _sPopOverview += (minutesToLoyal / 1490) + " days";
-                _sPopOverview += " to " + (disloyal ? "loyal" : "fully") + ")[/color]";
+                    _populationOverview += (minutesToLoyal / 1490) + " days";
+                _populationOverview += " to " + (disloyal ? "loyal" : "fully") + ")[/color]";
             }
             //else
             //    _sPopOverview += " [color=green](fully)[/color]";
-            _sPopOverview += Environment.NewLine + " " + _vPopulation.ToString().PadLeft(populationPadding) + ", Citizens";
+            _populationOverview += Environment.NewLine + " " + _population.ToString().PadLeft(populationPadding) + ", Citizens";
             if (populationChange < 0)
-                _sPopOverview += " [color=red](decreased " + Math.Abs(populationChange) + ")[/color]";
+                _populationOverview += " [color=red](decreased " + Math.Abs(populationChange) + ")[/color]";
             else if (populationChange > 0)
-                _sPopOverview += " [color=green](increased " + populationChange + ")[/color]";
+                _populationOverview += " [color=green](increased " + populationChange + ")[/color]";
             //else
             //    _sPopOverview += " (steady)";
-            _sPopOverview += Environment.NewLine + " " + _vHomes.ToString().PadLeft(populationPadding) + ", Homes";
-            if (_vJobs >= _vHomes)
+            _populationOverview += Environment.NewLine + " " + _homes.ToString().PadLeft(populationPadding) + ", Homes";
+            if (_jobs >= _homes)
             {
-                int needed = (_vJobs - _vHomes + 1); // Need at least one more home than jobs.
-                _sPopOverview += " [color=red](Overworked, " + needed + " more homes needed)[/color]";
+                int needed = (_jobs - _homes + 1); // Need at least one more home than jobs.
+                _populationOverview += " [color=red](Overworked, " + needed + " more homes needed)[/color]";
             }
-            _sPopOverview += Environment.NewLine + " " + _vJobs.ToString().PadLeft(populationPadding) + ", Jobs";
-            if (((float)(_vHomes - _vJobs) / _vHomes) > 0.2)
+            _populationOverview += Environment.NewLine + " " + _jobs.ToString().PadLeft(populationPadding) + ", Jobs";
+            if (((float)(_homes - _jobs) / _homes) > 0.2)
             {
-                int needed = (int)((_vHomes * 0.8) - _vJobs + 1); // Need at least one more job than 80% homes.
-                _sPopOverview += " [color=red](Unemployment, " + needed + " more jobs needed)[/color]";
+                int needed = (int)((_homes * 0.8) - _jobs + 1); // Need at least one more job than 80% homes.
+                _populationOverview += " [color=red](Unemployment, " + needed + " more jobs needed)[/color]";
             }
-            _sPopOverview += Environment.NewLine + " " + _vPopulationLimit.ToString().PadLeft(populationPadding) + ", Population limit";
-            if (_vHomes > _vPopulationLimit)
+            _populationOverview += Environment.NewLine + " " + _populationLimit.ToString().PadLeft(populationPadding) + ", Population limit";
+            if (_homes > _populationLimit)
             {
-                int needed = (_vHomes - _vPopulationLimit);
-                _sPopOverview += " [color=red](Overpopulated, " + needed + " homes too many)[/color]";
+                int needed = (_homes - _populationLimit);
+                _populationOverview += " [color=red](Overpopulated, " + needed + " homes too many)[/color]";
             }
-            _sPopOverview += Environment.NewLine;
-            _sPopOverview += Environment.NewLine + "City's living conditions:";
-            _sPopOverview += Environment.NewLine + " Citizens are " + race;
+            _populationOverview += Environment.NewLine;
+            _populationOverview += Environment.NewLine + "City's living conditions:";
+            _populationOverview += Environment.NewLine + " Citizens are " + race;
             {
                 string powerUse = powerConsumption.ToString("N", Hazeron.NumberFormat);
                 string powerSto = powerReserve.ToString("N", Hazeron.NumberFormat);
                 int powerPadding = Math.Max(powerUse.Length, powerSto.Length);
-                _sPopOverview += Environment.NewLine + " " + powerUse.PadLeft(powerPadding) + " power comsumption";
-                _sPopOverview += Environment.NewLine + " " + powerSto.PadLeft(powerPadding) + "/" + powerReserveCapacity.ToString("N", Hazeron.NumberFormat) + " power capacity (" + Math.Floor(((float)powerReserve / powerReserveCapacity) * 100) + "%)";
+                _populationOverview += Environment.NewLine + " " + powerUse.PadLeft(powerPadding) + " power comsumption";
+                _populationOverview += Environment.NewLine + " " + powerSto.PadLeft(powerPadding) + "/" + powerReserveCapacity.ToString("N", Hazeron.NumberFormat) + " power capacity (" + Math.Floor(((float)powerReserve / powerReserveCapacity) * 100) + "%)";
             }
             {
-                _sPopOverview += Environment.NewLine + " ";
-                int minutesToStarvation = (_vFood);
+                _populationOverview += Environment.NewLine + " ";
+                int minutesToStarvation = (_food);
                 if (minutesToStarvation < 120) // Less than two hours.
-                    _sPopOverview += minutesToStarvation + " minutes";
+                    _populationOverview += minutesToStarvation + " minutes";
                 else if (minutesToStarvation < 2980) // Less than two days.
-                    _sPopOverview += (minutesToStarvation / 60) + " hours";
+                    _populationOverview += (minutesToStarvation / 60) + " hours";
                 else // More than two days.
-                    _sPopOverview += (minutesToStarvation / 1490) + " days";
-                _sPopOverview += " worth of food";
+                    _populationOverview += (minutesToStarvation / 1490) + " days";
+                _populationOverview += " worth of food";
             }
             if (_HashEnv)
             {
-                _sPopOverview += Environment.NewLine + " ";
-                int minutesToSuffocation = (_vAir);
+                _populationOverview += Environment.NewLine + " ";
+                int minutesToSuffocation = (_air);
                 if (minutesToSuffocation < 120) // Less than two hours.
-                    _sPopOverview += minutesToSuffocation + " minutes";
+                    _populationOverview += minutesToSuffocation + " minutes";
                 else if (minutesToSuffocation < 2980) // Less than two days.
-                    _sPopOverview += (minutesToSuffocation / 60) + " hours";
+                    _populationOverview += (minutesToSuffocation / 60) + " hours";
                 else // More than two days.
-                    _sPopOverview += (minutesToSuffocation / 1490) + " days";
-                _sPopOverview += " worth of air";
+                    _populationOverview += (minutesToSuffocation / 1490) + " days";
+                _populationOverview += " worth of air";
             }
             {
-                _sPopOverview += Environment.NewLine + " " + Math.Floor(((float)_vApartments / _vHomes) * 100) + "% apartments";
-                int levelAjustment = ((_vHomes - _vApartments) - _vApartments);
+                _populationOverview += Environment.NewLine + " " + Math.Floor(((float)_apartments / _homes) * 100) + "% apartments";
+                int levelAjustment = ((_homes - _apartments) - _apartments);
                 if ((levelAjustment / 4) > 0)
-                    _sPopOverview += " [color=green](" + (levelAjustment / 4) + " more levels possible)[/color]";
+                    _populationOverview += " [color=green](" + (levelAjustment / 4) + " more levels possible)[/color]";
                 else if (levelAjustment < 0)
-                    _sPopOverview += " [color=red](Cramped, " + Math.Abs(levelAjustment) + " more non-apartment homes needed)[/color]";
+                    _populationOverview += " [color=red](Cramped, " + Math.Abs(levelAjustment) + " more non-apartment homes needed)[/color]";
             }
 
             // Technology overview
             if (sectionsInReport.Contains(headlineRESEARCH))
             {
-                _sTechnology = "City's technology projects:";
-                foreach (string building in _lReseatchProjects.Keys)
+                _technologyOverview = "City's technology projects:";
+                foreach (string building in _reseatchProjects.Keys)
                 {
-                    if (_lFactilitiesTL.ContainsKey(building))
-                        _sTechnology += Environment.NewLine + " " + _lReseatchProjects[building].ToString().PadLeft(2) + " (TL" + Math.Abs(_lFactilitiesTL[building]).ToString().PadLeft(2) + ") running, " + building;
+                    if (_factilitiesTL.ContainsKey(building))
+                        _technologyOverview += Environment.NewLine + " " + _reseatchProjects[building].ToString().PadLeft(2) + " (TL" + Math.Abs(_factilitiesTL[building]).ToString().PadLeft(2) + ") running, " + building;
                     else
-                        _sTechnology += Environment.NewLine + " [color=red]" + _lReseatchProjects[building].ToString().PadLeft(2) + " running, " + building + " (wasted, none in city)[/color]";
+                        _technologyOverview += Environment.NewLine + " [color=red]" + _reseatchProjects[building].ToString().PadLeft(2) + " running, " + building + " (wasted, none in city)[/color]";
                 }
             }
-            if (_sTechnology != "")
-                _sTechnology += Environment.NewLine + Environment.NewLine;
-            _sTechnology += "City's technology levels:";
-            buildingList = _lFactilitiesTL.Keys.ToList();
+            if (_technologyOverview != "")
+                _technologyOverview += Environment.NewLine + Environment.NewLine;
+            _technologyOverview += "City's technology levels:";
+            buildingList = _factilitiesTL.Keys.ToList();
             buildingList.Sort();
             foreach (string building in buildingList)
             {
-                _sTechnology += Environment.NewLine + " TL" + Math.Abs(_lFactilitiesTL[building]).ToString().PadLeft(2) + ", " + building;
-                if (_lFactilitiesTL[building] < 0)
-                    _sTechnology += " [color=red](not all buildings)[/color]";
+                _technologyOverview += Environment.NewLine + " TL" + Math.Abs(_factilitiesTL[building]).ToString().PadLeft(2) + ", " + building;
+                if (_factilitiesTL[building] < 0)
+                    _technologyOverview += " [color=red](not all buildings)[/color]";
             }
 
             // Buildings overview
-            _sBuildings = "City's buildings:";
-            buildingList = _lFactilitiesLV.Keys.ToList();
+            _buildingsOverview = "City's buildings:";
+            buildingList = _factilitiesLV.Keys.ToList();
             foreach (string moraleBuilding in moraleBuildingsPop.Keys)
             {
-                if (!_lFactilitiesLV.ContainsKey(moraleBuilding) && _vHomes > moraleBuildingsPop[moraleBuilding])
+                if (!_factilitiesLV.ContainsKey(moraleBuilding) && _homes > moraleBuildingsPop[moraleBuilding])
                     buildingList.Add(moraleBuilding);
             }
             if (!buildingList.Contains("Military Flag"))
@@ -849,90 +833,90 @@ namespace HazeronAdviser
             foreach (string building in buildingList)
             {
                 int levels = 0;
-                if (_lFactilitiesLV.ContainsKey(building))
-                    levels = _lFactilitiesLV[building];
-                _sBuildings += Environment.NewLine + " " + levels.ToString().PadLeft(3) + " levels, " + building;
+                if (_factilitiesLV.ContainsKey(building))
+                    levels = _factilitiesLV[building];
+                _buildingsOverview += Environment.NewLine + " " + levels.ToString().PadLeft(3) + " levels, " + building;
                 if (moraleBuildingsPop.ContainsKey(building))
                 {
-                    int levelsNeeded = _vHomes / moraleBuildingsPop[building];
+                    int levelsNeeded = _homes / moraleBuildingsPop[building];
                     if (building == "Cantina")
                         levelsNeeded += 1;
                     else if (building == "Church")
                         levelsNeeded += 2;
                     if (levels < levelsNeeded)
-                        _sBuildings += " [color=red](" + (levelsNeeded - levels) + " levels more needed)[/color]";
+                        _buildingsOverview += " [color=red](" + (levelsNeeded - levels) + " levels more needed)[/color]";
                     else if (levels > levelsNeeded && !(building == "Church" || building == "University" || building == "Park"))
-                        _sBuildings += " [color=orange](" + (levels - levelsNeeded) + " levels too many)[/color]";
+                        _buildingsOverview += " [color=orange](" + (levels - levelsNeeded) + " levels too many)[/color]";
                 }
                 else if (building == "Military Flag")
                 {
-                    int levelsPossible = (_vHomes / 150) + 1;
+                    int levelsPossible = (_homes / 150) + 1;
                     if (levels > levelsPossible)
-                        _sBuildings += " [color=red](" + (levels - levelsPossible) + " flags too many)[/color]";
+                        _buildingsOverview += " [color=red](" + (levels - levelsPossible) + " flags too many)[/color]";
                     else if (levels < levelsPossible)
-                        _sBuildings += " [color=green](" + (levelsPossible - levels) + " flags more possible)[/color]";
+                        _buildingsOverview += " [color=green](" + (levelsPossible - levels) + " flags more possible)[/color]";
                 }
             }
 
             // Bank overview
-            _sBankShort = _vBankGovBalance.ToString("C", Hazeron.NumberFormat) + " balance";
-            _sBank = "City's finances:";
-            if (_empireCapital && _vBankTribute == 0)
+            _bankGovBalanceColumn = _bankGovBalance.ToString("C", Hazeron.NumberFormat) + " balance";
+            _bankOverview = "City's finances:";
+            if (_empireCapital && _bankTribute == 0)
             {
-                _sBankTributeShort = "No tributing";
-                _sBank += Environment.NewLine + "".PadLeft(Hazeron.CurrencyPadding) + "  Empire capital does not tribute";
+                _bankTributeColumn = "No tributing";
+                _bankOverview += Environment.NewLine + "".PadLeft(Hazeron.CurrencyPadding) + "  Empire capital does not tribute";
             }
             else
             {
-                _sBankTributeShort = _vBankTribute.ToString("C", Hazeron.NumberFormat) + " tributed";
-                _sBank += Environment.NewLine + " " + _vBankTribute.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " tributed to ";
+                _bankTributeColumn = _bankTribute.ToString("C", Hazeron.NumberFormat) + " tributed";
+                _bankOverview += Environment.NewLine + " " + _bankTribute.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " tributed to ";
                 if (_empireCapital)
-                    _sBank += "(overlord/ally)";
+                    _bankOverview += "(overlord/ally)";
                 else
-                    _sBank += "(empire/sector) capital";
+                    _bankOverview += "(empire/sector) capital";
             }
             {
-                _sBank += Environment.NewLine + "".PadLeft(Hazeron.CurrencyPadding) + "  [color=green](";
+                _bankOverview += Environment.NewLine + "".PadLeft(Hazeron.CurrencyPadding) + "  [color=green](";
                 int minutesToMidnight = (int)(DateTime.UtcNow.Subtract(DateTime.Now.TimeOfDay).AddDays(1) - _lastUpdated).TotalMinutes;
                 if (minutesToMidnight < 120) // Less than two hours.
-                    _sBank += minutesToMidnight + " minutes";
+                    _bankOverview += minutesToMidnight + " minutes";
                 else // More than two hours.
-                    _sBank += (minutesToMidnight / 60) + " hours";
-                _sBank += " to next tribute)[/color]";
+                    _bankOverview += (minutesToMidnight / 60) + " hours";
+                _bankOverview += " to next tribute)[/color]";
             }
-            _sBank += Environment.NewLine;
-            _sBank += Environment.NewLine + " " + _vBankProduction.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " bullion production";
-            _sBank += Environment.NewLine;
-            _sBank += Environment.NewLine + " " + (_vBankCitBalance - _vBankCitBalanceOld).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " citizen account net-change";
-            _sBank += Environment.NewLine + " " + _vBankCitBalance.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " citizen account balance";
-            _sBank += Environment.NewLine;
-            _sBank += Environment.NewLine + " " + _vBankTaxIncome.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " income tax";
-            _sBank += Environment.NewLine + " " + _vBankTaxSale.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " Sales tax";
-            _sBank += Environment.NewLine;
+            _bankOverview += Environment.NewLine;
+            _bankOverview += Environment.NewLine + " " + _bankMinting.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " bullion production";
+            _bankOverview += Environment.NewLine;
+            _bankOverview += Environment.NewLine + " " + (_bankCitBalance - _bankCitBalanceOld).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " citizen account net-change";
+            _bankOverview += Environment.NewLine + " " + _bankCitBalance.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " citizen account balance";
+            _bankOverview += Environment.NewLine;
+            _bankOverview += Environment.NewLine + " " + _bankTaxIncome.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " income tax";
+            _bankOverview += Environment.NewLine + " " + _bankTaxSale.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " Sales tax";
+            _bankOverview += Environment.NewLine;
             //_sBank += Environment.NewLine + " " + (-_vBankExpenseResearch).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (unreliable)";
-            _sBank += Environment.NewLine + " " + (-_vBankExpenseResearchEstReport).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (estimate per report)";
-            _sBank += Environment.NewLine + " " + (-_vBankExpenseResearchEstDay).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (estimate per day)";
-            _sBank += Environment.NewLine;
-            _sBank += Environment.NewLine + " " + (_vBankGovBalance - _vBankGovBalanceOld).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account net-change";
-            _sBank += Environment.NewLine + " " + _vBankGovBalance.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account balance";
+            _bankOverview += Environment.NewLine + " " + (-_bankExpenseResearchEstReport).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (estimate per report)";
+            _bankOverview += Environment.NewLine + " " + (-_bankExpenseResearchEstDay).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (estimate per day)";
+            _bankOverview += Environment.NewLine;
+            _bankOverview += Environment.NewLine + " " + (_bankGovBalance - _bankGovBalanceOld).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account net-change";
+            _bankOverview += Environment.NewLine + " " + _bankGovBalance.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account balance";
 
             //// Overview
             //_sOverview = "WIP";
 
             // AttentionCodes
-            if ((_vJobs >= _vHomes) || (((float)(_vHomes - _vJobs) / _vHomes) > 0.2)) // Overworked, or too much unemployment.
+            if ((_jobs >= _homes) || (((float)(_homes - _jobs) / _homes) > 0.2)) // Overworked, or too much unemployment.
                 _attentionCode = (byte)(_attentionCode | 0x01); // 0b00000001
-            if (_vPopulation < _vHomes || _vPopulation > _vHomes) // Population not full, or more than full.
+            if (_population < _homes || _population > _homes) // Population not full, or more than full.
                 _attentionCode = (byte)(_attentionCode | 0x02); // 0b00000010
-            if (Hazeron.AbandonmentInterval * 2 >= _vAbandonment) // Less than or equal to (Hazeron.AbandonmentInterval * 2) days to decay.
+            if (Hazeron.AbandonmentInterval * 2 >= _abandonment) // Less than or equal to (Hazeron.AbandonmentInterval * 2) days to decay.
                 _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100
-            if (Hazeron.AbandonmentInterval >= _vAbandonment) // Less than or equal to (Hazeron.AbandonmentInterval) days to decay.
+            if (Hazeron.AbandonmentInterval >= _abandonment) // Less than or equal to (Hazeron.AbandonmentInterval) days to decay.
                 _attentionCode = (byte)(_attentionCode | 0x08); // 0b00001000
-            if (_vPopulation == 0 || _vPopulation > _vPopulationLimit) // Population is 0, or zone over populated!
+            if (_population == 0 || _population > _populationLimit) // Population is 0, or zone over populated!
                 _attentionCode = (byte)(_attentionCode | 0x10); // 0b00010000
             if (false) // Nothing yet!
                 _attentionCode = (byte)(_attentionCode | 0x20); // 0b00100000
-            if (_vMorale < 20) // Morale not full.
+            if (_morale < 20) // Morale not full.
                 _attentionCode = (byte)(_attentionCode | 0x40); // 0b01000000
             if (false) // Nothing yet!
                 _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
