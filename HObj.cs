@@ -300,7 +300,7 @@ namespace HazeronAdviser
                 _abandonmentColumn = tempArray[tempArray.Length - 1];
             }
 #else
-            _Abandonment = dDay + " /4 weeks";
+            _abandonmentColumn = dDay + " /4 weeks";
 #endif
 
             // DAMAGE REPORT
