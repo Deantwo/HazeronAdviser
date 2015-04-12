@@ -237,10 +237,14 @@ namespace HazeronAdviser
             get { return _vBankExpenseResearch; }
         }
 
-        protected long _vBankExpenseResearchEst = 0;
-        public long VBankExpenseResearchEst
+        protected long _vBankExpenseResearchEstReport = 0, _vBankExpenseResearchEstDay = 0;
+        public long VBankExpenseResearchEstReport
         {
-            get { return _vBankExpenseResearchEst; }
+            get { return _vBankExpenseResearchEstReport; }
+        }
+        public long VBankExpenseResearchEstDay
+        {
+            get { return _vBankExpenseResearchEstDay; }
         }
 
         protected long _vBankTribute = 0;
@@ -577,12 +581,12 @@ namespace HazeronAdviser
                         line = tempArray[i].Replace(",", "").Replace(".", "");
                         _vBankProduction = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
-                    else if (line == "Research and Development")
-                    {
-                        i++;
-                        line = tempArray[i].Replace(",", "").Replace(".", "");
-                        _vBankExpenseResearch = Convert.ToInt64(line.Remove(line.Length - 1));
-                    }
+                    //else if (line == "Research and Development")
+                    //{
+                    //    i++;
+                    //    line = tempArray[i].Replace(",", "").Replace(".", "");
+                    //    _vBankExpenseResearch = Convert.ToInt64(line.Remove(line.Length - 1));
+                    //}
                 }
             }
 
@@ -599,9 +603,11 @@ namespace HazeronAdviser
                 }
                 foreach (int projectProcess in _lReseatchProjects.Values)
                 {
-                    _vBankExpenseResearchEst += projectProcess;
+                    _vBankExpenseResearchEstReport += projectProcess;
+                    _vBankExpenseResearchEstDay += projectProcess;
                 }
-                _vBankExpenseResearchEst *= 780;
+                _vBankExpenseResearchEstReport *= 780;
+                _vBankExpenseResearchEstDay *= 24 * 60 * 60;
             }
 
             //// SPACECRAFT MANUFACTURING POTENTIAL
@@ -653,7 +659,10 @@ namespace HazeronAdviser
             {
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineINVENTORY));
                 if (tempSection.Contains("Computer"))
-                    _vBankExpenseResearchEst = (int)(_vBankExpenseResearchEst * 2.25);
+                {
+                    _vBankExpenseResearchEstReport = (int)(_vBankExpenseResearchEstReport * 2.25);
+                    _vBankExpenseResearchEstDay = (int)(_vBankExpenseResearchEstDay * 2.25);
+                }
                 if (_HashEnv && tempSection.Contains("Air"))
                 {
                     tempSection = tempSection.Substring(tempSection.IndexOf("Air"));
@@ -900,8 +909,9 @@ namespace HazeronAdviser
             _sBank += Environment.NewLine + " " + _vBankTaxIncome.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " income tax";
             _sBank += Environment.NewLine + " " + _vBankTaxSale.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " Sales tax";
             _sBank += Environment.NewLine;
-            _sBank += Environment.NewLine + " " + (-_vBankExpenseResearch).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (unreliable)";
-            _sBank += Environment.NewLine + " " + (-_vBankExpenseResearchEst).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (estimate per report)";
+            //_sBank += Environment.NewLine + " " + (-_vBankExpenseResearch).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (unreliable)";
+            _sBank += Environment.NewLine + " " + (-_vBankExpenseResearchEstReport).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (estimate per report)";
+            _sBank += Environment.NewLine + " " + (-_vBankExpenseResearchEstDay).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (estimate per day)";
             _sBank += Environment.NewLine;
             _sBank += Environment.NewLine + " " + (_vBankGovBalance - _vBankGovBalanceOld).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account net-change";
             _sBank += Environment.NewLine + " " + _vBankGovBalance.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account balance";
