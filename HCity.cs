@@ -446,7 +446,7 @@ namespace HazeronAdviser
                                 _sPopulationShort = _vPopulation.ToString() + " (decreased " + Math.Abs(populationChange) + ")";
                             }
                             else
-                                _sPopulationShort = _vPopulation.ToString() + " (increased " + moraleChange + ")";
+                                _sPopulationShort = _vPopulation.ToString() + " (increased " + populationChange + ")";
                         }
                         else
                             _sPopulationShort = _vPopulation.ToString() + " (steady)";
@@ -734,6 +734,12 @@ namespace HazeronAdviser
                 _sPopOverview += " to " + (disloyal ? "loyal" : "fully") + ")[/color]";
             }
             _sPopOverview += Environment.NewLine + " " + _vPopulation.ToString().PadLeft(populationPadding) + ", Citizens";
+            if (populationChange < 0)
+                _sPopOverview += " [color=red](decreased " + Math.Abs(populationChange) + ")[/color]";
+            else if (populationChange > 0)
+                _sPopOverview += " [color=green](increased " + populationChange + ")[/color]";
+            else
+                _sPopOverview += " (steady)";
             _sPopOverview += Environment.NewLine + " " + _vHomes.ToString().PadLeft(populationPadding) + ", Homes";
             if (_vJobs >= _vHomes)
             {
