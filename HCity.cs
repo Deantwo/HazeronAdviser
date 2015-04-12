@@ -167,10 +167,10 @@ namespace HazeronAdviser
             get { return _air; }
         }
 
-        protected bool _HashEnv = false;
+        protected bool _hashEnv = false;
         public bool HashEnv
         {
-            get { return _HashEnv; }
+            get { return _hashEnv; }
         }
 
         protected long _bankCitBalance = 0;
@@ -390,7 +390,7 @@ namespace HazeronAdviser
                     }
                     if (tempArray[i].Contains("Harsh Environment Penalty"))
                     {
-                        _HashEnv = true;
+                        _hashEnv = true;
                     }
                 }
                 _abandonment = ((_moraleModifiers.Values.Sum() + 1) * Hazeron.AbandonmentInterval) - (abandonedDays % Hazeron.AbandonmentInterval);
@@ -445,7 +445,7 @@ namespace HazeronAdviser
                     }
                     else if (line.Contains("arsh environment"))
                     {
-                        _HashEnv = true;
+                        _hashEnv = true;
                     }
                     else if (line.Contains("loyal"))
                     {
@@ -647,7 +647,7 @@ namespace HazeronAdviser
                     _bankExpenseResearchEstReport = (int)(_bankExpenseResearchEstReport * 2.25);
                     _bankExpenseResearchEstDay = (int)(_bankExpenseResearchEstDay * 2.25);
                 }
-                if (_HashEnv && tempSection.Contains("Air"))
+                if (_hashEnv && tempSection.Contains("Air"))
                 {
                     tempSection = tempSection.Substring(tempSection.IndexOf("Air"));
                     tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
@@ -774,7 +774,7 @@ namespace HazeronAdviser
                     _populationOverview += (minutesToStarvation / 1490) + " days";
                 _populationOverview += " worth of food";
             }
-            if (_HashEnv)
+            if (_hashEnv)
             {
                 _populationOverview += Environment.NewLine + " ";
                 int minutesToSuffocation = (_air);
