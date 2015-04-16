@@ -287,7 +287,7 @@ namespace HazeronAdviser
                     case "More than a week has passed since we were last hailed by command. The crew is quiet, intent on their work as they attend to their duties.":
                         abandonment *= 3;
                         break;
-                    case "?":
+                    case "More than two weeks have passed since we last heard from command. There have been some tense confrontations between the crew members.":
                         abandonment *= 2;
                         break;
                     case "??":
@@ -295,7 +295,7 @@ namespace HazeronAdviser
                         break;
                 }
 #if CrewMoraleTest
-                if (abandonment > 14)
+                if (abandonment > 7)
                     _abandonmentColumn = (abandonment / 7) + " /4 weeks";
                 else
                 {
