@@ -1,5 +1,4 @@
-﻿#define CrewMoraleTest
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -290,22 +289,11 @@ namespace HazeronAdviser
                     case "More than two weeks have passed since we last heard from command. There have been some tense confrontations between the crew members.":
                         abandonment *= 2;
                         break;
-                    case "??":
+                    case "More than three weeks have passed since we lost contact with command. Some of the crew have become surly and insubordinate. Fighting among them is a daily occurance.":
                         abandonment *= 1;
                         break;
                 }
-#if CrewMoraleTest
-                if (abandonment > 7)
-                    _abandonmentColumn = (abandonment / 7) + " /4 weeks";
-                else
-                {
-                    // Debug code. Need to learn the other messages to check for!
-                    tempArray = _mail.FilePath.Split(new char[] { '\\' });
-                    _abandonmentColumn = tempArray[tempArray.Length - 1];
-                }
-#else
-                _abandonmentColumn = abandonment + " /4 weeks";
-#endif
+                _abandonmentColumn = (abandonment / 7) + " /4 weeks";
             }
             else
             {
