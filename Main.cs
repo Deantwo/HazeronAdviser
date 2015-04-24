@@ -969,7 +969,7 @@ namespace HazeronAdviser
             if (currentCell != null)
             {
                 // Check if the cell is empty.
-                if (!String.IsNullOrEmpty((string)currentCell.Value))
+                if (!String.IsNullOrEmpty(currentCell.Value.ToString()))
                 { // If not empty, add to clipboard and inform the user.
                     Clipboard.SetText(currentCell.Value.ToString());
                     toolStripStatusLabel1.Text = "Cell content copied to clipboard (\"" + currentCell.Value.ToString() + "\")";
