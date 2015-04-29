@@ -13,8 +13,6 @@ namespace HazeronAdviser
 {
     public partial class Main : Form
     {
-        const string VERSION = "v0.36";
-
         List<HCity> hCityList = new List<HCity>();
         List<HSystem> hSystemList = new List<HSystem>();
         List<HShip> hShipList = new List<HShip>();
@@ -49,7 +47,6 @@ namespace HazeronAdviser
         {
             InitializeComponent();
 
-            this.Text += " " + VERSION;
 #if DEBUG
             this.Text += " (DEBUG MODE)";
 #endif
@@ -1135,7 +1132,7 @@ namespace HazeronAdviser
                 "   HazeronAdviser" + Environment.NewLine +
                 "" + Environment.NewLine +
                 "Version:" + Environment.NewLine +
-                "   " + VERSION + Environment.NewLine +
+                "   v" + Application.ProductVersion + Environment.NewLine +
                 "" + Environment.NewLine +
                 "Creator:" + Environment.NewLine +
                 "   Deantwo" + Environment.NewLine +
