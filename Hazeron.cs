@@ -45,6 +45,7 @@ namespace HazeronAdviser
             _dateTimeFormat.FullDateTimePattern = "yyyy-MM-dd HH:mm"; // TimeDate format information: http://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
         }
 
+        public static bool ValidID(string id)
         {
             System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"^[A-Z]+$");
             System.Text.RegularExpressions.Match regexMatch = regex.Match(id);
