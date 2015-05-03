@@ -12,15 +12,15 @@ namespace HazeronAdviser
 
         public const int CurrencyPadding = 16;
 
-        static protected NumberFormatInfo _numberFormat;
-        static public NumberFormatInfo NumberFormat
+        protected static NumberFormatInfo _numberFormat;
+        public static NumberFormatInfo NumberFormat
         {
             get { return _numberFormat; }
             //set { _numberFormat = value; }
         }
 
-        static protected DateTimeFormatInfo _dateTimeFormat;
-        static public DateTimeFormatInfo DateTimeFormat
+        protected static DateTimeFormatInfo _dateTimeFormat;
+        public static DateTimeFormatInfo DateTimeFormat
         {
             get { return _dateTimeFormat; }
             //set { _dateTimeFormat = value; }
@@ -43,6 +43,12 @@ namespace HazeronAdviser
             _numberFormat.PositiveInfinitySymbol = "∞";
             _dateTimeFormat = tempCulture.DateTimeFormat;
             _dateTimeFormat.FullDateTimePattern = "yyyy-MM-dd HH:mm"; // TimeDate format information: http://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
+        }
+
+        {
+            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"^[A-Z]+$");
+            System.Text.RegularExpressions.Match regexMatch = regex.Match(id);
+            return (id == null || id == "" || !regexMatch.Success);
         }
     }
 }
