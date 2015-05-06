@@ -26,6 +26,13 @@ namespace HazeronAdviser
             //set { _dateTimeFormat = value; }
         }
 
+        protected static string[] _pirateEmpires;
+        public static string[] PirateEmpires
+        {
+            get { return _pirateEmpires; }
+            //set { _pirateEmpires = value; }
+        }
+
         static Hazeron()
         {
             System.Globalization.CultureInfo tempCulture = new System.Globalization.CultureInfo("en-US");
@@ -43,6 +50,23 @@ namespace HazeronAdviser
             _numberFormat.PositiveInfinitySymbol = "∞";
             _dateTimeFormat = tempCulture.DateTimeFormat;
             _dateTimeFormat.FullDateTimePattern = "yyyy-MM-dd HH:mm"; // TimeDate format information: http://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
+
+            _pirateEmpires = new string[] { "Akson"
+                                          , "Balorite"
+                                          , "Dendrae"
+                                          , "Haxu"
+                                          , "Kla'tra"
+                                          , "Malaco"
+                                          , "Myntaka"
+                                          , "Ogar"
+                                          , "Otari"
+                                          , "Seledon"
+                                          , "Syth"
+                                          , "Tassad"
+                                          , "Vilmorti"
+                                          , "Vreen"
+                                          , "Zuul"
+                                          };
         }
 
         public static bool ValidID(string id)

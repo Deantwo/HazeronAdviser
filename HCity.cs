@@ -333,7 +333,7 @@ namespace HazeronAdviser
             {
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineDISTRESS));
                 //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _overview = "[color=red]" + tempSection + "[/color]";
+                _overview = "[color=red]" + "Distress:" + Environment.NewLine + "  " + tempSection.Substring(("DISTRESS" + Environment.NewLine).Length).Replace(Environment.NewLine, Environment.NewLine + "  ") +"[/color]";
                 decaying = tempSection.Contains("<span style=\"color: rgb(255, 255, 0);\">City is decaying.<br></span>");
             }
 
@@ -343,7 +343,9 @@ namespace HazeronAdviser
             {
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineEVENT));
                 //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _overview = tempSection;
+                if (_overview != "")
+                    _overview += Environment.NewLine + Environment.NewLine;
+                _overview += HCity.EventLogStyle(tempSection);
             }
 
             // MORALE & Abandonment

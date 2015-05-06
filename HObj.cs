@@ -7,6 +7,22 @@ namespace HazeronAdviser
 {
     class HObj
     {
+        public static string EventLogStyle(string log)
+        {
+            log = log.Replace("EVENT LOG", "Event Log:");
+            log = log.Replace("Time" + Environment.NewLine + "Note", "Time               Note");
+            while (log.Contains(Environment.NewLine + "UTC:"))
+            {
+                int utcIndex = log.IndexOf(Environment.NewLine + "UTC:") + Environment.NewLine.Length;
+                log = log.Remove(utcIndex) + HMail.DecodeUTC(log.Substring(utcIndex, 12)).ToString("F", Hazeron.DateTimeFormat) + "   " + log.Substring(utcIndex + 12 + Environment.NewLine.Length);
+            }
+            log = log.Replace(Environment.NewLine, Environment.NewLine + "  ");
+            log = log.Replace(". ", "." + Environment.NewLine + "                     ");
+            log = log.Replace("! ", "!" + Environment.NewLine + "                     ");
+            log = log.Replace("? ", "?" + Environment.NewLine + "                     ");
+            return log;
+        }
+
         protected string _name = "-"; // Name of the sender (city, ship, etc), this can change at any time.
         public string Name
         {
@@ -268,7 +284,7 @@ namespace HazeronAdviser
             {
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineEVENT));
                 //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _overview = tempSection;
+                _overview = HShip.EventLogStyle(tempSection);
             }
 
             // Decay
@@ -370,10 +386,7 @@ namespace HazeronAdviser
             _officerHome = "<system name>" + ", " + HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
 
             // Overview
-            _overview = _accountOverview;
-            _overview += Environment.NewLine;
-            _overview += Environment.NewLine;
-            _overview += _cargoOverview;
+            //_overview = "WIP";
 
             // AttentionCodes
             if (abandonment <= 14) // 2 weeks until decay.
@@ -441,7 +454,21 @@ namespace HazeronAdviser
             }
 
             // Overview
-            _overview = "WIP";
+            _overview = "Location:" + Environment.NewLine;
+            _overview += "  " + _systemName + Environment.NewLine;
+            _overview += "  " + _planetName + Environment.NewLine;
+            _overview += Environment.NewLine;
+            _overview = "Officer:" + Environment.NewLine;
+            _overview += "  " + _name + Environment.NewLine;
+            _overview += Environment.NewLine;
+            _overview += "Officer Home:" + Environment.NewLine;
+            _overview += "  " + _home.Replace(", ", Environment.NewLine + "  ");
+            if (_mail.MessageType == 0x14) // MSG_OfficerContact
+            {
+                _overview += Environment.NewLine + Environment.NewLine;
+                _overview += "Stationed ship:" + Environment.NewLine;
+                _overview += "  " + _ship;
+            }
 
             // AttentionCodes
             if (_mail.MessageType == 0x14) // MSG_OfficerContact
@@ -510,23 +537,100 @@ namespace HazeronAdviser
             }
             else if (_messageType == 0x12) // MSG_ShipLogFinal
             {
-                // ?
+                subStart = _mail.Body.IndexOf("<p>") + 3; // "<p>".Length == 3
+                subEnd = _mail.Body.Substring(subStart).IndexOf("<div style");
+                string officerName = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
+                subStart = _mail.Body.IndexOf("I was deployed from ") + 20; // "I was deployed from ".Length == 20
+                subEnd = _mail.Body.Substring(subStart).IndexOf(" in ");
+                string officerHome = "<system name>" + ", " + HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
+                List<string> sectionsInReport = new List<string>{ "<b>SPACECRAFT DESTROYED</b>" };
+                if (_mail.Body.Contains("<b>EVENT LOG</b>"))
+                    sectionsInReport.Add("<b>EVENT LOG</b>");
+                string shipDestruction = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, "<b>SPACECRAFT DESTROYED</b>"));
+                shipDestruction = shipDestruction.Substring(("SPACECRAFT DESTROYED" + Environment.NewLine).Length);
+                shipDestruction = shipDestruction.Replace(Environment.NewLine, Environment.NewLine + "  ");
+                shipDestruction = shipDestruction.Replace(". ", "." + Environment.NewLine + "  ");
+                shipDestruction = shipDestruction.Replace("! ", "!" + Environment.NewLine + "  ");
+                shipDestruction = shipDestruction.Replace("? ", "?" + Environment.NewLine + "  ");
+                string shipEvent = "";
+                if (sectionsInReport.Contains("<b>EVENT LOG</b>"))
+                {
+                    shipEvent = HEvent.EventLogStyle(HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, "<b>EVENT LOG</b>")));
+                }
+                _overview = "Location:" + Environment.NewLine;
+                _overview += "  " + _systemName + Environment.NewLine;
+                _overview += "  " + _planetName + Environment.NewLine;
+                _overview += Environment.NewLine;
+                _overview += "Ship:" + Environment.NewLine;
+                _overview += "  " + _name + Environment.NewLine;
+                _overview += Environment.NewLine;
+                _overview += "Officer:" + Environment.NewLine;
+                _overview += "  " + officerName + Environment.NewLine;
+                _overview += Environment.NewLine;
+                _overview += "Officer Home:" + Environment.NewLine;
+                _overview += "  " + officerHome.Replace(", ", Environment.NewLine + "  ") + Environment.NewLine;
+                _overview += Environment.NewLine;
+                _overview += "[color=red]Cause of destruction:" + Environment.NewLine;
+                _overview += "  " + shipDestruction + "[/color]" + Environment.NewLine;
+                if (shipEvent != "")
+                {
+                    _overview += Environment.NewLine;
+                    _overview += shipEvent;
+                }
             }
             else if (_messageType == 0x13) // MSG_Government
             {
-                // ?
+                if (_name == "State Department")
+                {
+                    string tempSection = HHelper.CleanText(_mail.Body);
+                    tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                    string empireName = tempArray[tempArray.Length - 6].Substring(4);
+                    string empireEncounter = tempArray[tempArray.Length - 4];
+                    string empireStance = tempArray[tempArray.Length - 3];
+
+                    _overview = "Location:" + Environment.NewLine;
+                    _overview += "  " + _systemName + Environment.NewLine;
+                    _overview += "  " + _planetName + Environment.NewLine;
+                    _overview += Environment.NewLine;
+                    _overview += "Empire:" + Environment.NewLine;
+                    if (Hazeron.PirateEmpires.Contains(empireName))
+                        _overview += "  [color=red]" + empireName + " (NPC pirate empire)[/color]" + Environment.NewLine;
+                    else
+                        _overview += "  " + empireName + Environment.NewLine;
+                    _overview += Environment.NewLine;
+                    _overview += "Encounter:" + Environment.NewLine;
+                    _overview += "  " + empireEncounter + Environment.NewLine;
+                    _overview += Environment.NewLine;
+                    _overview += "Stance taken:" + Environment.NewLine;
+                    if (!empireStance.Contains("competitive"))
+                        _overview += "  " + empireStance + Environment.NewLine;
+                    else
+                        _overview += "  [color=red]" + empireStance + "[/color]" + Environment.NewLine;
+                }
+                else if (_name == "War Department")
+                {
+                    // ?
+                }
+                else if (_name == "Treasury Department")
+                {
+                    // Levy Tax?
+                }
             }
             else if (_messageType == 0x16) // MSG_OfficerDeath
             {
                 string tempSection = HHelper.CleanText(_mail.Body);
                 tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                string officerDeath = tempArray[tempArray.Length - 3];
+                officerDeath = officerDeath.Replace(". ", "." + Environment.NewLine + "  ");
+                officerDeath = officerDeath.Replace("! ", "!" + Environment.NewLine + "  ");
+                officerDeath = officerDeath.Replace("? ", "?" + Environment.NewLine + "  ");
 
                 _overview = "Location:" + Environment.NewLine;
                 _overview += "  " + _systemName + Environment.NewLine;
                 _overview += "  " + _planetName + Environment.NewLine;
                 _overview += Environment.NewLine;
                 _overview += "[color=red]Cause of death:" + Environment.NewLine;
-                _overview += "  " + tempArray[tempArray.Length - 3].Replace(". ", "." + Environment.NewLine + "  ") + "[/color]";
+                _overview += "  " + officerDeath + "[/color]";
             }
             else if (_messageType == 0x17) // MSG_CityFinalDecayReport
             {
@@ -534,7 +638,24 @@ namespace HazeronAdviser
             }
             else if (_messageType == 0x18) // MSG_DiplomaticMessage
             {
-                // ?
+                string tempSection = HHelper.CleanText(_mail.Body);
+                tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                string diplomat = tempArray[tempArray.Length - 2];
+                diplomat = diplomat.Remove(diplomat.IndexOf(" has asked"));
+                string diplomaticMessage = tempArray[tempArray.Length - 1];
+                diplomaticMessage = diplomaticMessage.Replace(". ", "." + Environment.NewLine + "  ");
+                diplomaticMessage = diplomaticMessage.Replace("! ", "!" + Environment.NewLine + "  ");
+                diplomaticMessage = diplomaticMessage.Replace("? ", "?" + Environment.NewLine + "  ");
+
+                _overview = "Location:" + Environment.NewLine;
+                _overview += "  " + _systemName + Environment.NewLine;
+                _overview += "  " + _planetName + Environment.NewLine;
+                _overview += Environment.NewLine;
+                _overview += "Diplomat:" + Environment.NewLine;
+                _overview += "  " + diplomat + Environment.NewLine;
+                _overview += Environment.NewLine;
+                _overview += "Diplomatic Message:" + Environment.NewLine;
+                _overview += "  " + diplomaticMessage;
             }
 
             // AttentionCodes
