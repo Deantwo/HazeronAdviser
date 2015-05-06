@@ -268,12 +268,7 @@ namespace HazeronAdviser
         {
             if (_mail.Body.Remove(4) == "UTC:")
             {
-                string utcHexTimestamp = _mail.Body.Substring(4, 8);
-                int secondsAfterEpoch = Int32.Parse(utcHexTimestamp, System.Globalization.NumberStyles.HexNumber);
-                DateTime epoch = new DateTime(1970, 1, 1);
-                epoch = epoch.AddSeconds(secondsAfterEpoch);
-                epoch = TimeZoneInfo.ConvertTimeFromUtc(epoch, TimeZoneInfo.Local);
-                _lastUpdated = epoch;
+                _lastUpdated = HMail.DecodeUTC(_mail.Body.Remove(12));
             }
 
             // String working vars.

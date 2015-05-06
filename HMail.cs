@@ -133,6 +133,16 @@ namespace HazeronAdviser
         {
             return IsShipReport(HMail.Read(filePath));
         }
+
+        public static DateTime DecodeUTC(string utc)
+        {
+            string utcHexTimestamp = utc.Substring(4, 8);
+            int secondsAfterEpoch = Int32.Parse(utcHexTimestamp, System.Globalization.NumberStyles.HexNumber);
+            DateTime dt = new DateTime(1970, 1, 1);
+            dt = dt.AddSeconds(secondsAfterEpoch);
+            dt = TimeZoneInfo.ConvertTimeFromUtc(dt, TimeZoneInfo.Local);
+            return dt;
+        }
         #endregion
 
         // Anr's mail header info sheet: http://goo.gl/E0yoYd
