@@ -429,7 +429,7 @@ namespace HazeronAdviser
                 //subStart = _mail.Body.IndexOf("Assignment Request on ") + 22; // "Assignment Request on ".Length == 22
                 //subEnd = _mail.Body.IndexOf("<br><br>Commander,") - subStart;
                 //_home = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
-                _home = _planetName + ", " + _systemName;
+                _home = _systemName + ", " + _planetName;
                 _ship = "";
             }
             else if (_mail.MessageType == 0x14) // MSG_OfficerContact
