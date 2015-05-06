@@ -59,7 +59,7 @@ namespace HazeronAdviser
             get { return _cities; }
         }
 
-        protected string _moraleOverview = "-";
+        protected string _moraleOverview = "";
         public string MoraleOverview
         {
             get { return _moraleOverview; }
@@ -99,7 +99,7 @@ namespace HazeronAdviser
             get { return _loyaltyColumn; }
         }
 
-        protected string _populationOverview = "-";
+        protected string _populationOverview = "";
         public string PopulationOverview
         {
             get { return _populationOverview; }

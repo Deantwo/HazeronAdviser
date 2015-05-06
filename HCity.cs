@@ -19,7 +19,19 @@ namespace HazeronAdviser
             get { return _empireCapital; }
         }
 
-        protected string _moraleOverview = "-";
+        protected string _distressOverview = "";
+        public string DistressOverview
+        {
+            get { return _distressOverview; }
+        }
+
+        protected string _eventOverview = "";
+        public string EventOverview
+        {
+            get { return _eventOverview; }
+        }
+
+        protected string _moraleOverview = "";
         public string MoraleOverview
         {
             get { return _moraleOverview; }
@@ -237,7 +249,7 @@ namespace HazeronAdviser
             get { return _bankTribute; }
         }
 
-        protected string _bankOverview = "-", _bankGovBalanceColumn = "-", _bankTributeColumn = "-";
+        protected string _bankOverview = "", _bankGovBalanceColumn = "-", _bankTributeColumn = "-";
         public string BankOverview
         {
             get { return _bankOverview; }
@@ -333,7 +345,7 @@ namespace HazeronAdviser
             {
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineDISTRESS));
                 //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _overview = "[color=red]" + "Distress:" + Environment.NewLine + "  " + tempSection.Substring(("DISTRESS" + Environment.NewLine).Length).Replace(Environment.NewLine, Environment.NewLine + "  ") +"[/color]";
+                _distressOverview = "[color=red]" + "Distress:" + Environment.NewLine + "  " + tempSection.Substring(("DISTRESS" + Environment.NewLine).Length).Replace(Environment.NewLine, Environment.NewLine + "  ") + "[/color]";
                 decaying = tempSection.Contains("<span style=\"color: rgb(255, 255, 0);\">City is decaying.<br></span>");
             }
 
@@ -343,9 +355,7 @@ namespace HazeronAdviser
             {
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineEVENT));
                 //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                if (_overview != "")
-                    _overview += Environment.NewLine + Environment.NewLine;
-                _overview += HCity.EventLogStyle(tempSection);
+                _eventOverview += HCity.EventLogStyle(tempSection);
             }
 
             // MORALE & Abandonment
@@ -897,8 +907,15 @@ namespace HazeronAdviser
             _bankOverview += Environment.NewLine + " " + (_bankGovBalance - _bankGovBalanceOld).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account net-change";
             _bankOverview += Environment.NewLine + " " + _bankGovBalance.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account balance";
 
-            //// Overview
-            //_overview = "WIP";
+            // Overview
+            _overview = "Location:" + Environment.NewLine;
+            _overview += "  " + _systemName + Environment.NewLine;
+            _overview += "  " + _planetName + Environment.NewLine;
+            _overview += "  Zone " + _zone;
+            if (_distressOverview != "")
+                _overview += Environment.NewLine + Environment.NewLine + _distressOverview;
+            if (_eventOverview != "")
+                _overview += Environment.NewLine + Environment.NewLine + _eventOverview;
 
             // AttentionCodes
             if ((_jobs >= _homes) || (((float)(_homes - _jobs) / _homes) > 0.2)) // Overworked, or too much unemployment.

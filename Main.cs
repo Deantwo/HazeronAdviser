@@ -380,7 +380,7 @@ namespace HazeronAdviser
                     dgvOfficer.Rows[row].Cells["ColumnOfficerSelection"].Value = false;
                     dgvOfficer.Rows[row].Cells["ColumnOfficerIcon"].Value = imageOfficer;
                     dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Value = hOfficer.Name;
-                    dgvOfficer.Rows[row].Cells["ColumnOfficerHome"].Value = hOfficer.Home;
+                    dgvOfficer.Rows[row].Cells["ColumnOfficerHome"].Value = hOfficer.HomeSystem + ", " + hOfficer.HomePlanet;
                     dgvOfficer.Rows[row].Cells["ColumnOfficerShip"].Value = hOfficer.Ship;
                     dgvOfficer.Rows[row].Cells["ColumnOfficerDate"].Value = hOfficer.LastUpdaredString;
                     // AttentionCodes
@@ -417,7 +417,7 @@ namespace HazeronAdviser
                     dgvOfficer.Rows[row].Cells["ColumnOfficerSelection"].Value = false;
                     dgvOfficer.Rows[row].Cells["ColumnOfficerIcon"].Value = imageShip;
                     dgvOfficer.Rows[row].Cells["ColumnOfficerName"].Value = hShipOfficer.OfficerName;
-                    dgvOfficer.Rows[row].Cells["ColumnOfficerHome"].Value = hShipOfficer.OfficerHome;
+                    dgvOfficer.Rows[row].Cells["ColumnOfficerHome"].Value = hShipOfficer.OfficerHomeSystem + ", " + hShipOfficer.OfficerHomePlanet;
                     dgvOfficer.Rows[row].Cells["ColumnOfficerShip"].Value = hShipOfficer.Name;
                     dgvOfficer.Rows[row].Cells["ColumnOfficerDate"].Value = hShipOfficer.LastUpdaredString;
                     // AttentionCodes
@@ -675,13 +675,13 @@ namespace HazeronAdviser
                 if (listIndex >= 0)
                 {
                     HOfficer officer = hOfficerList[listIndex];
-                    RichBBCodeBox(rtbOfficerOverview,officer.Overview);
+                    RichBBCodeBox(rtbOfficerOverview, officer.Overview);
                     tbxOfficer.Text = officer.MailBody;
                 }
                 else
                 {
                     HShip ship = hShipList[Math.Abs(listIndex) - 1];
-                    RichBBCodeBox(rtbOfficerOverview, ship.Overview);
+                    RichBBCodeBox(rtbOfficerOverview, ship.OfficerOverview);
                     tbxOfficer.Text = ship.MailBody;
                 }
             }

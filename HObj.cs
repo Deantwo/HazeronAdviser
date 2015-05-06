@@ -161,7 +161,7 @@ namespace HazeronAdviser
             get { return _abandonmentColumn; }
         }
 
-        protected string _damageOverview = "-";
+        protected string _damageOverview = "";
         public string DamageOverview
         {
             get { return _damageOverview; }
@@ -173,7 +173,7 @@ namespace HazeronAdviser
             get { return _damageColumn; }
         }
 
-        protected string _accountOverview = "-";
+        protected string _accountOverview = "";
         public string AccountOverview
         {
             get { return _accountOverview; }
@@ -191,7 +191,7 @@ namespace HazeronAdviser
             get { return _accountBalance; }
         }
 
-        protected string _fuelOverview = "-";
+        protected string _fuelOverview = "";
         public string FuelOverview
         {
             get { return _fuelOverview; }
@@ -203,7 +203,7 @@ namespace HazeronAdviser
             get { return _fuelColumn; }
         }
 
-        protected string _cargoOverview = "-";
+        protected string _cargoOverview = "";
         public string CargoOverview
         {
             get { return _cargoOverview; }
@@ -215,7 +215,7 @@ namespace HazeronAdviser
             get { return _cargoColumn; }
         }
 
-        protected string _missionOverview = "-";
+        protected string _missionOverview = "";
         public string MissionOverview
         {
             get { return _missionOverview; }
@@ -227,7 +227,7 @@ namespace HazeronAdviser
             get { return _missionColumn; }
         }
 
-        protected string _rosterOverview = "-";
+        protected string _rosterOverview = "";
         public string RosterOverview
         {
             get { return _rosterOverview; }
@@ -244,10 +244,27 @@ namespace HazeronAdviser
         {
             get { return _officerName; }
         }
-        protected string _officerHome = "-";
-        public string OfficerHome
+        protected string _officerHomeSystem = "-";
+        public string OfficerHomeSystem
         {
-            get { return _officerHome; }
+            get { return _officerHomeSystem; }
+        }
+        protected string _officerHomePlanet = "-";
+        public string OfficerHomePlanet
+        {
+            get { return _officerHomePlanet; }
+        }
+
+        protected string _eventOverview = "";
+        public string EventOverview
+        {
+            get { return _eventOverview; }
+        }
+
+        protected string _officerOverview = "";
+        public string OfficerOverview
+        {
+            get { return _officerOverview; }
         }
 
         public HShip(HMail mail)
@@ -284,7 +301,7 @@ namespace HazeronAdviser
             {
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineEVENT));
                 //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _overview = HShip.EventLogStyle(tempSection);
+                _eventOverview = HShip.EventLogStyle(tempSection);
             }
 
             // Decay
@@ -381,12 +398,32 @@ namespace HazeronAdviser
             subEnd = _mail.Body.Substring(subStart).IndexOf("<div style");
             _officerName = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
             //// Home
+            _officerHomeSystem = "<system name>";
             subStart = _mail.Body.IndexOf("I was deployed from ") + 20; // "I was deployed from ".Length == 20
             subEnd = _mail.Body.Substring(subStart).IndexOf(" in ");
-            _officerHome = "<system name>" + ", " + HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
+            _officerHomePlanet = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
+
+            // Officer Overview
+            _officerOverview = "Location:" + Environment.NewLine;
+            _officerOverview += "  " + _systemName + Environment.NewLine;
+            _officerOverview += "  " + _planetName + Environment.NewLine;
+            _officerOverview += Environment.NewLine;
+            _officerOverview += "Officer:" + Environment.NewLine;
+            _officerOverview += "  " + _officerName + Environment.NewLine;
+            _officerOverview += Environment.NewLine;
+            _officerOverview += "Officer Home:" + Environment.NewLine;
+            _officerOverview += "  " + _officerHomeSystem;
+            _officerOverview += "  " + _officerHomePlanet;
+            _officerOverview += Environment.NewLine + Environment.NewLine;
+            _officerOverview += "Stationed ship:" + Environment.NewLine;
+            _officerOverview += "  " + _name;
 
             // Overview
-            //_overview = "WIP";
+            _overview = "Location:" + Environment.NewLine;
+            _overview += "  " + _systemName + Environment.NewLine;
+            _overview += "  " + _planetName + Environment.NewLine;
+            _overview += Environment.NewLine;
+            _overview += _eventOverview;
 
             // AttentionCodes
             if (abandonment <= 14) // 2 weeks until decay.
@@ -412,10 +449,15 @@ namespace HazeronAdviser
 
     class HOfficer : HObj
     {
-        protected string _home = "-";
-        public string Home
+        protected string _homeSystem = "-";
+        public string HomeSystem
         {
-            get { return _home; }
+            get { return _homeSystem; }
+        }
+        protected string _homePlanet = "-";
+        public string HomePlanet
+        {
+            get { return _homePlanet; }
         }
 
         protected string _ship = "-";
@@ -439,17 +481,19 @@ namespace HazeronAdviser
 
             if (_mail.MessageType == 0x0C) // MSG_OfficerReady
             {
+                _homeSystem = _systemName;
                 //subStart = _mail.Body.IndexOf("Assignment Request on ") + 22; // "Assignment Request on ".Length == 22
                 //subEnd = _mail.Body.IndexOf("<br><br>Commander,") - subStart;
-                //_home = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
-                _home = _systemName + ", " + _planetName;
+                //_homePlanet = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
+                _homePlanet = _planetName;
                 _ship = "";
             }
             else if (_mail.MessageType == 0x14) // MSG_OfficerContact
             {
+                _homeSystem = "<system name>";
                 subStart = _mail.Body.IndexOf("I was deployed from ") + 20; // "I was deployed from ".Length == 20
                 subEnd = _mail.Body.Substring(subStart).IndexOf(" in ");
-                _home = "<system name>" + ", " + HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
+                _homePlanet = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
                 _ship = "<ship name>";
             }
 
@@ -458,11 +502,12 @@ namespace HazeronAdviser
             _overview += "  " + _systemName + Environment.NewLine;
             _overview += "  " + _planetName + Environment.NewLine;
             _overview += Environment.NewLine;
-            _overview = "Officer:" + Environment.NewLine;
+            _overview += "Officer:" + Environment.NewLine;
             _overview += "  " + _name + Environment.NewLine;
             _overview += Environment.NewLine;
             _overview += "Officer Home:" + Environment.NewLine;
-            _overview += "  " + _home.Replace(", ", Environment.NewLine + "  ");
+            _overview += "  " + _homeSystem;
+            _overview += "  " + _homePlanet;
             if (_mail.MessageType == 0x14) // MSG_OfficerContact
             {
                 _overview += Environment.NewLine + Environment.NewLine;
@@ -540,9 +585,10 @@ namespace HazeronAdviser
                 subStart = _mail.Body.IndexOf("<p>") + 3; // "<p>".Length == 3
                 subEnd = _mail.Body.Substring(subStart).IndexOf("<div style");
                 string officerName = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
+                string officerHomeSystem = "<system name>";
                 subStart = _mail.Body.IndexOf("I was deployed from ") + 20; // "I was deployed from ".Length == 20
                 subEnd = _mail.Body.Substring(subStart).IndexOf(" in ");
-                string officerHome = "<system name>" + ", " + HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
+                string officerHomePlanet = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
                 List<string> sectionsInReport = new List<string>{ "<b>SPACECRAFT DESTROYED</b>" };
                 if (_mail.Body.Contains("<b>EVENT LOG</b>"))
                     sectionsInReport.Add("<b>EVENT LOG</b>");
@@ -557,6 +603,7 @@ namespace HazeronAdviser
                 {
                     shipEvent = HEvent.EventLogStyle(HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, "<b>EVENT LOG</b>")));
                 }
+
                 _overview = "Location:" + Environment.NewLine;
                 _overview += "  " + _systemName + Environment.NewLine;
                 _overview += "  " + _planetName + Environment.NewLine;
@@ -568,7 +615,8 @@ namespace HazeronAdviser
                 _overview += "  " + officerName + Environment.NewLine;
                 _overview += Environment.NewLine;
                 _overview += "Officer Home:" + Environment.NewLine;
-                _overview += "  " + officerHome.Replace(", ", Environment.NewLine + "  ") + Environment.NewLine;
+                _overview += "  " + officerHomeSystem + Environment.NewLine;
+                _overview += "  " + officerHomePlanet + Environment.NewLine;
                 _overview += Environment.NewLine;
                 _overview += "[color=red]Cause of destruction:" + Environment.NewLine;
                 _overview += "  " + shipDestruction + "[/color]" + Environment.NewLine;
@@ -618,6 +666,8 @@ namespace HazeronAdviser
             }
             else if (_messageType == 0x16) // MSG_OfficerDeath
             {
+                string officerHomeSystem = "<system name>";
+                string officerHomePlanet = "<planet name>";
                 string tempSection = HHelper.CleanText(_mail.Body);
                 tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 string officerDeath = tempArray[tempArray.Length - 3];
@@ -628,6 +678,13 @@ namespace HazeronAdviser
                 _overview = "Location:" + Environment.NewLine;
                 _overview += "  " + _systemName + Environment.NewLine;
                 _overview += "  " + _planetName + Environment.NewLine;
+                _overview += Environment.NewLine;
+                _overview += "Officer:" + Environment.NewLine;
+                _overview += "  " + _name + Environment.NewLine;
+                _overview += Environment.NewLine;
+                _overview += "Officer Home:" + Environment.NewLine;
+                _overview += "  " + officerHomeSystem + Environment.NewLine;
+                _overview += "  " + officerHomePlanet + Environment.NewLine;
                 _overview += Environment.NewLine;
                 _overview += "[color=red]Cause of death:" + Environment.NewLine;
                 _overview += "  " + officerDeath + "[/color]";
