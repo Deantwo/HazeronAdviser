@@ -55,6 +55,12 @@ namespace HazeronAdviser
             //notifyIcon1.Text = this.Text;
             //notifyIcon1.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
+            // Hidden these SplitContainer Panels while they remain unused.
+            splitContainerCityBank.Panel1Collapsed = true;
+            splitContainerShipOverview.Panel1Collapsed = true;
+            splitContainerOfficerOverview.Panel1Collapsed = true;
+            splitContainerEventOverview.Panel1Collapsed = true;
+
             toolStripProgressBar1.Visible = false;
             toolStripProgressBar2.Visible = false;
 

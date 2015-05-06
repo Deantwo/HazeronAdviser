@@ -57,6 +57,20 @@
             this.tabCity = new System.Windows.Forms.TabPage();
             this.splitContainerCity = new System.Windows.Forms.SplitContainer();
             this.dgvCity = new System.Windows.Forms.DataGridView();
+            this.ColumnCityIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCitySelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ColumnCityIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ColumnCityName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityMoraleModifiers = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityMorale = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityLivingConditions = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityPopulation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityLoyalty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityTribute = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCityDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlCity = new System.Windows.Forms.TabControl();
             this.tabCityOverview = new System.Windows.Forms.TabPage();
             this.splitContainerCityOverview = new System.Windows.Forms.SplitContainer();
@@ -166,20 +180,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1HelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1HelpHowToUse = new System.Windows.Forms.ToolStripMenuItem();
-            this.ColumnCityIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCitySelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ColumnCityIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ColumnCityName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityMoraleModifiers = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityMorale = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityLivingConditions = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityPopulation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityLoyalty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityTribute = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCityDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -311,12 +311,12 @@
             // toolStripProgressBar1
             // 
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 18);
             // 
             // toolStripProgressBar2
             // 
             this.toolStripProgressBar2.Name = "toolStripProgressBar2";
-            this.toolStripProgressBar2.Size = new System.Drawing.Size(100, 16);
+            this.toolStripProgressBar2.Size = new System.Drawing.Size(100, 18);
             // 
             // toolStripStatusLabel1
             // 
@@ -325,7 +325,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.toolStripStatusLabel1.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(418, 19);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(571, 19);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.Text = "Ready";
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -355,7 +355,7 @@
             // splitContainerShip.Panel2
             // 
             this.splitContainerShip.Panel2.Controls.Add(this.tabControlShip);
-            this.splitContainerShip.Size = new System.Drawing.Size(752, 395);
+            this.splitContainerShip.Size = new System.Drawing.Size(752, 393);
             this.splitContainerShip.SplitterDistance = 331;
             this.splitContainerShip.TabIndex = 5;
             // 
@@ -386,7 +386,7 @@
             this.dgvShip.ReadOnly = true;
             this.dgvShip.RowHeadersVisible = false;
             this.dgvShip.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvShip.Size = new System.Drawing.Size(331, 395);
+            this.dgvShip.Size = new System.Drawing.Size(331, 393);
             this.dgvShip.TabIndex = 2;
             this.dgvShip.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvShip.SelectionChanged += new System.EventHandler(this.dgvShip_SelectionChanged);
@@ -483,7 +483,7 @@
             this.tabControlShip.Location = new System.Drawing.Point(0, 0);
             this.tabControlShip.Name = "tabControlShip";
             this.tabControlShip.SelectedIndex = 0;
-            this.tabControlShip.Size = new System.Drawing.Size(417, 395);
+            this.tabControlShip.Size = new System.Drawing.Size(417, 393);
             this.tabControlShip.TabIndex = 2;
             // 
             // tabShipOverview
@@ -492,7 +492,7 @@
             this.tabShipOverview.Location = new System.Drawing.Point(4, 22);
             this.tabShipOverview.Name = "tabShipOverview";
             this.tabShipOverview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabShipOverview.Size = new System.Drawing.Size(409, 369);
+            this.tabShipOverview.Size = new System.Drawing.Size(409, 367);
             this.tabShipOverview.TabIndex = 0;
             this.tabShipOverview.Text = "Overview";
             this.tabShipOverview.UseVisualStyleBackColor = true;
@@ -511,8 +511,8 @@
             // splitContainerShipOverview.Panel2
             // 
             this.splitContainerShipOverview.Panel2.Controls.Add(this.rtbShipOverview);
-            this.splitContainerShipOverview.Size = new System.Drawing.Size(403, 363);
-            this.splitContainerShipOverview.SplitterDistance = 161;
+            this.splitContainerShipOverview.Size = new System.Drawing.Size(403, 361);
+            this.splitContainerShipOverview.SplitterDistance = 160;
             this.splitContainerShipOverview.TabIndex = 1;
             // 
             // pShipOverview
@@ -522,7 +522,7 @@
             this.pShipOverview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pShipOverview.Location = new System.Drawing.Point(0, 0);
             this.pShipOverview.Name = "pShipOverview";
-            this.pShipOverview.Size = new System.Drawing.Size(403, 161);
+            this.pShipOverview.Size = new System.Drawing.Size(403, 160);
             this.pShipOverview.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pShipOverview, "WIP");
             this.pShipOverview.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
@@ -531,10 +531,11 @@
             // 
             this.rtbShipOverview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbShipOverview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbShipOverview.Font = new System.Drawing.Font("Lucida Console", 8.25F);
             this.rtbShipOverview.Location = new System.Drawing.Point(0, 0);
             this.rtbShipOverview.Name = "rtbShipOverview";
             this.rtbShipOverview.ReadOnly = true;
-            this.rtbShipOverview.Size = new System.Drawing.Size(403, 198);
+            this.rtbShipOverview.Size = new System.Drawing.Size(403, 197);
             this.rtbShipOverview.TabIndex = 1;
             this.rtbShipOverview.Text = "";
             this.rtbShipOverview.WordWrap = false;
@@ -632,6 +633,118 @@
             this.dgvCity.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgv_SortCompare);
             this.dgvCity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
             // 
+            // ColumnCityIndex
+            // 
+            this.ColumnCityIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnCityIndex.FillWeight = 20F;
+            this.ColumnCityIndex.Frozen = true;
+            this.ColumnCityIndex.HeaderText = "# Index";
+            this.ColumnCityIndex.MinimumWidth = 20;
+            this.ColumnCityIndex.Name = "ColumnCityIndex";
+            this.ColumnCityIndex.ReadOnly = true;
+            this.ColumnCityIndex.Visible = false;
+            this.ColumnCityIndex.Width = 20;
+            // 
+            // ColumnCitySelection
+            // 
+            this.ColumnCitySelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnCitySelection.FillWeight = 20F;
+            this.ColumnCitySelection.Frozen = true;
+            this.ColumnCitySelection.HeaderText = "Selection";
+            this.ColumnCitySelection.MinimumWidth = 20;
+            this.ColumnCitySelection.Name = "ColumnCitySelection";
+            this.ColumnCitySelection.ReadOnly = true;
+            this.ColumnCitySelection.Visible = false;
+            this.ColumnCitySelection.Width = 20;
+            // 
+            // ColumnCityIcon
+            // 
+            this.ColumnCityIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnCityIcon.FillWeight = 20F;
+            this.ColumnCityIcon.Frozen = true;
+            this.ColumnCityIcon.HeaderText = "Icon";
+            this.ColumnCityIcon.MinimumWidth = 20;
+            this.ColumnCityIcon.Name = "ColumnCityIcon";
+            this.ColumnCityIcon.ReadOnly = true;
+            this.ColumnCityIcon.Width = 20;
+            // 
+            // ColumnCityName
+            // 
+            this.ColumnCityName.Frozen = true;
+            this.ColumnCityName.HeaderText = "Name";
+            this.ColumnCityName.Name = "ColumnCityName";
+            this.ColumnCityName.ReadOnly = true;
+            // 
+            // ColumnCityLocation
+            // 
+            this.ColumnCityLocation.HeaderText = "Location";
+            this.ColumnCityLocation.Name = "ColumnCityLocation";
+            this.ColumnCityLocation.ReadOnly = true;
+            // 
+            // ColumnCityAbandonment
+            // 
+            this.ColumnCityAbandonment.FillWeight = 90F;
+            this.ColumnCityAbandonment.HeaderText = "Abandonment";
+            this.ColumnCityAbandonment.Name = "ColumnCityAbandonment";
+            this.ColumnCityAbandonment.ReadOnly = true;
+            this.ColumnCityAbandonment.Width = 90;
+            // 
+            // ColumnCityMoraleModifiers
+            // 
+            this.ColumnCityMoraleModifiers.HeaderText = "Morale Mod";
+            this.ColumnCityMoraleModifiers.Name = "ColumnCityMoraleModifiers";
+            this.ColumnCityMoraleModifiers.ReadOnly = true;
+            // 
+            // ColumnCityMorale
+            // 
+            this.ColumnCityMorale.FillWeight = 112F;
+            this.ColumnCityMorale.HeaderText = "Morale";
+            this.ColumnCityMorale.Name = "ColumnCityMorale";
+            this.ColumnCityMorale.ReadOnly = true;
+            this.ColumnCityMorale.Width = 112;
+            // 
+            // ColumnCityLivingConditions
+            // 
+            this.ColumnCityLivingConditions.FillWeight = 112F;
+            this.ColumnCityLivingConditions.HeaderText = "Living Conditions";
+            this.ColumnCityLivingConditions.Name = "ColumnCityLivingConditions";
+            this.ColumnCityLivingConditions.ReadOnly = true;
+            this.ColumnCityLivingConditions.Width = 112;
+            // 
+            // ColumnCityPopulation
+            // 
+            this.ColumnCityPopulation.FillWeight = 118F;
+            this.ColumnCityPopulation.HeaderText = "Population";
+            this.ColumnCityPopulation.Name = "ColumnCityPopulation";
+            this.ColumnCityPopulation.ReadOnly = true;
+            this.ColumnCityPopulation.Width = 118;
+            // 
+            // ColumnCityLoyalty
+            // 
+            this.ColumnCityLoyalty.HeaderText = "Loyalty";
+            this.ColumnCityLoyalty.Name = "ColumnCityLoyalty";
+            this.ColumnCityLoyalty.ReadOnly = true;
+            // 
+            // ColumnCityBank
+            // 
+            this.ColumnCityBank.HeaderText = "Bank";
+            this.ColumnCityBank.Name = "ColumnCityBank";
+            this.ColumnCityBank.ReadOnly = true;
+            // 
+            // ColumnCityTribute
+            // 
+            this.ColumnCityTribute.HeaderText = "Tribute";
+            this.ColumnCityTribute.Name = "ColumnCityTribute";
+            this.ColumnCityTribute.ReadOnly = true;
+            // 
+            // ColumnCityDate
+            // 
+            this.ColumnCityDate.FillWeight = 107F;
+            this.ColumnCityDate.HeaderText = "Last Updated";
+            this.ColumnCityDate.Name = "ColumnCityDate";
+            this.ColumnCityDate.ReadOnly = true;
+            this.ColumnCityDate.Width = 107;
+            // 
             // tabControlCity
             // 
             this.tabControlCity.Controls.Add(this.tabCityOverview);
@@ -654,7 +767,7 @@
             this.tabCityOverview.Location = new System.Drawing.Point(4, 22);
             this.tabCityOverview.Name = "tabCityOverview";
             this.tabCityOverview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityOverview.Size = new System.Drawing.Size(409, 369);
+            this.tabCityOverview.Size = new System.Drawing.Size(409, 367);
             this.tabCityOverview.TabIndex = 0;
             this.tabCityOverview.Text = "Overview";
             this.tabCityOverview.UseVisualStyleBackColor = true;
@@ -673,8 +786,8 @@
             // splitContainerCityOverview.Panel2
             // 
             this.splitContainerCityOverview.Panel2.Controls.Add(this.rtbCityOverview);
-            this.splitContainerCityOverview.Size = new System.Drawing.Size(403, 363);
-            this.splitContainerCityOverview.SplitterDistance = 161;
+            this.splitContainerCityOverview.Size = new System.Drawing.Size(403, 361);
+            this.splitContainerCityOverview.SplitterDistance = 160;
             this.splitContainerCityOverview.TabIndex = 1;
             // 
             // splitContainerCityOverview2
@@ -690,7 +803,7 @@
             // splitContainerCityOverview2.Panel2
             // 
             this.splitContainerCityOverview2.Panel2.Controls.Add(this.pCityOverviewPopulation);
-            this.splitContainerCityOverview2.Size = new System.Drawing.Size(403, 161);
+            this.splitContainerCityOverview2.Size = new System.Drawing.Size(403, 160);
             this.splitContainerCityOverview2.SplitterDistance = 136;
             this.splitContainerCityOverview2.TabIndex = 0;
             // 
@@ -701,7 +814,7 @@
             this.pCityOverviewMorale.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pCityOverviewMorale.Location = new System.Drawing.Point(0, 0);
             this.pCityOverviewMorale.Name = "pCityOverviewMorale";
-            this.pCityOverviewMorale.Size = new System.Drawing.Size(136, 161);
+            this.pCityOverviewMorale.Size = new System.Drawing.Size(136, 160);
             this.pCityOverviewMorale.TabIndex = 1;
             this.toolTip1.SetToolTip(this.pCityOverviewMorale, "Blue - Morale\r\nYellow - Morale Modifier total\r\nGreen - sum of Positive Morale Mod" +
         "ifiers\r\nRed - sum of Negative Morale Modifiers");
@@ -715,7 +828,7 @@
             this.pCityOverviewPopulation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pCityOverviewPopulation.Location = new System.Drawing.Point(0, 0);
             this.pCityOverviewPopulation.Name = "pCityOverviewPopulation";
-            this.pCityOverviewPopulation.Size = new System.Drawing.Size(263, 161);
+            this.pCityOverviewPopulation.Size = new System.Drawing.Size(263, 160);
             this.pCityOverviewPopulation.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pCityOverviewPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
@@ -726,10 +839,11 @@
             // 
             this.rtbCityOverview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbCityOverview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbCityOverview.Font = new System.Drawing.Font("Lucida Console", 8.25F);
             this.rtbCityOverview.Location = new System.Drawing.Point(0, 0);
             this.rtbCityOverview.Name = "rtbCityOverview";
             this.rtbCityOverview.ReadOnly = true;
-            this.rtbCityOverview.Size = new System.Drawing.Size(403, 198);
+            this.rtbCityOverview.Size = new System.Drawing.Size(403, 197);
             this.rtbCityOverview.TabIndex = 1;
             this.rtbCityOverview.Text = "";
             this.rtbCityOverview.WordWrap = false;
@@ -796,7 +910,7 @@
             this.tabCityPopulation.Location = new System.Drawing.Point(4, 22);
             this.tabCityPopulation.Name = "tabCityPopulation";
             this.tabCityPopulation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityPopulation.Size = new System.Drawing.Size(409, 369);
+            this.tabCityPopulation.Size = new System.Drawing.Size(409, 367);
             this.tabCityPopulation.TabIndex = 3;
             this.tabCityPopulation.Text = "Population";
             this.tabCityPopulation.UseVisualStyleBackColor = true;
@@ -815,8 +929,8 @@
             // splitContainerCityPopulation.Panel2
             // 
             this.splitContainerCityPopulation.Panel2.Controls.Add(this.rtbCityPopulation);
-            this.splitContainerCityPopulation.Size = new System.Drawing.Size(403, 363);
-            this.splitContainerCityPopulation.SplitterDistance = 161;
+            this.splitContainerCityPopulation.Size = new System.Drawing.Size(403, 361);
+            this.splitContainerCityPopulation.SplitterDistance = 160;
             this.splitContainerCityPopulation.TabIndex = 3;
             // 
             // pCityPopulation
@@ -826,7 +940,7 @@
             this.pCityPopulation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pCityPopulation.Location = new System.Drawing.Point(0, 0);
             this.pCityPopulation.Name = "pCityPopulation";
-            this.pCityPopulation.Size = new System.Drawing.Size(403, 161);
+            this.pCityPopulation.Size = new System.Drawing.Size(403, 160);
             this.pCityPopulation.TabIndex = 1;
             this.toolTip1.SetToolTip(this.pCityPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
@@ -841,7 +955,7 @@
             this.rtbCityPopulation.Location = new System.Drawing.Point(0, 0);
             this.rtbCityPopulation.Name = "rtbCityPopulation";
             this.rtbCityPopulation.ReadOnly = true;
-            this.rtbCityPopulation.Size = new System.Drawing.Size(403, 198);
+            this.rtbCityPopulation.Size = new System.Drawing.Size(403, 197);
             this.rtbCityPopulation.TabIndex = 1;
             this.rtbCityPopulation.Text = "";
             this.rtbCityPopulation.WordWrap = false;
@@ -852,7 +966,7 @@
             this.tabCityTechnology.Location = new System.Drawing.Point(4, 22);
             this.tabCityTechnology.Name = "tabCityTechnology";
             this.tabCityTechnology.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityTechnology.Size = new System.Drawing.Size(409, 369);
+            this.tabCityTechnology.Size = new System.Drawing.Size(409, 367);
             this.tabCityTechnology.TabIndex = 5;
             this.tabCityTechnology.Text = "Technology";
             this.tabCityTechnology.UseVisualStyleBackColor = true;
@@ -864,7 +978,7 @@
             this.rtbCityTechnology.Location = new System.Drawing.Point(3, 3);
             this.rtbCityTechnology.Name = "rtbCityTechnology";
             this.rtbCityTechnology.ReadOnly = true;
-            this.rtbCityTechnology.Size = new System.Drawing.Size(403, 363);
+            this.rtbCityTechnology.Size = new System.Drawing.Size(403, 361);
             this.rtbCityTechnology.TabIndex = 0;
             this.rtbCityTechnology.Text = "";
             this.rtbCityTechnology.WordWrap = false;
@@ -875,7 +989,7 @@
             this.tabCityBuildings.Location = new System.Drawing.Point(4, 22);
             this.tabCityBuildings.Name = "tabCityBuildings";
             this.tabCityBuildings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityBuildings.Size = new System.Drawing.Size(409, 369);
+            this.tabCityBuildings.Size = new System.Drawing.Size(409, 367);
             this.tabCityBuildings.TabIndex = 6;
             this.tabCityBuildings.Text = "Buildings";
             this.tabCityBuildings.UseVisualStyleBackColor = true;
@@ -887,7 +1001,7 @@
             this.rtbCityBuildings.Location = new System.Drawing.Point(3, 3);
             this.rtbCityBuildings.Name = "rtbCityBuildings";
             this.rtbCityBuildings.ReadOnly = true;
-            this.rtbCityBuildings.Size = new System.Drawing.Size(403, 363);
+            this.rtbCityBuildings.Size = new System.Drawing.Size(403, 361);
             this.rtbCityBuildings.TabIndex = 1;
             this.rtbCityBuildings.Text = "";
             this.rtbCityBuildings.WordWrap = false;
@@ -898,7 +1012,7 @@
             this.tabCityBank.Location = new System.Drawing.Point(4, 22);
             this.tabCityBank.Name = "tabCityBank";
             this.tabCityBank.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityBank.Size = new System.Drawing.Size(409, 369);
+            this.tabCityBank.Size = new System.Drawing.Size(409, 367);
             this.tabCityBank.TabIndex = 7;
             this.tabCityBank.Text = "Bank";
             this.tabCityBank.UseVisualStyleBackColor = true;
@@ -917,8 +1031,8 @@
             // splitContainerCityBank.Panel2
             // 
             this.splitContainerCityBank.Panel2.Controls.Add(this.rtbCityBank);
-            this.splitContainerCityBank.Size = new System.Drawing.Size(403, 363);
-            this.splitContainerCityBank.SplitterDistance = 161;
+            this.splitContainerCityBank.Size = new System.Drawing.Size(403, 361);
+            this.splitContainerCityBank.SplitterDistance = 160;
             this.splitContainerCityBank.TabIndex = 4;
             // 
             // pCityBank
@@ -928,7 +1042,7 @@
             this.pCityBank.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pCityBank.Location = new System.Drawing.Point(0, 0);
             this.pCityBank.Name = "pCityBank";
-            this.pCityBank.Size = new System.Drawing.Size(403, 161);
+            this.pCityBank.Size = new System.Drawing.Size(403, 160);
             this.pCityBank.TabIndex = 1;
             this.toolTip1.SetToolTip(this.pCityBank, "WIP");
             this.pCityBank.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
@@ -942,7 +1056,7 @@
             this.rtbCityBank.Location = new System.Drawing.Point(0, 0);
             this.rtbCityBank.Name = "rtbCityBank";
             this.rtbCityBank.ReadOnly = true;
-            this.rtbCityBank.Size = new System.Drawing.Size(403, 198);
+            this.rtbCityBank.Size = new System.Drawing.Size(403, 197);
             this.rtbCityBank.TabIndex = 1;
             this.rtbCityBank.Text = "";
             this.rtbCityBank.WordWrap = false;
@@ -953,7 +1067,7 @@
             this.tabCityMail.Location = new System.Drawing.Point(4, 22);
             this.tabCityMail.Name = "tabCityMail";
             this.tabCityMail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityMail.Size = new System.Drawing.Size(409, 369);
+            this.tabCityMail.Size = new System.Drawing.Size(409, 367);
             this.tabCityMail.TabIndex = 1;
             this.tabCityMail.Text = "Raw Mail";
             this.tabCityMail.UseVisualStyleBackColor = true;
@@ -966,7 +1080,7 @@
             this.tbxCity.Name = "tbxCity";
             this.tbxCity.ReadOnly = true;
             this.tbxCity.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxCity.Size = new System.Drawing.Size(403, 363);
+            this.tbxCity.Size = new System.Drawing.Size(403, 361);
             this.tbxCity.TabIndex = 0;
             this.tbxCity.WordWrap = false;
             // 
@@ -976,7 +1090,7 @@
             this.tabSystem.Location = new System.Drawing.Point(4, 22);
             this.tabSystem.Name = "tabSystem";
             this.tabSystem.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSystem.Size = new System.Drawing.Size(758, 401);
+            this.tabSystem.Size = new System.Drawing.Size(758, 399);
             this.tabSystem.TabIndex = 4;
             this.tabSystem.Text = "Systems";
             this.tabSystem.UseVisualStyleBackColor = true;
@@ -994,7 +1108,7 @@
             // splitContainerSystem.Panel2
             // 
             this.splitContainerSystem.Panel2.Controls.Add(this.tabControlSystem);
-            this.splitContainerSystem.Size = new System.Drawing.Size(752, 395);
+            this.splitContainerSystem.Size = new System.Drawing.Size(752, 393);
             this.splitContainerSystem.SplitterDistance = 331;
             this.splitContainerSystem.TabIndex = 7;
             // 
@@ -1025,7 +1139,7 @@
             this.dgvSystem.ReadOnly = true;
             this.dgvSystem.RowHeadersVisible = false;
             this.dgvSystem.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSystem.Size = new System.Drawing.Size(331, 395);
+            this.dgvSystem.Size = new System.Drawing.Size(331, 393);
             this.dgvSystem.TabIndex = 2;
             this.dgvSystem.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvSystem.SelectionChanged += new System.EventHandler(this.dgvSystem_SelectionChanged);
@@ -1130,7 +1244,7 @@
             this.tabControlSystem.Location = new System.Drawing.Point(0, 0);
             this.tabControlSystem.Name = "tabControlSystem";
             this.tabControlSystem.SelectedIndex = 0;
-            this.tabControlSystem.Size = new System.Drawing.Size(417, 395);
+            this.tabControlSystem.Size = new System.Drawing.Size(417, 393);
             this.tabControlSystem.TabIndex = 1;
             // 
             // tabSystemOverview
@@ -1139,7 +1253,7 @@
             this.tabSystemOverview.Location = new System.Drawing.Point(4, 22);
             this.tabSystemOverview.Name = "tabSystemOverview";
             this.tabSystemOverview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSystemOverview.Size = new System.Drawing.Size(409, 369);
+            this.tabSystemOverview.Size = new System.Drawing.Size(409, 367);
             this.tabSystemOverview.TabIndex = 0;
             this.tabSystemOverview.Text = "Overview";
             this.tabSystemOverview.UseVisualStyleBackColor = true;
@@ -1158,8 +1272,8 @@
             // splitContainerSystemOverview.Panel2
             // 
             this.splitContainerSystemOverview.Panel2.Controls.Add(this.rtbSystemOverview);
-            this.splitContainerSystemOverview.Size = new System.Drawing.Size(403, 363);
-            this.splitContainerSystemOverview.SplitterDistance = 161;
+            this.splitContainerSystemOverview.Size = new System.Drawing.Size(403, 361);
+            this.splitContainerSystemOverview.SplitterDistance = 160;
             this.splitContainerSystemOverview.TabIndex = 1;
             // 
             // splitContainerSystemOverview2
@@ -1175,7 +1289,7 @@
             // splitContainerSystemOverview2.Panel2
             // 
             this.splitContainerSystemOverview2.Panel2.Controls.Add(this.pSystemOverviewPopulation);
-            this.splitContainerSystemOverview2.Size = new System.Drawing.Size(403, 161);
+            this.splitContainerSystemOverview2.Size = new System.Drawing.Size(403, 160);
             this.splitContainerSystemOverview2.SplitterDistance = 136;
             this.splitContainerSystemOverview2.TabIndex = 0;
             // 
@@ -1186,7 +1300,7 @@
             this.pSystemOverviewMorale.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pSystemOverviewMorale.Location = new System.Drawing.Point(0, 0);
             this.pSystemOverviewMorale.Name = "pSystemOverviewMorale";
-            this.pSystemOverviewMorale.Size = new System.Drawing.Size(136, 161);
+            this.pSystemOverviewMorale.Size = new System.Drawing.Size(136, 160);
             this.pSystemOverviewMorale.TabIndex = 1;
             this.toolTip1.SetToolTip(this.pSystemOverviewMorale, "Blue - Average Morale\r\nWIP");
             this.pSystemOverviewMorale.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
@@ -1199,7 +1313,7 @@
             this.pSystemOverviewPopulation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pSystemOverviewPopulation.Location = new System.Drawing.Point(0, 0);
             this.pSystemOverviewPopulation.Name = "pSystemOverviewPopulation";
-            this.pSystemOverviewPopulation.Size = new System.Drawing.Size(263, 161);
+            this.pSystemOverviewPopulation.Size = new System.Drawing.Size(263, 160);
             this.pSystemOverviewPopulation.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pSystemOverviewPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
@@ -1210,10 +1324,11 @@
             // 
             this.rtbSystemOverview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbSystemOverview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbSystemOverview.Font = new System.Drawing.Font("Lucida Console", 8.25F);
             this.rtbSystemOverview.Location = new System.Drawing.Point(0, 0);
             this.rtbSystemOverview.Name = "rtbSystemOverview";
             this.rtbSystemOverview.ReadOnly = true;
-            this.rtbSystemOverview.Size = new System.Drawing.Size(403, 198);
+            this.rtbSystemOverview.Size = new System.Drawing.Size(403, 197);
             this.rtbSystemOverview.TabIndex = 1;
             this.rtbSystemOverview.Text = "";
             this.rtbSystemOverview.WordWrap = false;
@@ -1224,7 +1339,7 @@
             this.tabSystemMorale.Location = new System.Drawing.Point(4, 22);
             this.tabSystemMorale.Name = "tabSystemMorale";
             this.tabSystemMorale.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSystemMorale.Size = new System.Drawing.Size(409, 369);
+            this.tabSystemMorale.Size = new System.Drawing.Size(409, 367);
             this.tabSystemMorale.TabIndex = 2;
             this.tabSystemMorale.Text = "Morale";
             this.tabSystemMorale.UseVisualStyleBackColor = true;
@@ -1243,8 +1358,8 @@
             // splitContainerSystemMorale.Panel2
             // 
             this.splitContainerSystemMorale.Panel2.Controls.Add(this.rtbSystemMorale);
-            this.splitContainerSystemMorale.Size = new System.Drawing.Size(403, 363);
-            this.splitContainerSystemMorale.SplitterDistance = 161;
+            this.splitContainerSystemMorale.Size = new System.Drawing.Size(403, 361);
+            this.splitContainerSystemMorale.SplitterDistance = 160;
             this.splitContainerSystemMorale.TabIndex = 2;
             // 
             // pSystemMorale
@@ -1254,7 +1369,7 @@
             this.pSystemMorale.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pSystemMorale.Location = new System.Drawing.Point(0, 0);
             this.pSystemMorale.Name = "pSystemMorale";
-            this.pSystemMorale.Size = new System.Drawing.Size(403, 161);
+            this.pSystemMorale.Size = new System.Drawing.Size(403, 160);
             this.pSystemMorale.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pSystemMorale, "Blue - Average Morale\r\nWIP");
             this.pSystemMorale.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
@@ -1264,10 +1379,11 @@
             // 
             this.rtbSystemMorale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbSystemMorale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbSystemMorale.Font = new System.Drawing.Font("Lucida Console", 8.25F);
             this.rtbSystemMorale.Location = new System.Drawing.Point(0, 0);
             this.rtbSystemMorale.Name = "rtbSystemMorale";
             this.rtbSystemMorale.ReadOnly = true;
-            this.rtbSystemMorale.Size = new System.Drawing.Size(403, 198);
+            this.rtbSystemMorale.Size = new System.Drawing.Size(403, 197);
             this.rtbSystemMorale.TabIndex = 0;
             this.rtbSystemMorale.Text = "";
             this.rtbSystemMorale.WordWrap = false;
@@ -1278,7 +1394,7 @@
             this.tabSystemPopulation.Location = new System.Drawing.Point(4, 22);
             this.tabSystemPopulation.Name = "tabSystemPopulation";
             this.tabSystemPopulation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSystemPopulation.Size = new System.Drawing.Size(409, 369);
+            this.tabSystemPopulation.Size = new System.Drawing.Size(409, 367);
             this.tabSystemPopulation.TabIndex = 3;
             this.tabSystemPopulation.Text = "Population";
             this.tabSystemPopulation.UseVisualStyleBackColor = true;
@@ -1297,8 +1413,8 @@
             // splitContainerSystemPopulation.Panel2
             // 
             this.splitContainerSystemPopulation.Panel2.Controls.Add(this.rtbSystemPopulation);
-            this.splitContainerSystemPopulation.Size = new System.Drawing.Size(403, 363);
-            this.splitContainerSystemPopulation.SplitterDistance = 161;
+            this.splitContainerSystemPopulation.Size = new System.Drawing.Size(403, 361);
+            this.splitContainerSystemPopulation.SplitterDistance = 160;
             this.splitContainerSystemPopulation.TabIndex = 3;
             // 
             // pSystemPopulation
@@ -1308,7 +1424,7 @@
             this.pSystemPopulation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pSystemPopulation.Location = new System.Drawing.Point(0, 0);
             this.pSystemPopulation.Name = "pSystemPopulation";
-            this.pSystemPopulation.Size = new System.Drawing.Size(403, 161);
+            this.pSystemPopulation.Size = new System.Drawing.Size(403, 160);
             this.pSystemPopulation.TabIndex = 1;
             this.toolTip1.SetToolTip(this.pSystemPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
         "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
@@ -1323,7 +1439,7 @@
             this.rtbSystemPopulation.Location = new System.Drawing.Point(0, 0);
             this.rtbSystemPopulation.Name = "rtbSystemPopulation";
             this.rtbSystemPopulation.ReadOnly = true;
-            this.rtbSystemPopulation.Size = new System.Drawing.Size(403, 198);
+            this.rtbSystemPopulation.Size = new System.Drawing.Size(403, 197);
             this.rtbSystemPopulation.TabIndex = 1;
             this.rtbSystemPopulation.Text = "";
             this.rtbSystemPopulation.WordWrap = false;
@@ -1334,7 +1450,7 @@
             this.tabSystemTechnology.Location = new System.Drawing.Point(4, 22);
             this.tabSystemTechnology.Name = "tabSystemTechnology";
             this.tabSystemTechnology.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSystemTechnology.Size = new System.Drawing.Size(409, 369);
+            this.tabSystemTechnology.Size = new System.Drawing.Size(409, 367);
             this.tabSystemTechnology.TabIndex = 5;
             this.tabSystemTechnology.Text = "Technology";
             this.tabSystemTechnology.UseVisualStyleBackColor = true;
@@ -1346,7 +1462,7 @@
             this.rtbSystemTechnology.Location = new System.Drawing.Point(3, 3);
             this.rtbSystemTechnology.Name = "rtbSystemTechnology";
             this.rtbSystemTechnology.ReadOnly = true;
-            this.rtbSystemTechnology.Size = new System.Drawing.Size(403, 363);
+            this.rtbSystemTechnology.Size = new System.Drawing.Size(403, 361);
             this.rtbSystemTechnology.TabIndex = 0;
             this.rtbSystemTechnology.Text = "";
             this.rtbSystemTechnology.WordWrap = false;
@@ -1357,7 +1473,7 @@
             this.tabShip.Location = new System.Drawing.Point(4, 22);
             this.tabShip.Name = "tabShip";
             this.tabShip.Padding = new System.Windows.Forms.Padding(3);
-            this.tabShip.Size = new System.Drawing.Size(758, 401);
+            this.tabShip.Size = new System.Drawing.Size(758, 399);
             this.tabShip.TabIndex = 1;
             this.tabShip.Text = "Ships";
             this.tabShip.UseVisualStyleBackColor = true;
@@ -1368,7 +1484,7 @@
             this.tabOfficer.Location = new System.Drawing.Point(4, 22);
             this.tabOfficer.Name = "tabOfficer";
             this.tabOfficer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOfficer.Size = new System.Drawing.Size(758, 401);
+            this.tabOfficer.Size = new System.Drawing.Size(758, 399);
             this.tabOfficer.TabIndex = 2;
             this.tabOfficer.Text = "Officers";
             this.tabOfficer.UseVisualStyleBackColor = true;
@@ -1386,7 +1502,7 @@
             // splitContainerOfficer.Panel2
             // 
             this.splitContainerOfficer.Panel2.Controls.Add(this.tabControlOfficer);
-            this.splitContainerOfficer.Size = new System.Drawing.Size(752, 395);
+            this.splitContainerOfficer.Size = new System.Drawing.Size(752, 393);
             this.splitContainerOfficer.SplitterDistance = 331;
             this.splitContainerOfficer.TabIndex = 6;
             // 
@@ -1414,7 +1530,7 @@
             this.dgvOfficer.ReadOnly = true;
             this.dgvOfficer.RowHeadersVisible = false;
             this.dgvOfficer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOfficer.Size = new System.Drawing.Size(331, 395);
+            this.dgvOfficer.Size = new System.Drawing.Size(331, 393);
             this.dgvOfficer.TabIndex = 2;
             this.dgvOfficer.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvOfficer.SelectionChanged += new System.EventHandler(this.dgvOfficer_SelectionChanged);
@@ -1491,7 +1607,7 @@
             this.tabControlOfficer.Location = new System.Drawing.Point(0, 0);
             this.tabControlOfficer.Name = "tabControlOfficer";
             this.tabControlOfficer.SelectedIndex = 0;
-            this.tabControlOfficer.Size = new System.Drawing.Size(417, 395);
+            this.tabControlOfficer.Size = new System.Drawing.Size(417, 393);
             this.tabControlOfficer.TabIndex = 5;
             // 
             // tabOfficerOverview
@@ -1500,7 +1616,7 @@
             this.tabOfficerOverview.Location = new System.Drawing.Point(4, 22);
             this.tabOfficerOverview.Name = "tabOfficerOverview";
             this.tabOfficerOverview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOfficerOverview.Size = new System.Drawing.Size(409, 369);
+            this.tabOfficerOverview.Size = new System.Drawing.Size(409, 367);
             this.tabOfficerOverview.TabIndex = 0;
             this.tabOfficerOverview.Text = "Overview";
             this.tabOfficerOverview.UseVisualStyleBackColor = true;
@@ -1519,8 +1635,8 @@
             // splitContainerOfficerOverview.Panel2
             // 
             this.splitContainerOfficerOverview.Panel2.Controls.Add(this.rtbOfficerOverview);
-            this.splitContainerOfficerOverview.Size = new System.Drawing.Size(403, 363);
-            this.splitContainerOfficerOverview.SplitterDistance = 161;
+            this.splitContainerOfficerOverview.Size = new System.Drawing.Size(403, 361);
+            this.splitContainerOfficerOverview.SplitterDistance = 160;
             this.splitContainerOfficerOverview.TabIndex = 1;
             // 
             // pOfficerOverview
@@ -1530,7 +1646,7 @@
             this.pOfficerOverview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pOfficerOverview.Location = new System.Drawing.Point(0, 0);
             this.pOfficerOverview.Name = "pOfficerOverview";
-            this.pOfficerOverview.Size = new System.Drawing.Size(403, 161);
+            this.pOfficerOverview.Size = new System.Drawing.Size(403, 160);
             this.pOfficerOverview.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pOfficerOverview, "WIP");
             this.pOfficerOverview.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
@@ -1539,10 +1655,11 @@
             // 
             this.rtbOfficerOverview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbOfficerOverview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbOfficerOverview.Font = new System.Drawing.Font("Lucida Console", 8.25F);
             this.rtbOfficerOverview.Location = new System.Drawing.Point(0, 0);
             this.rtbOfficerOverview.Name = "rtbOfficerOverview";
             this.rtbOfficerOverview.ReadOnly = true;
-            this.rtbOfficerOverview.Size = new System.Drawing.Size(403, 198);
+            this.rtbOfficerOverview.Size = new System.Drawing.Size(403, 197);
             this.rtbOfficerOverview.TabIndex = 0;
             this.rtbOfficerOverview.Text = "";
             this.rtbOfficerOverview.WordWrap = false;
@@ -1576,7 +1693,7 @@
             this.tabEvent.Location = new System.Drawing.Point(4, 22);
             this.tabEvent.Name = "tabEvent";
             this.tabEvent.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEvent.Size = new System.Drawing.Size(758, 401);
+            this.tabEvent.Size = new System.Drawing.Size(758, 399);
             this.tabEvent.TabIndex = 3;
             this.tabEvent.Text = "Event";
             this.tabEvent.UseVisualStyleBackColor = true;
@@ -1594,7 +1711,7 @@
             // splitContainerEvent.Panel2
             // 
             this.splitContainerEvent.Panel2.Controls.Add(this.tabControlEvent);
-            this.splitContainerEvent.Size = new System.Drawing.Size(752, 395);
+            this.splitContainerEvent.Size = new System.Drawing.Size(752, 393);
             this.splitContainerEvent.SplitterDistance = 331;
             this.splitContainerEvent.TabIndex = 0;
             // 
@@ -1622,7 +1739,7 @@
             this.dgvEvent.ReadOnly = true;
             this.dgvEvent.RowHeadersVisible = false;
             this.dgvEvent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEvent.Size = new System.Drawing.Size(331, 395);
+            this.dgvEvent.Size = new System.Drawing.Size(331, 393);
             this.dgvEvent.TabIndex = 3;
             this.dgvEvent.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDown);
             this.dgvEvent.SelectionChanged += new System.EventHandler(this.dgvEvent_SelectionChanged);
@@ -1701,7 +1818,7 @@
             this.tabControlEvent.Location = new System.Drawing.Point(0, 0);
             this.tabControlEvent.Name = "tabControlEvent";
             this.tabControlEvent.SelectedIndex = 0;
-            this.tabControlEvent.Size = new System.Drawing.Size(417, 395);
+            this.tabControlEvent.Size = new System.Drawing.Size(417, 393);
             this.tabControlEvent.TabIndex = 4;
             // 
             // tabEventOverview
@@ -1710,7 +1827,7 @@
             this.tabEventOverview.Location = new System.Drawing.Point(4, 22);
             this.tabEventOverview.Name = "tabEventOverview";
             this.tabEventOverview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEventOverview.Size = new System.Drawing.Size(409, 369);
+            this.tabEventOverview.Size = new System.Drawing.Size(409, 367);
             this.tabEventOverview.TabIndex = 0;
             this.tabEventOverview.Text = "Overview";
             this.tabEventOverview.UseVisualStyleBackColor = true;
@@ -1729,8 +1846,8 @@
             // splitContainerEventOverview.Panel2
             // 
             this.splitContainerEventOverview.Panel2.Controls.Add(this.rtbEventOverview);
-            this.splitContainerEventOverview.Size = new System.Drawing.Size(403, 363);
-            this.splitContainerEventOverview.SplitterDistance = 161;
+            this.splitContainerEventOverview.Size = new System.Drawing.Size(403, 361);
+            this.splitContainerEventOverview.SplitterDistance = 160;
             this.splitContainerEventOverview.TabIndex = 1;
             // 
             // pEventOverview
@@ -1740,7 +1857,7 @@
             this.pEventOverview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pEventOverview.Location = new System.Drawing.Point(0, 0);
             this.pEventOverview.Name = "pEventOverview";
-            this.pEventOverview.Size = new System.Drawing.Size(403, 161);
+            this.pEventOverview.Size = new System.Drawing.Size(403, 160);
             this.pEventOverview.TabIndex = 0;
             this.toolTip1.SetToolTip(this.pEventOverview, "WIP");
             this.pEventOverview.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
@@ -1749,10 +1866,11 @@
             // 
             this.rtbEventOverview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbEventOverview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbEventOverview.Font = new System.Drawing.Font("Lucida Console", 8.25F);
             this.rtbEventOverview.Location = new System.Drawing.Point(0, 0);
             this.rtbEventOverview.Name = "rtbEventOverview";
             this.rtbEventOverview.ReadOnly = true;
-            this.rtbEventOverview.Size = new System.Drawing.Size(403, 198);
+            this.rtbEventOverview.Size = new System.Drawing.Size(403, 197);
             this.rtbEventOverview.TabIndex = 0;
             this.rtbEventOverview.Text = "";
             this.rtbEventOverview.WordWrap = false;
@@ -1926,118 +2044,6 @@
             this.menuStrip1HelpHowToUse.Size = new System.Drawing.Size(149, 22);
             this.menuStrip1HelpHowToUse.Text = "How To Use";
             this.menuStrip1HelpHowToUse.Click += new System.EventHandler(this.menuStrip1HelpHowToUse_Click);
-            // 
-            // ColumnCityIndex
-            // 
-            this.ColumnCityIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnCityIndex.FillWeight = 20F;
-            this.ColumnCityIndex.Frozen = true;
-            this.ColumnCityIndex.HeaderText = "# Index";
-            this.ColumnCityIndex.MinimumWidth = 20;
-            this.ColumnCityIndex.Name = "ColumnCityIndex";
-            this.ColumnCityIndex.ReadOnly = true;
-            this.ColumnCityIndex.Visible = false;
-            this.ColumnCityIndex.Width = 20;
-            // 
-            // ColumnCitySelection
-            // 
-            this.ColumnCitySelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnCitySelection.FillWeight = 20F;
-            this.ColumnCitySelection.Frozen = true;
-            this.ColumnCitySelection.HeaderText = "Selection";
-            this.ColumnCitySelection.MinimumWidth = 20;
-            this.ColumnCitySelection.Name = "ColumnCitySelection";
-            this.ColumnCitySelection.ReadOnly = true;
-            this.ColumnCitySelection.Visible = false;
-            this.ColumnCitySelection.Width = 20;
-            // 
-            // ColumnCityIcon
-            // 
-            this.ColumnCityIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnCityIcon.FillWeight = 20F;
-            this.ColumnCityIcon.Frozen = true;
-            this.ColumnCityIcon.HeaderText = "Icon";
-            this.ColumnCityIcon.MinimumWidth = 20;
-            this.ColumnCityIcon.Name = "ColumnCityIcon";
-            this.ColumnCityIcon.ReadOnly = true;
-            this.ColumnCityIcon.Width = 20;
-            // 
-            // ColumnCityName
-            // 
-            this.ColumnCityName.Frozen = true;
-            this.ColumnCityName.HeaderText = "Name";
-            this.ColumnCityName.Name = "ColumnCityName";
-            this.ColumnCityName.ReadOnly = true;
-            // 
-            // ColumnCityLocation
-            // 
-            this.ColumnCityLocation.HeaderText = "Location";
-            this.ColumnCityLocation.Name = "ColumnCityLocation";
-            this.ColumnCityLocation.ReadOnly = true;
-            // 
-            // ColumnCityAbandonment
-            // 
-            this.ColumnCityAbandonment.FillWeight = 90F;
-            this.ColumnCityAbandonment.HeaderText = "Abandonment";
-            this.ColumnCityAbandonment.Name = "ColumnCityAbandonment";
-            this.ColumnCityAbandonment.ReadOnly = true;
-            this.ColumnCityAbandonment.Width = 90;
-            // 
-            // ColumnCityMoraleModifiers
-            // 
-            this.ColumnCityMoraleModifiers.HeaderText = "Morale Mod";
-            this.ColumnCityMoraleModifiers.Name = "ColumnCityMoraleModifiers";
-            this.ColumnCityMoraleModifiers.ReadOnly = true;
-            // 
-            // ColumnCityMorale
-            // 
-            this.ColumnCityMorale.FillWeight = 112F;
-            this.ColumnCityMorale.HeaderText = "Morale";
-            this.ColumnCityMorale.Name = "ColumnCityMorale";
-            this.ColumnCityMorale.ReadOnly = true;
-            this.ColumnCityMorale.Width = 112;
-            // 
-            // ColumnCityLivingConditions
-            // 
-            this.ColumnCityLivingConditions.FillWeight = 112F;
-            this.ColumnCityLivingConditions.HeaderText = "Living Conditions";
-            this.ColumnCityLivingConditions.Name = "ColumnCityLivingConditions";
-            this.ColumnCityLivingConditions.ReadOnly = true;
-            this.ColumnCityLivingConditions.Width = 112;
-            // 
-            // ColumnCityPopulation
-            // 
-            this.ColumnCityPopulation.FillWeight = 118F;
-            this.ColumnCityPopulation.HeaderText = "Population";
-            this.ColumnCityPopulation.Name = "ColumnCityPopulation";
-            this.ColumnCityPopulation.ReadOnly = true;
-            this.ColumnCityPopulation.Width = 118;
-            // 
-            // ColumnCityLoyalty
-            // 
-            this.ColumnCityLoyalty.HeaderText = "Loyalty";
-            this.ColumnCityLoyalty.Name = "ColumnCityLoyalty";
-            this.ColumnCityLoyalty.ReadOnly = true;
-            // 
-            // ColumnCityBank
-            // 
-            this.ColumnCityBank.HeaderText = "Bank";
-            this.ColumnCityBank.Name = "ColumnCityBank";
-            this.ColumnCityBank.ReadOnly = true;
-            // 
-            // ColumnCityTribute
-            // 
-            this.ColumnCityTribute.HeaderText = "Tribute";
-            this.ColumnCityTribute.Name = "ColumnCityTribute";
-            this.ColumnCityTribute.ReadOnly = true;
-            // 
-            // ColumnCityDate
-            // 
-            this.ColumnCityDate.FillWeight = 107F;
-            this.ColumnCityDate.HeaderText = "Last Updated";
-            this.ColumnCityDate.Name = "ColumnCityDate";
-            this.ColumnCityDate.ReadOnly = true;
-            this.ColumnCityDate.Width = 107;
             // 
             // Main
             // 
