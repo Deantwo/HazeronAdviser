@@ -71,6 +71,12 @@ namespace HazeronAdviser
             get { return _moraleColumn; }
         }
 
+        protected string _moraleModifiersColumn = "-";
+        public string MoraleModifiersColumn
+        {
+            get { return _moraleModifiersColumn; }
+        }
+
         protected int _abandonment = 0, _abandonmentMax = 0;
         public int Abandonment
         {
@@ -133,6 +139,12 @@ namespace HazeronAdviser
         public int Morale
         {
             get { return _morale; }
+        }
+
+        protected List<int> _moraleModifiers = new List<int>();
+        public List<int> MoraleModifiers
+        {
+            get { return _moraleModifiers; }
         }
 
         protected int _population = 0;
@@ -198,7 +210,20 @@ namespace HazeronAdviser
             // MORALE
             {
                 _morale = Convert.ToInt32(Cities.Average(city => city.Morale));
-                _moraleColumn = _morale + "/20";
+                _moraleColumn = _morale + " Avg";
+                _moraleModifiersColumn = "";
+                foreach (HCity city in _cities)
+                {
+                    int sum = city.MoraleModifiers.Values.Sum();
+                    if (!_moraleModifiers.Contains(sum))
+                    {
+                        if (_moraleModifiersColumn != "")
+                            _moraleModifiersColumn += ", ";
+                        _moraleModifiersColumn += sum.ToString("+#0;-#0;±#0");
+                    }
+                    _moraleModifiers.Add(sum);
+                }
+                _moraleModifiersColumn = Math.Floor(_moraleModifiers.Average()).ToString("+#0;-#0;±#0") + " (" + _moraleModifiersColumn + ")";
                 _moraleOverview = "WIP";
             }
 

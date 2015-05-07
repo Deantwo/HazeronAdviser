@@ -297,8 +297,9 @@ namespace HazeronAdviser
                     dgvSystem.Rows[row].Cells["ColumnSystemIcon"].Value = imageSystem;
                     dgvSystem.Rows[row].Cells["ColumnSystemName"].Value = hSystem.Name;
                     dgvSystem.Rows[row].Cells["ColumnSystemCities"].Value = hSystem.Cities.Count;
-                    dgvSystem.Rows[row].Cells["ColumnSystemMorale"].Value = hSystem.MoraleColumn;
                     dgvSystem.Rows[row].Cells["ColumnSystemAbandonment"].Value = hSystem.AbandonmentColumn;
+                    dgvSystem.Rows[row].Cells["ColumnSystemMoraleModifiers"].Value = hSystem.MoraleModifiersColumn;
+                    dgvSystem.Rows[row].Cells["ColumnSystemMorale"].Value = hSystem.MoraleColumn;
                     dgvSystem.Rows[row].Cells["ColumnSystemPopulation"].Value = hSystem.PopulationColumn;
                     dgvSystem.Rows[row].Cells["ColumnSystemLoyalty"].Value = hSystem.LoyaltyColumn;
                     dgvSystem.Rows[row].Cells["ColumnSystemDate"].Value = hSystem.LastUpdaredString;
@@ -856,18 +857,15 @@ namespace HazeronAdviser
                 HSystem system = hSystemList[(int)dgvSystem.Rows[(int)dgvSystem.SelectedRows[0].Index].Cells["ColumnSystemIndex"].Value];
                 int yValue;
                 BarGraph graphMorale = new BarGraph(sender, e);
-                graphMorale.DrawXAxle("?", 3);
+                graphMorale.DrawXAxle("Cities", system.Cities.Count);
                 graphMorale.DrawYAxle("Morale", 20, -20);
-                yValue = system.Morale;
-                graphMorale.DrawBar(Color.Blue, 0, yValue);
-                //yValue = system.VMoraleModifiers.Sum();
-                //graphMorale.DrawBar(Color.Yellow, 1, yValue);
-                //yValue = system.VMoraleModifiers.Where(y => y > 0).Sum();
-                //if (yValue != 0)
-                //    graphMorale.DrawBar(Color.Green, 2, yValue);
-                //yValue = system.VMoraleModifiers.Where(y => y < 0).Sum();
-                //if (yValue != 0)
-                //    graphMorale.DrawBar(Color.Red, 2, yValue);
+                for (int i = 0; i < system.Cities.Count; i++)
+                {
+                    yValue = system.Cities[i].Morale;
+                    graphMorale.DrawBar(Color.Blue, i, yValue);
+                    yValue = system.Cities[i].MoraleModifiers.Values.Sum();
+                    graphMorale.DrawBar(Color.Yellow, i, yValue);
+                }
             }
         }
 
