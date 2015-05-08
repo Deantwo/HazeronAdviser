@@ -137,13 +137,6 @@
             this.tabEvent = new System.Windows.Forms.TabPage();
             this.splitContainerEvent = new System.Windows.Forms.SplitContainer();
             this.dgvEvent = new System.Windows.Forms.DataGridView();
-            this.ColumnEventIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEventSelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ColumnEventIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ColumnEventName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEventSubject = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEventLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEventDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlEvent = new System.Windows.Forms.TabControl();
             this.tabEventOverview = new System.Windows.Forms.TabPage();
             this.splitContainerEventOverview = new System.Windows.Forms.SplitContainer();
@@ -181,6 +174,13 @@
             this.ColumnSystemPopulation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSystemLoyalty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSystemDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEventIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEventSelection = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ColumnEventIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ColumnEventName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEventSubject = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEventLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEventDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -1660,70 +1660,6 @@
             this.dgvEvent.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgv_SortCompare);
             this.dgvEvent.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
             // 
-            // ColumnEventIndex
-            // 
-            this.ColumnEventIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnEventIndex.FillWeight = 20F;
-            this.ColumnEventIndex.Frozen = true;
-            this.ColumnEventIndex.HeaderText = "# Index";
-            this.ColumnEventIndex.MinimumWidth = 20;
-            this.ColumnEventIndex.Name = "ColumnEventIndex";
-            this.ColumnEventIndex.ReadOnly = true;
-            this.ColumnEventIndex.Visible = false;
-            this.ColumnEventIndex.Width = 20;
-            // 
-            // ColumnEventSelection
-            // 
-            this.ColumnEventSelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnEventSelection.FillWeight = 20F;
-            this.ColumnEventSelection.Frozen = true;
-            this.ColumnEventSelection.HeaderText = "Selection";
-            this.ColumnEventSelection.MinimumWidth = 20;
-            this.ColumnEventSelection.Name = "ColumnEventSelection";
-            this.ColumnEventSelection.ReadOnly = true;
-            this.ColumnEventSelection.Visible = false;
-            this.ColumnEventSelection.Width = 20;
-            // 
-            // ColumnEventIcon
-            // 
-            this.ColumnEventIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnEventIcon.FillWeight = 20F;
-            this.ColumnEventIcon.Frozen = true;
-            this.ColumnEventIcon.HeaderText = "Icon";
-            this.ColumnEventIcon.MinimumWidth = 20;
-            this.ColumnEventIcon.Name = "ColumnEventIcon";
-            this.ColumnEventIcon.ReadOnly = true;
-            this.ColumnEventIcon.Width = 20;
-            // 
-            // ColumnEventName
-            // 
-            this.ColumnEventName.Frozen = true;
-            this.ColumnEventName.HeaderText = "Name";
-            this.ColumnEventName.Name = "ColumnEventName";
-            this.ColumnEventName.ReadOnly = true;
-            // 
-            // ColumnEventSubject
-            // 
-            this.ColumnEventSubject.Frozen = true;
-            this.ColumnEventSubject.HeaderText = "Subject";
-            this.ColumnEventSubject.Name = "ColumnEventSubject";
-            this.ColumnEventSubject.ReadOnly = true;
-            // 
-            // ColumnEventLocation
-            // 
-            this.ColumnEventLocation.Frozen = true;
-            this.ColumnEventLocation.HeaderText = "Location";
-            this.ColumnEventLocation.Name = "ColumnEventLocation";
-            this.ColumnEventLocation.ReadOnly = true;
-            // 
-            // ColumnEventDate
-            // 
-            this.ColumnEventDate.FillWeight = 107F;
-            this.ColumnEventDate.HeaderText = "Last Updated";
-            this.ColumnEventDate.Name = "ColumnEventDate";
-            this.ColumnEventDate.ReadOnly = true;
-            this.ColumnEventDate.Width = 107;
-            // 
             // tabControlEvent
             // 
             this.tabControlEvent.Controls.Add(this.tabEventOverview);
@@ -2053,6 +1989,69 @@
             this.ColumnSystemDate.ReadOnly = true;
             this.ColumnSystemDate.Width = 107;
             // 
+            // ColumnEventIndex
+            // 
+            this.ColumnEventIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnEventIndex.FillWeight = 20F;
+            this.ColumnEventIndex.Frozen = true;
+            this.ColumnEventIndex.HeaderText = "# Index";
+            this.ColumnEventIndex.MinimumWidth = 20;
+            this.ColumnEventIndex.Name = "ColumnEventIndex";
+            this.ColumnEventIndex.ReadOnly = true;
+            this.ColumnEventIndex.Visible = false;
+            this.ColumnEventIndex.Width = 20;
+            // 
+            // ColumnEventSelection
+            // 
+            this.ColumnEventSelection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnEventSelection.FillWeight = 20F;
+            this.ColumnEventSelection.Frozen = true;
+            this.ColumnEventSelection.HeaderText = "Selection";
+            this.ColumnEventSelection.MinimumWidth = 20;
+            this.ColumnEventSelection.Name = "ColumnEventSelection";
+            this.ColumnEventSelection.ReadOnly = true;
+            this.ColumnEventSelection.Visible = false;
+            this.ColumnEventSelection.Width = 20;
+            // 
+            // ColumnEventIcon
+            // 
+            this.ColumnEventIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnEventIcon.FillWeight = 20F;
+            this.ColumnEventIcon.Frozen = true;
+            this.ColumnEventIcon.HeaderText = "Icon";
+            this.ColumnEventIcon.MinimumWidth = 20;
+            this.ColumnEventIcon.Name = "ColumnEventIcon";
+            this.ColumnEventIcon.ReadOnly = true;
+            this.ColumnEventIcon.Width = 20;
+            // 
+            // ColumnEventName
+            // 
+            this.ColumnEventName.Frozen = true;
+            this.ColumnEventName.HeaderText = "Name";
+            this.ColumnEventName.Name = "ColumnEventName";
+            this.ColumnEventName.ReadOnly = true;
+            // 
+            // ColumnEventSubject
+            // 
+            this.ColumnEventSubject.Frozen = true;
+            this.ColumnEventSubject.HeaderText = "Subject";
+            this.ColumnEventSubject.Name = "ColumnEventSubject";
+            this.ColumnEventSubject.ReadOnly = true;
+            // 
+            // ColumnEventLocation
+            // 
+            this.ColumnEventLocation.HeaderText = "Location";
+            this.ColumnEventLocation.Name = "ColumnEventLocation";
+            this.ColumnEventLocation.ReadOnly = true;
+            // 
+            // ColumnEventDate
+            // 
+            this.ColumnEventDate.FillWeight = 107F;
+            this.ColumnEventDate.HeaderText = "Last Updated";
+            this.ColumnEventDate.Name = "ColumnEventDate";
+            this.ColumnEventDate.ReadOnly = true;
+            this.ColumnEventDate.Width = 107;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2264,13 +2263,6 @@
         private System.Windows.Forms.TabPage tabSystemTechnology;
         private System.Windows.Forms.RichTextBox rtbSystemTechnology;
         private System.Windows.Forms.TabPage tabCityBuildings;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventIndex;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnEventSelection;
-        private System.Windows.Forms.DataGridViewImageColumn ColumnEventIcon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventSubject;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventLocation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOfficerIndex;
         private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnOfficerSelection;
         private System.Windows.Forms.DataGridViewImageColumn ColumnOfficerIcon;
@@ -2335,6 +2327,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemPopulation;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemLoyalty;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSystemDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventIndex;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnEventSelection;
+        private System.Windows.Forms.DataGridViewImageColumn ColumnEventIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventSubject;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventLocation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEventDate;
     }
 }
 
