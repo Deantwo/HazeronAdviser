@@ -277,7 +277,7 @@ namespace HazeronAdviser
         public override void CompareMail(HMail mail)
         {
             // This is a small fix to not count MSG_CityDistressReport messages with no report info.
-            if (!(mail.Body.Contains("<b>MORALE</b>") || mail.Body.Contains("<b>POPULATION</b>")))
+            if (mail.Subject != "City Status")
                 return;
             base.CompareMail(mail);
         }

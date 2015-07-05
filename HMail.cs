@@ -355,5 +355,10 @@ namespace HazeronAdviser
                 _planSkipOffset += 8 + _plan_l;
             }
         }
+
+        public override string ToString()
+        {
+            return From + " (" + SenderID + "): " + Subject;
+        }
     }
 }
