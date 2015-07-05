@@ -25,6 +25,12 @@ namespace HazeronAdviser
             get { return _distressOverview; }
         }
 
+        protected string _decayOverview = "";
+        public string DecayOverview
+        {
+            get { return _decayOverview; }
+        }
+
         protected string _eventOverview = "";
         public string EventOverview
         {
@@ -288,6 +294,7 @@ namespace HazeronAdviser
             List<string> sectionsInReport = new List<string>();
             // This is the order of the sections in the mail body, keep them in same order!
             string[] sections = new string[] { "<b style=\"color: rgb(255, 255, 0);\">DISTRESS</b>"
+                                             , "<b>DECAY</b>"
                                              , "<b>EVENT LOG</b>"
                                              , "<b>MORALE</b>"
                                              , "<b>POPULATION</b>"
@@ -346,7 +353,16 @@ namespace HazeronAdviser
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineDISTRESS));
                 //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 _distressOverview = "[color=red]" + "Distress:" + Environment.NewLine + "  " + tempSection.Substring(("DISTRESS" + Environment.NewLine).Length).Replace(Environment.NewLine, Environment.NewLine + "  ") + "[/color]";
-                decaying = tempSection.Contains("<span style=\"color: rgb(255, 255, 0);\">City is decaying.<br></span>");
+                decaying = tempSection.Contains("City is decaying.");
+            }
+
+            // DECAY
+            const string headlineDECAY = "<b>DECAY</b>";
+            if (sectionsInReport.Contains(headlineDECAY))
+            {
+                string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineDECAY));
+                //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                _decayOverview = "[color=red]" + "Decay:" + Environment.NewLine + "  " + tempSection.Substring(("DECAY" + Environment.NewLine).Length).Replace(Environment.NewLine, Environment.NewLine + "  ") + "[/color]";
             }
 
             // EVENT LOG
@@ -914,6 +930,8 @@ namespace HazeronAdviser
             _overview += "  Zone " + _zone;
             if (_distressOverview != "")
                 _overview += Environment.NewLine + Environment.NewLine + _distressOverview;
+            if (_decayOverview != "")
+                _overview += Environment.NewLine + Environment.NewLine + _decayOverview;
             if (_eventOverview != "")
                 _overview += Environment.NewLine + Environment.NewLine + _eventOverview;
 
