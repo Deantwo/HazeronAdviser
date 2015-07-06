@@ -353,5 +353,10 @@ namespace HazeronAdviser
 
             _initialized = true;
         }
+
+        public override string ToString()
+        {
+            return _name;
+        }
     }
 }
