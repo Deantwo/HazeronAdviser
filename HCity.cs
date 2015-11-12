@@ -852,6 +852,10 @@ namespace HazeronAdviser
             }
             if (!buildingList.Contains("Military Flag"))
                 buildingList.Add("Military Flag");
+            if (!buildingList.Contains("Cantina"))
+                buildingList.Add("Cantina");
+            if (!buildingList.Contains("Church"))
+                buildingList.Add("Church");
             buildingList.Sort();
             foreach (string building in buildingList)
             {
