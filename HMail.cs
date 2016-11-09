@@ -343,7 +343,7 @@ namespace HazeronAdviser
             _mailBytes = HMail.Read(_filePath);
             _from_l = HHelper.ToInt32(_mailBytes, 15);
             _subj_l = HHelper.ToInt32(_mailBytes, 19 + _from_l + 10);
-            _body_l = HHelper.ToInt32(_mailBytes, 19 + _from_l + 14 + _subj_l);
+            _body_l = Math.Max(0, HHelper.ToInt32(_mailBytes, 19 + _from_l + 14 + _subj_l));
             if (this.MessageFlags_Syst)
             {
                 _syst_l = HHelper.ToInt32(_mailBytes, 19 + _from_l + 14 + _subj_l + 4 + _body_l + 1 + 4);
