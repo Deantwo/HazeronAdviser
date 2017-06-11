@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttentionMessage.cs" />
+    <Compile Include="HCommodity.cs" />
     <Compile Include="Hazeron.cs" />
     <Compile Include="HCharacter.cs" />
     <Compile Include="HCity.cs" />
@@ -56,6 +58,8 @@
     <Compile Include="HHelper.cs" />
     <Compile Include="HMail.cs" />
     <Compile Include="HObj.cs" />
+    <Compile Include="HSector.cs" />
+    <Compile Include="HShip.cs" />
     <Compile Include="HSystem.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>

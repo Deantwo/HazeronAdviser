@@ -33,6 +33,13 @@ namespace HazeronAdviser
             //set { _pirateEmpires = value; }
         }
 
+        protected static Dictionary<string, int> _moraleBuildingsPop;
+        public static Dictionary<string, int> MoraleBuildingsPop
+        {
+            get { return _moraleBuildingsPop; }
+            //set { _moraleBuildingsPop = value; }
+        }
+
         static Hazeron()
         {
             System.Globalization.CultureInfo tempCulture = new System.Globalization.CultureInfo("en-US");
@@ -67,6 +74,19 @@ namespace HazeronAdviser
                                           , "Vreen"
                                           , "Zuul"
                                           };
+
+            _moraleBuildingsPop = new Dictionary<string, int>();
+            _moraleBuildingsPop.Add("Church", 45);
+            _moraleBuildingsPop.Add("Cantina", 50);
+            _moraleBuildingsPop.Add("Retail Store", 55);
+            _moraleBuildingsPop.Add("Police Station", 60);
+            _moraleBuildingsPop.Add("University", 70);
+            _moraleBuildingsPop.Add("Hospital", 80);
+            _moraleBuildingsPop.Add("Park", 90);
+            _moraleBuildingsPop.Add("Grocery", 100);
+            _moraleBuildingsPop.Add("Zoo", 150);
+            _moraleBuildingsPop.Add("Arena", 175);
+            _moraleBuildingsPop.Add("Casino", 200);
         }
 
         public static bool ValidID(string id)

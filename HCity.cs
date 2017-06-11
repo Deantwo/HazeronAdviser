@@ -83,10 +83,10 @@ namespace HazeronAdviser
             get { return _abandonmentColumn; }
         }
 
-        protected string _populationColumn = "-";
-        public string PopulationColumn
+        protected int _neglect = 0;
+        public int Neglect
         {
-            get { return _populationColumn; }
+            get { return _neglect; }
         }
 
         protected string _loyaltyColumn = "-";
@@ -95,22 +95,54 @@ namespace HazeronAdviser
             get { return _loyaltyColumn; }
         }
 
-        protected string _livingConditionsColumn = "-";
-        public string LivingConditionsColumn
-        {
-            get { return _livingConditionsColumn; }
-        }
-
         protected string _populationOverview = "-";
         public string PopulationOverview
         {
             get { return _populationOverview; }
         }
 
+        protected string _populationColumn = "-";
+        public string PopulationColumn
+        {
+            get { return _populationColumn; }
+        }
+
+        protected string _livingConditionsColumn = "-";
+        public string LivingConditionsColumn
+        {
+            get { return _livingConditionsColumn; }
+        }
+
         protected string _buildingsOverview = "";
         public string BuildingsOverview
         {
             get { return _buildingsOverview; }
+        }
+
+        protected string _race = "";
+        public string Race
+        {
+            get { return _race; }
+        }
+
+        protected int _powerConsumption = 0, _powerReserve = 0, _powerReserveCapacity = 0;
+        public int PowerConsumption
+        {
+            get { return _powerConsumption; }
+        }
+        public int PowerReserve
+        {
+            get { return _powerReserve; }
+        }
+        public int PowerReserveCapacity
+        {
+            get { return _powerReserveCapacity; }
+        }
+
+        protected string _defencesOverview = "";
+        public string DefencesOverview
+        {
+            get { return _defencesOverview; }
         }
 
         protected Dictionary<string, int> _factilitiesLV = new Dictionary<string, int>();
@@ -255,18 +287,20 @@ namespace HazeronAdviser
             get { return _bankTribute; }
         }
 
-        protected string _bankOverview = "", _bankGovBalanceColumn = "-", _bankTributeColumn = "-";
+        protected string _bankOverview = "", _bankTributeColumn = "-";
         public string BankOverview
         {
             get { return _bankOverview; }
         }
-        public string BankGovBalanceColumn
-        {
-            get { return _bankGovBalanceColumn; }
-        }
         public string BankTributeColumn
         {
             get { return _bankTributeColumn; }
+        }
+
+        protected List<AttentionMessage> _attentions = new List<AttentionMessage>();
+        public List<AttentionMessage> Attentions
+        {
+            get { return _attentions; }
         }
 
         public HCity(HMail mail)
@@ -277,7 +311,7 @@ namespace HazeronAdviser
         public override void CompareMail(HMail mail)
         {
             // This is a small fix to not count MSG_CityDistressReport messages with no report info.
-            if (mail.Subject != "City Status")
+            if (mail.Subject != "City Status Report")
                 return;
             base.CompareMail(mail);
         }
@@ -308,30 +342,15 @@ namespace HazeronAdviser
                                              , "<b>VEHICLES</b>"
                                              , "<b>INVENTORY</b>"
                                              };
-            Dictionary<string, int> moraleBuildingsPop = new Dictionary<string, int>();
-            moraleBuildingsPop.Add("Church", 45);
-            moraleBuildingsPop.Add("Cantina", 50);
-            moraleBuildingsPop.Add("Retail Store", 55);
-            moraleBuildingsPop.Add("Police Station", 60);
-            moraleBuildingsPop.Add("University", 70);
-            moraleBuildingsPop.Add("Hospital", 80);
-            moraleBuildingsPop.Add("Park", 90);
-            moraleBuildingsPop.Add("Grocery", 100);
-            moraleBuildingsPop.Add("Zoo", 150);
-            moraleBuildingsPop.Add("Arena", 175);
-            moraleBuildingsPop.Add("Casino", 200);
-            // Time for City spicific things.
-            string race = "";
-            int powerConsumption = 0, powerReserve = 0, powerReserveCapacity = 0;
-            List<string> buildingList;
-            bool decaying = false;
-            int moraleChange = 0;
-            int populationChange = 0;
-
             // Check for sections.
             foreach (string section in sections)
                 if (_mail.Body.Contains(section))
                     sectionsInReport.Add(section);
+
+            // Time for City spicific things.
+            bool decaying = false;
+            int moraleChange = 0;
+            int populationChange = 0;
 
             // City Resource Zone & Capital check
             {
@@ -402,15 +421,31 @@ namespace HazeronAdviser
                 int abandonedPenalty = 0;
                 for (int i = 1; i < tempArray.Length - 1; i++)
                 {
-                    _moraleModifiers.Add(tempArray[i].Substring(tempArray[i].IndexOf(' ') + 1), Convert.ToInt32(tempArray[i].Remove(tempArray[i].IndexOf(' '))));
-                    if (tempArray[i].Contains("Abandonment Penalty"))
+                    if (tempArray[i].Contains("Abandonment Penalty") || tempArray[i].StartsWith("Abandoned"))
                     {
-                        abandonedPenalty = Convert.ToInt32(tempArray[i].Remove(tempArray[i].IndexOf(' ')));
+                        if (tempArray[i].StartsWith("+") || tempArray[i].StartsWith("-"))
+                        {
+                            _moraleModifiers.Add(tempArray[i].Substring(tempArray[i].IndexOf(' ') + 1), Convert.ToInt32(tempArray[i].Remove(tempArray[i].IndexOf(' '))));
+                            abandonedPenalty = Convert.ToInt32(tempArray[i].Remove(tempArray[i].IndexOf(' ')));
+                        }
+                        else
+                            _moraleModifiers.Add(tempArray[i], 0);
                         int posA, posB;
                         posA = tempArray[i].LastIndexOf(" in ") + 4;
                         posB = tempArray[i].LastIndexOf(" days.");
                         abandonedDays = Convert.ToInt32(tempArray[i].Substring(posA, posB - posA));
                     }
+                    else if (tempArray[i].StartsWith("Citizens are increasingly disloyal.") || tempArray[i].StartsWith("Citizens are rebellious."))
+                    {
+                        // "Citizens are increasingly disloyal. No Foxtail avatar or officer has visited this system in 17 days."
+                        // "Citizens are rebellious. No Foxtail avatar or officer has visited this system in 21 days."
+                        int posA, posB;
+                        posA = tempArray[i].LastIndexOf(" in ") + 4;
+                        posB = tempArray[i].LastIndexOf(" days.");
+                        _neglect = Convert.ToInt32(tempArray[i].Substring(posA, posB - posA));
+                    }
+                    else
+                        _moraleModifiers.Add(tempArray[i].Substring(tempArray[i].IndexOf(' ') + 1), Convert.ToInt32(tempArray[i].Remove(tempArray[i].IndexOf(' '))));
                     if (tempArray[i].Contains("Harsh Environment Penalty"))
                     {
                         _hashEnv = true;
@@ -418,6 +453,12 @@ namespace HazeronAdviser
                 }
                 _abandonment = ((_moraleModifiers.Values.Sum() + 1) * Hazeron.AbandonmentInterval) - (abandonedDays % Hazeron.AbandonmentInterval);
                 _abandonmentMax = ((_moraleModifiers.Values.Sum() - abandonedPenalty + 1) * Hazeron.AbandonmentInterval);
+                if (_moraleModifiers.Any(x => x.Key.StartsWith("Loyalty Bonus."))) // Ignore loyalty morale bonus. 2016-01-01
+                {
+                    int loyaltyBonusDays = _moraleModifiers.First(x => x.Key.Contains("Loyalty Bonus.")).Value * 7;
+                    _abandonment -= loyaltyBonusDays;
+                    _abandonmentMax -= loyaltyBonusDays;
+                }
                 if (decaying)
                     _abandonmentColumn = " Decaying";
                 else if (_abandonmentMax < Hazeron.AbandonmentInterval)
@@ -440,7 +481,7 @@ namespace HazeronAdviser
                 {
                     if (line.Contains("Citizens are"))
                     {
-                        race = line.Remove(line.Length - 1).Substring(13);
+                        _race = line.Remove(line.Length - 1).Substring(13);
                     }
                     else if (line.Contains("Population") && !line.Contains("troops"))
                     {
@@ -519,15 +560,15 @@ namespace HazeronAdviser
                 {
                     if (line.Contains("Consumed"))
                     {
-                        powerConsumption = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
+                        _powerConsumption = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
                     }
                     else if (line.Contains("Reserve Power"))
                     {
-                        powerReserve = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
+                        _powerReserve = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
                     }
                     else if (line.Contains("Reserve Capacity"))
                     {
-                        powerReserveCapacity = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
+                        _powerReserveCapacity = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
                     }
                 }
             }
@@ -643,11 +684,13 @@ namespace HazeronAdviser
                 {
                     if (tempArray[i] != "Name")
                     {
+                        string name = tempArray[i].TrimStart();
                         int tl;
                         if (!Int32.TryParse(tempArray[i + 1], out tl))
                             tl = Convert.ToInt32(tempArray[i + 1].Split(new char[] { '-' })[1]) * -1; // Make negitive because it is not all buildings.
-                        _factilitiesTL.Add(tempArray[i], tl);
-                        _factilitiesLV.Add(tempArray[i], Convert.ToInt32(tempArray[i + 2]));
+                        int levels = Convert.ToInt32(tempArray[i + 2]);
+                        _factilitiesTL.Add(name, tl);
+                        _factilitiesLV.Add(name, levels);
                     }
                 }
             }
@@ -664,11 +707,11 @@ namespace HazeronAdviser
             const string headlineINVENTORY = "<b>INVENTORY</b>";
             if (sectionsInReport.Contains(headlineINVENTORY))
             {
-                string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineINVENTORY));
+                string tempSection = GetSectionText(_mail.Body, sectionsInReport, headlineINVENTORY);
                 if (tempSection.Contains("Computer"))
                 {
-                    _bankExpenseResearchEstReport = (int)(_bankExpenseResearchEstReport * 2.25);
-                    _bankExpenseResearchEstDay = (int)(_bankExpenseResearchEstDay * 2.25);
+                    _bankExpenseResearchEstReport = (Int64)(_bankExpenseResearchEstReport * 2.25);
+                    _bankExpenseResearchEstDay = (Int64)(_bankExpenseResearchEstDay * 2.25);
                 }
                 if (_hashEnv && tempSection.Contains("Air"))
                 {
@@ -695,7 +738,69 @@ namespace HazeronAdviser
             else
                 _populationLimit = 1000;
 
-            // Morale overview
+            UpdateMoraleOverview(moraleChange);
+
+            UpdatePopulationOverwiew(populationChange);
+
+            UpdateTechnologyOverview();
+
+            UpdateBuildingsOverview();
+
+            UpdateDefencesOverview();
+
+            UpdateBankOverview();
+
+            // Overview
+            _overview = "Location:" + Environment.NewLine;
+            _overview += "  " + _systemName + Environment.NewLine;
+            _overview += "  " + _planetName + Environment.NewLine;
+            _overview += "  Zone " + _zone;
+            if (_distressOverview != "")
+                _overview += Environment.NewLine + Environment.NewLine + _distressOverview;
+            if (_decayOverview != "")
+                _overview += Environment.NewLine + Environment.NewLine + _decayOverview;
+            if (_eventOverview != "")
+                _overview += Environment.NewLine + Environment.NewLine + _eventOverview;
+
+            // Attentions
+            if (_population > 1 && _jobs >= _homes) // Overworked.
+                _attentions.Add(new AttentionMessage(1, "ColumnLivingConditions", "- Overworked." + Environment.NewLine + "  " + (_jobs - _homes + 1).ToString().PadLeft(4) + ", Missing workers"));
+            if (_population > 1 && ((float)(_homes - _jobs) / _homes) > 0.2) // High unemployment.
+                _attentions.Add(new AttentionMessage(1, "ColumnLivingConditions", "- High unemployment." + Environment.NewLine + "  " + ((_homes * 0.8) - _jobs + 1).ToString().PadLeft(4) + ", Excesseding unemployed"));
+            if (_homes > _populationLimit) // Zone over populated.
+                _attentions.Add(new AttentionMessage(1, "ColumnLivingConditions", "- Resource zone over populated." + Environment.NewLine + "  " + _populationLimit.ToString().PadLeft(4) + ", Limit" + Environment.NewLine + "  " + _homes.ToString().PadLeft(4) + ", Homes"));
+            if (decaying) // Decaying.
+                _attentions.Add(new AttentionMessage(4, "ColumnAbandonment", "- City is decaying!"));
+            else if (_abandonment <= 0) // 0 days till decay.
+                _attentions.Add(new AttentionMessage(3, "ColumnAbandonment", "- City has been abandonment." + Environment.NewLine + "  Decay may start at any moment."));
+            else if (_abandonment <= Hazeron.AbandonmentInterval) // Less than or equal to (Hazeron.AbandonmentInterval) days to decay.
+                _attentions.Add(new AttentionMessage(2, "ColumnAbandonment", "- City has been abandonment." + Environment.NewLine + "  Possible decay in " + _abandonment.ToString() + " days."));
+            else if (_abandonment <= Hazeron.AbandonmentInterval * 2) // Less than or equal to (Hazeron.AbandonmentInterval * 2) days to decay.
+                _attentions.Add(new AttentionMessage(1, "ColumnAbandonment", "- City has been abandonment." + Environment.NewLine + "  Possible decay in " + _abandonment.ToString() + " days."));
+            if (_population <= 1) // Population is 1 or 0.
+                _attentions.Add(new AttentionMessage(1, "ColumnPopulation", "- City is desered."));
+            if (_population > _homes) // Homeless.
+                _attentions.Add(new AttentionMessage(1, "ColumnPopulation", "- Homeless citizens." + Environment.NewLine + (_population - _homes).ToString().PadLeft(4) + ", Homeless"));
+            if (_population > 1 && _morale < 0) // Morale is negative.
+                _attentions.Add(new AttentionMessage(2, "ColumnMorale", "- Morale is negative!"));
+            else if (_population > 1 && _morale < 20) // Morale not full.
+                _attentions.Add(new AttentionMessage(1, "ColumnMorale", "- Morale not at maximum."));
+            if (_population > 1 && _moraleModifiers.Values.Sum() < 1) // Morale not positive.
+                _attentions.Add(new AttentionMessage(2, "ColumnMoraleModifiers", "- Morale modifiers are dangerously low."));
+            if (_moraleModifiers.Keys.Any(x => x.EndsWith(" wanted."))) // Morale building wanted.
+                _attentions.Add(new AttentionMessage(1, "ColumnMoraleModifiers", "- Missing morale building."));
+            if (_population > 1 && _loyalty < 0) // Disloyal population.
+                _attentions.Add(new AttentionMessage(2, "ColumnLoyalty", "- Disloyal citizens." + Environment.NewLine + "  Occupation under way, " + Math.Abs(_loyalty) + " still disloyal."));
+            else if (_neglect > 0) // City feels neglected.
+                _attentions.Add(new AttentionMessage(1, "ColumnLoyalty", "- City has been neglected." + Environment.NewLine + "  No visit from empire officer or avatar for " + _neglect + " days."));
+            if (_population > 1 && !_factilitiesLV.ContainsKey("Bank")) // No bank.
+                _attentions.Add(new AttentionMessage(1, "ColumnBank", "- City has no bank and is not collecting taxes."));
+
+            base.Initialize();
+        }
+
+        protected void UpdateMoraleOverview(int moraleChange)
+        {
             _moraleOverview = "City's morale:" + Environment.NewLine + "  ";
             if (_morale >= 0)
                 _moraleOverview += "[color=green]";
@@ -727,35 +832,42 @@ namespace HazeronAdviser
                 _moraleOverview += "[/color]";
             _moraleModifiersColumn = _moraleModifiers.Values.Sum().ToString("+#0;-#0;±#0");
             _moraleModifiersColumn += " (" + Math.Abs(_moraleModifiers.Values.Where(y => y < 0).Sum()).ToString("-#0") + ", " + _moraleModifiers.Values.Where(y => y > 0).Sum().ToString("+#0") + ")";
+        }
 
-            // Population overwiew
+        protected void UpdatePopulationOverwiew(int populationChange)
+        {
             const int populationPadding = 4;
             _populationOverview = "City's population:";
             _populationOverview += Environment.NewLine + " " + _loyalty.ToString().PadLeft(populationPadding) + ", Loyal citizens";
             if (_loyalty != _population)
             {
-                int minutesToLoyal;
-                bool disloyal = _loyalty < 0;
-                if (!disloyal)
-                    minutesToLoyal = ((_population - _loyalty) * 13);
+                if (Abandonment != AbandonmentMax) // Loyalty decreace when abandonment. 2016-01-01
+                    _populationOverview += " [color=red](decreasing)[/color]";
                 else
-                    minutesToLoyal = (Math.Abs(_loyalty) * 13);
-                _populationOverview += " [color=" + (disloyal ? "red" : "orange") + "](";
-                if (minutesToLoyal < 120) // Less than two hours.
-                    _populationOverview += minutesToLoyal + " minutes";
-                else if (minutesToLoyal < 2980) // Less than two days.
-                    _populationOverview += (minutesToLoyal / 60) + " hours";
-                else // More than two days.
-                    _populationOverview += (minutesToLoyal / 1490) + " days";
-                _populationOverview += " to " + (disloyal ? "loyal" : "fully") + ")[/color]";
+                {
+                    int minutesToLoyal;
+                    bool disloyal = _loyalty < 0;
+                    if (!disloyal)
+                        minutesToLoyal = ((_population - _loyalty) * 13);
+                    else
+                        minutesToLoyal = (Math.Abs(_loyalty) * 13);
+                    _populationOverview += " [color=" + (disloyal ? "red" : "orange") + "](";
+                    if (minutesToLoyal < 120) // Less than two hours.
+                        _populationOverview += minutesToLoyal + " minutes";
+                    else if (minutesToLoyal < 2980) // Less than two days.
+                        _populationOverview += (minutesToLoyal / 60) + " hours";
+                    else // More than two days.
+                        _populationOverview += (minutesToLoyal / 1490) + " days";
+                    _populationOverview += " to " + (disloyal ? "loyal" : "fully") + ")[/color]";
+                }
             }
             //else
             //    _populationOverview += " [color=green](fully)[/color]";
             _populationOverview += Environment.NewLine + " " + _population.ToString().PadLeft(populationPadding) + ", Citizens";
             if (populationChange < 0)
-                _populationOverview += " [color=red](decreased " + Math.Abs(populationChange) + ")[/color]";
+                _populationOverview += " [color=red](decreased by " + Math.Abs(populationChange) + ")[/color]";
             else if (populationChange > 0)
-                _populationOverview += " [color=green](increased " + populationChange + ")[/color]";
+                _populationOverview += " [color=green](increased by " + populationChange + ")[/color]";
             //else
             //    _populationOverview += " (steady)";
             _populationOverview += Environment.NewLine + " " + _homes.ToString().PadLeft(populationPadding) + ", Homes";
@@ -778,13 +890,13 @@ namespace HazeronAdviser
             }
             _populationOverview += Environment.NewLine;
             _populationOverview += Environment.NewLine + "City's living conditions:";
-            _populationOverview += Environment.NewLine + " Citizens are " + race;
+            _populationOverview += Environment.NewLine + " Citizens are " + _race;
             {
-                string powerUse = powerConsumption.ToString("N", Hazeron.NumberFormat);
-                string powerSto = powerReserve.ToString("N", Hazeron.NumberFormat);
+                string powerUse = _powerConsumption.ToString("N", Hazeron.NumberFormat);
+                string powerSto = _powerReserve.ToString("N", Hazeron.NumberFormat);
                 int powerPadding = Math.Max(powerUse.Length, powerSto.Length);
                 _populationOverview += Environment.NewLine + " " + powerUse.PadLeft(powerPadding) + " power comsumption";
-                _populationOverview += Environment.NewLine + " " + powerSto.PadLeft(powerPadding) + "/" + powerReserveCapacity.ToString("N", Hazeron.NumberFormat) + " power capacity (" + Math.Floor(((float)powerReserve / powerReserveCapacity) * 100) + "%)";
+                _populationOverview += Environment.NewLine + " " + powerSto.PadLeft(powerPadding) + "/" + _powerReserveCapacity.ToString("N", Hazeron.NumberFormat) + " power capacity (" + Math.Floor(((float)_powerReserve / _powerReserveCapacity) * 100) + "%)";
             }
             {
                 _populationOverview += Environment.NewLine + " ";
@@ -817,9 +929,12 @@ namespace HazeronAdviser
                 else if (levelAjustment < 0)
                     _populationOverview += " [color=red](Cramped, " + Math.Abs(levelAjustment) + " more non-apartment homes needed)[/color]";
             }
+        }
 
-            // Technology overview
-            if (sectionsInReport.Contains(headlineRESEARCH))
+        protected void UpdateTechnologyOverview()
+        {
+            List<string> buildingList;
+            if (_reseatchProjects.Count != 0)
             {
                 _technologyOverview = "City's technology projects:";
                 foreach (string building in _reseatchProjects.Keys)
@@ -841,13 +956,16 @@ namespace HazeronAdviser
                 if (_factilitiesTL[building] < 0)
                     _technologyOverview += " [color=red](not all buildings)[/color]";
             }
+        }
 
-            // Buildings overview
+        protected void UpdateBuildingsOverview()
+        {
+            List<string> buildingList;
             _buildingsOverview = "City's buildings:";
             buildingList = _factilitiesLV.Keys.ToList();
-            foreach (string moraleBuilding in moraleBuildingsPop.Keys)
+            foreach (string moraleBuilding in Hazeron.MoraleBuildingsPop.Keys)
             {
-                if (!_factilitiesLV.ContainsKey(moraleBuilding) && _homes > moraleBuildingsPop[moraleBuilding])
+                if (!_factilitiesLV.ContainsKey(moraleBuilding) && _homes >= Hazeron.MoraleBuildingsPop[moraleBuilding])
                     buildingList.Add(moraleBuilding);
             }
             if (!buildingList.Contains("Military Flag"))
@@ -863,9 +981,9 @@ namespace HazeronAdviser
                 if (_factilitiesLV.ContainsKey(building))
                     levels = _factilitiesLV[building];
                 _buildingsOverview += Environment.NewLine + " " + levels.ToString().PadLeft(3) + " levels, " + building;
-                if (moraleBuildingsPop.ContainsKey(building))
+                if (Hazeron.MoraleBuildingsPop.ContainsKey(building))
                 {
-                    int levelsNeeded = _homes / moraleBuildingsPop[building];
+                    int levelsNeeded = _homes / Hazeron.MoraleBuildingsPop[building];
                     if (building == "Cantina")
                         levelsNeeded += 1;
                     else if (building == "Church")
@@ -884,9 +1002,56 @@ namespace HazeronAdviser
                         _buildingsOverview += " [color=green](" + (levelsPossible - levels) + " flags more possible)[/color]";
                 }
             }
+        }
 
-            // Bank overview
-            _bankGovBalanceColumn = _bankGovBalance.ToString("C", Hazeron.NumberFormat) + " balance";
+        protected void UpdateDefencesOverview()
+        {
+            int militaryFactilities = 0;
+            int militaryFactilitiesLimit = 0;
+            int sensorStregth = 0;
+            int sensorTL = 0;
+            _defencesOverview = "City's defensive buildings:";
+            if (_factilitiesLV.ContainsKey("Airport Terminal"))
+            {
+                //_defencesOverview += Environment.NewLine + " " + "Airport Terminal";
+                sensorStregth += (1 * _factilitiesLV["Airport Terminal"]);
+                sensorTL = Math.Max(sensorTL, _factilitiesTL["Airport Terminal"]);
+            }
+            if (_factilitiesLV.ContainsKey("Military Guard Tower"))
+            {
+                _defencesOverview += Environment.NewLine + " " + _factilitiesLV["Military Guard Tower"].ToString().PadLeft(2) + ", TL" + _factilitiesTL["Military Guard Tower"].ToString().PadLeft(2) + " Military Guard Tower";
+                militaryFactilities += _factilitiesLV["Military Guard Tower"];
+            }
+            if (_factilitiesLV.ContainsKey("Military Shield Generator"))
+            {
+                _defencesOverview += Environment.NewLine + " " + _factilitiesLV["Military Shield Generator"].ToString().PadLeft(2) + ", TL" + _factilitiesTL["Military Shield Generator"].ToString().PadLeft(2) + " Military Shield Generator";
+                sensorStregth += (10 * _factilitiesLV["Military Shield Generator"]);
+                sensorTL = Math.Max(sensorTL, _factilitiesTL["Military Shield Generator"]);
+                militaryFactilities += _factilitiesLV["Military Shield Generator"];
+            }
+            if (_factilitiesLV.ContainsKey("Military Weapon System"))
+            {
+                _defencesOverview += Environment.NewLine + " " + _factilitiesLV["Military Weapon System"].ToString().PadLeft(2) + ", TL" + _factilitiesTL["Military Weapon System"].ToString().PadLeft(2) + " Military Weapon System";
+                sensorStregth += (10 * _factilitiesLV["Military Weapon System"]);
+                sensorTL = Math.Max(sensorTL, _factilitiesTL["Military Weapon System"]);
+                militaryFactilities += _factilitiesLV["Military Weapon System"];
+            }
+            if (_factilitiesLV.ContainsKey("Military Flag"))
+            {
+                _defencesOverview += Environment.NewLine + " " + _factilitiesLV["Military Flag"].ToString().PadLeft(2) + ", Military Flag";
+                militaryFactilitiesLimit = _factilitiesLV["Military Flag"] * 2;
+            }
+            _defencesOverview += Environment.NewLine + " Military factilities limit: " + militaryFactilities + "/" + militaryFactilitiesLimit;
+            if (militaryFactilities > militaryFactilitiesLimit)
+                _defencesOverview += " [color=red](Not enough military flags)[/color]";
+
+            _defencesOverview += Environment.NewLine + Environment.NewLine + "System emission sensors:";
+            _defencesOverview += Environment.NewLine + " " + sensorStregth.ToString().PadLeft(2) + ", Stregth";
+            _defencesOverview += Environment.NewLine + " " + sensorTL.ToString().PadLeft(2) + ", TL";
+        }
+
+        protected void UpdateBankOverview()
+        {
             _bankOverview = "City's finances:";
             if (_empireCapital && _bankTribute == 0)
             {
@@ -926,38 +1091,6 @@ namespace HazeronAdviser
             _bankOverview += Environment.NewLine;
             _bankOverview += Environment.NewLine + " " + (_bankGovBalance - _bankGovBalanceOld).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account net-change";
             _bankOverview += Environment.NewLine + " " + _bankGovBalance.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account balance";
-
-            // Overview
-            _overview = "Location:" + Environment.NewLine;
-            _overview += "  " + _systemName + Environment.NewLine;
-            _overview += "  " + _planetName + Environment.NewLine;
-            _overview += "  Zone " + _zone;
-            if (_distressOverview != "")
-                _overview += Environment.NewLine + Environment.NewLine + _distressOverview;
-            if (_decayOverview != "")
-                _overview += Environment.NewLine + Environment.NewLine + _decayOverview;
-            if (_eventOverview != "")
-                _overview += Environment.NewLine + Environment.NewLine + _eventOverview;
-
-            // AttentionCodes
-            if ((_jobs >= _homes) || (((float)(_homes - _jobs) / _homes) > 0.2)) // Overworked, or too much unemployment.
-                _attentionCode = (byte)(_attentionCode | 0x01); // 0b00000001
-            if (_population < _homes || _population > _homes) // Population not full, or more than full.
-                _attentionCode = (byte)(_attentionCode | 0x02); // 0b00000010
-            if (Hazeron.AbandonmentInterval * 2 >= _abandonment) // Less than or equal to (Hazeron.AbandonmentInterval * 2) days to decay.
-                _attentionCode = (byte)(_attentionCode | 0x04); // 0b00000100
-            if (Hazeron.AbandonmentInterval >= _abandonment) // Less than or equal to (Hazeron.AbandonmentInterval) days to decay.
-                _attentionCode = (byte)(_attentionCode | 0x08); // 0b00001000
-            if (_population == 0 || _population > _populationLimit) // Population is 0, or zone over populated!
-                _attentionCode = (byte)(_attentionCode | 0x10); // 0b00010000
-            if (false) // Nothing yet!
-                _attentionCode = (byte)(_attentionCode | 0x20); // 0b00100000
-            if (_morale < 20) // Morale not full.
-                _attentionCode = (byte)(_attentionCode | 0x40); // 0b01000000
-            if (false) // Nothing yet!
-                _attentionCode = (byte)(_attentionCode | 0x80); // 0b10000000
-
-            base.Initialize();
         }
     }
 }

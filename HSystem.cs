@@ -7,12 +7,12 @@ namespace HazeronAdviser
 {
     class HSystem
     {
-        protected string _name = "-"; // Name of the ship, this can change at any time.
+        protected string _name = "-"; // Name of the system, this can change at any time.
         public string Name
         {
             get { return _name; }
         }
-        protected int _id = 0; // ID of the ship, used in mail names.
+        protected int _id = 0; // ID of the system.
         public int ID
         {
             get { return _id; }
@@ -20,6 +20,12 @@ namespace HazeronAdviser
         public string IdString
         {
             get { return HHelper.ToID(_id); }
+        }
+
+        protected int _sectorId = 0;
+        public int SectorID 
+        {
+            get { return _sectorId;}
         }
 
         protected string _overview = "";
@@ -231,14 +237,17 @@ namespace HazeronAdviser
             {
                 _abandonment = Cities.Min(city => city.Abandonment);
                 _abandonmentMax = Cities.Min(city => city.AbandonmentMax);
-                if (_abandonmentMax < Hazeron.AbandonmentInterval)
+                bool decaying = Cities.Any(city => city.DistressOverview.Contains("City is decaying."));
+                if (decaying)
+                    _abandonmentColumn = " Decaying";
+                else if (_abandonmentMax < Hazeron.AbandonmentInterval)
                     _abandonmentColumn = " Unstable";
                 else if (_abandonment == _abandonmentMax)
                     _abandonmentColumn = _abandonment.ToString("00") + "~/" + _abandonmentMax.ToString("00") + " days";
                 else if (_abandonment > 0)
                     _abandonmentColumn = _abandonment.ToString("00") + " /" + _abandonmentMax.ToString("00") + " days";
                 else
-                    _abandonmentColumn = " Decaying";
+                    _abandonmentColumn = " ERROR!?";
             }
 
             // POPULATION & LIVING CONDITIONS
@@ -247,7 +256,7 @@ namespace HazeronAdviser
                 _homes = Cities.Sum(city => city.Homes);
                 _jobs = Cities.Sum(city => city.Jobs);
                 _populationLimit = Cities.Sum(city => city.PopulationLimit);
-                _populationColumn = _population + "/" + _homes + "/" + _populationLimit;
+                _populationColumn = "Population " + _population + ", Homes " + _homes;
 
                 _loyalty = Cities.Sum(city => city.Loyalty);
                 _loyaltyColumn = _loyalty + " citizens (" + Math.Round(((float)_loyalty / _population) * 100, 2) + "%)";
@@ -326,7 +335,7 @@ namespace HazeronAdviser
                 {
                     _technologyOverview += Environment.NewLine + " TL" + Math.Abs(_factilitiesTL[building]).ToString().PadLeft(2) + ", " + building;
                     if (_factilitiesTL[building] < 0)
-                        _technologyOverview += " [color=red](not all buildings)[/color]";
+                        _technologyOverview += " [color=red](not all cities)[/color]";
                 }
             }
 
