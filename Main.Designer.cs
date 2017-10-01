@@ -94,6 +94,8 @@
             this.rtbCityPopulation = new System.Windows.Forms.RichTextBox();
             this.tabCityTechnology = new System.Windows.Forms.TabPage();
             this.rtbCityTechnology = new System.Windows.Forms.RichTextBox();
+            this.tabCityPatents = new System.Windows.Forms.TabPage();
+            this.rtbCityPatents = new System.Windows.Forms.RichTextBox();
             this.tabCityBuildings = new System.Windows.Forms.TabPage();
             this.rtbCityBuildings = new System.Windows.Forms.RichTextBox();
             this.tabCityDefences = new System.Windows.Forms.TabPage();
@@ -235,6 +237,7 @@
             this.splitContainerCityPopulation.Panel2.SuspendLayout();
             this.splitContainerCityPopulation.SuspendLayout();
             this.tabCityTechnology.SuspendLayout();
+            this.tabCityPatents.SuspendLayout();
             this.tabCityBuildings.SuspendLayout();
             this.tabCityDefences.SuspendLayout();
             this.tabCityBank.SuspendLayout();
@@ -823,6 +826,7 @@
             this.tabControlCity.Controls.Add(this.tabCityMorale);
             this.tabControlCity.Controls.Add(this.tabCityPopulation);
             this.tabControlCity.Controls.Add(this.tabCityTechnology);
+            this.tabControlCity.Controls.Add(this.tabCityPatents);
             this.tabControlCity.Controls.Add(this.tabCityBuildings);
             this.tabControlCity.Controls.Add(this.tabCityDefences);
             this.tabControlCity.Controls.Add(this.tabCityBank);
@@ -1056,6 +1060,29 @@
             this.rtbCityTechnology.TabIndex = 0;
             this.rtbCityTechnology.Text = "";
             this.rtbCityTechnology.WordWrap = false;
+            // 
+            // tabCityPatents
+            // 
+            this.tabCityPatents.Controls.Add(this.rtbCityPatents);
+            this.tabCityPatents.Location = new System.Drawing.Point(4, 22);
+            this.tabCityPatents.Name = "tabCityPatents";
+            this.tabCityPatents.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCityPatents.Size = new System.Drawing.Size(409, 367);
+            this.tabCityPatents.TabIndex = 10;
+            this.tabCityPatents.Text = "Patents";
+            this.tabCityPatents.UseVisualStyleBackColor = true;
+            // 
+            // rtbCityPatents
+            // 
+            this.rtbCityPatents.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbCityPatents.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbCityPatents.Location = new System.Drawing.Point(3, 3);
+            this.rtbCityPatents.Name = "rtbCityPatents";
+            this.rtbCityPatents.ReadOnly = true;
+            this.rtbCityPatents.Size = new System.Drawing.Size(403, 361);
+            this.rtbCityPatents.TabIndex = 1;
+            this.rtbCityPatents.Text = "";
+            this.rtbCityPatents.WordWrap = false;
             // 
             // tabCityBuildings
             // 
@@ -2115,26 +2142,26 @@
             // menuStrip1HelpGithub
             // 
             this.menuStrip1HelpGithub.Name = "menuStrip1HelpGithub";
-            this.menuStrip1HelpGithub.Size = new System.Drawing.Size(157, 22);
+            this.menuStrip1HelpGithub.Size = new System.Drawing.Size(156, 22);
             this.menuStrip1HelpGithub.Text = "GitHub Repo";
             this.menuStrip1HelpGithub.Click += new System.EventHandler(this.menuStrip1HelpGithub_Click);
             // 
             // menuStrip1HelpThread
             // 
             this.menuStrip1HelpThread.Name = "menuStrip1HelpThread";
-            this.menuStrip1HelpThread.Size = new System.Drawing.Size(157, 22);
+            this.menuStrip1HelpThread.Size = new System.Drawing.Size(156, 22);
             this.menuStrip1HelpThread.Text = "Forum Thread";
             this.menuStrip1HelpThread.Click += new System.EventHandler(this.menuStrip1HelpThread_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(154, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
             // 
             // menuStrip1HelpAbout
             // 
             this.menuStrip1HelpAbout.Name = "menuStrip1HelpAbout";
-            this.menuStrip1HelpAbout.Size = new System.Drawing.Size(157, 22);
+            this.menuStrip1HelpAbout.Size = new System.Drawing.Size(156, 22);
             this.menuStrip1HelpAbout.Text = "About";
             this.menuStrip1HelpAbout.Click += new System.EventHandler(this.menuStrip1HelpAbout_Click);
             // 
@@ -2142,7 +2169,7 @@
             // 
             this.menuStrip1HelpHowToUse.Name = "menuStrip1HelpHowToUse";
             this.menuStrip1HelpHowToUse.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.menuStrip1HelpHowToUse.Size = new System.Drawing.Size(157, 22);
+            this.menuStrip1HelpHowToUse.Size = new System.Drawing.Size(156, 22);
             this.menuStrip1HelpHowToUse.Text = "How To Use";
             this.menuStrip1HelpHowToUse.Click += new System.EventHandler(this.menuStrip1HelpHowToUse_Click);
             // 
@@ -2206,6 +2233,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityPopulation)).EndInit();
             this.splitContainerCityPopulation.ResumeLayout(false);
             this.tabCityTechnology.ResumeLayout(false);
+            this.tabCityPatents.ResumeLayout(false);
             this.tabCityBuildings.ResumeLayout(false);
             this.tabCityDefences.ResumeLayout(false);
             this.tabCityBank.ResumeLayout(false);
@@ -2443,6 +2471,8 @@
         private System.Windows.Forms.RichTextBox rtbCityDefences;
         private System.Windows.Forms.TabPage tabCityInventory;
         private System.Windows.Forms.RichTextBox rtbCityInventory;
+        private System.Windows.Forms.TabPage tabCityPatents;
+        private System.Windows.Forms.RichTextBox rtbCityPatents;
     }
 }
 

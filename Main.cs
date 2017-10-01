@@ -612,6 +612,7 @@ namespace HazeronAdviser
             rtbCityMorale.Clear();
             rtbCityPopulation.Clear();
             rtbCityTechnology.Clear();
+            rtbCityPatents.Clear();
             rtbCityBuildings.Clear();
             rtbCityDefences.Clear();
             rtbCityBank.Clear();
@@ -647,6 +648,7 @@ namespace HazeronAdviser
                 RichBBCodeBox(rtbCityMorale, city.MoraleOverview);
                 RichBBCodeBox(rtbCityPopulation, city.PopulationOverview);
                 RichBBCodeBox(rtbCityTechnology, city.TechnologyOverview);
+                RichBBCodeBox(rtbCityPatents, city.PatentsOverview);
                 RichBBCodeBox(rtbCityBuildings, city.BuildingsOverview);
                 RichBBCodeBox(rtbCityDefences, city.DefencesOverview);
                 RichBBCodeBox(rtbCityBank, city.BankOverview);

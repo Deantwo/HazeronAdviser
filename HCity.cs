@@ -157,16 +157,28 @@ namespace HazeronAdviser
             get { return _technologyOverview; }
         }
 
-        protected Dictionary<string, int> _reseatchProjects = new Dictionary<string, int>();
+        protected Dictionary<string, int> _researchProjects = new Dictionary<string, int>();
         public Dictionary<string, int> ReseatchProjects
         {
-            get { return _reseatchProjects; }
+            get { return _researchProjects; }
         }
 
         protected Dictionary<string, int> _factilitiesTL = new Dictionary<string, int>();
         public Dictionary<string, int> FactilitiesTL
         {
             get { return _factilitiesTL; }
+        }
+
+        protected string _patentsOverview = "";
+        public string PatentsOverview
+        {
+            get { return _patentsOverview; }
+        }
+
+        protected new Dictionary<string, int> _researchPatents = new Dictionary<string, int>();
+        public new Dictionary<string, int> ReseatchPatents
+        {
+            get { return _researchPatents; }
         }
 
         protected int _population = 0;
@@ -265,20 +277,10 @@ namespace HazeronAdviser
             get { return _bankTaxSale; }
         }
 
-        //protected long _bankExpenseResearch = 0;
-        //public long BankExpenseResearch
-        //{
-        //    get { return _bankExpenseResearch; }
-        //}
-
-        protected long _bankExpenseResearchEstReport = 0, _bankExpenseResearchEstDay = 0;
-        public long BankExpenseResearchEstReport
+        protected long _bankResearch = 0;
+        public long BankResearch
         {
-            get { return _bankExpenseResearchEstReport; }
-        }
-        public long BankExpenseResearchEstDay
-        {
-            get { return _bankExpenseResearchEstDay; }
+            get { return _bankResearch; }
         }
 
         protected long _bankTribute = 0;
@@ -336,6 +338,7 @@ namespace HazeronAdviser
                                              , "<b>POWER RESERVE</b>"
                                              , "<b>BANK ACTIVITY</b>"
                                              , "<b>RESEARCH AND DEVELOPMENT</b>"
+                                             , "<b>PATENTS</b>"
                                              , "<b>SPACECRAFT MANUFACTURING POTENTIAL</b>"
                                              , "<b>SPACECRAFT</b>"
                                              , "<b>FACILITIES</b>"
@@ -629,12 +632,12 @@ namespace HazeronAdviser
                         line = tempArray[i].Replace(",", "").Replace(".", "");
                         _bankMinting = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
-                    //else if (line == "Research and Development")
-                    //{
-                    //    i++;
-                    //    line = tempArray[i].Replace(",", "").Replace(".", "");
-                    //    _bankExpenseResearch = Convert.ToInt64(line.Remove(line.Length - 1));
-                    //}
+                    else if (line == "Research and Development")
+                    {
+                        i++;
+                        line = tempArray[i].Replace(",", "").Replace(".", "");
+                        _bankResearch = Convert.ToInt64(line.Remove(line.Length - 1));
+                    }
                 }
             }
 
@@ -647,15 +650,24 @@ namespace HazeronAdviser
                 for (int i = 3; i < tempArray.Length; i += 2)
                 {
                     if (tempArray[i] != "Technology")
-                        _reseatchProjects.Add(tempArray[i].Remove(tempArray[i].Length - 11), Convert.ToInt32(tempArray[i + 1]));
+                        _researchProjects.Add(tempArray[i].Substring(9), Convert.ToInt32(tempArray[i + 1]));
                 }
-                foreach (int projectProcess in _reseatchProjects.Values)
+            }
+
+            // PATENTS
+            const string headlinePATENTS = "<b>PATENTS</b>";
+            if (sectionsInReport.Contains(headlinePATENTS))
+            {
+                string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlinePATENTS));
+                tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 3; i < tempArray.Length; i += 2)
                 {
-                    _bankExpenseResearchEstReport += projectProcess;
-                    _bankExpenseResearchEstDay += projectProcess;
+                    if (tempArray[i].StartsWith(" Patent - "))
+                    {
+                        int pos = tempArray[i].LastIndexOf(' ');
+                        _researchPatents.Add(tempArray[i].Substring(10, pos - 10), Convert.ToInt32(tempArray[i].Substring(pos + 2)));
+                    }
                 }
-                _bankExpenseResearchEstReport *= 780;
-                _bankExpenseResearchEstDay *= 24 * 60 * 60;
             }
 
             //// SPACECRAFT MANUFACTURING POTENTIAL
@@ -708,11 +720,6 @@ namespace HazeronAdviser
             if (sectionsInReport.Contains(headlineINVENTORY))
             {
                 string tempSection = GetSectionText(_mail.Body, sectionsInReport, headlineINVENTORY);
-                if (tempSection.Contains("Computer"))
-                {
-                    _bankExpenseResearchEstReport = (Int64)(_bankExpenseResearchEstReport * 2.25);
-                    _bankExpenseResearchEstDay = (Int64)(_bankExpenseResearchEstDay * 2.25);
-                }
                 if (_hashEnv && tempSection.Contains("Air"))
                 {
                     tempSection = tempSection.Substring(tempSection.IndexOf("Air"));
@@ -743,6 +750,8 @@ namespace HazeronAdviser
             UpdatePopulationOverwiew(populationChange);
 
             UpdateTechnologyOverview();
+
+            UpdatePatentsOverview();
 
             UpdateBuildingsOverview();
 
@@ -933,28 +942,37 @@ namespace HazeronAdviser
 
         protected void UpdateTechnologyOverview()
         {
-            List<string> buildingList;
-            if (_reseatchProjects.Count != 0)
-            {
-                _technologyOverview = "City's technology projects:";
-                foreach (string building in _reseatchProjects.Keys)
-                {
-                    if (_factilitiesTL.ContainsKey(building))
-                        _technologyOverview += Environment.NewLine + " " + _reseatchProjects[building].ToString().PadLeft(2) + " (TL" + Math.Abs(_factilitiesTL[building]).ToString().PadLeft(2) + ") running, " + building;
-                    else
-                        _technologyOverview += Environment.NewLine + " [color=red]" + _reseatchProjects[building].ToString().PadLeft(2) + " running, " + building + " (wasted, none in city)[/color]";
-                }
-            }
-            if (_technologyOverview != "")
-                _technologyOverview += Environment.NewLine + Environment.NewLine;
             _technologyOverview += "City's technology levels:";
+            List<string> buildingList;
             buildingList = _factilitiesTL.Keys.ToList();
             buildingList.Sort();
             foreach (string building in buildingList)
             {
-                _technologyOverview += Environment.NewLine + " TL" + Math.Abs(_factilitiesTL[building]).ToString().PadLeft(2) + ", " + building;
+                _technologyOverview += Environment.NewLine + " Q" + Math.Abs(_factilitiesTL[building]).ToString().PadLeft(3) + ", " + building;
                 if (_factilitiesTL[building] < 0)
                     _technologyOverview += " [color=red](not all buildings)[/color]";
+            }
+        }
+
+        protected void UpdatePatentsOverview()
+        {
+            if (_researchProjects.Count != 0)
+            {
+                _patentsOverview = "City's patent research:";
+                foreach (string patent in _researchProjects.Keys)
+                {
+                    _patentsOverview += Environment.NewLine + " " + _researchProjects[patent].ToString().PadLeft(2) + " (Q" + (_researchPatents.ContainsKey(patent) ? _researchPatents[patent].ToString().PadLeft(3) : "  0") + ") running, " + patent;
+                }
+            }
+            if (_patentsOverview != "")
+                _patentsOverview += Environment.NewLine + Environment.NewLine;
+            List<string> patentsList;
+            patentsList = _researchPatents.Keys.ToList();
+            patentsList.Sort();
+            _patentsOverview += "City's patents:";
+            foreach (string patent in patentsList)
+            {
+                _patentsOverview += Environment.NewLine + " Q" + Math.Abs(_researchPatents[patent]).ToString().PadLeft(3) + ", " + patent;
             }
         }
 
@@ -1085,9 +1103,7 @@ namespace HazeronAdviser
             _bankOverview += Environment.NewLine + " " + _bankTaxIncome.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " income tax";
             _bankOverview += Environment.NewLine + " " + _bankTaxSale.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " Sales tax";
             _bankOverview += Environment.NewLine;
-            //_bankOverview += Environment.NewLine + " " + (-_vBankExpenseResearch).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (unreliable)";
-            _bankOverview += Environment.NewLine + " " + (-_bankExpenseResearchEstReport).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (estimate per report)";
-            _bankOverview += Environment.NewLine + " " + (-_bankExpenseResearchEstDay).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense (estimate per day)";
+            _bankOverview += Environment.NewLine + " " + (-_bankResearch).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " research expense";
             _bankOverview += Environment.NewLine;
             _bankOverview += Environment.NewLine + " " + (_bankGovBalance - _bankGovBalanceOld).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account net-change";
             _bankOverview += Environment.NewLine + " " + _bankGovBalance.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding) + " government account balance";
