@@ -660,12 +660,13 @@ namespace HazeronAdviser
             {
                 string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlinePATENTS));
                 tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 3; i < tempArray.Length; i += 2)
+                for (int i = 3; i < tempArray.Length; i++)
                 {
-                    if (tempArray[i].StartsWith(" Patent - "))
+                    const string PATENT_PREFIX = " Patent: ";
+                    if (tempArray[i].StartsWith(PATENT_PREFIX))
                     {
                         int pos = tempArray[i].LastIndexOf(' ');
-                        _researchPatents.Add(tempArray[i].Substring(10, pos - 10), Convert.ToInt32(tempArray[i].Substring(pos + 2)));
+                        _researchPatents.Add(tempArray[i].Substring(PATENT_PREFIX.Length, pos - PATENT_PREFIX.Length), Convert.ToInt32(tempArray[i].Substring(pos + 2)));
                     }
                 }
             }
