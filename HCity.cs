@@ -662,11 +662,14 @@ namespace HazeronAdviser
                 tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 3; i < tempArray.Length; i++)
                 {
-                    const string PATENT_PREFIX = " Patent: ";
+                    const string PATENT_PREFIX = " ";
                     if (tempArray[i].StartsWith(PATENT_PREFIX))
                     {
                         int pos = tempArray[i].LastIndexOf(' ');
-                        _researchPatents.Add(tempArray[i].Substring(PATENT_PREFIX.Length, pos - PATENT_PREFIX.Length), Convert.ToInt32(tempArray[i].Substring(pos + 2)));
+                        string patentName = tempArray[i].Substring(PATENT_PREFIX.Length, pos - PATENT_PREFIX.Length);
+                        patentName = patentName.Remove(patentName.Length - 7);
+                        int patentQuality = Convert.ToInt32(tempArray[i].Substring(pos + 2));
+                        _researchPatents.Add(patentName, patentQuality);
                     }
                 }
             }
