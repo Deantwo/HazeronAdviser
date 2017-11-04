@@ -650,7 +650,11 @@ namespace HazeronAdviser
                 for (int i = 3; i < tempArray.Length; i += 2)
                 {
                     if (tempArray[i] != "Technology")
-                        _researchProjects.Add(tempArray[i].Substring(9), Convert.ToInt32(tempArray[i + 1]));
+                    {
+                        string researchName = tempArray[i];;
+                        int researchAmount = Convert.ToInt32(tempArray[i + 1]);
+                        _researchProjects.Add(researchName, researchAmount);
+                    }
                 }
             }
 
@@ -667,7 +671,6 @@ namespace HazeronAdviser
                     {
                         int pos = tempArray[i].LastIndexOf(' ');
                         string patentName = tempArray[i].Substring(PATENT_PREFIX.Length, pos - PATENT_PREFIX.Length);
-                        patentName = patentName.Remove(patentName.Length - 7);
                         int patentQuality = Convert.ToInt32(tempArray[i].Substring(pos + 2));
                         _researchPatents.Add(patentName, patentQuality);
                     }
