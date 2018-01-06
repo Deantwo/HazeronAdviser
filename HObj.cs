@@ -113,11 +113,15 @@ namespace HazeronAdviser
             CompareMail(mail);
         }
 
+        /// <summary>
+        /// Compare current mail with new mail,
+        /// ignore mail content if timestamp is older than current report.
+        /// </summary>
+        /// <param name="mail">New mail to compare with.</param>
         public virtual void CompareMail(HMail mail)
         {
-            int tempOwner = mail.RecipientID;
-            if (!_owners.Contains(tempOwner))
-                _owners.Add(tempOwner);
+            if (!_owners.Contains(mail.RecipientID))
+                _owners.Add(mail.RecipientID);
 
             if (DateTime.Compare(_lastUpdated, mail.DateTime) < 0)
             {

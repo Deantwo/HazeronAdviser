@@ -312,10 +312,9 @@ namespace HazeronAdviser
 
         public override void CompareMail(HMail mail)
         {
-            // This is a small fix to not count MSG_CityDistressReport messages with no report info.
-            if (mail.Subject != "City Status Report")
-                return;
-            base.CompareMail(mail);
+            // Only compare the report if it has any information in it. I believe "<b>POPULATION</b>" is always in a report.
+            if (mail.Body.Contains("<b>POPULATION</b>"))
+                base.CompareMail(mail);
         }
 
         public override void Initialize()
@@ -651,7 +650,7 @@ namespace HazeronAdviser
                 {
                     if (tempArray[i] != "Technology")
                     {
-                        string researchName = tempArray[i];;
+                        string researchName = tempArray[i];
                         int researchAmount = Convert.ToInt32(tempArray[i + 1]);
                         _researchProjects.Add(researchName, researchAmount);
                     }
