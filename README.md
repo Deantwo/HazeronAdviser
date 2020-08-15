@@ -1,7 +1,7 @@
 HazeronAdviser
 ==============
 
-City status and ship log viewer for [Shores of Hazeron](http://hazeron.com/).
+City status and ship log viewer for [Shores of Hazeron](https://www.hazeron.com/).
 
 Introduction
 ==============
@@ -42,7 +42,7 @@ Features
 - Calculates the time before abandonment decay starts
 - Visually shows population, homes, and jobs
 - Visually shows morale
-- Better overview of all officers and their home (in charge of ships, on planet, etc.) ([small problem](http://hazeron.com/phpBB3/viewtopic.php?f=5&t=6893))
+- Better overview of all officers and their home (in charge of ships, on planet, etc.)
 - Overview of building TLs in a city
 - List of buildings in a city (highlighting needed and unnecessary morale buildings)
 
@@ -56,7 +56,7 @@ Planned
 - Calculate the highest TL spacecraft that can be build
 - What is keeping it from making higher TL spacecrafts
 - Improvements to the Events tab (highlight the tab when there are new events?)
-- Include scan results for a city's system ([now impossible](http://hazeron.com/phpBB3/viewtopic.php?f=3&t=6952) ([unless this](http://hazeron.com/phpBB3/viewtopic.php?f=5&t=6991) [or this](http://hazeron.com/phpBB3/viewtopic.php?f=5&t=7019)) )
+- Include survey report for a city's world
 
 Want to help
 ==============
@@ -69,4 +69,4 @@ Links
 ==============
 
 - [GitHub](https://github.com/Deantwo/HazeronAdviser)
-- [Hazeron Forum Thread](http://hazeron.com/phpBB3/viewtopic.php?f=3&t=6867)
+- [Hazeron Forum Thread](https://www.hazeron.com/mybb/showthread.php?tid=16)
