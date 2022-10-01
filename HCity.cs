@@ -325,6 +325,7 @@ namespace HazeronAdviser
             // String working vars.
             string[] tempArray;
             Dictionary<string, int> sectionsInReport = new Dictionary<string, int>();
+            string reportSection;
             // This is the order of the sections in the mail body, keep them in same order!
             const string headlineDISTRESS = "<b style=\"color: rgb(255, 255, 0);\">DISTRESS</b>";
             const string headlineDECAY = "<b>DECAY</b>";
@@ -375,8 +376,6 @@ namespace HazeronAdviser
             bool decaying = false;
             int populationChange = 0;
             bool cadetReady = false;
-
-            string reportSection;
 
             // City Resource Zone & Capital check
             {
@@ -677,22 +676,22 @@ namespace HazeronAdviser
                     else if (tempArray[i] != "Name")
                     {
                         string name = tempArray[i].TrimStart();
-                        int levels = 0;
+                        int jobs = 0;
                         if (name == "Cantina")
-                            levels = lounges;
+                            jobs = lounges;
                         else if (name == "Retail Store")
-                            levels = retailers;
+                            jobs = retailers;
                         else if (name == "University")
-                            levels = Convert.ToInt32(tempArray[i + 1].Remove(tempArray[i + 1].IndexOf(", ")));
+                            jobs = Convert.ToInt32(tempArray[i + 1].Remove(tempArray[i + 1].IndexOf(", ")));
                         else if (tempArray[i + 1].EndsWith(" in use"))
                         {
                             int startpos = tempArray[i + 1].IndexOf(", ") + 2;
                             int length = tempArray[i + 1].IndexOf(" in use") - startpos;
-                            levels = Convert.ToInt32(tempArray[i + 1].Substring(startpos, length));
+                            jobs = Convert.ToInt32(tempArray[i + 1].Substring(startpos, length));
                         }
                         else
-                            levels = Convert.ToInt32(tempArray[i + 1]);
-                        _factilitiesLV.Add(name, levels);
+                            jobs = Convert.ToInt32(tempArray[i + 1]);
+                        _factilitiesLV.Add(name, jobs);
                         i++; // Skip an extra line.
                     }
                 }
@@ -923,11 +922,11 @@ namespace HazeronAdviser
             }
             {
                 _populationOverview += Environment.NewLine + " " + Math.Floor(((float)_homesQuality / _homes) * 100) + "% apartments";
-                int levelAjustment = ((_homes - _homesQuality) - _homesQuality);
-                if ((levelAjustment / 4) > 0)
-                    _populationOverview += " [color=green](" + (levelAjustment / 4) + " more levels possible)[/color]";
-                else if (levelAjustment < 0)
-                    _populationOverview += " [color=red](Cramped, " + Math.Abs(levelAjustment) + " more non-apartment homes needed)[/color]";
+                int homeAjustment = ((_homes - _homesQuality) - _homesQuality);
+                if ((homeAjustment / 4) > 0)
+                    _populationOverview += " [color=green](" + (homeAjustment / 4) + " additional small homes possible)[/color]";
+                else if (homeAjustment < 0)
+                    _populationOverview += " [color=red](Cramped, " + Math.Abs(homeAjustment) + " more non-small homes needed)[/color]";
             }
         }
 
@@ -949,18 +948,18 @@ namespace HazeronAdviser
             buildingList.Sort();
             foreach (string building in buildingList)
             {
-                int levels = 0;
+                int jobs = 0;
                 if (_factilitiesLV.ContainsKey(building))
-                    levels = _factilitiesLV[building];
+                    jobs = _factilitiesLV[building];
                 sb.AppendLine();
-                sb.Append($" {levels.ToString().PadLeft(3)} levels, {building}");
+                sb.Append($" {jobs.ToString().PadLeft(3)} jobs, {building}");
                 if (Hazeron.MoraleBuildingThresholds.ContainsKey(building))
                 {
-                    int levelsNeeded = Hazeron.MoraleBuildingsRequired(building, _homes);
-                    if (levels < levelsNeeded)
-                        sb.Append($" [color=red]({levelsNeeded - levels} levels more needed)[/color]");
-                    else if (levels > levelsNeeded)
-                        sb.Append($" [color=orange]({levels - levelsNeeded} levels too many)[/color]");
+                    int jobsNeeded = Hazeron.MoraleBuildingsRequired(building, _homes);
+                    if (jobs < jobsNeeded)
+                        sb.Append($" [color=red]({jobsNeeded - jobs} professional jobs more needed)[/color]");
+                    else if (jobs > jobsNeeded)
+                        sb.Append($" [color=orange]({jobs - jobsNeeded} professional jobs too many)[/color]");
                 }
             }
             _buildingsOverview = sb.ToString();

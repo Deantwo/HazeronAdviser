@@ -93,16 +93,16 @@ namespace HazeronAdviser
             if (!_moraleBuildingThresholds.ContainsKey(buildingType))
                 throw new Exception($"Invalid building type. {buildingType}");
 
-            int levelsNeeded = 0;
+            int jobsNeeded = 0;
             if (population >= _moraleBuildingThresholds[buildingType])
-                levelsNeeded = Math.Max(population / (_moraleBuildingThresholds[buildingType] * 3), 1);
+                jobsNeeded = Math.Max(population / (_moraleBuildingThresholds[buildingType] * 3), 1);
 
             if (buildingType == "Church")
-                levelsNeeded += 2;
+                jobsNeeded += 2;
             else if (buildingType == "Cantina")
-                levelsNeeded += 1;
+                jobsNeeded += 1;
 
-            return levelsNeeded;
+            return jobsNeeded;
         }
 
         public static bool ValidID(string id)
