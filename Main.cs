@@ -96,8 +96,8 @@ namespace HazeronAdviser
             dgvCity.Columns["dgvCityColumnMorale"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
             dgvSystem.Columns["dgvSystemColumnAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvSystem.Columns["dgvSystemColumnAbandonment"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
-            dgvShip.Columns["dgvShipColumnAbandonment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvShip.Columns["dgvShipColumnAbandonment"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
+            dgvShip.Columns["dgvShipColumnHomesickness"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvShip.Columns["dgvShipColumnHomesickness"].DefaultCellStyle.Font = new Font("Lucida Console", 9);
 
             cmbCharFilter.SelectedIndex = 0;
 
@@ -350,7 +350,7 @@ namespace HazeronAdviser
                     row.Cells["dgvShipColumnIcon"].Value = imageShip;
                     row.Cells["dgvShipColumnName"].Value = hShip;
                     row.Cells["dgvShipColumnLocation"].Value = hShip.SystemName + ", " + hShip.PlanetName;
-                    row.Cells["dgvShipColumnAbandonment"].Value = hShip.AbandonmentColumn;
+                    row.Cells["dgvShipColumnHomesickness"].Value = hShip.HomesicknessColumn;
                     row.Cells["dgvShipColumnFuel"].Value = hShip.FuelColumn;
                     row.Cells["dgvShipColumnAccount"].Value = hShip.AccountColumn;
                     row.Cells["dgvShipColumnDamage"].Value = hShip.DamageColumn;
@@ -1063,10 +1063,10 @@ namespace HazeronAdviser
                 long value2 = hSystemList[id2].Cities.Sum(x => x.BankTribute);
                 e.SortResult = CompareNumbers(value1, value2);
             }
-            else if (columnName == "dgvShipColumnAbandonment")
+            else if (columnName == "dgvShipColumnHomesickness")
             {
-                int value1 = hShipList[id1].Abandonment;
-                int value2 = hShipList[id2].Abandonment;
+                int value1 = hShipList[id1].Homesickness;
+                int value2 = hShipList[id2].Homesickness;
                 e.SortResult = CompareNumbers(value1, value2);
             }
             else if (columnName == "dgvShipColumnFuel")

@@ -255,7 +255,7 @@ namespace HazeronAdviser
             _overview += "  " + _name + Environment.NewLine;
             _overview += Environment.NewLine;
             _overview += "Officer Home:" + Environment.NewLine;
-            _overview += "  " + _homeSystem;
+            _overview += "  " + _homeSystem + Environment.NewLine;
             _overview += "  " + _homePlanet;
             if (_mail.MessageType == 0x14) // MSG_OfficerContact
             {

@@ -7,16 +7,16 @@ namespace HazeronAdviser
 {
     class HShip : HObj
     {
-        protected string _abandonmentColumn = "-";
-        public string AbandonmentColumn
+        protected string _homesicknessColumn = "-";
+        public string HomesicknessColumn
         {
-            get { return _abandonmentColumn; }
+            get { return _homesicknessColumn; }
         }
 
-        protected int _abandonment = 0;
-        public int Abandonment
+        protected int _homesickness = 100;
+        public int Homesickness
         {
-            get { return _abandonment; }
+            get { return _homesickness; }
         }
 
         protected string _damageOverview = "";
@@ -159,93 +159,83 @@ namespace HazeronAdviser
             // String working vars.
             int subStart, subEnd;
             string[] tempArray;
-            List<string> sectionsInReport = new List<string>();
+            Dictionary<string, int> sectionsInReport = new Dictionary<string, int>();
+            string reportSection;
             // This is the order of the sections in the mail body, keep them in same order!
-            string[] sections = new string[] { "<b>EVENT LOG</b>"
-                                             , "<b>DAMAGE REPORT</b>"
-                                             , "<b>ACCOUNT</b>"
-                                             , "<b>FUEL</b>"
-                                             , "<b>CARGO</b>"
-                                             , "<b>MISSION</b>"
-                                             , "<b>ROSTER</b>"
+            const string headlineEVENT = "<b>EVENT LOG</b>";
+            const string headlineDAMAGE = "<b>DAMAGE REPORT</b>";
+            const string headlineACCOUNT = "<b>ACCOUNT</b>";
+            const string headlineFUEL = "<b>FUEL</b>";
+            const string headlineCARGO = "<b>CARGO</b>";
+            const string headlineMISSION = "<b>MISSION</b>";
+            const string headlineROSTER = "<b>ROSTER</b>";
+            string[] sections = new string[] { headlineEVENT
+                                             , headlineDAMAGE
+                                             , headlineACCOUNT
+                                             , headlineFUEL
+                                             , headlineCARGO
+                                             , headlineMISSION
+                                             , headlineROSTER
                                              };
             // Check for sections.
+            int freakingHell = 0;
             foreach (string section in sections)
-                if (_mail.Body.Contains(section))
-                    sectionsInReport.Add(section);
+            {
+                int sigh = _mail.Body.IndexOf(section, freakingHell);
+                if (sigh >= 0)
+                {
+                    freakingHell = sigh;
+                    sectionsInReport.Add(section, freakingHell);
+                }
+            }
 
             // Time for Ship spicific things.
 
-            // EVENT LOG
-            const string headlineEVENT = "<b>EVENT LOG</b>";
-            if (sectionsInReport.Contains(headlineEVENT))
-            {
-                string tempSection = HHelper.CleanText(GetSectionText(sectionsInReport, headlineEVENT));
-                //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _eventOverview = HShip.EventLogStyle(tempSection);
-            }
-
-            // Decay
-            if (!_mail.Body.Contains("I miss my home; "))
-            {
-                subStart = _mail.Body.IndexOf("Commander,") + 10; // "Commander,".Length == 10
-                subEnd = _mail.Body.Substring(subStart).IndexOf("I was deployed from ");
-                string crewMorale = HHelper.CleanText(_mail.Body.Substring(subStart, subEnd));
-                _abandonment = 7;
-                switch (crewMorale)
-                {
-                    case "The crew has high spirits. Every day seems filled with anticipation.":
-                        _abandonment *= 4;
-                        break;
-                    case "More than a week has passed since we were last hailed by command. The crew is quiet, intent on their work as they attend to their duties.":
-                        _abandonment *= 3;
-                        break;
-                    case "More than two weeks have passed since we last heard from command. There have been some tense confrontations between the crew members.":
-                        _abandonment *= 2;
-                        break;
-                    case "More than three weeks have passed since we lost contact with command. Some of the crew have become surly and insubordinate. Fighting among them is a daily occurance.":
-                        _abandonment *= 1;
-                        break;
-                }
-                _abandonmentColumn = (_abandonment / 7) + " /4 weeks";
-            }
-            else
+            // Homesickness
+            if (_mail.Body.Contains("I miss my home; "))
             {
                 subStart = _mail.Body.IndexOf("I miss my home; it's been ") + 26; // "I miss my home; it's been ".Length == 26
                 subEnd = _mail.Body.Substring(subStart).IndexOf(" days since I last heard from my family.");
-                _abandonment = 7 - Convert.ToInt32(_mail.Body.Substring(subStart, subEnd));
-                _abandonmentColumn = " " + _abandonment + " /7 days";
+                _homesickness = 7 - Convert.ToInt32(_mail.Body.Substring(subStart, subEnd));
+                _homesicknessColumn = " " + _homesickness + " /7 days";
+            }
+
+            // EVENT LOG
+            if (TryGetSectionText(sectionsInReport, headlineEVENT, out reportSection))
+            {
+                reportSection = HHelper.CleanText(reportSection);
+                //tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                _eventOverview = HShip.EventLogStyle(reportSection);
             }
 
             // DAMAGE REPORT
-            const string headlineDAMAGE = "<b>DAMAGE REPORT</b>";
-            if (sectionsInReport.Contains(headlineDAMAGE))
+            if (TryGetSectionText(sectionsInReport, headlineDAMAGE, out reportSection))
             {
-                _damageOverview = HHelper.CleanText(GetSectionText(sectionsInReport, headlineDAMAGE));
-                tempArray = _damageOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                reportSection = HHelper.CleanText(reportSection);
+                _damageOverview = reportSection;
+                tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 _damageColumn = tempArray[tempArray.Length - 1];
             }
             else
                 _damageColumn = "All Systems Ok";
 
             // ACCOUNT
-            const string headlineACCOUNT = "<b>ACCOUNT</b>";
-            if (sectionsInReport.Contains(headlineACCOUNT))
+            if (TryGetSectionText(sectionsInReport, headlineACCOUNT, out reportSection))
             {
-                _accountOverview = HHelper.CleanText(GetSectionText(sectionsInReport, headlineACCOUNT));
-                tempArray = _accountOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                reportSection = HHelper.CleanText(reportSection);
+                _accountOverview = reportSection;
+                tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 _accountColumn = tempArray[1].Remove(tempArray[1].IndexOf('¢') + 1).Replace(',', '\'').Replace('.', '\'');
                 _accountBalance = Convert.ToInt64(_accountColumn.Remove(_accountColumn.IndexOf('¢')).Replace("'", ""));
                 _accountColumn = _accountBalance.ToString("C", Hazeron.NumberFormat);
             }
 
             // FUEL
-            const string headlineFUEL = "<b>FUEL</b>";
-            if (sectionsInReport.Contains(headlineFUEL))
+            if (TryGetSectionText(sectionsInReport, headlineFUEL, out reportSection))
             {
-                string tempString = HHelper.CleanText(GetSectionText(sectionsInReport, headlineFUEL));
-                tempString = tempString.Substring(16);
-                _fuelColumn = tempString.Remove(tempString.IndexOf(Environment.NewLine) - 11);
+                reportSection = HHelper.CleanText(reportSection);
+                reportSection = reportSection.Substring(16);
+                _fuelColumn = reportSection.Remove(reportSection.IndexOf(Environment.NewLine) - 11);
                 tempArray = _fuelColumn.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 _fuel = Convert.ToInt32(tempArray[0]);
                 _fuelCapacity = Convert.ToInt32(tempArray[tempArray.Length - 1]);
@@ -253,29 +243,29 @@ namespace HazeronAdviser
             }
 
             // CARGO
-            const string headlineCARGO = "<b>CARGO</b>";
-            if (sectionsInReport.Contains(headlineCARGO))
+            if (TryGetSectionText(sectionsInReport, headlineCARGO, out reportSection))
             {
-                _cargoOverview = HHelper.CleanText(GetSectionText(sectionsInReport, headlineCARGO));
-                //tempArray = _cargoOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                reportSection = HHelper.CleanText(reportSection);
+                _cargoOverview = reportSection;
+                //tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 //_cargoColumn = tempArray[tempArray.Length - 1];
             }
 
             // MISSION
-            const string headlineMISSION = "<b>MISSION</b>";
-            if (sectionsInReport.Contains(headlineMISSION))
+            if (TryGetSectionText(sectionsInReport, headlineMISSION, out reportSection))
             {
-                _missionOverview = HHelper.CleanText(GetSectionText(sectionsInReport, headlineMISSION));
-                //tempArray = _missionOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                reportSection = HHelper.CleanText(reportSection);
+                _missionOverview = reportSection;
+                //tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 //_missionColumn = tempArray[tempArray.Length - 1];
             }
 
             // ROSTER
-            const string headlineROSTER = "<b>ROSTER</b>";
-            if (sectionsInReport.Contains(headlineROSTER))
+            if (TryGetSectionText(sectionsInReport, headlineROSTER, out reportSection))
             {
-                _rosterOverview = HHelper.CleanText(GetSectionText(sectionsInReport, headlineROSTER));
-                //tempArray = _rosterOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                reportSection = HHelper.CleanText(reportSection);
+                _rosterOverview = reportSection;
+                //tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 //_rosterColumn = tempArray[tempArray.Length - 1];
             }
 
@@ -299,9 +289,9 @@ namespace HazeronAdviser
             _officerOverview += "  " + _officerName + Environment.NewLine;
             _officerOverview += Environment.NewLine;
             _officerOverview += "Officer Home:" + Environment.NewLine;
-            _officerOverview += "  " + _officerHomeSystem;
-            _officerOverview += "  " + _officerHomePlanet;
-            _officerOverview += Environment.NewLine + Environment.NewLine;
+            _officerOverview += "  " + _officerHomeSystem + Environment.NewLine;
+            _officerOverview += "  " + _officerHomePlanet + Environment.NewLine;
+            _officerOverview += Environment.NewLine;
             _officerOverview += "Stationed ship:" + Environment.NewLine;
             _officerOverview += "  " + _name;
 
@@ -313,12 +303,8 @@ namespace HazeronAdviser
                 _overview += Environment.NewLine + _eventOverview;
 
             // Attentions
-            if (_abandonment < 7) // Less than 1 week until decay.
-                _attentions.Add(new AttentionMessage(3, "ColumnAbandonment", "- Homesick." + Environment.NewLine + "  Suicide happen in " + _abandonment.ToString() + " days."));
-            else if (_abandonment <= 7) // 1 weeks until decay.
-                _attentions.Add(new AttentionMessage(2, "ColumnAbandonment", "- Abandonment." + Environment.NewLine + "  Mutiny happen in " + (_abandonment / 7).ToString() + " weeks."));
-            else if (_abandonment <= 14) // 2 weeks until decay.
-                _attentions.Add(new AttentionMessage(1, "ColumnAbandonment", "- Abandonment." + Environment.NewLine + "  Mutiny happen in " + (_abandonment / 7).ToString() + " weeks."));
+            if (_homesickness < 7) // Less than 1 week until decay.
+                _attentions.Add(new AttentionMessage(3, "ColumnAbandonment", "- Homesick." + Environment.NewLine + "  Suicide happen in " + _homesickness.ToString() + " days."));
             if ((_fuel / (double)_fuelCapacity) <= 0.05 || _fuel <= 50) // No fuel.
                 _attentions.Add(new AttentionMessage(2, "ColumnFuel", "- No fuel." + Environment.NewLine + "  " + Math.Round(_fuel / (double)_fuelCapacity * 100, 2).ToString() + "% fuel remaining."));
             else if ((_fuel / (double)_fuelCapacity) <= 0.25) // Low fuel.
