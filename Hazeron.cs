@@ -33,11 +33,11 @@ namespace HazeronAdviser
             //set { _pirateEmpires = value; }
         }
 
-        protected static Dictionary<string, int> _moraleBuildingsPop;
-        public static Dictionary<string, int> MoraleBuildingsPop
+        protected static Dictionary<string, int> _moraleBuildingThresholds;
+        public static Dictionary<string, int> MoraleBuildingThresholds
         {
-            get { return _moraleBuildingsPop; }
-            //set { _moraleBuildingsPop = value; }
+            get { return _moraleBuildingThresholds; }
+            //set { _moraleBuildingThresholds = value; }
         }
 
         static Hazeron()
@@ -75,18 +75,34 @@ namespace HazeronAdviser
                                           , "Zuul"
                                           };
 
-            _moraleBuildingsPop = new Dictionary<string, int>();
-            _moraleBuildingsPop.Add("Church", 45);
-            _moraleBuildingsPop.Add("Cantina", 50);
-            _moraleBuildingsPop.Add("Retail Store", 55);
-            _moraleBuildingsPop.Add("Police Station", 60);
-            _moraleBuildingsPop.Add("University", 70);
-            _moraleBuildingsPop.Add("Hospital", 80);
-            _moraleBuildingsPop.Add("Park", 90);
-            _moraleBuildingsPop.Add("Grocery", 100);
-            _moraleBuildingsPop.Add("Zoo", 150);
-            _moraleBuildingsPop.Add("Arena", 175);
-            _moraleBuildingsPop.Add("Casino", 200);
+            _moraleBuildingThresholds = new Dictionary<string, int>();
+            _moraleBuildingThresholds.Add("Church", 45);
+            _moraleBuildingThresholds.Add("Cantina", 50);
+            _moraleBuildingThresholds.Add("Retail Store", 55);
+            _moraleBuildingThresholds.Add("University", 70);
+            _moraleBuildingThresholds.Add("Hospital", 80);
+            _moraleBuildingThresholds.Add("Park", 90);
+            _moraleBuildingThresholds.Add("Grocery", 100);
+            _moraleBuildingThresholds.Add("Zoo", 150);
+            _moraleBuildingThresholds.Add("Arena", 175);
+            _moraleBuildingThresholds.Add("Casino", 200);
+        }
+
+        public static int MoraleBuildingsRequired(string buildingType, int population)
+        {
+            if (!_moraleBuildingThresholds.ContainsKey(buildingType))
+                throw new Exception($"Invalid building type. {buildingType}");
+
+            int levelsNeeded = 0;
+            if (population >= _moraleBuildingThresholds[buildingType])
+                levelsNeeded = Math.Max(population / (_moraleBuildingThresholds[buildingType] * 3), 1);
+
+            if (buildingType == "Church")
+                levelsNeeded += 2;
+            else if (buildingType == "Cantina")
+                levelsNeeded += 1;
+
+            return levelsNeeded;
         }
 
         public static bool ValidID(string id)

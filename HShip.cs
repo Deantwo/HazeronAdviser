@@ -180,7 +180,7 @@ namespace HazeronAdviser
             const string headlineEVENT = "<b>EVENT LOG</b>";
             if (sectionsInReport.Contains(headlineEVENT))
             {
-                string tempSection = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineEVENT));
+                string tempSection = HHelper.CleanText(GetSectionText(sectionsInReport, headlineEVENT));
                 //tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 _eventOverview = HShip.EventLogStyle(tempSection);
             }
@@ -221,7 +221,7 @@ namespace HazeronAdviser
             const string headlineDAMAGE = "<b>DAMAGE REPORT</b>";
             if (sectionsInReport.Contains(headlineDAMAGE))
             {
-                _damageOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineDAMAGE));
+                _damageOverview = HHelper.CleanText(GetSectionText(sectionsInReport, headlineDAMAGE));
                 tempArray = _damageOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 _damageColumn = tempArray[tempArray.Length - 1];
             }
@@ -232,7 +232,7 @@ namespace HazeronAdviser
             const string headlineACCOUNT = "<b>ACCOUNT</b>";
             if (sectionsInReport.Contains(headlineACCOUNT))
             {
-                _accountOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineACCOUNT));
+                _accountOverview = HHelper.CleanText(GetSectionText(sectionsInReport, headlineACCOUNT));
                 tempArray = _accountOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 _accountColumn = tempArray[1].Remove(tempArray[1].IndexOf('¢') + 1).Replace(',', '\'').Replace('.', '\'');
                 _accountBalance = Convert.ToInt64(_accountColumn.Remove(_accountColumn.IndexOf('¢')).Replace("'", ""));
@@ -243,7 +243,7 @@ namespace HazeronAdviser
             const string headlineFUEL = "<b>FUEL</b>";
             if (sectionsInReport.Contains(headlineFUEL))
             {
-                string tempString = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineFUEL));
+                string tempString = HHelper.CleanText(GetSectionText(sectionsInReport, headlineFUEL));
                 tempString = tempString.Substring(16);
                 _fuelColumn = tempString.Remove(tempString.IndexOf(Environment.NewLine) - 11);
                 tempArray = _fuelColumn.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
@@ -256,7 +256,7 @@ namespace HazeronAdviser
             const string headlineCARGO = "<b>CARGO</b>";
             if (sectionsInReport.Contains(headlineCARGO))
             {
-                _cargoOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineCARGO));
+                _cargoOverview = HHelper.CleanText(GetSectionText(sectionsInReport, headlineCARGO));
                 //tempArray = _cargoOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 //_cargoColumn = tempArray[tempArray.Length - 1];
             }
@@ -265,7 +265,7 @@ namespace HazeronAdviser
             const string headlineMISSION = "<b>MISSION</b>";
             if (sectionsInReport.Contains(headlineMISSION))
             {
-                _missionOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineMISSION));
+                _missionOverview = HHelper.CleanText(GetSectionText(sectionsInReport, headlineMISSION));
                 //tempArray = _missionOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 //_missionColumn = tempArray[tempArray.Length - 1];
             }
@@ -274,7 +274,7 @@ namespace HazeronAdviser
             const string headlineROSTER = "<b>ROSTER</b>";
             if (sectionsInReport.Contains(headlineROSTER))
             {
-                _rosterOverview = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineROSTER));
+                _rosterOverview = HHelper.CleanText(GetSectionText(sectionsInReport, headlineROSTER));
                 //tempArray = _rosterOverview.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 //_rosterColumn = tempArray[tempArray.Length - 1];
             }

@@ -64,19 +64,6 @@
             this.tabCity = new System.Windows.Forms.TabPage();
             this.splitContainerCity = new System.Windows.Forms.SplitContainer();
             this.dgvCity = new System.Windows.Forms.DataGridView();
-            this.dgvCityColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvCityColumnIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dgvCityColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvCityColumnLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvCityColumnAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvCityColumnMoraleModifiers = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvCityColumnMorale = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvCityColumnLivingConditions = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvCityColumnPopulation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvCityColumnLoyalty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvCityColumnBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvCityColumnTribute = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvCityColumnDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlCity = new System.Windows.Forms.TabControl();
             this.tabCityOverview = new System.Windows.Forms.TabPage();
             this.splitContainerCityOverview = new System.Windows.Forms.SplitContainer();
@@ -92,8 +79,6 @@
             this.splitContainerCityPopulation = new System.Windows.Forms.SplitContainer();
             this.pCityPopulation = new System.Windows.Forms.Panel();
             this.rtbCityPopulation = new System.Windows.Forms.RichTextBox();
-            this.tabCityTechnology = new System.Windows.Forms.TabPage();
-            this.rtbCityTechnology = new System.Windows.Forms.RichTextBox();
             this.tabCityPatents = new System.Windows.Forms.TabPage();
             this.rtbCityPatents = new System.Windows.Forms.RichTextBox();
             this.tabCityBuildings = new System.Windows.Forms.TabPage();
@@ -111,18 +96,6 @@
             this.tabSystem = new System.Windows.Forms.TabPage();
             this.splitContainerSystem = new System.Windows.Forms.SplitContainer();
             this.dgvSystem = new System.Windows.Forms.DataGridView();
-            this.dgvSystemColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvSystemColumnIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dgvSystemColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvSystemColumnCities = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvSystemColumnAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvSystemColumnMoraleModifiers = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvSystemColumnMorale = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvSystemColumnPopulation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvSystemColumnLoyalty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvSystemColumnBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvSystemColumnTribute = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvSystemColumnDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlSystem = new System.Windows.Forms.TabControl();
             this.tabSystemOverview = new System.Windows.Forms.TabPage();
             this.splitContainerSystemOverview = new System.Windows.Forms.SplitContainer();
@@ -138,8 +111,6 @@
             this.splitContainerSystemPopulation = new System.Windows.Forms.SplitContainer();
             this.pSystemPopulation = new System.Windows.Forms.Panel();
             this.rtbSystemPopulation = new System.Windows.Forms.RichTextBox();
-            this.tabSystemTechnology = new System.Windows.Forms.TabPage();
-            this.rtbSystemTechnology = new System.Windows.Forms.RichTextBox();
             this.tabShip = new System.Windows.Forms.TabPage();
             this.tabOfficer = new System.Windows.Forms.TabPage();
             this.splitContainerOfficer = new System.Windows.Forms.SplitContainer();
@@ -192,6 +163,27 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1HelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1HelpHowToUse = new System.Windows.Forms.ToolStripMenuItem();
+            this.dgvCityColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvCityColumnIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dgvCityColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvCityColumnLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvCityColumnAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvCityColumnMorale = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvCityColumnLivingConditions = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvCityColumnPopulation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvCityColumnBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvCityColumnTribute = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvCityColumnDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSystemColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSystemColumnIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dgvSystemColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSystemColumnCities = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSystemColumnAbandonment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSystemColumnMorale = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSystemColumnPopulation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSystemColumnBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSystemColumnTribute = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSystemColumnDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -236,7 +228,6 @@
             this.splitContainerCityPopulation.Panel1.SuspendLayout();
             this.splitContainerCityPopulation.Panel2.SuspendLayout();
             this.splitContainerCityPopulation.SuspendLayout();
-            this.tabCityTechnology.SuspendLayout();
             this.tabCityPatents.SuspendLayout();
             this.tabCityBuildings.SuspendLayout();
             this.tabCityDefences.SuspendLayout();
@@ -273,7 +264,6 @@
             this.splitContainerSystemPopulation.Panel1.SuspendLayout();
             this.splitContainerSystemPopulation.Panel2.SuspendLayout();
             this.splitContainerSystemPopulation.SuspendLayout();
-            this.tabSystemTechnology.SuspendLayout();
             this.tabShip.SuspendLayout();
             this.tabOfficer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerOfficer)).BeginInit();
@@ -696,11 +686,9 @@
             this.dgvCityColumnName,
             this.dgvCityColumnLocation,
             this.dgvCityColumnAbandonment,
-            this.dgvCityColumnMoraleModifiers,
             this.dgvCityColumnMorale,
             this.dgvCityColumnLivingConditions,
             this.dgvCityColumnPopulation,
-            this.dgvCityColumnLoyalty,
             this.dgvCityColumnBank,
             this.dgvCityColumnTribute,
             this.dgvCityColumnDate});
@@ -720,112 +708,11 @@
             this.dgvCity.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgv_SortCompare);
             this.dgvCity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
             // 
-            // dgvCityColumnId
-            // 
-            this.dgvCityColumnId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvCityColumnId.FillWeight = 20F;
-            this.dgvCityColumnId.Frozen = true;
-            this.dgvCityColumnId.HeaderText = "ID";
-            this.dgvCityColumnId.MinimumWidth = 20;
-            this.dgvCityColumnId.Name = "dgvCityColumnId";
-            this.dgvCityColumnId.ReadOnly = true;
-            this.dgvCityColumnId.Visible = false;
-            this.dgvCityColumnId.Width = 20;
-            // 
-            // dgvCityColumnIcon
-            // 
-            this.dgvCityColumnIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvCityColumnIcon.FillWeight = 20F;
-            this.dgvCityColumnIcon.Frozen = true;
-            this.dgvCityColumnIcon.HeaderText = "Icon";
-            this.dgvCityColumnIcon.MinimumWidth = 20;
-            this.dgvCityColumnIcon.Name = "dgvCityColumnIcon";
-            this.dgvCityColumnIcon.ReadOnly = true;
-            this.dgvCityColumnIcon.Width = 20;
-            // 
-            // dgvCityColumnName
-            // 
-            this.dgvCityColumnName.Frozen = true;
-            this.dgvCityColumnName.HeaderText = "Name";
-            this.dgvCityColumnName.Name = "dgvCityColumnName";
-            this.dgvCityColumnName.ReadOnly = true;
-            // 
-            // dgvCityColumnLocation
-            // 
-            this.dgvCityColumnLocation.HeaderText = "Location";
-            this.dgvCityColumnLocation.Name = "dgvCityColumnLocation";
-            this.dgvCityColumnLocation.ReadOnly = true;
-            // 
-            // dgvCityColumnAbandonment
-            // 
-            this.dgvCityColumnAbandonment.FillWeight = 90F;
-            this.dgvCityColumnAbandonment.HeaderText = "Abandonment";
-            this.dgvCityColumnAbandonment.Name = "dgvCityColumnAbandonment";
-            this.dgvCityColumnAbandonment.ReadOnly = true;
-            this.dgvCityColumnAbandonment.Width = 90;
-            // 
-            // dgvCityColumnMoraleModifiers
-            // 
-            this.dgvCityColumnMoraleModifiers.HeaderText = "Morale Mod";
-            this.dgvCityColumnMoraleModifiers.Name = "dgvCityColumnMoraleModifiers";
-            this.dgvCityColumnMoraleModifiers.ReadOnly = true;
-            // 
-            // dgvCityColumnMorale
-            // 
-            this.dgvCityColumnMorale.FillWeight = 112F;
-            this.dgvCityColumnMorale.HeaderText = "Morale";
-            this.dgvCityColumnMorale.Name = "dgvCityColumnMorale";
-            this.dgvCityColumnMorale.ReadOnly = true;
-            this.dgvCityColumnMorale.Width = 112;
-            // 
-            // dgvCityColumnLivingConditions
-            // 
-            this.dgvCityColumnLivingConditions.FillWeight = 112F;
-            this.dgvCityColumnLivingConditions.HeaderText = "Living Conditions";
-            this.dgvCityColumnLivingConditions.Name = "dgvCityColumnLivingConditions";
-            this.dgvCityColumnLivingConditions.ReadOnly = true;
-            this.dgvCityColumnLivingConditions.Width = 112;
-            // 
-            // dgvCityColumnPopulation
-            // 
-            this.dgvCityColumnPopulation.FillWeight = 118F;
-            this.dgvCityColumnPopulation.HeaderText = "Population";
-            this.dgvCityColumnPopulation.Name = "dgvCityColumnPopulation";
-            this.dgvCityColumnPopulation.ReadOnly = true;
-            this.dgvCityColumnPopulation.Width = 118;
-            // 
-            // dgvCityColumnLoyalty
-            // 
-            this.dgvCityColumnLoyalty.HeaderText = "Loyalty";
-            this.dgvCityColumnLoyalty.Name = "dgvCityColumnLoyalty";
-            this.dgvCityColumnLoyalty.ReadOnly = true;
-            // 
-            // dgvCityColumnBank
-            // 
-            this.dgvCityColumnBank.HeaderText = "Bank";
-            this.dgvCityColumnBank.Name = "dgvCityColumnBank";
-            this.dgvCityColumnBank.ReadOnly = true;
-            // 
-            // dgvCityColumnTribute
-            // 
-            this.dgvCityColumnTribute.HeaderText = "Tribute";
-            this.dgvCityColumnTribute.Name = "dgvCityColumnTribute";
-            this.dgvCityColumnTribute.ReadOnly = true;
-            // 
-            // dgvCityColumnDate
-            // 
-            this.dgvCityColumnDate.FillWeight = 107F;
-            this.dgvCityColumnDate.HeaderText = "Last Updated";
-            this.dgvCityColumnDate.Name = "dgvCityColumnDate";
-            this.dgvCityColumnDate.ReadOnly = true;
-            this.dgvCityColumnDate.Width = 107;
-            // 
             // tabControlCity
             // 
             this.tabControlCity.Controls.Add(this.tabCityOverview);
             this.tabControlCity.Controls.Add(this.tabCityMorale);
             this.tabControlCity.Controls.Add(this.tabCityPopulation);
-            this.tabControlCity.Controls.Add(this.tabCityTechnology);
             this.tabControlCity.Controls.Add(this.tabCityPatents);
             this.tabControlCity.Controls.Add(this.tabCityBuildings);
             this.tabControlCity.Controls.Add(this.tabCityDefences);
@@ -894,8 +781,8 @@
             this.pCityOverviewMorale.Name = "pCityOverviewMorale";
             this.pCityOverviewMorale.Size = new System.Drawing.Size(136, 160);
             this.pCityOverviewMorale.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.pCityOverviewMorale, "Blue - Morale\r\nYellow - Morale Modifier total\r\nGreen - sum of Positive Morale Mod" +
-        "ifiers\r\nRed - sum of Negative Morale Modifiers");
+            this.toolTip1.SetToolTip(this.pCityOverviewMorale, "Blue - Morale\r\nGreen - sum of Positive Morale Modifiers\r\nRed - sum of Negative Mo" +
+        "rale Modifiers");
             this.pCityOverviewMorale.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
             this.pCityOverviewMorale.Paint += new System.Windows.Forms.PaintEventHandler(this.pCityMorale_Paint);
             // 
@@ -908,8 +795,7 @@
             this.pCityOverviewPopulation.Name = "pCityOverviewPopulation";
             this.pCityOverviewPopulation.Size = new System.Drawing.Size(263, 160);
             this.pCityOverviewPopulation.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.pCityOverviewPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
-        "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
+            this.toolTip1.SetToolTip(this.pCityOverviewPopulation, "Light Green - Population\r\nGreen - Homes\r\nBlue - Jobs");
             this.pCityOverviewPopulation.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
             this.pCityOverviewPopulation.Paint += new System.Windows.Forms.PaintEventHandler(this.pCityPopulation_Paint);
             // 
@@ -964,8 +850,8 @@
             this.pCityMorale.Name = "pCityMorale";
             this.pCityMorale.Size = new System.Drawing.Size(403, 160);
             this.pCityMorale.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.pCityMorale, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
-        "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
+            this.toolTip1.SetToolTip(this.pCityMorale, "Blue - Morale\r\nGreen - sum of Positive Morale Modifiers\r\nRed - sum of Negative Mo" +
+        "rale Modifiers");
             this.pCityMorale.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
             this.pCityMorale.Paint += new System.Windows.Forms.PaintEventHandler(this.pCityMorale_Paint);
             // 
@@ -1020,8 +906,7 @@
             this.pCityPopulation.Name = "pCityPopulation";
             this.pCityPopulation.Size = new System.Drawing.Size(403, 160);
             this.pCityPopulation.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.pCityPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
-        "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
+            this.toolTip1.SetToolTip(this.pCityPopulation, "Light Green - Population\r\nGreen - Homes\r\nBlue - Jobs");
             this.pCityPopulation.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
             this.pCityPopulation.Paint += new System.Windows.Forms.PaintEventHandler(this.pCityPopulation_Paint);
             // 
@@ -1037,29 +922,6 @@
             this.rtbCityPopulation.TabIndex = 1;
             this.rtbCityPopulation.Text = "";
             this.rtbCityPopulation.WordWrap = false;
-            // 
-            // tabCityTechnology
-            // 
-            this.tabCityTechnology.Controls.Add(this.rtbCityTechnology);
-            this.tabCityTechnology.Location = new System.Drawing.Point(4, 22);
-            this.tabCityTechnology.Name = "tabCityTechnology";
-            this.tabCityTechnology.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityTechnology.Size = new System.Drawing.Size(409, 367);
-            this.tabCityTechnology.TabIndex = 5;
-            this.tabCityTechnology.Text = "Technology";
-            this.tabCityTechnology.UseVisualStyleBackColor = true;
-            // 
-            // rtbCityTechnology
-            // 
-            this.rtbCityTechnology.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbCityTechnology.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbCityTechnology.Location = new System.Drawing.Point(3, 3);
-            this.rtbCityTechnology.Name = "rtbCityTechnology";
-            this.rtbCityTechnology.ReadOnly = true;
-            this.rtbCityTechnology.Size = new System.Drawing.Size(403, 361);
-            this.rtbCityTechnology.TabIndex = 0;
-            this.rtbCityTechnology.Text = "";
-            this.rtbCityTechnology.WordWrap = false;
             // 
             // tabCityPatents
             // 
@@ -1271,10 +1133,8 @@
             this.dgvSystemColumnName,
             this.dgvSystemColumnCities,
             this.dgvSystemColumnAbandonment,
-            this.dgvSystemColumnMoraleModifiers,
             this.dgvSystemColumnMorale,
             this.dgvSystemColumnPopulation,
-            this.dgvSystemColumnLoyalty,
             this.dgvSystemColumnBank,
             this.dgvSystemColumnTribute,
             this.dgvSystemColumnDate});
@@ -1294,106 +1154,11 @@
             this.dgvSystem.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgv_SortCompare);
             this.dgvSystem.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
             // 
-            // dgvSystemColumnId
-            // 
-            this.dgvSystemColumnId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvSystemColumnId.FillWeight = 20F;
-            this.dgvSystemColumnId.Frozen = true;
-            this.dgvSystemColumnId.HeaderText = "ID";
-            this.dgvSystemColumnId.MinimumWidth = 20;
-            this.dgvSystemColumnId.Name = "dgvSystemColumnId";
-            this.dgvSystemColumnId.ReadOnly = true;
-            this.dgvSystemColumnId.Visible = false;
-            this.dgvSystemColumnId.Width = 20;
-            // 
-            // dgvSystemColumnIcon
-            // 
-            this.dgvSystemColumnIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvSystemColumnIcon.FillWeight = 20F;
-            this.dgvSystemColumnIcon.Frozen = true;
-            this.dgvSystemColumnIcon.HeaderText = "Icon";
-            this.dgvSystemColumnIcon.MinimumWidth = 20;
-            this.dgvSystemColumnIcon.Name = "dgvSystemColumnIcon";
-            this.dgvSystemColumnIcon.ReadOnly = true;
-            this.dgvSystemColumnIcon.Width = 20;
-            // 
-            // dgvSystemColumnName
-            // 
-            this.dgvSystemColumnName.Frozen = true;
-            this.dgvSystemColumnName.HeaderText = "Name";
-            this.dgvSystemColumnName.Name = "dgvSystemColumnName";
-            this.dgvSystemColumnName.ReadOnly = true;
-            // 
-            // dgvSystemColumnCities
-            // 
-            this.dgvSystemColumnCities.FillWeight = 50F;
-            this.dgvSystemColumnCities.HeaderText = "Cities";
-            this.dgvSystemColumnCities.Name = "dgvSystemColumnCities";
-            this.dgvSystemColumnCities.ReadOnly = true;
-            this.dgvSystemColumnCities.Width = 50;
-            // 
-            // dgvSystemColumnAbandonment
-            // 
-            this.dgvSystemColumnAbandonment.FillWeight = 90F;
-            this.dgvSystemColumnAbandonment.HeaderText = "Abandonment";
-            this.dgvSystemColumnAbandonment.Name = "dgvSystemColumnAbandonment";
-            this.dgvSystemColumnAbandonment.ReadOnly = true;
-            this.dgvSystemColumnAbandonment.Width = 90;
-            // 
-            // dgvSystemColumnMoraleModifiers
-            // 
-            this.dgvSystemColumnMoraleModifiers.HeaderText = "Morale Mod";
-            this.dgvSystemColumnMoraleModifiers.Name = "dgvSystemColumnMoraleModifiers";
-            this.dgvSystemColumnMoraleModifiers.ReadOnly = true;
-            // 
-            // dgvSystemColumnMorale
-            // 
-            this.dgvSystemColumnMorale.FillWeight = 50F;
-            this.dgvSystemColumnMorale.HeaderText = "Morale";
-            this.dgvSystemColumnMorale.Name = "dgvSystemColumnMorale";
-            this.dgvSystemColumnMorale.ReadOnly = true;
-            this.dgvSystemColumnMorale.Width = 50;
-            // 
-            // dgvSystemColumnPopulation
-            // 
-            this.dgvSystemColumnPopulation.FillWeight = 118F;
-            this.dgvSystemColumnPopulation.HeaderText = "Population";
-            this.dgvSystemColumnPopulation.Name = "dgvSystemColumnPopulation";
-            this.dgvSystemColumnPopulation.ReadOnly = true;
-            this.dgvSystemColumnPopulation.Width = 118;
-            // 
-            // dgvSystemColumnLoyalty
-            // 
-            this.dgvSystemColumnLoyalty.HeaderText = "Loyalty";
-            this.dgvSystemColumnLoyalty.Name = "dgvSystemColumnLoyalty";
-            this.dgvSystemColumnLoyalty.ReadOnly = true;
-            // 
-            // dgvSystemColumnBank
-            // 
-            this.dgvSystemColumnBank.HeaderText = "Bank";
-            this.dgvSystemColumnBank.Name = "dgvSystemColumnBank";
-            this.dgvSystemColumnBank.ReadOnly = true;
-            // 
-            // dgvSystemColumnTribute
-            // 
-            this.dgvSystemColumnTribute.HeaderText = "Tribute";
-            this.dgvSystemColumnTribute.Name = "dgvSystemColumnTribute";
-            this.dgvSystemColumnTribute.ReadOnly = true;
-            // 
-            // dgvSystemColumnDate
-            // 
-            this.dgvSystemColumnDate.FillWeight = 107F;
-            this.dgvSystemColumnDate.HeaderText = "Last Updated";
-            this.dgvSystemColumnDate.Name = "dgvSystemColumnDate";
-            this.dgvSystemColumnDate.ReadOnly = true;
-            this.dgvSystemColumnDate.Width = 107;
-            // 
             // tabControlSystem
             // 
             this.tabControlSystem.Controls.Add(this.tabSystemOverview);
             this.tabControlSystem.Controls.Add(this.tabSystemMorale);
             this.tabControlSystem.Controls.Add(this.tabSystemPopulation);
-            this.tabControlSystem.Controls.Add(this.tabSystemTechnology);
             this.tabControlSystem.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlSystem.Location = new System.Drawing.Point(0, 0);
             this.tabControlSystem.Name = "tabControlSystem";
@@ -1456,7 +1221,8 @@
             this.pSystemOverviewMorale.Name = "pSystemOverviewMorale";
             this.pSystemOverviewMorale.Size = new System.Drawing.Size(136, 160);
             this.pSystemOverviewMorale.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.pSystemOverviewMorale, "Blue - Average Morale\r\nWIP");
+            this.toolTip1.SetToolTip(this.pSystemOverviewMorale, "Blue - Morale\r\nGreen - sum of Positive Morale Modifiers\r\nRed - sum of Negative Mo" +
+        "rale Modifiers");
             this.pSystemOverviewMorale.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
             this.pSystemOverviewMorale.Paint += new System.Windows.Forms.PaintEventHandler(this.pSystemMorale_Paint);
             // 
@@ -1469,8 +1235,7 @@
             this.pSystemOverviewPopulation.Name = "pSystemOverviewPopulation";
             this.pSystemOverviewPopulation.Size = new System.Drawing.Size(263, 160);
             this.pSystemOverviewPopulation.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.pSystemOverviewPopulation, "Yellow / Orange - Loyal / Disloyal Citizens\r\nLight Green - Population\r\nGreen - Ho" +
-        "mes\r\nBlue - Jobs\r\nRed - Population Limit for the city\'s resource zone");
+            this.toolTip1.SetToolTip(this.pSystemOverviewPopulation, "Light Green - Population\r\nGreen - Homes\r\nBlue - Jobs");
             this.pSystemOverviewPopulation.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
             this.pSystemOverviewPopulation.Paint += new System.Windows.Forms.PaintEventHandler(this.pSystemPopulation_Paint);
             // 
@@ -1525,7 +1290,8 @@
             this.pSystemMorale.Name = "pSystemMorale";
             this.pSystemMorale.Size = new System.Drawing.Size(403, 160);
             this.pSystemMorale.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.pSystemMorale, "Blue - Average Morale\r\nWIP");
+            this.toolTip1.SetToolTip(this.pSystemMorale, "Blue - Morale\r\nGreen - sum of Positive Morale Modifiers\r\nRed - sum of Negative Mo" +
+        "rale Modifiers");
             this.pSystemMorale.SizeChanged += new System.EventHandler(this.GraphicPanel_SizeChanged);
             this.pSystemMorale.Paint += new System.Windows.Forms.PaintEventHandler(this.pSystemMorale_Paint);
             // 
@@ -1597,29 +1363,6 @@
             this.rtbSystemPopulation.TabIndex = 1;
             this.rtbSystemPopulation.Text = "";
             this.rtbSystemPopulation.WordWrap = false;
-            // 
-            // tabSystemTechnology
-            // 
-            this.tabSystemTechnology.Controls.Add(this.rtbSystemTechnology);
-            this.tabSystemTechnology.Location = new System.Drawing.Point(4, 22);
-            this.tabSystemTechnology.Name = "tabSystemTechnology";
-            this.tabSystemTechnology.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSystemTechnology.Size = new System.Drawing.Size(409, 367);
-            this.tabSystemTechnology.TabIndex = 5;
-            this.tabSystemTechnology.Text = "Technology";
-            this.tabSystemTechnology.UseVisualStyleBackColor = true;
-            // 
-            // rtbSystemTechnology
-            // 
-            this.rtbSystemTechnology.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbSystemTechnology.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbSystemTechnology.Location = new System.Drawing.Point(3, 3);
-            this.rtbSystemTechnology.Name = "rtbSystemTechnology";
-            this.rtbSystemTechnology.ReadOnly = true;
-            this.rtbSystemTechnology.Size = new System.Drawing.Size(403, 361);
-            this.rtbSystemTechnology.TabIndex = 0;
-            this.rtbSystemTechnology.Text = "";
-            this.rtbSystemTechnology.WordWrap = false;
             // 
             // tabShip
             // 
@@ -2142,26 +1885,26 @@
             // menuStrip1HelpGithub
             // 
             this.menuStrip1HelpGithub.Name = "menuStrip1HelpGithub";
-            this.menuStrip1HelpGithub.Size = new System.Drawing.Size(156, 22);
+            this.menuStrip1HelpGithub.Size = new System.Drawing.Size(155, 22);
             this.menuStrip1HelpGithub.Text = "GitHub Repo";
             this.menuStrip1HelpGithub.Click += new System.EventHandler(this.menuStrip1HelpGithub_Click);
             // 
             // menuStrip1HelpThread
             // 
             this.menuStrip1HelpThread.Name = "menuStrip1HelpThread";
-            this.menuStrip1HelpThread.Size = new System.Drawing.Size(156, 22);
+            this.menuStrip1HelpThread.Size = new System.Drawing.Size(155, 22);
             this.menuStrip1HelpThread.Text = "Forum Thread";
             this.menuStrip1HelpThread.Click += new System.EventHandler(this.menuStrip1HelpThread_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(152, 6);
             // 
             // menuStrip1HelpAbout
             // 
             this.menuStrip1HelpAbout.Name = "menuStrip1HelpAbout";
-            this.menuStrip1HelpAbout.Size = new System.Drawing.Size(156, 22);
+            this.menuStrip1HelpAbout.Size = new System.Drawing.Size(155, 22);
             this.menuStrip1HelpAbout.Text = "About";
             this.menuStrip1HelpAbout.Click += new System.EventHandler(this.menuStrip1HelpAbout_Click);
             // 
@@ -2169,9 +1912,179 @@
             // 
             this.menuStrip1HelpHowToUse.Name = "menuStrip1HelpHowToUse";
             this.menuStrip1HelpHowToUse.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.menuStrip1HelpHowToUse.Size = new System.Drawing.Size(156, 22);
+            this.menuStrip1HelpHowToUse.Size = new System.Drawing.Size(155, 22);
             this.menuStrip1HelpHowToUse.Text = "How To Use";
             this.menuStrip1HelpHowToUse.Click += new System.EventHandler(this.menuStrip1HelpHowToUse_Click);
+            // 
+            // dgvCityColumnId
+            // 
+            this.dgvCityColumnId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvCityColumnId.FillWeight = 20F;
+            this.dgvCityColumnId.Frozen = true;
+            this.dgvCityColumnId.HeaderText = "ID";
+            this.dgvCityColumnId.MinimumWidth = 20;
+            this.dgvCityColumnId.Name = "dgvCityColumnId";
+            this.dgvCityColumnId.ReadOnly = true;
+            this.dgvCityColumnId.Visible = false;
+            this.dgvCityColumnId.Width = 20;
+            // 
+            // dgvCityColumnIcon
+            // 
+            this.dgvCityColumnIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvCityColumnIcon.FillWeight = 20F;
+            this.dgvCityColumnIcon.Frozen = true;
+            this.dgvCityColumnIcon.HeaderText = "Icon";
+            this.dgvCityColumnIcon.MinimumWidth = 20;
+            this.dgvCityColumnIcon.Name = "dgvCityColumnIcon";
+            this.dgvCityColumnIcon.ReadOnly = true;
+            this.dgvCityColumnIcon.Width = 20;
+            // 
+            // dgvCityColumnName
+            // 
+            this.dgvCityColumnName.Frozen = true;
+            this.dgvCityColumnName.HeaderText = "Name";
+            this.dgvCityColumnName.Name = "dgvCityColumnName";
+            this.dgvCityColumnName.ReadOnly = true;
+            // 
+            // dgvCityColumnLocation
+            // 
+            this.dgvCityColumnLocation.HeaderText = "Location";
+            this.dgvCityColumnLocation.Name = "dgvCityColumnLocation";
+            this.dgvCityColumnLocation.ReadOnly = true;
+            // 
+            // dgvCityColumnAbandonment
+            // 
+            this.dgvCityColumnAbandonment.FillWeight = 90F;
+            this.dgvCityColumnAbandonment.HeaderText = "Abandonment";
+            this.dgvCityColumnAbandonment.Name = "dgvCityColumnAbandonment";
+            this.dgvCityColumnAbandonment.ReadOnly = true;
+            this.dgvCityColumnAbandonment.Width = 90;
+            // 
+            // dgvCityColumnMorale
+            // 
+            this.dgvCityColumnMorale.FillWeight = 112F;
+            this.dgvCityColumnMorale.HeaderText = "Morale";
+            this.dgvCityColumnMorale.Name = "dgvCityColumnMorale";
+            this.dgvCityColumnMorale.ReadOnly = true;
+            this.dgvCityColumnMorale.Width = 112;
+            // 
+            // dgvCityColumnLivingConditions
+            // 
+            this.dgvCityColumnLivingConditions.FillWeight = 112F;
+            this.dgvCityColumnLivingConditions.HeaderText = "Living Conditions";
+            this.dgvCityColumnLivingConditions.Name = "dgvCityColumnLivingConditions";
+            this.dgvCityColumnLivingConditions.ReadOnly = true;
+            this.dgvCityColumnLivingConditions.Width = 112;
+            // 
+            // dgvCityColumnPopulation
+            // 
+            this.dgvCityColumnPopulation.FillWeight = 118F;
+            this.dgvCityColumnPopulation.HeaderText = "Population";
+            this.dgvCityColumnPopulation.Name = "dgvCityColumnPopulation";
+            this.dgvCityColumnPopulation.ReadOnly = true;
+            this.dgvCityColumnPopulation.Width = 118;
+            // 
+            // dgvCityColumnBank
+            // 
+            this.dgvCityColumnBank.HeaderText = "Bank";
+            this.dgvCityColumnBank.Name = "dgvCityColumnBank";
+            this.dgvCityColumnBank.ReadOnly = true;
+            // 
+            // dgvCityColumnTribute
+            // 
+            this.dgvCityColumnTribute.HeaderText = "Tribute";
+            this.dgvCityColumnTribute.Name = "dgvCityColumnTribute";
+            this.dgvCityColumnTribute.ReadOnly = true;
+            // 
+            // dgvCityColumnDate
+            // 
+            this.dgvCityColumnDate.FillWeight = 107F;
+            this.dgvCityColumnDate.HeaderText = "Last Updated";
+            this.dgvCityColumnDate.Name = "dgvCityColumnDate";
+            this.dgvCityColumnDate.ReadOnly = true;
+            this.dgvCityColumnDate.Width = 107;
+            // 
+            // dgvSystemColumnId
+            // 
+            this.dgvSystemColumnId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvSystemColumnId.FillWeight = 20F;
+            this.dgvSystemColumnId.Frozen = true;
+            this.dgvSystemColumnId.HeaderText = "ID";
+            this.dgvSystemColumnId.MinimumWidth = 20;
+            this.dgvSystemColumnId.Name = "dgvSystemColumnId";
+            this.dgvSystemColumnId.ReadOnly = true;
+            this.dgvSystemColumnId.Visible = false;
+            this.dgvSystemColumnId.Width = 20;
+            // 
+            // dgvSystemColumnIcon
+            // 
+            this.dgvSystemColumnIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvSystemColumnIcon.FillWeight = 20F;
+            this.dgvSystemColumnIcon.Frozen = true;
+            this.dgvSystemColumnIcon.HeaderText = "Icon";
+            this.dgvSystemColumnIcon.MinimumWidth = 20;
+            this.dgvSystemColumnIcon.Name = "dgvSystemColumnIcon";
+            this.dgvSystemColumnIcon.ReadOnly = true;
+            this.dgvSystemColumnIcon.Width = 20;
+            // 
+            // dgvSystemColumnName
+            // 
+            this.dgvSystemColumnName.Frozen = true;
+            this.dgvSystemColumnName.HeaderText = "Name";
+            this.dgvSystemColumnName.Name = "dgvSystemColumnName";
+            this.dgvSystemColumnName.ReadOnly = true;
+            // 
+            // dgvSystemColumnCities
+            // 
+            this.dgvSystemColumnCities.FillWeight = 50F;
+            this.dgvSystemColumnCities.HeaderText = "Cities";
+            this.dgvSystemColumnCities.Name = "dgvSystemColumnCities";
+            this.dgvSystemColumnCities.ReadOnly = true;
+            this.dgvSystemColumnCities.Width = 50;
+            // 
+            // dgvSystemColumnAbandonment
+            // 
+            this.dgvSystemColumnAbandonment.FillWeight = 90F;
+            this.dgvSystemColumnAbandonment.HeaderText = "Abandonment";
+            this.dgvSystemColumnAbandonment.Name = "dgvSystemColumnAbandonment";
+            this.dgvSystemColumnAbandonment.ReadOnly = true;
+            this.dgvSystemColumnAbandonment.Width = 90;
+            // 
+            // dgvSystemColumnMorale
+            // 
+            this.dgvSystemColumnMorale.FillWeight = 50F;
+            this.dgvSystemColumnMorale.HeaderText = "Morale";
+            this.dgvSystemColumnMorale.Name = "dgvSystemColumnMorale";
+            this.dgvSystemColumnMorale.ReadOnly = true;
+            this.dgvSystemColumnMorale.Width = 50;
+            // 
+            // dgvSystemColumnPopulation
+            // 
+            this.dgvSystemColumnPopulation.FillWeight = 118F;
+            this.dgvSystemColumnPopulation.HeaderText = "Population";
+            this.dgvSystemColumnPopulation.Name = "dgvSystemColumnPopulation";
+            this.dgvSystemColumnPopulation.ReadOnly = true;
+            this.dgvSystemColumnPopulation.Width = 118;
+            // 
+            // dgvSystemColumnBank
+            // 
+            this.dgvSystemColumnBank.HeaderText = "Bank";
+            this.dgvSystemColumnBank.Name = "dgvSystemColumnBank";
+            this.dgvSystemColumnBank.ReadOnly = true;
+            // 
+            // dgvSystemColumnTribute
+            // 
+            this.dgvSystemColumnTribute.HeaderText = "Tribute";
+            this.dgvSystemColumnTribute.Name = "dgvSystemColumnTribute";
+            this.dgvSystemColumnTribute.ReadOnly = true;
+            // 
+            // dgvSystemColumnDate
+            // 
+            this.dgvSystemColumnDate.FillWeight = 107F;
+            this.dgvSystemColumnDate.HeaderText = "Last Updated";
+            this.dgvSystemColumnDate.Name = "dgvSystemColumnDate";
+            this.dgvSystemColumnDate.ReadOnly = true;
+            this.dgvSystemColumnDate.Width = 107;
             // 
             // Main
             // 
@@ -2232,7 +2145,6 @@
             this.splitContainerCityPopulation.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityPopulation)).EndInit();
             this.splitContainerCityPopulation.ResumeLayout(false);
-            this.tabCityTechnology.ResumeLayout(false);
             this.tabCityPatents.ResumeLayout(false);
             this.tabCityBuildings.ResumeLayout(false);
             this.tabCityDefences.ResumeLayout(false);
@@ -2270,7 +2182,6 @@
             this.splitContainerSystemPopulation.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerSystemPopulation)).EndInit();
             this.splitContainerSystemPopulation.ResumeLayout(false);
-            this.tabSystemTechnology.ResumeLayout(false);
             this.tabShip.ResumeLayout(false);
             this.tabOfficer.ResumeLayout(false);
             this.splitContainerOfficer.Panel1.ResumeLayout(false);
@@ -2368,8 +2279,6 @@
         private System.Windows.Forms.TextBox tbxOfficer;
         private System.Windows.Forms.SplitContainer splitContainerCityOverview2;
         private System.Windows.Forms.RichTextBox rtbCityOverview;
-        private System.Windows.Forms.TabPage tabCityTechnology;
-        private System.Windows.Forms.RichTextBox rtbCityTechnology;
         private System.Windows.Forms.TabPage tabSystem;
         private System.Windows.Forms.SplitContainer splitContainerSystem;
         private System.Windows.Forms.DataGridView dgvSystem;
@@ -2388,8 +2297,6 @@
         private System.Windows.Forms.SplitContainer splitContainerSystemPopulation;
         private System.Windows.Forms.Panel pSystemPopulation;
         private System.Windows.Forms.RichTextBox rtbSystemPopulation;
-        private System.Windows.Forms.TabPage tabSystemTechnology;
-        private System.Windows.Forms.RichTextBox rtbSystemTechnology;
         private System.Windows.Forms.TabPage tabCityBuildings;
         private System.Windows.Forms.RichTextBox rtbCityBuildings;
         private System.Windows.Forms.TabPage tabCityBank;
@@ -2422,19 +2329,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvShipColumnAccount;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvShipColumnDamage;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvShipColumnDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnId;
-        private System.Windows.Forms.DataGridViewImageColumn dgvCityColumnIcon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnLocation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnAbandonment;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnMoraleModifiers;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnMorale;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnLivingConditions;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnPopulation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnLoyalty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnBank;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnTribute;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvOfficerColumnId;
         private System.Windows.Forms.DataGridViewImageColumn dgvOfficerColumnIcon;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvOfficerColumnName;
@@ -2447,18 +2341,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvEventColumnSubject;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvEventColumnLocation;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvEventColumnDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnId;
-        private System.Windows.Forms.DataGridViewImageColumn dgvSystemColumnIcon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnCities;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnAbandonment;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnMoraleModifiers;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnMorale;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnPopulation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnLoyalty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnBank;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnTribute;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnDate;
         private System.Windows.Forms.TabPage tabShipMission;
         private System.Windows.Forms.RichTextBox rtbShipMission;
         private System.Windows.Forms.TabPage tabShipRoster;
@@ -2473,6 +2355,27 @@
         private System.Windows.Forms.RichTextBox rtbCityInventory;
         private System.Windows.Forms.TabPage tabCityPatents;
         private System.Windows.Forms.RichTextBox rtbCityPatents;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnId;
+        private System.Windows.Forms.DataGridViewImageColumn dgvCityColumnIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnLocation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnAbandonment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnMorale;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnLivingConditions;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnPopulation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnBank;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnTribute;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnId;
+        private System.Windows.Forms.DataGridViewImageColumn dgvSystemColumnIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnCities;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnAbandonment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnMorale;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnPopulation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnBank;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnTribute;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSystemColumnDate;
     }
 }
 

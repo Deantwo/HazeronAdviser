@@ -77,12 +77,6 @@ namespace HazeronAdviser
             get { return _moraleColumn; }
         }
 
-        protected string _moraleModifiersColumn = "-";
-        public string MoraleModifiersColumn
-        {
-            get { return _moraleModifiersColumn; }
-        }
-
         protected int _abandonment = 0, _abandonmentMax = 0;
         public int Abandonment
         {
@@ -105,12 +99,6 @@ namespace HazeronAdviser
             get { return _populationColumn; }
         }
 
-        protected string _loyaltyColumn = "-";
-        public string LoyaltyColumn
-        {
-            get { return _loyaltyColumn; }
-        }
-
         protected string _populationOverview = "";
         public string PopulationOverview
         {
@@ -121,12 +109,6 @@ namespace HazeronAdviser
         public string BuildingsOverview
         {
             get { return _buildingsOverview; }
-        }
-
-        protected string _technologyOverview = "";
-        public string TechnologyOverview
-        {
-            get { return _technologyOverview; }
         }
 
         protected Dictionary<string, int> _reseatchProjects = new Dictionary<string, int>();
@@ -177,12 +159,6 @@ namespace HazeronAdviser
             get { return _populationLimit; }
         }
 
-        protected int _loyalty = 0;
-        public int Loyalty
-        {
-            get { return _loyalty; }
-        }
-
         protected bool _initialized = false;
         public bool Initialized
         {
@@ -216,21 +192,34 @@ namespace HazeronAdviser
             // MORALE
             {
                 _morale = Convert.ToInt32(Cities.Average(city => city.Morale));
-                _moraleColumn = _morale + " Avg";
-                _moraleModifiersColumn = "";
+                StringBuilder moraleColumn = new StringBuilder();
+                StringBuilder moraleOverview = new StringBuilder();
+                moraleColumn.Append($"{_morale.ToString("+#0;-#0;±#0").PadLeft(3)} Avg (");
+                moraleOverview.AppendLine("System's morale:");
                 foreach (HCity city in _cities)
                 {
                     int sum = city.MoraleModifiers.Values.Sum();
                     if (!_moraleModifiers.Contains(sum))
                     {
-                        if (_moraleModifiersColumn != "")
-                            _moraleModifiersColumn += ", ";
-                        _moraleModifiersColumn += sum.ToString("+#0;-#0;±#0");
+                        if (_moraleModifiers.Count != 0)
+                            moraleColumn.Append(", ");
+                        moraleColumn.Append(sum.ToString("+#0;-#0;±#0").PadLeft(3));
                     }
                     _moraleModifiers.Add(sum);
+
+                    moraleOverview.AppendLine();
+                    moraleOverview.AppendLine($"  {city.Name}");
+                    if (city.Morale >= 0)
+                        moraleOverview.Append("[color=green]");
+                    else
+                        moraleOverview.Append("[color=red]");
+                    moraleOverview.Append($"    {city.Morale.ToString("+#0;-#0;±#0").PadLeft(3)}[/color]");
+                    moraleOverview.Append($" ([color=green]{city.MoraleModifiers.Values.Where(x => x > 0).Sum().ToString("+#0;-#0;±#0").PadLeft(3)}[/color]");
+                    moraleOverview.AppendLine($", [color=red]{city.MoraleModifiers.Values.Where(x => x < 0).Sum().ToString("+#0;-#0;±#0").PadLeft(3)}[/color])");
                 }
-                _moraleModifiersColumn = Math.Floor(_moraleModifiers.Average()).ToString("+#0;-#0;±#0") + " (" + _moraleModifiersColumn + ")";
-                _moraleOverview = "WIP";
+                moraleColumn.Append(")");
+                _moraleColumn = moraleColumn.ToString();
+                _moraleOverview = moraleOverview.ToString();
             }
 
             // Decay
@@ -255,88 +244,16 @@ namespace HazeronAdviser
                 _population = Cities.Sum(city => city.Population);
                 _homes = Cities.Sum(city => city.Homes);
                 _jobs = Cities.Sum(city => city.Jobs);
-                _populationLimit = Cities.Sum(city => city.PopulationLimit);
                 _populationColumn = "Population " + _population + ", Homes " + _homes;
-
-                _loyalty = Cities.Sum(city => city.Loyalty);
-                _loyaltyColumn = _loyalty + " citizens (" + Math.Round(((float)_loyalty / _population) * 100, 2) + "%)";
             }
 
             // Population overwiew
             {
                 _populationOverview = "City's population:";
-                _populationOverview += Environment.NewLine + " " + _loyalty.ToString().PadLeft(5) + ", Loyal citizens";
-                if (_loyalty != _population)
-                {
-                    int minutesToLoyal;
-                    bool disloyal = (_cities.Min(city => city.Loyalty) < 0);
-                    if (!disloyal)
-                        minutesToLoyal = ((_cities.Max(city => (city.Population - city.Loyalty))) * 13);
-                    else
-                        minutesToLoyal = (Math.Abs(_loyalty) * 13);
-                    _populationOverview += " [color=" + (disloyal ? "red" : "orange") + "](";
-                    if (minutesToLoyal < 120) // Less than two hours.
-                        _populationOverview += minutesToLoyal + " minutes";
-                    else if (minutesToLoyal < 2980) // Less than two days.
-                        _populationOverview += (minutesToLoyal / 60) + " hours";
-                    else // More than two days.
-                        _populationOverview += (minutesToLoyal / 1490) + " days";
-                    _populationOverview += " to " + (disloyal ? "loyal" : "full") + ")[/color]";
-                }
                 _populationOverview += Environment.NewLine + " " + _population.ToString().PadLeft(5) + ", Citizens";
                 _populationOverview += Environment.NewLine + " " + _homes.ToString().PadLeft(5) + ", Homes";
                 _populationOverview += Environment.NewLine + " " + _jobs.ToString().PadLeft(5) + ", Jobs";
                 _populationOverview += Environment.NewLine + " " + _populationLimit.ToString().PadLeft(5) + ", Population limit";
-            }
-
-            // Technology overview
-            {
-                _technologyOverview = "";
-                _reseatchProjects = new Dictionary<string, int>();
-                _factilitiesTL = new Dictionary<string, int>();
-                // Get all the info from the cities
-                foreach (HCity city in Cities)
-                {
-                    foreach (KeyValuePair<string, int> project in city.ReseatchProjects)
-                    {
-                        if (!_reseatchProjects.ContainsKey(project.Key))
-                            _reseatchProjects.Add(project.Key, project.Value);
-                        else
-                            _reseatchProjects[project.Key] += project.Value;
-                    }
-                    foreach (KeyValuePair<string, int> tech in city.FactilitiesTL)
-                    {
-                        if (!_factilitiesTL.ContainsKey(tech.Key))
-                            _factilitiesTL.Add(tech.Key, tech.Value);
-                        else if (_factilitiesTL[tech.Key] != tech.Value)
-                        {
-                            _factilitiesTL[tech.Key] = -Math.Max(Math.Abs(_factilitiesTL[tech.Key]), Math.Abs(tech.Value));
-                        }
-                    }
-                }
-
-                if (_reseatchProjects.Count != 0)
-                {
-                    _technologyOverview = "System's technology projects:";
-                    foreach (string building in _reseatchProjects.Keys)
-                    {
-                        if (_factilitiesTL.ContainsKey(building))
-                            _technologyOverview += Environment.NewLine + " " + _reseatchProjects[building].ToString().PadLeft(2) + " (TL" + Math.Abs(_factilitiesTL[building]).ToString().PadLeft(2) + ") running, " + building;
-                        else
-                            _technologyOverview += Environment.NewLine + " [color=red]" + _reseatchProjects[building].ToString().PadLeft(2) + " running, " + building + " (wasted, none in city)[/color]";
-                    }
-                }
-                if (_technologyOverview != "")
-                    _technologyOverview += Environment.NewLine + Environment.NewLine;
-                _technologyOverview += "System's technology levels:";
-                List<string> buildingList = _factilitiesTL.Keys.ToList();
-                buildingList.Sort();
-                foreach (string building in buildingList)
-                {
-                    _technologyOverview += Environment.NewLine + " TL" + Math.Abs(_factilitiesTL[building]).ToString().PadLeft(2) + ", " + building;
-                    if (_factilitiesTL[building] < 0)
-                        _technologyOverview += " [color=red](not all cities)[/color]";
-                }
             }
 
             // Overview

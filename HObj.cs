@@ -139,16 +139,50 @@ namespace HazeronAdviser
             }
         }
 
-        protected string GetSectionText(string mailBody, List<string> reportSecions, string headline)
+        protected string GetSectionText(List<string> reportSecions, string headline)
         {
             int subStart, subEnd;
-            subStart = mailBody.IndexOf(headline);
+            subStart = _mail.Body.IndexOf(headline);
             int index = reportSecions.IndexOf(headline) + 1;
             if (reportSecions.Count != index)
-                subEnd = mailBody.IndexOf(reportSecions[index]) - subStart;
+                subEnd = _mail.Body.IndexOf(reportSecions[index], subStart) - subStart;
             else
-                subEnd = mailBody.Length - subStart;
-            return mailBody.Substring(subStart, subEnd);
+                subEnd = _mail.Body.Length - subStart;
+            return _mail.Body.Substring(subStart, subEnd);
+        }
+
+        protected string GetSectionText(Dictionary<string, int> reportSecions, string headline)
+        {
+            int subStart, subEnd;
+            subStart = reportSecions[headline];
+            subEnd = reportSecions.Values.OrderBy(x => x).FirstOrDefault(x => x > subStart);
+            if (subEnd != 0)
+                subEnd = subEnd - subStart;
+            else
+                subEnd = _mail.Body.Length - subStart;
+            return _mail.Body.Substring(subStart, subEnd);
+        }
+
+        protected bool TryGetSectionText(Dictionary<string, int> reportSecions, string headline, out string reportSection)
+        {
+            try
+            {
+                if (reportSecions != null && reportSecions.ContainsKey(headline))
+                {
+                    reportSection = GetSectionText(reportSecions, headline);
+                    return true;
+                }
+                else
+                {
+                    reportSection = null;
+                    return false;
+                }
+            }
+            catch
+            {
+                reportSection = null;
+                return false;
+            }
         }
 
         public virtual void Initialize()
@@ -320,7 +354,7 @@ namespace HazeronAdviser
                 const string headlineSPACECRAFTDESTROYED = "<b>SPACECRAFT DESTROYED</b>";
                 if (sectionsInReport.Contains(headlineSPACECRAFTDESTROYED))
                 {
-                    shipDestruction = HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineSPACECRAFTDESTROYED));
+                    shipDestruction = HHelper.CleanText(GetSectionText(sectionsInReport, headlineSPACECRAFTDESTROYED));
                     shipDestruction = shipDestruction.Substring(("SPACECRAFT DESTROYED" + Environment.NewLine).Length);
                     shipDestruction = shipDestruction.Replace(Environment.NewLine, Environment.NewLine + "  ");
                     shipDestruction = shipDestruction.Replace(". ", "." + Environment.NewLine + "  ");
@@ -332,7 +366,7 @@ namespace HazeronAdviser
                 const string headlineEVENT = "<b>EVENT LOG</b>";
                 if (sectionsInReport.Contains(headlineEVENT))
                 {
-                    shipEvent = HEvent.EventLogStyle(HHelper.CleanText(GetSectionText(_mail.Body, sectionsInReport, headlineEVENT)));
+                    shipEvent = HEvent.EventLogStyle(HHelper.CleanText(GetSectionText(sectionsInReport, headlineEVENT)));
                 }
 
                 // Overview
@@ -425,27 +459,27 @@ namespace HazeronAdviser
             {
                 // ?
             }
-            else if (_messageType == 0x18) // MSG_DiplomaticMessage
-            {
-                string tempSection = HHelper.CleanText(_mail.Body);
-                tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                string diplomat = tempArray[tempArray.Length - 2];
-                diplomat = diplomat.Remove(diplomat.IndexOf(" has asked"));
-                string diplomaticMessage = tempArray[tempArray.Length - 1];
-                diplomaticMessage = diplomaticMessage.Replace(". ", "." + Environment.NewLine + "  ");
-                diplomaticMessage = diplomaticMessage.Replace("! ", "!" + Environment.NewLine + "  ");
-                diplomaticMessage = diplomaticMessage.Replace("? ", "?" + Environment.NewLine + "  ");
-
-                _overview = "Location:" + Environment.NewLine;
-                _overview += "  " + _systemName + Environment.NewLine;
-                _overview += "  " + _planetName + Environment.NewLine;
-                _overview += Environment.NewLine;
-                _overview += "Diplomat:" + Environment.NewLine;
-                _overview += "  " + diplomat + Environment.NewLine;
-                _overview += Environment.NewLine;
-                _overview += "Diplomatic Message:" + Environment.NewLine;
-                _overview += "  " + diplomaticMessage;
-            }
+            //else if (_messageType == 0x18) // MSG_DiplomaticMessage
+            //{
+            //    string tempSection = HHelper.CleanText(_mail.Body);
+            //    tempArray = tempSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            //    string diplomat = tempArray[tempArray.Length - 2];
+            //    diplomat = diplomat.Remove(diplomat.IndexOf(" has asked"));
+            //    string diplomaticMessage = tempArray[tempArray.Length - 1];
+            //    diplomaticMessage = diplomaticMessage.Replace(". ", "." + Environment.NewLine + "  ");
+            //    diplomaticMessage = diplomaticMessage.Replace("! ", "!" + Environment.NewLine + "  ");
+            //    diplomaticMessage = diplomaticMessage.Replace("? ", "?" + Environment.NewLine + "  ");
+            //
+            //    _overview = "Location:" + Environment.NewLine;
+            //    _overview += "  " + _systemName + Environment.NewLine;
+            //    _overview += "  " + _planetName + Environment.NewLine;
+            //    _overview += Environment.NewLine;
+            //    _overview += "Diplomat:" + Environment.NewLine;
+            //    _overview += "  " + diplomat + Environment.NewLine;
+            //    _overview += Environment.NewLine;
+            //    _overview += "Diplomatic Message:" + Environment.NewLine;
+            //    _overview += "  " + diplomaticMessage;
+            //}
 
             // AttentionCodes
             if (_messageType == 0x05) // MSG_CityIntelligenceReport
