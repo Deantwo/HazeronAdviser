@@ -119,11 +119,7 @@ namespace HazeronAdviser
             get { return _race; }
         }
 
-        protected int _powerConsumption = 0, _powerReserve = 0, _powerReserveCapacity = 0;
-        public int PowerConsumption
-        {
-            get { return _powerConsumption; }
-        }
+        protected int _powerReserve = 0, _powerReserveCapacity = 0;
         public int PowerReserve
         {
             get { return _powerReserve; }
@@ -133,16 +129,10 @@ namespace HazeronAdviser
             get { return _powerReserveCapacity; }
         }
 
-        protected string _defencesOverview = "";
-        public string DefencesOverview
+        protected Dictionary<string, int> _factilitiesJobs = new Dictionary<string, int>();
+        public Dictionary<string, int> FactilitiesJobs
         {
-            get { return _defencesOverview; }
-        }
-
-        protected Dictionary<string, int> _factilitiesLV = new Dictionary<string, int>();
-        public Dictionary<string, int> FactilitiesLV
-        {
-            get { return _factilitiesLV; }
+            get { return _factilitiesJobs; }
         }
 
         protected Dictionary<string, int> _researchProjects = new Dictionary<string, int>();
@@ -151,16 +141,16 @@ namespace HazeronAdviser
             get { return _researchProjects; }
         }
 
+        protected new Dictionary<string, int> _patents = new Dictionary<string, int>();
+        public new Dictionary<string, int> Patents
+        {
+            get { return _patents; }
+        }
+
         protected string _patentsOverview = "";
         public string PatentsOverview
         {
             get { return _patentsOverview; }
-        }
-
-        protected new Dictionary<string, int> _researchPatents = new Dictionary<string, int>();
-        public new Dictionary<string, int> ReseatchPatents
-        {
-            get { return _researchPatents; }
         }
 
         protected int _population = 0;
@@ -205,10 +195,22 @@ namespace HazeronAdviser
             get { return _air; }
         }
 
+        protected int _airRate = 0;
+        public int AirRate
+        {
+            get { return _airRate; }
+        }
+
         protected bool _hashEnv = false;
         public bool HashEnv
         {
             get { return _hashEnv; }
+        }
+
+        protected bool _militaryBase = false;
+        public bool MilitaryBase
+        {
+            get { return _militaryBase; }
         }
 
         protected long _bankBalance = 0;
@@ -333,12 +335,13 @@ namespace HazeronAdviser
             const string headlineMORALE = "<b>MORALE ";
             const string headlinePOPULATION = "<b>POPULATION ";
             const string headlineHOMES = "<b>HOMES ";
+            const string headlineBARRACKS = "<b>BARRACKS ";
             const string headlineJOBS = "<b>JOBS ";
             const string headlinePOWER = "<b>POWER RESERVE ";
             const string headlineBANK = "<b>BANK ";
             const string headlineSPACECRAFT = "<b>SPACECRAFT</b>";
-            const string headlineVEHICLES = "<b>VEHICLES</b>";
             const string headlineFACILITIES = "<b>FACILITIES</b>";
+            const string headlineVEHICLES = "<b>VEHICLES</b>";
             const string headlineINVENTORY = "<b>INVENTORY</b>";
             const string headlinePOTENTIAL = "<b>SPACECRAFT MANUFACTURING POTENTIAL</b>";
             const string headlineRESEARCH = "<b>RESEARCH AND DEVELOPMENT</b>";
@@ -349,12 +352,13 @@ namespace HazeronAdviser
                                              , headlineMORALE
                                              , headlinePOPULATION
                                              , headlineHOMES
+                                             , headlineBARRACKS
                                              , headlineJOBS
                                              , headlinePOWER
                                              , headlineBANK
                                              , headlineSPACECRAFT
-                                             , headlineVEHICLES
                                              , headlineFACILITIES
+                                             , headlineVEHICLES
                                              , headlineINVENTORY
                                              , headlineRESEARCH
                                              , headlinePOTENTIAL
@@ -375,7 +379,6 @@ namespace HazeronAdviser
             // Time for City spicific things.
             bool decaying = false;
             int populationChange = 0;
-            bool cadetReady = false;
 
             // City Resource Zone & Capital check
             {
@@ -393,6 +396,7 @@ namespace HazeronAdviser
                         _capitalSector = true;
                 }
             }
+
             //DISTRESS
             if (TryGetSectionText(sectionsInReport, headlineDISTRESS, out reportSection))
             {
@@ -443,9 +447,9 @@ namespace HazeronAdviser
                         posB = line.LastIndexOf(" days.");
                         abandonedDays = Convert.ToInt32(line.Substring(posA, posB - posA));
                     }
-                    else
+                    else if (line != "No citizens.")
                         _moraleModifiers.Add(line.Substring(line.IndexOf(' ') + 1), Convert.ToInt32(line.Remove(line.IndexOf(' '))));
-                    if (line.Contains("Harsh Environment Penalty"))
+                    if (line == "-1 Harsh Environment.")
                         _hashEnv = true;
                 }
                 _abandonment = ((_moraleModifiers.Values.Sum() + 1) * Hazeron.AbandonmentInterval) - (abandonedDays % Hazeron.AbandonmentInterval);
@@ -477,16 +481,19 @@ namespace HazeronAdviser
                 tempArray = tempArray.Where((source, index) => index != 0).ToArray(); // Remove first element in array.
                 // Get race and population changes.
                 Dictionary<string, int> populationChanges = new Dictionary<string, int>();
+                bool mixedRaces = false;
                 foreach (string line in tempArray)
                 {
-                    if (line.StartsWith("Citizens are "))
-                        _race = line.Remove(line.Length - 1).Substring(13);
-                    else if (line.StartsWith("University graduate ")) // "University graduate Ulojbat is ready for command assignment aboard a spacecraft."
-                        cadetReady = true;
-                    else if (line.Contains("arsh environment"))
-                        _hashEnv = true;
+                    if (mixedRaces)
+                        _race = "mixed races";
+                    else if (line == "Citizens are mixed races." || line == "Troops are mixed races.")
+                        mixedRaces = true;
+                    else if (line.StartsWith("Citizens are ") || line.StartsWith("Troops are "))
+                        _race = line.Remove(line.Length - 1).Substring(line.StartsWith("Citizens") ? "Citizens are ".Length : "Troops are ".Length);
                     else if (line != "No change.")
                         populationChanges.Add(line.Substring(line.IndexOf(" · ") + 3), Convert.ToInt32(line.Remove(line.IndexOf(" · "))));
+                    if (line.StartsWith("Troops "))
+                        _militaryBase = true;
                 }
                 if (populationChanges.Values.Sum() < 0)
                     _populationColumn = $"{_population} (decreased {Math.Abs(populationChanges.Values.Sum())})";
@@ -497,7 +504,7 @@ namespace HazeronAdviser
             }
 
             // LIVING CONDITIONS
-            if (TryGetSectionText(sectionsInReport, headlineHOMES, out reportSection))
+            if (TryGetSectionText(sectionsInReport, headlineHOMES, out reportSection) || TryGetSectionText(sectionsInReport, headlineBARRACKS, out reportSection))
             {
                 reportSection = HHelper.CleanText(reportSection);
                 tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
@@ -537,14 +544,12 @@ namespace HazeronAdviser
             {
                 reportSection = HHelper.CleanText(reportSection);
                 tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _powerReserve = Convert.ToInt32(tempArray[0].Substring(tempArray[0].LastIndexOf(' ') + 1));
+                _powerReserve = Convert.ToInt32(tempArray[0].Substring(tempArray[0].LastIndexOf(' ') + 1).Replace(",", ""));
                 tempArray = tempArray.Where((source, index) => index != 0).ToArray(); // Remove first element in array.
                 // Get reserve capacity.
                 foreach (string line in tempArray)
                 {
-                    if (line.StartsWith("Consumed ")) // Doesn't exist anymore?
-                        _powerConsumption = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
-                    else if (line.StartsWith("Reserve Capacity "))
+                    if (line.StartsWith("Reserve Capacity "))
                         _powerReserveCapacity = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1).Replace(",", ""));
                 }
             }
@@ -555,7 +560,7 @@ namespace HazeronAdviser
                 reportSection = HHelper.CleanText(reportSection);
                 tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 int startpos = tempArray[0].LastIndexOf(' ') + 1;
-                _bankBalance = Convert.ToInt32(tempArray[0].Substring(startpos, tempArray[0].Length - 1 - startpos).Replace(",", ""));
+                _bankBalance = Convert.ToInt64(tempArray[0].Substring(startpos, tempArray[0].Length - 1 - startpos).Replace(",", ""));
                 tempArray = tempArray.Where((source, index) => index != 0).ToArray(); // Remove first element in array.
                 bool income = true;
                 for (int i = 1; i < tempArray.Length; i++)
@@ -670,9 +675,19 @@ namespace HazeronAdviser
                 for (int i = 1; i < tempArray.Length; i++)
                 {
                     if (tempArray[i].StartsWith("Lounges: "))
-                        lounges = Convert.ToInt32(tempArray[i].Substring(tempArray[i].LastIndexOf(' ') + 1));
+                    {
+                        string line = tempArray[i];
+                        if (line.EndsWith(". Includes local civilian lounges."))
+                            line = line.Remove(line.Length - ". Includes local civilian lounges.".Length);
+                        lounges = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1).Replace(",", ""));
+                    }
                     else if (tempArray[i].StartsWith("Retail Stores: "))
-                        retailers = Convert.ToInt32(tempArray[i].Substring(tempArray[i].LastIndexOf(' ') + 1));
+                    {
+                        string line = tempArray[i];
+                        if (line.EndsWith(". Includes local civilian stores."))
+                            line = line.Remove(line.Length - ". Includes local civilian stores.".Length);
+                        retailers = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1).Replace(",", ""));
+                    }
                     else if (tempArray[i] != "Name")
                     {
                         string name = tempArray[i].TrimStart();
@@ -687,18 +702,18 @@ namespace HazeronAdviser
                         {
                             int startpos = tempArray[i + 1].IndexOf(", ") + 2;
                             int length = tempArray[i + 1].IndexOf(" in use") - startpos;
-                            jobs = Convert.ToInt32(tempArray[i + 1].Substring(startpos, length));
+                            jobs = Convert.ToInt32(tempArray[i + 1].Substring(startpos, length).Replace(",", ""));
                         }
                         else
-                            jobs = Convert.ToInt32(tempArray[i + 1]);
-                        _factilitiesLV.Add(name, jobs);
+                            jobs = Convert.ToInt32(tempArray[i + 1].Replace(",", ""));
+                        _factilitiesJobs.Add(name, jobs);
                         i++; // Skip an extra line.
                     }
                 }
-                if (!_factilitiesLV.ContainsKey("Cantina"))
-                    _factilitiesLV.Add("Cantina", lounges);
-                if (!_factilitiesLV.ContainsKey("Retail Store"))
-                    _factilitiesLV.Add("Retail Store", retailers);
+                if (!_factilitiesJobs.ContainsKey("Cantina"))
+                    _factilitiesJobs.Add("Cantina", lounges);
+                if (!_factilitiesJobs.ContainsKey("Retail Store"))
+                    _factilitiesJobs.Add("Retail Store", retailers);
             }
 
             //// VEHICLES
@@ -713,23 +728,27 @@ namespace HazeronAdviser
             {
                 reportSection = HHelper.CleanText(reportSection);
                 tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                int startpos = "Food: ".Length;
-                int length = tempArray[1].Length - " total nutrition value in stock".Length - startpos;
-                _food = Convert.ToInt32(tempArray[1].Substring(startpos, length).Replace(",", ""));
-                startpos = "Food Consumption: ".Length;
-                length = tempArray[2].Length - " nutrition value per report period".Length - startpos;
-                _foodRate = Convert.ToInt32(tempArray[2].Substring(startpos, length).Replace(",", ""));
-                if (_hashEnv && reportSection.Contains("Air"))
+
+                int startpos, length;
+                if (reportSection.Contains("Air:"))
                 {
-                    reportSection = reportSection.Substring(reportSection.IndexOf("Air"));
-                    tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                    for (int i = 1; i < tempArray.Length; i++)
-                    {
-                        if (tempArray[i].Contains(" Q"))
-                            _air += Convert.ToInt32(tempArray[i].Remove(tempArray[i].IndexOf(' ')));
-                        else
-                            break;
-                    }
+                    _hashEnv = true;
+
+                    startpos = "Air: ".Length;
+                    length = tempArray[1].Length - " total units in stock".Length - startpos;
+                    _air = ConvertToInt32Max(tempArray[1].Substring(startpos, length).Replace(",", ""));
+                    startpos = "Air Consumption: ".Length;
+                    length = tempArray[2].Length - " units per report period".Length - startpos;
+                    _airRate = Convert.ToInt32(tempArray[2].Substring(startpos, length).Replace(",", ""));
+                }
+                if (reportSection.Contains("Food: "))
+                {
+                    startpos = "Food: ".Length;
+                    length = tempArray[_hashEnv ? 3 : 1].Length - " total nutrition value in stock".Length - startpos;
+                    _food = ConvertToInt32Max(tempArray[_hashEnv ? 3 : 1].Substring(startpos, length).Replace(",", ""));
+                    startpos = "Food Consumption: ".Length;
+                    length = tempArray[_hashEnv ? 4 : 2].Length - " nutrition value per report period".Length - startpos;
+                    _foodRate = Convert.ToInt32(tempArray[_hashEnv ? 4 : 2].Substring(startpos, length).Replace(",", ""));
                 }
             }
 
@@ -770,7 +789,7 @@ namespace HazeronAdviser
                         int pos = tempArray[i].LastIndexOf(' ');
                         string patentName = tempArray[i].Substring(PATENT_PREFIX.Length, pos - PATENT_PREFIX.Length);
                         int patentQuality = Convert.ToInt32(tempArray[i].Substring(pos + 2));
-                        _researchPatents.Add(patentName, patentQuality);
+                        _patents.Add(patentName, patentQuality);
                     }
                 }
             }
@@ -783,8 +802,6 @@ namespace HazeronAdviser
             _livingConditionsColumn = $"Jobs {_jobs}, Homes {_homes}";
 
             UpdateBuildingsOverview();
-
-            UpdateDefencesOverview();
 
             UpdateBankOverview();
 
@@ -827,12 +844,13 @@ namespace HazeronAdviser
                 _attentions.Add(new AttentionMessage(2, "ColumnMorale", "- Morale modifiers are dangerously low."));
             if (_moraleModifiers.Keys.Any(x => x.EndsWith(" wanted."))) // Morale building wanted.
                 _attentions.Add(new AttentionMessage(1, "ColumnMorale", "- Missing morale building."));
-            if (_population > 1 && !_factilitiesLV.ContainsKey("Bank")) // No bank.
+            if (_population > 1 && !_factilitiesJobs.ContainsKey("Bank")) // No bank.
                 _attentions.Add(new AttentionMessage(1, "ColumnBank", "- City has no bank and is not collecting taxes."));
 
             base.Initialize();
         }
 
+        #region Overviews
         protected void UpdateMoraleOverview()
         {
             StringBuilder sb = new StringBuilder();
@@ -891,15 +909,11 @@ namespace HazeronAdviser
             _populationOverview += Environment.NewLine + "City's living conditions:";
             _populationOverview += Environment.NewLine + " Citizens are " + _race;
             {
-                string powerUse = _powerConsumption.ToString("N", Hazeron.NumberFormat);
-                string powerSto = _powerReserve.ToString("N", Hazeron.NumberFormat);
-                int powerPadding = Math.Max(powerUse.Length, powerSto.Length);
-                _populationOverview += Environment.NewLine + " " + powerUse.PadLeft(powerPadding) + " power comsumption";
-                _populationOverview += Environment.NewLine + " " + powerSto.PadLeft(powerPadding) + "/" + _powerReserveCapacity.ToString("N", Hazeron.NumberFormat) + " power capacity (" + Math.Floor(((float)_powerReserve / _powerReserveCapacity) * 100) + "%)";
+                _populationOverview += Environment.NewLine + " " + _powerReserve.ToString("N", Hazeron.NumberFormat) + "/" + _powerReserveCapacity.ToString("N", Hazeron.NumberFormat) + " power capacity (" + Math.Floor(((float)_powerReserve / _powerReserveCapacity) * 100) + "%)";
             }
             {
                 _populationOverview += Environment.NewLine + " ";
-                int minutesToStarvation = _food / _foodRate / 13;
+                int minutesToStarvation = (_foodRate / 13) == 0 ? 0 : (_food / (_foodRate / 13));
                 if (minutesToStarvation < 120) // Less than two hours.
                     _populationOverview += $"{minutesToStarvation} minutes";
                 else if (minutesToStarvation < 2980) // Less than two days.
@@ -911,7 +925,7 @@ namespace HazeronAdviser
             if (_hashEnv)
             {
                 _populationOverview += $"{Environment.NewLine} ";
-                int minutesToSuffocation = (_air);
+                int minutesToSuffocation = (_airRate / 13) == 0 ? 0 : (_air / (_airRate / 13));
                 if (minutesToSuffocation < 120) // Less than two hours.
                     _populationOverview += $"{minutesToSuffocation} minutes";
                 else if (minutesToSuffocation < 2980) // Less than two days.
@@ -935,10 +949,10 @@ namespace HazeronAdviser
             StringBuilder sb = new StringBuilder();
             List<string> buildingList;
             sb.AppendLine("City's buildings:");
-            buildingList = _factilitiesLV.Keys.ToList();
-            foreach (string moraleBuilding in Hazeron.MoraleBuildingThresholds.Keys)
+            buildingList = _factilitiesJobs.Keys.ToList();
+            foreach (string moraleBuilding in Hazeron.MoraleBuildingCityThresholds.Keys)
             {
-                if (!_factilitiesLV.ContainsKey(moraleBuilding) && _homes >= Hazeron.MoraleBuildingThresholds[moraleBuilding])
+                if (!_factilitiesJobs.ContainsKey(moraleBuilding) && _homes >= Hazeron.MoraleBuildingCityThresholds[moraleBuilding])
                     buildingList.Add(moraleBuilding);
             }
             if (!buildingList.Contains("Cantina"))
@@ -949,37 +963,34 @@ namespace HazeronAdviser
             foreach (string building in buildingList)
             {
                 int jobs = 0;
-                if (_factilitiesLV.ContainsKey(building))
-                    jobs = _factilitiesLV[building];
+                if (_factilitiesJobs.ContainsKey(building))
+                    jobs = _factilitiesJobs[building];
                 sb.AppendLine();
-                sb.Append($" {jobs.ToString().PadLeft(3)} jobs, {building}");
-                if (Hazeron.MoraleBuildingThresholds.ContainsKey(building))
+                sb.Append($" {jobs.ToString().PadLeft(4)} jobs, {building}");
+                if (_militaryBase)
                 {
-                    int jobsNeeded = Hazeron.MoraleBuildingsRequired(building, _homes);
-                    if (jobs < jobsNeeded)
-                        sb.Append($" [color=red]({jobsNeeded - jobs} professional jobs more needed)[/color]");
-                    else if (jobs > jobsNeeded)
-                        sb.Append($" [color=orange]({jobs - jobsNeeded} professional jobs too many)[/color]");
+                    if (Hazeron.MoraleBuildingBaseThresholds.ContainsKey(building))
+                    {
+                        int jobsNeeded = Hazeron.MoraleBuildingsRequiredBase(building, _homes);
+                        if (jobs < jobsNeeded)
+                            sb.Append($" [color=red]({jobsNeeded - jobs} professional jobs more needed)[/color]");
+                        else if (jobs > jobsNeeded)
+                            sb.Append($" [color=orange]({jobs - jobsNeeded} professional jobs too many)[/color]");
+                    }
+                }
+                else
+                {
+                    if (Hazeron.MoraleBuildingCityThresholds.ContainsKey(building))
+                    {
+                        int jobsNeeded = Hazeron.MoraleBuildingsRequiredCity(building, _homes);
+                        if (jobs < jobsNeeded)
+                            sb.Append($" [color=red]({jobsNeeded - jobs} professional jobs more needed)[/color]");
+                        else if (jobs > jobsNeeded)
+                            sb.Append($" [color=orange]({jobs - jobsNeeded} professional jobs too many)[/color]");
+                    }
                 }
             }
             _buildingsOverview = sb.ToString();
-        }
-
-        protected void UpdateDefencesOverview()
-        {
-            _defencesOverview = "City's defensive buildings:";
-            if (_factilitiesLV.ContainsKey("Military Guard Tower"))
-            {
-                _defencesOverview += Environment.NewLine + " " + _factilitiesLV["Military Guard Tower"].ToString().PadLeft(2) + " Military Guard Tower";
-            }
-            if (_factilitiesLV.ContainsKey("Military Shield Generator"))
-            {
-                _defencesOverview += Environment.NewLine + " " + _factilitiesLV["Military Shield Generator"].ToString().PadLeft(2) + " Military Shield Generator";
-            }
-            if (_factilitiesLV.ContainsKey("Military Weapon System"))
-            {
-                _defencesOverview += Environment.NewLine + " " + _factilitiesLV["Military Weapon System"].ToString().PadLeft(2) + " Military Weapon System";
-            }
         }
 
         protected void UpdateBankOverview()
@@ -1031,19 +1042,37 @@ namespace HazeronAdviser
                 _patentsOverview = "City's patent research:";
                 foreach (string patent in _researchProjects.Keys)
                 {
-                    _patentsOverview += Environment.NewLine + " " + _researchProjects[patent].ToString().PadLeft(2) + " (Q" + (_researchPatents.ContainsKey(patent) ? _researchPatents[patent].ToString().PadLeft(3) : "  0") + ") running, " + patent;
+                    _patentsOverview += Environment.NewLine + " " + _researchProjects[patent].ToString().PadLeft(2) + " (Q" + (_patents.ContainsKey(patent) ? _patents[patent].ToString().PadLeft(3) : "  0") + ") running, " + patent;
                 }
             }
             if (_patentsOverview != "")
                 _patentsOverview += Environment.NewLine + Environment.NewLine;
             List<string> patentsList;
-            patentsList = _researchPatents.Keys.ToList();
+            patentsList = _patents.Keys.ToList();
             patentsList.Sort();
             _patentsOverview += "City's patents:";
             foreach (string patent in patentsList)
             {
-                _patentsOverview += Environment.NewLine + " Q" + Math.Abs(_researchPatents[patent]).ToString().PadLeft(3) + ", " + patent;
+                _patentsOverview += Environment.NewLine + " Q" + Math.Abs(_patents[patent]).ToString().PadLeft(3) + ", " + patent;
             }
+        }
+        #endregion
+
+        private int ConvertToInt32Max(string input)
+        {
+            if (input.Length > 10)
+                return int.MaxValue;
+
+            int output;
+            try
+            {
+                output = Convert.ToInt32(input);
+            }
+            catch (OverflowException)
+            {
+                output = int.MaxValue;
+            }
+            return output;
         }
     }
 }

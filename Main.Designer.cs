@@ -37,6 +37,15 @@
             this.tbxShip = new System.Windows.Forms.TextBox();
             this.splitContainerShip = new System.Windows.Forms.SplitContainer();
             this.dgvShip = new System.Windows.Forms.DataGridView();
+            this.dgvShipColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvShipColumnIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dgvShipColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvShipColumnLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvShipColumnHomesickness = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvShipColumnFuel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvShipColumnAccount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvShipColumnDamage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvShipColumnDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlShip = new System.Windows.Forms.TabControl();
             this.tabShipOverview = new System.Windows.Forms.TabPage();
             this.splitContainerShipOverview = new System.Windows.Forms.SplitContainer();
@@ -85,8 +94,6 @@
             this.rtbCityPatents = new System.Windows.Forms.RichTextBox();
             this.tabCityBuildings = new System.Windows.Forms.TabPage();
             this.rtbCityBuildings = new System.Windows.Forms.RichTextBox();
-            this.tabCityDefences = new System.Windows.Forms.TabPage();
-            this.rtbCityDefences = new System.Windows.Forms.RichTextBox();
             this.tabCityBank = new System.Windows.Forms.TabPage();
             this.splitContainerCityBank = new System.Windows.Forms.SplitContainer();
             this.pCityBank = new System.Windows.Forms.Panel();
@@ -175,15 +182,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1HelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1HelpHowToUse = new System.Windows.Forms.ToolStripMenuItem();
-            this.dgvShipColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvShipColumnIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dgvShipColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvShipColumnLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvShipColumnHomesickness = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvShipColumnFuel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvShipColumnAccount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvShipColumnDamage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvShipColumnDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerShip)).BeginInit();
             this.splitContainerShip.Panel1.SuspendLayout();
@@ -230,7 +228,6 @@
             this.splitContainerCityPopulation.SuspendLayout();
             this.tabCityPatents.SuspendLayout();
             this.tabCityBuildings.SuspendLayout();
-            this.tabCityDefences.SuspendLayout();
             this.tabCityBank.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityBank)).BeginInit();
             this.splitContainerCityBank.Panel1.SuspendLayout();
@@ -400,6 +397,76 @@
             this.dgvShip.SelectionChanged += new System.EventHandler(this.dgvShip_SelectionChanged);
             this.dgvShip.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgv_SortCompare);
             this.dgvShip.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyDown);
+            // 
+            // dgvShipColumnId
+            // 
+            this.dgvShipColumnId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvShipColumnId.FillWeight = 20F;
+            this.dgvShipColumnId.Frozen = true;
+            this.dgvShipColumnId.HeaderText = "ID";
+            this.dgvShipColumnId.MinimumWidth = 20;
+            this.dgvShipColumnId.Name = "dgvShipColumnId";
+            this.dgvShipColumnId.ReadOnly = true;
+            this.dgvShipColumnId.Visible = false;
+            this.dgvShipColumnId.Width = 20;
+            // 
+            // dgvShipColumnIcon
+            // 
+            this.dgvShipColumnIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvShipColumnIcon.FillWeight = 20F;
+            this.dgvShipColumnIcon.Frozen = true;
+            this.dgvShipColumnIcon.HeaderText = "Icon";
+            this.dgvShipColumnIcon.MinimumWidth = 20;
+            this.dgvShipColumnIcon.Name = "dgvShipColumnIcon";
+            this.dgvShipColumnIcon.ReadOnly = true;
+            this.dgvShipColumnIcon.Width = 20;
+            // 
+            // dgvShipColumnName
+            // 
+            this.dgvShipColumnName.Frozen = true;
+            this.dgvShipColumnName.HeaderText = "Name";
+            this.dgvShipColumnName.Name = "dgvShipColumnName";
+            this.dgvShipColumnName.ReadOnly = true;
+            // 
+            // dgvShipColumnLocation
+            // 
+            this.dgvShipColumnLocation.HeaderText = "Location";
+            this.dgvShipColumnLocation.Name = "dgvShipColumnLocation";
+            this.dgvShipColumnLocation.ReadOnly = true;
+            // 
+            // dgvShipColumnHomesickness
+            // 
+            this.dgvShipColumnHomesickness.FillWeight = 90F;
+            this.dgvShipColumnHomesickness.HeaderText = "Homesickness";
+            this.dgvShipColumnHomesickness.Name = "dgvShipColumnHomesickness";
+            this.dgvShipColumnHomesickness.ReadOnly = true;
+            this.dgvShipColumnHomesickness.Width = 90;
+            // 
+            // dgvShipColumnFuel
+            // 
+            this.dgvShipColumnFuel.HeaderText = "Fuel";
+            this.dgvShipColumnFuel.Name = "dgvShipColumnFuel";
+            this.dgvShipColumnFuel.ReadOnly = true;
+            // 
+            // dgvShipColumnAccount
+            // 
+            this.dgvShipColumnAccount.HeaderText = "Account";
+            this.dgvShipColumnAccount.Name = "dgvShipColumnAccount";
+            this.dgvShipColumnAccount.ReadOnly = true;
+            // 
+            // dgvShipColumnDamage
+            // 
+            this.dgvShipColumnDamage.HeaderText = "Damage";
+            this.dgvShipColumnDamage.Name = "dgvShipColumnDamage";
+            this.dgvShipColumnDamage.ReadOnly = true;
+            // 
+            // dgvShipColumnDate
+            // 
+            this.dgvShipColumnDate.FillWeight = 107F;
+            this.dgvShipColumnDate.HeaderText = "Last Updated";
+            this.dgvShipColumnDate.Name = "dgvShipColumnDate";
+            this.dgvShipColumnDate.ReadOnly = true;
+            this.dgvShipColumnDate.Width = 107;
             // 
             // tabControlShip
             // 
@@ -731,11 +798,10 @@
             this.tabControlCity.Controls.Add(this.tabCityOverview);
             this.tabControlCity.Controls.Add(this.tabCityMorale);
             this.tabControlCity.Controls.Add(this.tabCityPopulation);
-            this.tabControlCity.Controls.Add(this.tabCityPatents);
             this.tabControlCity.Controls.Add(this.tabCityBuildings);
-            this.tabControlCity.Controls.Add(this.tabCityDefences);
             this.tabControlCity.Controls.Add(this.tabCityBank);
             this.tabControlCity.Controls.Add(this.tabCityInventory);
+            this.tabControlCity.Controls.Add(this.tabCityPatents);
             this.tabControlCity.Controls.Add(this.tabCityMail);
             this.tabControlCity.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlCity.Location = new System.Drawing.Point(0, 0);
@@ -986,29 +1052,6 @@
             this.rtbCityBuildings.TabIndex = 1;
             this.rtbCityBuildings.Text = "";
             this.rtbCityBuildings.WordWrap = false;
-            // 
-            // tabCityDefences
-            // 
-            this.tabCityDefences.Controls.Add(this.rtbCityDefences);
-            this.tabCityDefences.Location = new System.Drawing.Point(4, 22);
-            this.tabCityDefences.Name = "tabCityDefences";
-            this.tabCityDefences.Size = new System.Drawing.Size(409, 367);
-            this.tabCityDefences.TabIndex = 8;
-            this.tabCityDefences.Text = "Defences";
-            this.tabCityDefences.UseVisualStyleBackColor = true;
-            // 
-            // rtbCityDefences
-            // 
-            this.rtbCityDefences.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtbCityDefences.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbCityDefences.Location = new System.Drawing.Point(3, 3);
-            this.rtbCityDefences.Name = "rtbCityDefences";
-            this.rtbCityDefences.ReadOnly = true;
-            this.rtbCityDefences.Size = new System.Drawing.Size(403, 361);
-            this.rtbCityDefences.TabIndex = 2;
-            this.rtbCityDefences.Text = "";
             // 
             // tabCityBank
             // 
@@ -2016,76 +2059,6 @@
             this.menuStrip1HelpHowToUse.Text = "How To Use";
             this.menuStrip1HelpHowToUse.Click += new System.EventHandler(this.menuStrip1HelpHowToUse_Click);
             // 
-            // dgvShipColumnId
-            // 
-            this.dgvShipColumnId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvShipColumnId.FillWeight = 20F;
-            this.dgvShipColumnId.Frozen = true;
-            this.dgvShipColumnId.HeaderText = "ID";
-            this.dgvShipColumnId.MinimumWidth = 20;
-            this.dgvShipColumnId.Name = "dgvShipColumnId";
-            this.dgvShipColumnId.ReadOnly = true;
-            this.dgvShipColumnId.Visible = false;
-            this.dgvShipColumnId.Width = 20;
-            // 
-            // dgvShipColumnIcon
-            // 
-            this.dgvShipColumnIcon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvShipColumnIcon.FillWeight = 20F;
-            this.dgvShipColumnIcon.Frozen = true;
-            this.dgvShipColumnIcon.HeaderText = "Icon";
-            this.dgvShipColumnIcon.MinimumWidth = 20;
-            this.dgvShipColumnIcon.Name = "dgvShipColumnIcon";
-            this.dgvShipColumnIcon.ReadOnly = true;
-            this.dgvShipColumnIcon.Width = 20;
-            // 
-            // dgvShipColumnName
-            // 
-            this.dgvShipColumnName.Frozen = true;
-            this.dgvShipColumnName.HeaderText = "Name";
-            this.dgvShipColumnName.Name = "dgvShipColumnName";
-            this.dgvShipColumnName.ReadOnly = true;
-            // 
-            // dgvShipColumnLocation
-            // 
-            this.dgvShipColumnLocation.HeaderText = "Location";
-            this.dgvShipColumnLocation.Name = "dgvShipColumnLocation";
-            this.dgvShipColumnLocation.ReadOnly = true;
-            // 
-            // dgvShipColumnHomesickness
-            // 
-            this.dgvShipColumnHomesickness.FillWeight = 90F;
-            this.dgvShipColumnHomesickness.HeaderText = "Homesickness";
-            this.dgvShipColumnHomesickness.Name = "dgvShipColumnHomesickness";
-            this.dgvShipColumnHomesickness.ReadOnly = true;
-            this.dgvShipColumnHomesickness.Width = 90;
-            // 
-            // dgvShipColumnFuel
-            // 
-            this.dgvShipColumnFuel.HeaderText = "Fuel";
-            this.dgvShipColumnFuel.Name = "dgvShipColumnFuel";
-            this.dgvShipColumnFuel.ReadOnly = true;
-            // 
-            // dgvShipColumnAccount
-            // 
-            this.dgvShipColumnAccount.HeaderText = "Account";
-            this.dgvShipColumnAccount.Name = "dgvShipColumnAccount";
-            this.dgvShipColumnAccount.ReadOnly = true;
-            // 
-            // dgvShipColumnDamage
-            // 
-            this.dgvShipColumnDamage.HeaderText = "Damage";
-            this.dgvShipColumnDamage.Name = "dgvShipColumnDamage";
-            this.dgvShipColumnDamage.ReadOnly = true;
-            // 
-            // dgvShipColumnDate
-            // 
-            this.dgvShipColumnDate.FillWeight = 107F;
-            this.dgvShipColumnDate.HeaderText = "Last Updated";
-            this.dgvShipColumnDate.Name = "dgvShipColumnDate";
-            this.dgvShipColumnDate.ReadOnly = true;
-            this.dgvShipColumnDate.Width = 107;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2147,7 +2120,6 @@
             this.splitContainerCityPopulation.ResumeLayout(false);
             this.tabCityPatents.ResumeLayout(false);
             this.tabCityBuildings.ResumeLayout(false);
-            this.tabCityDefences.ResumeLayout(false);
             this.tabCityBank.ResumeLayout(false);
             this.splitContainerCityBank.Panel1.ResumeLayout(false);
             this.splitContainerCityBank.Panel2.ResumeLayout(false);
@@ -2340,8 +2312,6 @@
         private System.Windows.Forms.RichTextBox rtbShipRoster;
         private System.Windows.Forms.RichTextBox rtbShipCargo;
         private System.Windows.Forms.RichTextBox rtbShipDamage;
-        private System.Windows.Forms.TabPage tabCityDefences;
-        private System.Windows.Forms.RichTextBox rtbCityDefences;
         private System.Windows.Forms.TabPage tabCityInventory;
         private System.Windows.Forms.RichTextBox rtbCityInventory;
         private System.Windows.Forms.TabPage tabCityPatents;

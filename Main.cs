@@ -606,10 +606,10 @@ namespace HazeronAdviser
             rtbCityOverview.Clear();
             rtbCityMorale.Clear();
             rtbCityPopulation.Clear();
-            rtbCityPatents.Clear();
             rtbCityBuildings.Clear();
-            rtbCityDefences.Clear();
             rtbCityBank.Clear();
+            rtbCityInventory.Clear();
+            rtbCityPatents.Clear();
             tbxCity.Clear();
             // System
             tabControlSystem.Refresh();
@@ -640,10 +640,10 @@ namespace HazeronAdviser
                 RichBBCodeBox(rtbCityOverview, city.Overview);
                 RichBBCodeBox(rtbCityMorale, city.MoraleOverview);
                 RichBBCodeBox(rtbCityPopulation, city.PopulationOverview);
-                RichBBCodeBox(rtbCityPatents, city.PatentsOverview);
                 RichBBCodeBox(rtbCityBuildings, city.BuildingsOverview);
-                RichBBCodeBox(rtbCityDefences, city.DefencesOverview);
                 RichBBCodeBox(rtbCityBank, city.BankOverview);
+                //RichBBCodeBox(rtbCityInventory, city.InventoryOverview);
+                RichBBCodeBox(rtbCityPatents, city.PatentsOverview);
                 tbxCity.Text = city.MailBody;
                 // Refresh graphs to make them update.
                 pCityOverviewMorale.Refresh();

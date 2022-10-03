@@ -33,11 +33,18 @@ namespace HazeronAdviser
             //set { _pirateEmpires = value; }
         }
 
-        protected static Dictionary<string, int> _moraleBuildingThresholds;
-        public static Dictionary<string, int> MoraleBuildingThresholds
+        protected static Dictionary<string, int> _moraleBuildingCityThresholds;
+        public static Dictionary<string, int> MoraleBuildingCityThresholds
         {
-            get { return _moraleBuildingThresholds; }
-            //set { _moraleBuildingThresholds = value; }
+            get { return _moraleBuildingCityThresholds; }
+            //set { _moraleBuildingCityThresholds = value; }
+        }
+
+        protected static Dictionary<string, int> _moraleBuildingBaseThresholds;
+        public static Dictionary<string, int> MoraleBuildingBaseThresholds
+        {
+            get { return _moraleBuildingBaseThresholds; }
+            //set { _moraleBuildingBaseThresholds = value; }
         }
 
         static Hazeron()
@@ -75,30 +82,50 @@ namespace HazeronAdviser
                                           , "Zuul"
                                           };
 
-            _moraleBuildingThresholds = new Dictionary<string, int>();
-            _moraleBuildingThresholds.Add("Church", 45);
-            _moraleBuildingThresholds.Add("Cantina", 50);
-            _moraleBuildingThresholds.Add("Retail Store", 55);
-            _moraleBuildingThresholds.Add("University", 70);
-            _moraleBuildingThresholds.Add("Hospital", 80);
-            _moraleBuildingThresholds.Add("Park", 90);
-            _moraleBuildingThresholds.Add("Grocery", 100);
-            _moraleBuildingThresholds.Add("Zoo", 150);
-            _moraleBuildingThresholds.Add("Arena", 175);
-            _moraleBuildingThresholds.Add("Casino", 200);
+            _moraleBuildingCityThresholds = new Dictionary<string, int>();
+            _moraleBuildingCityThresholds.Add("Church", 45);
+            _moraleBuildingCityThresholds.Add("Cantina", 50);
+            _moraleBuildingCityThresholds.Add("Retail Store", 55);
+            _moraleBuildingCityThresholds.Add("University", 70);
+            _moraleBuildingCityThresholds.Add("Hospital", 80);
+            _moraleBuildingCityThresholds.Add("Park", 90);
+            _moraleBuildingCityThresholds.Add("Grocery", 100);
+            _moraleBuildingCityThresholds.Add("Zoo", 150);
+            _moraleBuildingCityThresholds.Add("Arena", 175);
+            _moraleBuildingCityThresholds.Add("Casino", 200);
+
+            _moraleBuildingBaseThresholds = new Dictionary<string, int>();
+            _moraleBuildingBaseThresholds.Add("Cantina", 50);
+            _moraleBuildingBaseThresholds.Add("Retail Store", 55);
+            _moraleBuildingBaseThresholds.Add("Star Fleet Academy", 250);
         }
 
-        public static int MoraleBuildingsRequired(string buildingType, int population)
+        public static int MoraleBuildingsRequiredCity(string buildingType, int population)
         {
-            if (!_moraleBuildingThresholds.ContainsKey(buildingType))
+            if (!_moraleBuildingCityThresholds.ContainsKey(buildingType))
                 throw new Exception($"Invalid building type. {buildingType}");
 
             int jobsNeeded = 0;
-            if (population >= _moraleBuildingThresholds[buildingType])
-                jobsNeeded = Math.Max(population / (_moraleBuildingThresholds[buildingType] * 3), 1);
+            if (population >= _moraleBuildingCityThresholds[buildingType])
+                jobsNeeded = Math.Max(population / (_moraleBuildingCityThresholds[buildingType] * 3), 1);
 
             if (buildingType == "Church")
                 jobsNeeded += 2;
+            else if (buildingType == "Cantina")
+                jobsNeeded += 1;
+
+            return jobsNeeded;
+        }
+
+        public static int MoraleBuildingsRequiredBase(string buildingType, int population)
+        {
+            if (!_moraleBuildingBaseThresholds.ContainsKey(buildingType))
+                throw new Exception($"Invalid building type. {buildingType}");
+
+            int jobsNeeded = 0;
+            if (population >= _moraleBuildingBaseThresholds[buildingType])
+                jobsNeeded = Math.Max(population / (_moraleBuildingBaseThresholds[buildingType] * 3), 1);
+
             else if (buildingType == "Cantina")
                 jobsNeeded += 1;
 
