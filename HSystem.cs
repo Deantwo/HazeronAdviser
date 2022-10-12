@@ -254,6 +254,15 @@ namespace HazeronAdviser
                 _populationOverview += Environment.NewLine + " " + _homes.ToString().PadLeft(5) + ", Homes";
                 _populationOverview += Environment.NewLine + " " + _jobs.ToString().PadLeft(5) + ", Jobs";
                 _populationOverview += Environment.NewLine + " " + _populationLimit.ToString().PadLeft(5) + ", Population limit";
+
+                if (Cities.Any(x => !string.IsNullOrEmpty(x.OfficerCadet)))
+                {
+                    _populationOverview += Environment.NewLine;
+                    _populationOverview += Environment.NewLine;
+                    _populationOverview += "Spacecraft crew:";
+                    foreach (string cadet in Cities.Select(x => x.OfficerCadet).Distinct())
+                        _populationOverview += $"{Environment.NewLine} Cadet {cadet}";
+                }
             }
 
             // Overview

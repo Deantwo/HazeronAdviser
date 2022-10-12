@@ -213,6 +213,12 @@ namespace HazeronAdviser
             get { return _militaryBase; }
         }
 
+        protected string _officerCadet;
+        public string OfficerCadet
+        {
+            get { return _officerCadet; }
+        }
+
         protected long _bankBalance = 0;
         public long BankBalance
         {
@@ -486,8 +492,13 @@ namespace HazeronAdviser
                 {
                     if (mixedRaces)
                         _race = "mixed races";
+                    else if (line.StartsWith("University graduate ") || line.StartsWith("Star Fleet Academy Cadet ")) // "University graduate <name> is ready for command assignment aboard a spacecraft." and "Star Fleet Academy Cadet <name> is ready for command assignment aboard a fleet spacecraft."
+                    {
+                        _officerCadet = line.Substring(line.StartsWith("University") ? "University graduate ".Length : "Star Fleet Academy Cadet ".Length);
+                        _officerCadet = _officerCadet.Remove(_officerCadet.IndexOf(' '));
+                    }
                     else if (line == "Citizens are mixed races." || line == "Troops are mixed races.")
-                        mixedRaces = true;
+                        mixedRaces = true; // All lines after this one is each of the faces, or a ready cadet.
                     else if (line.StartsWith("Citizens are ") || line.StartsWith("Troops are "))
                         _race = line.Remove(line.Length - 1).Substring(line.StartsWith("Citizens") ? "Citizens are ".Length : "Troops are ".Length);
                     else if (line != "No change.")
@@ -884,64 +895,74 @@ namespace HazeronAdviser
 
         protected void UpdatePopulationOverwiew(int populationChange)
         {
+            StringBuilder sb = new StringBuilder();
             const int populationPadding = 6;
-            _populationOverview = "City's population:";
-            _populationOverview += Environment.NewLine + " " + _population.ToString().PadLeft(populationPadding) + ", Citizens";
+            sb.AppendLine("City's population:");
+            sb.Append($" {_population.ToString().PadLeft(populationPadding)}, Citizens");
             if (populationChange < 0)
-                _populationOverview += " [color=red](decreased by " + Math.Abs(populationChange) + ")[/color]";
+                sb.Append($" [color=red](decreased by {Math.Abs(populationChange)})[/color]");
             else if (populationChange > 0)
-                _populationOverview += " [color=green](increased by " + populationChange + ")[/color]";
+                sb.Append($" [color=green](increased by {populationChange})[/color]");
             //else
-            //    _populationOverview += " (steady)";
-            _populationOverview += Environment.NewLine + " " + _homes.ToString().PadLeft(populationPadding) + ", Homes";
+            //    sb.Append(" (steady)");
+            sb.AppendLine();
+            sb.Append($" {_homes.ToString().PadLeft(populationPadding)}, Homes");
             if (_jobs >= _homes)
             {
                 int needed = (_jobs - _homes + 1); // Need at least one more home than jobs.
-                _populationOverview += " [color=red](Overworked, " + needed + " more homes needed)[/color]";
+                sb.Append($" [color=red](Overworked, {needed} more homes needed)[/color]");
             }
-            _populationOverview += Environment.NewLine + " " + _jobs.ToString().PadLeft(populationPadding) + ", Jobs";
+            sb.AppendLine();
+            sb.Append($" {_jobs.ToString().PadLeft(populationPadding)}, Jobs");
             if (((float)(_homes - _jobs) / _homes) > 0.2)
             {
                 int needed = (int)((_homes * 0.8) - _jobs + 1); // Need at least one more job than 80% homes.
-                _populationOverview += " [color=red](Unemployment, " + needed + " more jobs needed)[/color]";
+                sb.Append($" [color=red](Unemployment, {needed} more jobs needed)[/color]");
             }
-            _populationOverview += Environment.NewLine;
-            _populationOverview += Environment.NewLine + "City's living conditions:";
-            _populationOverview += Environment.NewLine + " Citizens are " + _race;
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine("City's living conditions:");
+            sb.AppendLine($" Citizens are {_race}");
             {
-                _populationOverview += Environment.NewLine + " " + _powerReserve.ToString("N", Hazeron.NumberFormat) + "/" + _powerReserveCapacity.ToString("N", Hazeron.NumberFormat) + " power capacity (" + Math.Floor(((float)_powerReserve / _powerReserveCapacity) * 100) + "%)";
+                sb.AppendLine($" {_powerReserve.ToString("N", Hazeron.NumberFormat)}/{_powerReserveCapacity.ToString("N", Hazeron.NumberFormat)} power capacity ({Math.Floor(((float)_powerReserve / _powerReserveCapacity) * 100)}%)");
             }
             {
-                _populationOverview += Environment.NewLine + " ";
                 int minutesToStarvation = (_foodRate / 13) == 0 ? 0 : (_food / (_foodRate / 13));
                 if (minutesToStarvation < 120) // Less than two hours.
-                    _populationOverview += $"{minutesToStarvation} minutes";
+                    sb.Append($" {minutesToStarvation} minutes");
                 else if (minutesToStarvation < 2980) // Less than two days.
-                    _populationOverview += $"{minutesToStarvation / 60} hours";
+                    sb.Append($" {minutesToStarvation / 60} hours");
                 else // More than two days.
-                    _populationOverview += $"{minutesToStarvation / 1490} days";
-                _populationOverview += " worth of food";
+                    sb.Append($" {minutesToStarvation / 1490} days");
+                sb.AppendLine(" worth of food");
             }
             if (_hashEnv)
             {
-                _populationOverview += $"{Environment.NewLine} ";
                 int minutesToSuffocation = (_airRate / 13) == 0 ? 0 : (_air / (_airRate / 13));
                 if (minutesToSuffocation < 120) // Less than two hours.
-                    _populationOverview += $"{minutesToSuffocation} minutes";
+                    sb.Append($" {minutesToSuffocation} minutes");
                 else if (minutesToSuffocation < 2980) // Less than two days.
-                    _populationOverview += $"{minutesToSuffocation / 60} hours";
+                    sb.Append($" {minutesToSuffocation / 60} hours");
                 else // More than two days.
-                    _populationOverview += $"{minutesToSuffocation / 1490} days";
-                _populationOverview += " worth of air";
+                    sb.Append($" {minutesToSuffocation / 1490} days");
+                sb.AppendLine(" worth of air");
             }
             {
-                _populationOverview += Environment.NewLine + " " + Math.Floor(((float)_homesQuality / _homes) * 100) + "% apartments";
+                sb.Append($" {Math.Floor(((float)_homesQuality / _homes) * 100)}% apartments");
                 int homeAjustment = ((_homes - _homesQuality) - _homesQuality);
                 if ((homeAjustment / 4) > 0)
-                    _populationOverview += " [color=green](" + (homeAjustment / 4) + " additional small homes possible)[/color]";
+                    sb.Append($" [color=green]({(homeAjustment / 4)} additional small homes possible)[/ color]");
                 else if (homeAjustment < 0)
-                    _populationOverview += " [color=red](Cramped, " + Math.Abs(homeAjustment) + " more non-small homes needed)[/color]";
+                    sb.Append($" [color=red](Cramped, {Math.Abs(homeAjustment)} more non-small homes needed)[/color]");
             }
+            if (!string.IsNullOrEmpty(_officerCadet))
+            {
+                sb.AppendLine();
+                sb.AppendLine();
+                sb.AppendLine("Spacecraft crew:");
+                sb.Append($" Cadet {_officerCadet}");
+            }
+            _populationOverview = sb.ToString();
         }
 
         protected void UpdateBuildingsOverview()
