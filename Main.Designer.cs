@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.btnScan = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -90,8 +91,6 @@
             this.splitContainerCityPopulation = new System.Windows.Forms.SplitContainer();
             this.pCityPopulation = new System.Windows.Forms.Panel();
             this.rtbCityPopulation = new System.Windows.Forms.RichTextBox();
-            this.tabCityPatents = new System.Windows.Forms.TabPage();
-            this.rtbCityPatents = new System.Windows.Forms.RichTextBox();
             this.tabCityBuildings = new System.Windows.Forms.TabPage();
             this.rtbCityBuildings = new System.Windows.Forms.RichTextBox();
             this.tabCityBank = new System.Windows.Forms.TabPage();
@@ -226,7 +225,6 @@
             this.splitContainerCityPopulation.Panel1.SuspendLayout();
             this.splitContainerCityPopulation.Panel2.SuspendLayout();
             this.splitContainerCityPopulation.SuspendLayout();
-            this.tabCityPatents.SuspendLayout();
             this.tabCityBuildings.SuspendLayout();
             this.tabCityBank.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityBank)).BeginInit();
@@ -801,7 +799,6 @@
             this.tabControlCity.Controls.Add(this.tabCityBuildings);
             this.tabControlCity.Controls.Add(this.tabCityBank);
             this.tabControlCity.Controls.Add(this.tabCityInventory);
-            this.tabControlCity.Controls.Add(this.tabCityPatents);
             this.tabControlCity.Controls.Add(this.tabCityMail);
             this.tabControlCity.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlCity.Location = new System.Drawing.Point(0, 0);
@@ -1006,29 +1003,6 @@
             this.rtbCityPopulation.TabIndex = 1;
             this.rtbCityPopulation.Text = "";
             this.rtbCityPopulation.WordWrap = false;
-            // 
-            // tabCityPatents
-            // 
-            this.tabCityPatents.Controls.Add(this.rtbCityPatents);
-            this.tabCityPatents.Location = new System.Drawing.Point(4, 22);
-            this.tabCityPatents.Name = "tabCityPatents";
-            this.tabCityPatents.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCityPatents.Size = new System.Drawing.Size(409, 367);
-            this.tabCityPatents.TabIndex = 10;
-            this.tabCityPatents.Text = "Patents";
-            this.tabCityPatents.UseVisualStyleBackColor = true;
-            // 
-            // rtbCityPatents
-            // 
-            this.rtbCityPatents.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbCityPatents.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbCityPatents.Location = new System.Drawing.Point(3, 3);
-            this.rtbCityPatents.Name = "rtbCityPatents";
-            this.rtbCityPatents.ReadOnly = true;
-            this.rtbCityPatents.Size = new System.Drawing.Size(403, 361);
-            this.rtbCityPatents.TabIndex = 1;
-            this.rtbCityPatents.Text = "";
-            this.rtbCityPatents.WordWrap = false;
             // 
             // tabCityBuildings
             // 
@@ -2069,6 +2043,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.btnScan);
             this.Controls.Add(this.cmbCharFilter);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Main";
             this.Text = "HazeronAdviser";
@@ -2118,7 +2093,6 @@
             this.splitContainerCityPopulation.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerCityPopulation)).EndInit();
             this.splitContainerCityPopulation.ResumeLayout(false);
-            this.tabCityPatents.ResumeLayout(false);
             this.tabCityBuildings.ResumeLayout(false);
             this.tabCityBank.ResumeLayout(false);
             this.splitContainerCityBank.Panel1.ResumeLayout(false);
@@ -2314,8 +2288,6 @@
         private System.Windows.Forms.RichTextBox rtbShipDamage;
         private System.Windows.Forms.TabPage tabCityInventory;
         private System.Windows.Forms.RichTextBox rtbCityInventory;
-        private System.Windows.Forms.TabPage tabCityPatents;
-        private System.Windows.Forms.RichTextBox rtbCityPatents;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnId;
         private System.Windows.Forms.DataGridViewImageColumn dgvCityColumnIcon;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvCityColumnName;

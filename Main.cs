@@ -1,5 +1,4 @@
-﻿//#define BACKUP_FOLDER
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -51,10 +50,6 @@ namespace HazeronAdviser
 #if DEBUG
             this.Text += " (DEBUG MODE)";
 #endif
-            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            //notifyIcon1.BalloonTipTitle = this.Text;
-            //notifyIcon1.Text = this.Text;
-            //notifyIcon1.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             // Hidden these SplitContainer Panels while they remain unused.
             splitContainerCityBank.Panel1Collapsed = true;
@@ -101,11 +96,7 @@ namespace HazeronAdviser
 
             cmbCharFilter.SelectedIndex = 0;
 
-#if BACKUP_FOLDER
-            hMailFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail (Backup)"); // %USERPROFILE%\Shores of Hazeron\Mail (Backup)
-#else
-            hMailFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Shores of Hazeron", "Mail"); // %USERPROFILE%\Shores of Hazeron\Mail
-#endif
+            hMailFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Hazeron Starship", "Mail"); // "%USERPROFILE%\Hazeron Starship\Mail"
         }
 
         private void btnScan_Click(object sender, EventArgs e)
@@ -609,7 +600,6 @@ namespace HazeronAdviser
             rtbCityBuildings.Clear();
             rtbCityBank.Clear();
             rtbCityInventory.Clear();
-            rtbCityPatents.Clear();
             tbxCity.Clear();
             // System
             tabControlSystem.Refresh();
@@ -643,7 +633,6 @@ namespace HazeronAdviser
                 RichBBCodeBox(rtbCityBuildings, city.BuildingsOverview);
                 RichBBCodeBox(rtbCityBank, city.BankOverview);
                 //RichBBCodeBox(rtbCityInventory, city.InventoryOverview);
-                RichBBCodeBox(rtbCityPatents, city.PatentsOverview);
                 tbxCity.Text = city.MailBody;
                 // Refresh graphs to make them update.
                 pCityOverviewMorale.Refresh();

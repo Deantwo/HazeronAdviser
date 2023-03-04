@@ -350,8 +350,6 @@ namespace HazeronAdviser
             const string headlineVEHICLES = "<b>VEHICLES</b>";
             const string headlineINVENTORY = "<b>INVENTORY</b>";
             const string headlinePOTENTIAL = "<b>SPACECRAFT MANUFACTURING POTENTIAL</b>";
-            const string headlineRESEARCH = "<b>RESEARCH AND DEVELOPMENT</b>";
-            const string headlinePATENTS = "<b>PATENTS</b>";
             string[] sections = new string[] { headlineDISTRESS
                                              , headlineDECAY
                                              , headlineEVENT
@@ -366,9 +364,7 @@ namespace HazeronAdviser
                                              , headlineFACILITIES
                                              , headlineVEHICLES
                                              , headlineINVENTORY
-                                             , headlineRESEARCH
                                              , headlinePOTENTIAL
-                                             , headlinePATENTS
                                              };
             // Check for sections.
             int freakingHell = 0;
@@ -483,7 +479,7 @@ namespace HazeronAdviser
             {
                 reportSection = HHelper.CleanText(reportSection);
                 tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _population = Convert.ToInt32(tempArray[0].Substring(tempArray[0].LastIndexOf(' ') + 1).Replace(",", ""));
+                _population = Convert.ToInt32(tempArray[0].Substring(tempArray[0].LastIndexOf(' ') + 1).Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, ""));
                 tempArray = tempArray.Where((source, index) => index != 0).ToArray(); // Remove first element in array.
                 // Get race and population changes.
                 Dictionary<string, int> populationChanges = new Dictionary<string, int>();
@@ -555,13 +551,13 @@ namespace HazeronAdviser
             {
                 reportSection = HHelper.CleanText(reportSection);
                 tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _powerReserve = Convert.ToInt32(tempArray[0].Substring(tempArray[0].LastIndexOf(' ') + 1).Replace(",", ""));
+                _powerReserve = Convert.ToInt32(tempArray[0].Substring(tempArray[0].LastIndexOf(' ') + 1).Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, ""));
                 tempArray = tempArray.Where((source, index) => index != 0).ToArray(); // Remove first element in array.
                 // Get reserve capacity.
                 foreach (string line in tempArray)
                 {
                     if (line.StartsWith("Reserve Capacity "))
-                        _powerReserveCapacity = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1).Replace(",", ""));
+                        _powerReserveCapacity = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1).Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, ""));
                 }
             }
 
@@ -571,7 +567,7 @@ namespace HazeronAdviser
                 reportSection = HHelper.CleanText(reportSection);
                 tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 int startpos = tempArray[0].LastIndexOf(' ') + 1;
-                _bankBalance = Convert.ToInt64(tempArray[0].Substring(startpos, tempArray[0].Length - 1 - startpos).Replace(",", ""));
+                _bankBalance = Convert.ToInt64(tempArray[0].Substring(startpos, tempArray[0].Length - 1 - startpos).Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, ""));
                 tempArray = tempArray.Where((source, index) => index != 0).ToArray(); // Remove first element in array.
                 bool income = true;
                 for (int i = 1; i < tempArray.Length; i++)
@@ -588,25 +584,25 @@ namespace HazeronAdviser
                     else if (line == "Previous Tribute")
                     {
                         i++;
-                        //line = tempArray[i].Replace(",", "");
+                        //line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
                         //_bankTribute = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Starting Balance")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
                         _bankBalanceOld = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Minted Bullion")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
                         _bankIncomeMinting = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Payroll")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
                         if (income)
                             _bankIncomePayroll = Convert.ToInt64(line.Remove(line.Length - 1));
                         else
@@ -615,55 +611,55 @@ namespace HazeronAdviser
                     else if (line == "Product Sales")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
                         _bankIncomeProduct = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Research and Development Canceled")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
                         _bankIncomeResearch = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Product Purchases")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
                         _bankExpenseProduct = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Citizen Loans")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
                         _bankExpenseLoans = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Withdrawals")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
                         _bankExpenseWithdrawals = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Research and Development")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
                         _bankExpenseResearch = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Rewards")
                     {
                         i++;
-                        line = tempArray[i].Replace(",", "");
+                        line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
                         _bankExpenseRewards = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Income Tax")
                     {
                         i++;
-                        //line = tempArray[i].Replace(",", "");
+                        //line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
                         //_bankTaxIncome = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Sales Tax")
                     {
                         i++;
-                        //line = tempArray[i].Replace(",", "");
+                        //line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
                         //_bankTaxSale = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                 }
@@ -690,14 +686,14 @@ namespace HazeronAdviser
                         string line = tempArray[i];
                         if (line.EndsWith(". Includes local civilian lounges."))
                             line = line.Remove(line.Length - ". Includes local civilian lounges.".Length);
-                        lounges = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1).Replace(",", ""));
+                        lounges = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1).Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, ""));
                     }
                     else if (tempArray[i].StartsWith("Retail Stores: "))
                     {
                         string line = tempArray[i];
                         if (line.EndsWith(". Includes local civilian stores."))
                             line = line.Remove(line.Length - ". Includes local civilian stores.".Length);
-                        retailers = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1).Replace(",", ""));
+                        retailers = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1).Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, ""));
                     }
                     else if (tempArray[i] != "Name")
                     {
@@ -708,15 +704,15 @@ namespace HazeronAdviser
                         else if (name == "Retail Store")
                             jobs = retailers;
                         else if (name == "University")
-                            jobs = Convert.ToInt32(tempArray[i + 1].Remove(tempArray[i + 1].IndexOf(", ")));
+                            jobs = Convert.ToInt32(tempArray[i + 1]);
                         else if (tempArray[i + 1].EndsWith(" in use"))
                         {
                             int startpos = tempArray[i + 1].IndexOf(", ") + 2;
                             int length = tempArray[i + 1].IndexOf(" in use") - startpos;
-                            jobs = Convert.ToInt32(tempArray[i + 1].Substring(startpos, length).Replace(",", ""));
+                            jobs = Convert.ToInt32(tempArray[i + 1].Substring(startpos, length).Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, ""));
                         }
                         else
-                            jobs = Convert.ToInt32(tempArray[i + 1].Replace(",", ""));
+                            jobs = Convert.ToInt32(tempArray[i + 1].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, ""));
                         _factilitiesJobs.Add(name, jobs);
                         i++; // Skip an extra line.
                     }
@@ -747,36 +743,19 @@ namespace HazeronAdviser
 
                     startpos = "Air: ".Length;
                     length = tempArray[1].Length - " total units in stock".Length - startpos;
-                    _air = ConvertToInt32Max(tempArray[1].Substring(startpos, length).Replace(",", ""));
+                    _air = ConvertToInt32Max(tempArray[1].Substring(startpos, length).Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, ""));
                     startpos = "Air Consumption: ".Length;
                     length = tempArray[2].Length - " units per report period".Length - startpos;
-                    _airRate = Convert.ToInt32(tempArray[2].Substring(startpos, length).Replace(",", ""));
+                    _airRate = Convert.ToInt32(tempArray[2].Substring(startpos, length).Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, ""));
                 }
                 if (reportSection.Contains("Food: "))
                 {
                     startpos = "Food: ".Length;
                     length = tempArray[_hashEnv ? 3 : 1].Length - " total nutrition value in stock".Length - startpos;
-                    _food = ConvertToInt32Max(tempArray[_hashEnv ? 3 : 1].Substring(startpos, length).Replace(",", ""));
+                    _food = ConvertToInt32Max(tempArray[_hashEnv ? 3 : 1].Substring(startpos, length).Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, ""));
                     startpos = "Food Consumption: ".Length;
                     length = tempArray[_hashEnv ? 4 : 2].Length - " nutrition value per report period".Length - startpos;
-                    _foodRate = Convert.ToInt32(tempArray[_hashEnv ? 4 : 2].Substring(startpos, length).Replace(",", ""));
-                }
-            }
-
-            // RESEARCH AND DEVELOPMENT
-            if (TryGetSectionText(sectionsInReport, headlineRESEARCH, out reportSection))
-            {
-                reportSection = HHelper.CleanText(reportSection);
-                tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 3; i < tempArray.Length; i++)
-                {
-                    if (tempArray[i] != "Technology" && tempArray[i] != "Processes")
-                    {
-                        string researchName = tempArray[i];
-                        int researchAmount = Convert.ToInt32(tempArray[i + 1]);
-                        _researchProjects.Add(researchName, researchAmount);
-                        i++;
-                    }
+                    _foodRate = Convert.ToInt32(tempArray[_hashEnv ? 4 : 2].Substring(startpos, length).Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, ""));
                 }
             }
 
@@ -786,24 +765,6 @@ namespace HazeronAdviser
             //    reportSection = HHelper.CleanText(reportSection);
             //    tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             //}
-
-            // PATENTS
-            if (TryGetSectionText(sectionsInReport, headlinePATENTS, out reportSection))
-            {
-                reportSection = HHelper.CleanText(reportSection);
-                tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 3; i < tempArray.Length; i++)
-                {
-                    const string PATENT_PREFIX = " ";
-                    if (tempArray[i].StartsWith(PATENT_PREFIX))
-                    {
-                        int pos = tempArray[i].LastIndexOf(' ');
-                        string patentName = tempArray[i].Substring(PATENT_PREFIX.Length, pos - PATENT_PREFIX.Length);
-                        int patentQuality = Convert.ToInt32(tempArray[i].Substring(pos + 2));
-                        _patents.Add(patentName, patentQuality);
-                    }
-                }
-            }
 
             UpdateMoraleOverview();
 
@@ -815,8 +776,6 @@ namespace HazeronAdviser
             UpdateBuildingsOverview();
 
             UpdateBankOverview();
-
-            UpdatePatentsOverview();
 
             // Overview
             _overview = "Location:" + Environment.NewLine;
@@ -887,8 +846,8 @@ namespace HazeronAdviser
             else
                 sb.Append("[color=red]");
             sb.Append($"{_morale.ToString("+#0;-#0;±#0")}[/color]");
-            sb.Append($" ([color=green]{_moraleModifiers.Values.Where(x => x > 0).Sum().ToString("+#0;-#0;±#0")}[/color]");
-            sb.Append($", [color=red]{_moraleModifiers.Values.Where(x => x < 0).Sum().ToString("+#0;-#0;±#0")}[/color])");
+            sb.Append($" ([color=green]+{_moraleModifiers.Values.Where(x => x > 0).Sum().ToString("#0;#0;#0")}[/color]");
+            sb.Append($", [color=red]-{_moraleModifiers.Values.Where(x => x < 0).Sum().ToString("#0;#0;#0")}[/color])");
             _moraleOverview = sb.ToString();
             _moraleColumn = $"{_morale.ToString("+#0;-#0;±#0")} ({Math.Abs(_moraleModifiers.Values.Where(y => y < 0).Sum()).ToString("-#0")}, {_moraleModifiers.Values.Where(y => y > 0).Sum().ToString("+#0")})";
         }
@@ -948,12 +907,11 @@ namespace HazeronAdviser
                 sb.AppendLine(" worth of air");
             }
             {
-                sb.Append($" {Math.Floor(((float)_homesQuality / _homes) * 100)}% apartments");
-                int homeAjustment = ((_homes - _homesQuality) - _homesQuality);
-                if ((homeAjustment / 4) > 0)
-                    sb.Append($" [color=green]({(homeAjustment / 4)} additional small homes possible)[/ color]");
-                else if (homeAjustment < 0)
-                    sb.Append($" [color=red](Cramped, {Math.Abs(homeAjustment)} more non-small homes needed)[/color]");
+                sb.Append($" {Math.Round(((float)_homesQuality / (float)_homes) * 100)}% home quality rating");
+                if (_homesQuality > 0)
+                    sb.Append($" [color=green]({_homesQuality} additional small homes possible)[/color]");
+                else if (_homesQuality < 0)
+                    sb.Append($" [color=red](Cramped, {Math.Abs(_homesQuality)} small homes too many)[/color]");
             }
             if (!string.IsNullOrEmpty(_officerCadet))
             {
@@ -1054,28 +1012,6 @@ namespace HazeronAdviser
             sb.AppendLine($" {(_bankBalance - _bankBalanceOld).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding)} government account net-change");
             sb.AppendLine($" {_bankBalance.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding)} government account balance");
             _bankOverview = sb.ToString();
-        }
-
-        protected void UpdatePatentsOverview()
-        {
-            if (_researchProjects.Count != 0)
-            {
-                _patentsOverview = "City's patent research:";
-                foreach (string patent in _researchProjects.Keys)
-                {
-                    _patentsOverview += Environment.NewLine + " " + _researchProjects[patent].ToString().PadLeft(2) + " (Q" + (_patents.ContainsKey(patent) ? _patents[patent].ToString().PadLeft(3) : "  0") + ") running, " + patent;
-                }
-            }
-            if (_patentsOverview != "")
-                _patentsOverview += Environment.NewLine + Environment.NewLine;
-            List<string> patentsList;
-            patentsList = _patents.Keys.ToList();
-            patentsList.Sort();
-            _patentsOverview += "City's patents:";
-            foreach (string patent in patentsList)
-            {
-                _patentsOverview += Environment.NewLine + " Q" + Math.Abs(_patents[patent]).ToString().PadLeft(3) + ", " + patent;
-            }
         }
         #endregion
 
