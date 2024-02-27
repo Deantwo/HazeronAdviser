@@ -135,24 +135,6 @@ namespace HazeronAdviser
             get { return _factilitiesJobs; }
         }
 
-        protected Dictionary<string, int> _researchProjects = new Dictionary<string, int>();
-        public Dictionary<string, int> ReseatchProjects
-        {
-            get { return _researchProjects; }
-        }
-
-        protected new Dictionary<string, int> _patents = new Dictionary<string, int>();
-        public new Dictionary<string, int> Patents
-        {
-            get { return _patents; }
-        }
-
-        protected string _patentsOverview = "";
-        public string PatentsOverview
-        {
-            get { return _patentsOverview; }
-        }
-
         protected int _population = 0;
         public int Population
         {
@@ -249,12 +231,6 @@ namespace HazeronAdviser
             get { return _bankIncomeProduct; }
         }
 
-        protected long _bankIncomeResearch = 0;
-        public long BankIncomeResearch
-        {
-            get { return _bankIncomeResearch; }
-        }
-
         protected long _bankExpensePayroll = 0;
         public long BankExpensePayroll
         {
@@ -285,11 +261,6 @@ namespace HazeronAdviser
             get { return _bankExpenseWithdrawals; }
         }
 
-        protected long _bankExpenseResearch = 0;
-        public long BankExpenseResearch
-        {
-            get { return _bankExpenseResearch; }
-        }
 
         protected long _bankTribute = 0;
         public long BankTribute
@@ -614,12 +585,6 @@ namespace HazeronAdviser
                         line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
                         _bankIncomeProduct = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
-                    else if (line == "Research and Development Canceled")
-                    {
-                        i++;
-                        line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
-                        _bankIncomeResearch = Convert.ToInt64(line.Remove(line.Length - 1));
-                    }
                     else if (line == "Product Purchases")
                     {
                         i++;
@@ -637,12 +602,6 @@ namespace HazeronAdviser
                         i++;
                         line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
                         _bankExpenseWithdrawals = Convert.ToInt64(line.Remove(line.Length - 1));
-                    }
-                    else if (line == "Research and Development")
-                    {
-                        i++;
-                        line = tempArray[i].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
-                        _bankExpenseResearch = Convert.ToInt64(line.Remove(line.Length - 1));
                     }
                     else if (line == "Rewards")
                     {
@@ -737,7 +696,7 @@ namespace HazeronAdviser
                 tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
                 int startpos, length;
-                if (reportSection.Contains("Air:"))
+                if (reportSection.Contains("Air: "))
                 {
                     _hashEnv = true;
 
@@ -1007,7 +966,6 @@ namespace HazeronAdviser
             sb.AppendLine($" {_bankIncomeMinting.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding)} bullion minting");
             sb.AppendLine();
             sb.AppendLine($" {(-_bankExpenseWithdrawals).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding)} withdrawals");
-            sb.AppendLine($" {(-_bankExpenseResearch).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding)} research expense");
             sb.AppendLine();
             sb.AppendLine($" {(_bankBalance - _bankBalanceOld).ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding)} government account net-change");
             sb.AppendLine($" {_bankBalance.ToString("C", Hazeron.NumberFormat).PadLeft(Hazeron.CurrencyPadding)} government account balance");

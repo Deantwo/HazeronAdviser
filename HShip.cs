@@ -225,8 +225,8 @@ namespace HazeronAdviser
                 reportSection = HHelper.CleanText(reportSection);
                 _accountOverview = reportSection;
                 tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                _accountColumn = tempArray[1].Remove(tempArray[1].IndexOf('¢') + 1).Replace(',', '\'').Replace('.', '\'');
-                _accountBalance = Convert.ToInt64(_accountColumn.Remove(_accountColumn.IndexOf('¢')).Replace("'", ""));
+                _accountColumn = tempArray[1].Remove(tempArray[1].IndexOf('¢') + 1).Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
+                _accountBalance = Convert.ToInt64(_accountColumn.Remove(_accountColumn.IndexOf('¢')).Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, ""));
                 _accountColumn = _accountBalance.ToString("C", Hazeron.NumberFormat);
             }
 
@@ -237,9 +237,10 @@ namespace HazeronAdviser
                 reportSection = reportSection.Substring(16);
                 _fuelColumn = reportSection.Remove(reportSection.IndexOf(Environment.NewLine) - 11);
                 tempArray = _fuelColumn.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                _fuel = Convert.ToInt32(tempArray[0]);
-                _fuelCapacity = Convert.ToInt32(tempArray[tempArray.Length - 1]);
+                _fuel = Convert.ToInt32(tempArray[0].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, ""));
+                _fuelCapacity = Convert.ToInt32(tempArray[tempArray.Length - 1].Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, ""));
                 _fuelQuality = Convert.ToInt32(tempArray[1].Substring(1));
+                _fuelColumn = $"{(float)_fuel / _fuelCapacity * 100}% Q{_fuelQuality}";
             }
 
             // CARGO
