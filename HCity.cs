@@ -360,7 +360,7 @@ namespace HazeronAdviser
                 foreach (string line in tempArray)
                 {
                     if (line.Contains("Resource Zone"))
-                        _zone = Convert.ToInt32(line.Substring(line.LastIndexOf(' ') + 1));
+                        _zone = Convert.ToInt32(line.Substring(line.IndexOf(" Zone ") + " Zone ".Length, 1)); // Assume there will only ever be 9 or less zones.
                     else if (line == "Empire Capital City")
                         _capitalEmpire = true;
                     else if (line == "Galaxy Capital City")

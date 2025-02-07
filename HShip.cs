@@ -305,7 +305,7 @@ namespace HazeronAdviser
 
             // Attentions
             if (_homesickness < 7) // Less than 1 week until decay.
-                _attentions.Add(new AttentionMessage(3, "ColumnAbandonment", "- Homesick." + Environment.NewLine + "  Suicide happen in " + _homesickness.ToString() + " days."));
+                _attentions.Add(new AttentionMessage(3, "ColumnHomesickness", "- Homesick." + Environment.NewLine + "  Suicide happen in " + _homesickness.ToString() + " days."));
             if ((_fuel / (double)_fuelCapacity) <= 0.05 || _fuel <= 50) // No fuel.
                 _attentions.Add(new AttentionMessage(2, "ColumnFuel", "- No fuel." + Environment.NewLine + "  " + Math.Round(_fuel / (double)_fuelCapacity * 100, 2).ToString() + "% fuel remaining."));
             else if ((_fuel / (double)_fuelCapacity) <= 0.25) // Low fuel.
