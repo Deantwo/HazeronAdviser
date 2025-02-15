@@ -23,6 +23,7 @@ namespace HazeronAdviser
         List<HCharacter> charList = new List<HCharacter>();
 
         Image imageCity;
+        Image imageBase;
         Image imageSystem;
         Image imageShip;
         Image imageOfficer;
@@ -61,6 +62,7 @@ namespace HazeronAdviser
             toolStripProgressBar2.Visible = false;
 
             imageCity = HazeronAdviser.Properties.Resources.MsgCity;
+            imageBase = HazeronAdviser.Properties.Resources.MilitaryBase;
             imageSystem = HazeronAdviser.Properties.Resources.RangeSystem;
             imageShip = HazeronAdviser.Properties.Resources.c_Spacecraft;
             imageOfficer = HazeronAdviser.Properties.Resources.Officer;
@@ -233,7 +235,10 @@ namespace HazeronAdviser
                 {
                     DataGridViewRow row = dgvCity.Rows[dgvCity.Rows.Add()];
                     row.Cells["dgvCityColumnId"].Value = hCity.ID;
-                    row.Cells["dgvCityColumnIcon"].Value = imageCity;
+                    if (hCity.MilitaryBase)
+                        row.Cells["dgvCityColumnIcon"].Value = imageBase;
+                    else
+                        row.Cells["dgvCityColumnIcon"].Value = imageCity;
                     row.Cells["dgvCityColumnName"].Value = hCity;
                     row.Cells["dgvCityColumnLocation"].Value = hCity.SystemName + ", " + hCity.PlanetName + " z" + hCity.Zone;
                     row.Cells["dgvCityColumnAbandonment"].Value = hCity.AbandonmentColumn;
@@ -242,7 +247,7 @@ namespace HazeronAdviser
                     row.Cells["dgvCityColumnLivingConditions"].Value = hCity.LivingConditionsColumn;
                     row.Cells["dgvCityColumnBank"].Value = hCity.BankBalance.ToString("C", Hazeron.NumberFormat);
                     row.Cells["dgvCityColumnTribute"].Value = hCity.BankTributeColumn;
-                    row.Cells["dgvCityColumnDate"].Value = hCity.LastUpdaredString;
+                    row.Cells["dgvCityColumnDate"].Value = hCity.LastReportCycleString;
                     // Attentions
                     foreach (AttentionMessage attaction in hCity.Attentions)
                     {
@@ -345,7 +350,7 @@ namespace HazeronAdviser
                     row.Cells["dgvShipColumnFuel"].Value = hShip.FuelColumn;
                     row.Cells["dgvShipColumnAccount"].Value = hShip.AccountColumn;
                     row.Cells["dgvShipColumnDamage"].Value = hShip.DamageColumn;
-                    row.Cells["dgvShipColumnDate"].Value = hShip.LastUpdaredString;
+                    row.Cells["dgvShipColumnDate"].Value = hShip.LastUpdatedString;
                     // Attentions
                     foreach (AttentionMessage attaction in hShip.Attentions)
                     {
@@ -385,7 +390,7 @@ namespace HazeronAdviser
                     row.Cells["dgvOfficerColumnName"].Value = hOfficer.Name;
                     row.Cells["dgvOfficerColumnHome"].Value = hOfficer.HomeSystem + ", " + hOfficer.HomePlanet;
                     row.Cells["dgvOfficerColumnShip"].Value = hOfficer.Ship;
-                    row.Cells["dgvOfficerColumnDate"].Value = hOfficer.LastUpdaredString;
+                    row.Cells["dgvOfficerColumnDate"].Value = hOfficer.LastUpdatedString;
                     // AttentionCodes
                     if (hOfficer.AttentionCode != 0x00)
                     {
@@ -421,7 +426,7 @@ namespace HazeronAdviser
                     row.Cells["dgvOfficerColumnName"].Value = hShipOfficer.OfficerName;
                     row.Cells["dgvOfficerColumnHome"].Value = hShipOfficer.OfficerHomeSystem + ", " + hShipOfficer.OfficerHomePlanet;
                     row.Cells["dgvOfficerColumnShip"].Value = hShipOfficer.Name;
-                    row.Cells["dgvOfficerColumnDate"].Value = hShipOfficer.LastUpdaredString;
+                    row.Cells["dgvOfficerColumnDate"].Value = hShipOfficer.LastUpdatedString;
                     // AttentionCodes
                     //if (hShipOfficer.AttentionCode != 0x00)
                     //{
@@ -476,7 +481,7 @@ namespace HazeronAdviser
                     row.Cells["dgvEventColumnName"].Value = hEvent;
                     row.Cells["dgvEventColumnSubject"].Value = hEvent.Subject;
                     row.Cells["dgvEventColumnLocation"].Value = hEvent.SystemName + ", " + hEvent.PlanetName;
-                    row.Cells["dgvEventColumnDate"].Value = hEvent.LastUpdaredString;
+                    row.Cells["dgvEventColumnDate"].Value = hEvent.LastUpdatedString;
                     // AttentionCodes
                     if (hEvent.AttentionCode != 0x00)
                     {

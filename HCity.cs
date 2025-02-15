@@ -7,6 +7,10 @@ namespace HazeronAdviser
 {
     class HCity : HObj
     {
+        protected DateTime _lastReportCycle = new DateTime(2000, 1, 1);
+        public DateTime LastReportCycle => _lastReportCycle;
+        public string LastReportCycleString => LastReportCycle.ToString("F", Hazeron.DateTimeFormat);
+
         protected int _zone = 0;
         public int Zone
         {
@@ -359,8 +363,17 @@ namespace HazeronAdviser
                 tempArray = reportSection.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string line in tempArray)
                 {
-                    if (line.Contains("Resource Zone"))
+                    if (line.StartsWith("UTC:"))
+                    {
+                        // That actual report cycle is every 13 minutes from this time.
+                        int secondsAfterEpoch = Int32.Parse(line.Substring(4), System.Globalization.NumberStyles.HexNumber);
+                        DateTime epoch = new DateTime(1970, 1, 1);
+                        _lastReportCycle = epoch.AddSeconds(secondsAfterEpoch);
+                    }
+                    else if (line.Contains("Resource Zone"))
                         _zone = Convert.ToInt32(line.Substring(line.IndexOf(" Zone ") + " Zone ".Length, 1)); // Assume there will only ever be 9 or less zones.
+                    else if (line.StartsWith("Headquarters at "))
+                        _militaryBase = true;
                     else if (line == "Empire Capital City")
                         _capitalEmpire = true;
                     else if (line == "Galaxy Capital City")
@@ -470,8 +483,6 @@ namespace HazeronAdviser
                         _race = line.Remove(line.Length - 1).Substring(line.StartsWith("Citizens") ? "Citizens are ".Length : "Troops are ".Length);
                     else if (line != "No change.")
                         populationChanges.Add(line.Substring(line.IndexOf(" · ") + 3), Convert.ToInt32(line.Remove(line.IndexOf(" · "))));
-                    if (line.StartsWith("Troops "))
-                        _militaryBase = true;
                 }
                 if (populationChanges.Values.Sum() < 0)
                     _populationColumn = $"{_population} (decreased {Math.Abs(populationChanges.Values.Sum())})";
@@ -740,7 +751,8 @@ namespace HazeronAdviser
             _overview = "Location:" + Environment.NewLine;
             _overview += "  " + _systemName + Environment.NewLine;
             _overview += "  " + _planetName + Environment.NewLine;
-            _overview += "  Zone " + _zone;
+            if (!_militaryBase && _zone != 0)
+                _overview += "  Zone " + _zone;
             if (_distressOverview != "")
                 _overview += Environment.NewLine + Environment.NewLine + _distressOverview;
             if (_decayOverview != "")
@@ -773,7 +785,7 @@ namespace HazeronAdviser
                 _attentions.Add(new AttentionMessage(2, "ColumnMorale", "- Morale modifiers are dangerously low."));
             if (_moraleModifiers.Keys.Any(x => x.EndsWith(" wanted."))) // Morale building wanted.
                 _attentions.Add(new AttentionMessage(1, "ColumnMorale", "- Missing morale building."));
-            if (_population > 1 && !_factilitiesJobs.ContainsKey("Bank")) // No bank.
+            if (!_militaryBase && _population > 1 && !_factilitiesJobs.ContainsKey("Bank")) // No bank.
                 _attentions.Add(new AttentionMessage(1, "ColumnBank", "- City has no bank and is not collecting taxes."));
 
             base.Initialize();
@@ -933,6 +945,13 @@ namespace HazeronAdviser
 
         protected void UpdateBankOverview()
         {
+            if (_militaryBase)
+            {
+                _bankTributeColumn = "n/a";
+                _bankOverview = "Military bases do not have banks.";
+                return;
+            }
+
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("City's finances:");
             if (_capitalEmpire && _bankTribute == 0)

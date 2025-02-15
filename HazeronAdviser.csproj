@@ -106,10 +106,24 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\RangeSystem.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Mastercookie123%27s icon.ico" />
+    <EmbeddedResource Include="Resources\CommDiplomacy.png" />
+    <EmbeddedResource Include="Resources\CommFriend.png" />
+    <EmbeddedResource Include="Resources\CommGovernment.png" />
+    <EmbeddedResource Include="Resources\CommStation.png" />
+    <EmbeddedResource Include="Resources\CommStdChannel.png" />
+    <EmbeddedResource Include="Resources\CommVoice.png" />
+    <EmbeddedResource Include="Resources\c_Flag.png" />
+    <EmbeddedResource Include="Resources\c_Money.png" />
+    <EmbeddedResource Include="Resources\c_Spacecraft.png" />
+    <EmbeddedResource Include="Resources\GovSpacecraft.png" />
+    <EmbeddedResource Include="Resources\Locator.png" />
+    <EmbeddedResource Include="Resources\MilitaryBase.png" />
+    <EmbeddedResource Include="Resources\MsgAccept.png" />
+    <EmbeddedResource Include="Resources\MsgCity.png" />
+    <EmbeddedResource Include="Resources\MsgSpot.png" />
+    <EmbeddedResource Include="Resources\Officer.png" />
+    <EmbeddedResource Include="Resources\RangeSystem.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

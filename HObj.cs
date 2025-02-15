@@ -71,12 +71,9 @@ namespace HazeronAdviser
         {
             get { return _lastUpdated; }
         }
-        public string LastUpdaredString
+        public string LastUpdatedString
         {
-            get
-            {
-                return LastUpdared.ToString("F", Hazeron.DateTimeFormat);
-            }
+            get { return LastUpdared.ToString("F", Hazeron.DateTimeFormat); }
         }
 
         protected byte _attentionCode = 0x00; // 0b00000000
